@@ -20,6 +20,8 @@ import {
   Zap,
   Building,
   Star,
+  KeyRound,
+  PackageOpen,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { COMMUNES, COMPANY, SERVICES } from "@/data/site";
@@ -61,6 +63,13 @@ const SERVICE_ICONS: Record<string, React.ReactNode> = {
   "/nettoyage-de-fin-de-chantier-toulouse": <Wrench className="size-6" />,
   "/nettoyage-extreme-toulouse": <Zap className="size-6" />,
 };
+
+const QUICK_SERVICES = [
+  { slug: "/nettoyage-canape-toulouse",          line1: "Nettoyage",    line2: "Canapé",             icon: <Armchair className="size-7 stroke-[1.4]" /> },
+  { slug: "/nettoyage-matelas-toulouse",         line1: "Nettoyage",    line2: "Matelas",            icon: <BedDouble className="size-7 stroke-[1.4]" /> },
+  { slug: "/nettoyage-auto-a-domicile-toulouse", line1: "Nettoyage",    line2: "Intérieur Auto",     icon: <Car      className="size-7 stroke-[1.4]" /> },
+  { slug: "/nettoyage-tapis-toulouse",           line1: "Shampouinage", line2: "Moquette & Tapis",   icon: <Layers  className="size-7 stroke-[1.4]" /> },
+];
 
 const HERO_REVIEWS = [
   { name: "Sophie M.", text: "Canapé comme neuf après le passage !", stars: 5 },
@@ -138,15 +147,15 @@ function Index() {
 
       {/* ── HERO FULL-WIDTH ── */}
       <section
-        className="relative flex min-h-[88vh] items-center bg-cover bg-center"
+        className="relative flex flex-col min-h-[88vh] bg-cover bg-center"
         style={{ backgroundImage: `url(${heroImg})` }}
       >
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-ink/65" />
+        {/* Dark overlay — plus dense en bas pour préparer la fusion */}
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(10,15,30,0.60) 0%, rgba(10,15,30,0.65) 60%, rgba(10,15,30,0.85) 100%)" }} />
 
-        <div className="relative mx-auto w-full max-w-6xl px-4 py-24 flex items-center gap-12">
-          {/* ── GAUCHE : contenu ── */}
-          <div className="flex-1 min-w-0">
+        {/* Contenu principal — prend tout l'espace disponible */}
+        <div className="relative flex-1 flex items-center">
+          <div className="mx-auto w-full max-w-6xl px-4 py-20">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur">
               <MapPin className="size-3" /> Toulouse & Haute-Garonne
             </span>
@@ -202,10 +211,27 @@ function Index() {
               </span>
             </div>
           </div>
+        </div>
 
-          {/* ── DROITE : avis défilants ── */}
-          <div className="hidden lg:block flex-shrink-0">
-            <HeroReviewTicker />
+        {/* ── BARRE SERVICES — fondue dans le hero ── */}
+        <div
+          className="relative"
+          style={{ background: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.55) 35%, rgba(0,0,0,0.80) 100%)" }}
+        >
+          <div className="mx-auto max-w-6xl grid grid-cols-2 md:grid-cols-4">
+            {QUICK_SERVICES.map((s, i) => (
+              <Link
+                key={s.slug}
+                to={s.slug}
+                className={`group flex flex-col items-center gap-2.5 pt-8 pb-7 px-4 text-center transition-colors hover:bg-white/8 ${i < QUICK_SERVICES.length - 1 ? "border-r border-white/10" : ""}`}
+              >
+                <span className="text-accent transition-transform group-hover:scale-110 duration-200">{s.icon}</span>
+                <span className="text-[11px] font-bold uppercase tracking-widest text-white/90 leading-tight">
+                  {s.line1}<br />{s.line2}
+                </span>
+                <span className="block h-0.5 w-6 rounded-full bg-accent opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+              </Link>
+            ))}
           </div>
         </div>
       </section>

@@ -18,8 +18,10 @@ import { Route as NettoyageCanapeToulouseRouteImport } from './routes/nettoyage-
 import { Route as NettoyageDappartementOuMaisonRouteImport } from './routes/nettoyage-dappartement-ou-maison'
 import { Route as NettoyageDeFinDeChantierToulouseRouteImport } from './routes/nettoyage-de-fin-de-chantier-toulouse'
 import { Route as NettoyageDeVitresToulouseRouteImport } from './routes/nettoyage-de-vitres-toulouse'
+import { Route as NettoyageDiogeneToulouseRouteImport } from './routes/nettoyage-diogene-toulouse'
 import { Route as NettoyageExtremeToulouseRouteImport } from './routes/nettoyage-extreme-toulouse'
 import { Route as NettoyageFacadeToulouseRouteImport } from './routes/nettoyage-facade-toulouse'
+import { Route as NettoyageFinDeBailToulouseRouteImport } from './routes/nettoyage-fin-de-bail-toulouse'
 import { Route as NettoyageMatelasToulouseRouteImport } from './routes/nettoyage-matelas-toulouse'
 import { Route as NettoyageTapisToulouseRouteImport } from './routes/nettoyage-tapis-toulouse'
 import { Route as NettoyageTerrasseToulouseRouteImport } from './routes/nettoyage-terrasse-toulouse'
@@ -76,6 +78,12 @@ const NettoyageDeVitresToulouseRoute =
     path: '/nettoyage-de-vitres-toulouse',
     getParentRoute: () => rootRouteImport,
   } as any)
+const NettoyageDiogeneToulouseRoute =
+  NettoyageDiogeneToulouseRouteImport.update({
+    id: '/nettoyage-diogene-toulouse',
+    path: '/nettoyage-diogene-toulouse',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const NettoyageExtremeToulouseRoute =
   NettoyageExtremeToulouseRouteImport.update({
     id: '/nettoyage-extreme-toulouse',
@@ -87,6 +95,12 @@ const NettoyageFacadeToulouseRoute = NettoyageFacadeToulouseRouteImport.update({
   path: '/nettoyage-facade-toulouse',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NettoyageFinDeBailToulouseRoute =
+  NettoyageFinDeBailToulouseRouteImport.update({
+    id: '/nettoyage-fin-de-bail-toulouse',
+    path: '/nettoyage-fin-de-bail-toulouse',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const NettoyageMatelasToulouseRoute =
   NettoyageMatelasToulouseRouteImport.update({
     id: '/nettoyage-matelas-toulouse',
@@ -131,8 +145,10 @@ export interface FileRoutesByFullPath {
   '/nettoyage-dappartement-ou-maison': typeof NettoyageDappartementOuMaisonRoute
   '/nettoyage-de-fin-de-chantier-toulouse': typeof NettoyageDeFinDeChantierToulouseRoute
   '/nettoyage-de-vitres-toulouse': typeof NettoyageDeVitresToulouseRoute
+  '/nettoyage-diogene-toulouse': typeof NettoyageDiogeneToulouseRoute
   '/nettoyage-extreme-toulouse': typeof NettoyageExtremeToulouseRoute
   '/nettoyage-facade-toulouse': typeof NettoyageFacadeToulouseRoute
+  '/nettoyage-fin-de-bail-toulouse': typeof NettoyageFinDeBailToulouseRoute
   '/nettoyage-matelas-toulouse': typeof NettoyageMatelasToulouseRoute
   '/nettoyage-tapis-toulouse': typeof NettoyageTapisToulouseRoute
   '/nettoyage-terrasse-toulouse': typeof NettoyageTerrasseToulouseRoute
@@ -150,8 +166,10 @@ export interface FileRoutesByTo {
   '/nettoyage-dappartement-ou-maison': typeof NettoyageDappartementOuMaisonRoute
   '/nettoyage-de-fin-de-chantier-toulouse': typeof NettoyageDeFinDeChantierToulouseRoute
   '/nettoyage-de-vitres-toulouse': typeof NettoyageDeVitresToulouseRoute
+  '/nettoyage-diogene-toulouse': typeof NettoyageDiogeneToulouseRoute
   '/nettoyage-extreme-toulouse': typeof NettoyageExtremeToulouseRoute
   '/nettoyage-facade-toulouse': typeof NettoyageFacadeToulouseRoute
+  '/nettoyage-fin-de-bail-toulouse': typeof NettoyageFinDeBailToulouseRoute
   '/nettoyage-matelas-toulouse': typeof NettoyageMatelasToulouseRoute
   '/nettoyage-tapis-toulouse': typeof NettoyageTapisToulouseRoute
   '/nettoyage-terrasse-toulouse': typeof NettoyageTerrasseToulouseRoute
@@ -170,8 +188,10 @@ export interface FileRoutesById {
   '/nettoyage-dappartement-ou-maison': typeof NettoyageDappartementOuMaisonRoute
   '/nettoyage-de-fin-de-chantier-toulouse': typeof NettoyageDeFinDeChantierToulouseRoute
   '/nettoyage-de-vitres-toulouse': typeof NettoyageDeVitresToulouseRoute
+  '/nettoyage-diogene-toulouse': typeof NettoyageDiogeneToulouseRoute
   '/nettoyage-extreme-toulouse': typeof NettoyageExtremeToulouseRoute
   '/nettoyage-facade-toulouse': typeof NettoyageFacadeToulouseRoute
+  '/nettoyage-fin-de-bail-toulouse': typeof NettoyageFinDeBailToulouseRoute
   '/nettoyage-matelas-toulouse': typeof NettoyageMatelasToulouseRoute
   '/nettoyage-tapis-toulouse': typeof NettoyageTapisToulouseRoute
   '/nettoyage-terrasse-toulouse': typeof NettoyageTerrasseToulouseRoute
@@ -191,8 +211,10 @@ export interface FileRouteTypes {
     | '/nettoyage-dappartement-ou-maison'
     | '/nettoyage-de-fin-de-chantier-toulouse'
     | '/nettoyage-de-vitres-toulouse'
+    | '/nettoyage-diogene-toulouse'
     | '/nettoyage-extreme-toulouse'
     | '/nettoyage-facade-toulouse'
+    | '/nettoyage-fin-de-bail-toulouse'
     | '/nettoyage-matelas-toulouse'
     | '/nettoyage-tapis-toulouse'
     | '/nettoyage-terrasse-toulouse'
@@ -210,8 +232,10 @@ export interface FileRouteTypes {
     | '/nettoyage-dappartement-ou-maison'
     | '/nettoyage-de-fin-de-chantier-toulouse'
     | '/nettoyage-de-vitres-toulouse'
+    | '/nettoyage-diogene-toulouse'
     | '/nettoyage-extreme-toulouse'
     | '/nettoyage-facade-toulouse'
+    | '/nettoyage-fin-de-bail-toulouse'
     | '/nettoyage-matelas-toulouse'
     | '/nettoyage-tapis-toulouse'
     | '/nettoyage-terrasse-toulouse'
@@ -229,8 +253,10 @@ export interface FileRouteTypes {
     | '/nettoyage-dappartement-ou-maison'
     | '/nettoyage-de-fin-de-chantier-toulouse'
     | '/nettoyage-de-vitres-toulouse'
+    | '/nettoyage-diogene-toulouse'
     | '/nettoyage-extreme-toulouse'
     | '/nettoyage-facade-toulouse'
+    | '/nettoyage-fin-de-bail-toulouse'
     | '/nettoyage-matelas-toulouse'
     | '/nettoyage-tapis-toulouse'
     | '/nettoyage-terrasse-toulouse'
@@ -249,8 +275,10 @@ export interface RootRouteChildren {
   NettoyageDappartementOuMaisonRoute: typeof NettoyageDappartementOuMaisonRoute
   NettoyageDeFinDeChantierToulouseRoute: typeof NettoyageDeFinDeChantierToulouseRoute
   NettoyageDeVitresToulouseRoute: typeof NettoyageDeVitresToulouseRoute
+  NettoyageDiogeneToulouseRoute: typeof NettoyageDiogeneToulouseRoute
   NettoyageExtremeToulouseRoute: typeof NettoyageExtremeToulouseRoute
   NettoyageFacadeToulouseRoute: typeof NettoyageFacadeToulouseRoute
+  NettoyageFinDeBailToulouseRoute: typeof NettoyageFinDeBailToulouseRoute
   NettoyageMatelasToulouseRoute: typeof NettoyageMatelasToulouseRoute
   NettoyageTapisToulouseRoute: typeof NettoyageTapisToulouseRoute
   NettoyageTerrasseToulouseRoute: typeof NettoyageTerrasseToulouseRoute
@@ -324,6 +352,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NettoyageDeVitresToulouseRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/nettoyage-diogene-toulouse': {
+      id: '/nettoyage-diogene-toulouse'
+      path: '/nettoyage-diogene-toulouse'
+      fullPath: '/nettoyage-diogene-toulouse'
+      preLoaderRoute: typeof NettoyageDiogeneToulouseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/nettoyage-extreme-toulouse': {
       id: '/nettoyage-extreme-toulouse'
       path: '/nettoyage-extreme-toulouse'
@@ -336,6 +371,13 @@ declare module '@tanstack/react-router' {
       path: '/nettoyage-facade-toulouse'
       fullPath: '/nettoyage-facade-toulouse'
       preLoaderRoute: typeof NettoyageFacadeToulouseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nettoyage-fin-de-bail-toulouse': {
+      id: '/nettoyage-fin-de-bail-toulouse'
+      path: '/nettoyage-fin-de-bail-toulouse'
+      fullPath: '/nettoyage-fin-de-bail-toulouse'
+      preLoaderRoute: typeof NettoyageFinDeBailToulouseRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/nettoyage-matelas-toulouse': {
@@ -393,8 +435,10 @@ const rootRouteChildren: RootRouteChildren = {
   NettoyageDappartementOuMaisonRoute: NettoyageDappartementOuMaisonRoute,
   NettoyageDeFinDeChantierToulouseRoute: NettoyageDeFinDeChantierToulouseRoute,
   NettoyageDeVitresToulouseRoute: NettoyageDeVitresToulouseRoute,
+  NettoyageDiogeneToulouseRoute: NettoyageDiogeneToulouseRoute,
   NettoyageExtremeToulouseRoute: NettoyageExtremeToulouseRoute,
   NettoyageFacadeToulouseRoute: NettoyageFacadeToulouseRoute,
+  NettoyageFinDeBailToulouseRoute: NettoyageFinDeBailToulouseRoute,
   NettoyageMatelasToulouseRoute: NettoyageMatelasToulouseRoute,
   NettoyageTapisToulouseRoute: NettoyageTapisToulouseRoute,
   NettoyageTerrasseToulouseRoute: NettoyageTerrasseToulouseRoute,

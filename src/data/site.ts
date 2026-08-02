@@ -46,7 +46,7 @@ export const SERVICES: Service[] = [
     slug: "/nettoyage-canape-toulouse",
     navLabel: "Nettoyage canapé Toulouse",
     h1: "Nettoyage canapé à Toulouse",
-    short: "Canapé & fauteuil",
+    short: "Nettoyage canapé Toulouse",
     subtitle:
       "Nettoyage en profondeur de vos canapés et fauteuils à domicile, par injection-extraction, à Toulouse et dans toute l'agglomération.",
     metaTitle: "Nettoyage canapé Toulouse — dès 49 € | Clean&Fresh",
@@ -99,7 +99,7 @@ export const SERVICES: Service[] = [
     slug: "/nettoyage-matelas-toulouse",
     navLabel: "Nettoyage matelas Toulouse",
     h1: "Nettoyage matelas à Toulouse",
-    short: "Matelas",
+    short: "Nettoyage matelas Toulouse",
     subtitle:
       "Traitement anti-acariens et désinfection de votre matelas à domicile, par injection-extraction, à Toulouse et alentours.",
     metaTitle: "Nettoyage matelas Toulouse — anti-acariens | Clean&Fresh",
@@ -136,7 +136,7 @@ export const SERVICES: Service[] = [
     slug: "/nettoyage-tapis-toulouse",
     navLabel: "Nettoyage tapis Toulouse",
     h1: "Nettoyage tapis et moquette à Toulouse",
-    short: "Tapis & moquette",
+    short: "Nettoyage tapis Toulouse",
     subtitle:
       "Nettoyage professionnel de tapis et moquettes à domicile, à Toulouse et dans toute la Haute-Garonne.",
     metaTitle: "Nettoyage tapis et moquette Toulouse | Clean&Fresh",
@@ -173,7 +173,7 @@ export const SERVICES: Service[] = [
     slug: "/nettoyage-auto-a-domicile-toulouse",
     navLabel: "Nettoyage auto à domicile Toulouse",
     h1: "Nettoyage intérieur auto à domicile à Toulouse",
-    short: "Intérieur auto",
+    short: "Nettoyage auto Toulouse",
     subtitle:
       "Nettoyage complet de l'habitacle de votre véhicule, chez vous ou sur votre lieu de travail, à Toulouse et son agglomération.",
     metaTitle: "Nettoyage auto à domicile Toulouse — intérieur | Clean&Fresh",
@@ -211,7 +211,7 @@ export const SERVICES: Service[] = [
     slug: "/nettoyage-de-vitres-toulouse",
     navLabel: "Nettoyage de vitres Toulouse",
     h1: "Nettoyage de vitres à Toulouse",
-    short: "Vitres",
+    short: "Nettoyage vitres Toulouse",
     subtitle:
       "Vitres d'habitations, vitrines de commerces et baies de bureaux nettoyées sans traces, à Toulouse et alentours.",
     metaTitle: "Nettoyage de vitres Toulouse — particuliers & pros | Clean&Fresh",
@@ -246,7 +246,7 @@ export const SERVICES: Service[] = [
     slug: "/nettoyage-terrasse-toulouse",
     navLabel: "Nettoyage terrasse Toulouse",
     h1: "Nettoyage de terrasse à Toulouse",
-    short: "Terrasse",
+    short: "Nettoyage terrasse Toulouse",
     subtitle:
       "Dalles, béton, carrelage extérieur et bois : nettoyage haute pression de votre terrasse à Toulouse.",
     metaTitle: "Nettoyage terrasse Toulouse — haute pression | Clean&Fresh",
@@ -282,7 +282,7 @@ export const SERVICES: Service[] = [
     slug: "/nettoyage-toiture-toulouse",
     navLabel: "Nettoyage toiture Toulouse",
     h1: "Nettoyage de toiture à Toulouse",
-    short: "Toiture",
+    short: "Nettoyage toiture Toulouse",
     subtitle:
       "Démoussage et nettoyage haute pression de votre toiture à Toulouse et en Haute-Garonne.",
     metaTitle: "Nettoyage toiture Toulouse — démoussage | Clean&Fresh",
@@ -317,7 +317,7 @@ export const SERVICES: Service[] = [
     slug: "/nettoyage-facade-toulouse",
     navLabel: "Nettoyage façade Toulouse",
     h1: "Nettoyage de façade à Toulouse",
-    short: "Façade",
+    short: "Nettoyage façade Toulouse",
     subtitle:
       "Façades de maisons et d'immeubles nettoyées en profondeur, à Toulouse et dans l'agglomération.",
     metaTitle: "Nettoyage façade Toulouse — maisons & immeubles | Clean&Fresh",
@@ -419,6 +419,78 @@ export const SERVICES: Service[] = [
       "Dépoussiérage complet du haut vers le bas.",
       "Décapage des sols et retrait des traces de peinture et colle.",
       "Nettoyage des vitres et finition avant livraison.",
+    ],
+  },
+  {
+    slug: "/nettoyage-fin-de-bail-toulouse",
+    navLabel: "Nettoyage fin de bail Toulouse",
+    h1: "Nettoyage fin de bail à Toulouse",
+    short: "Fin de bail",
+    subtitle:
+      "Remise en état complète de votre logement pour l'état des lieux de sortie, à Toulouse et en Haute-Garonne.",
+    metaTitle: "Nettoyage fin de bail Toulouse — état des lieux | Clean&Fresh",
+    metaDescription:
+      "Nettoyage fin de bail à Toulouse : remise en état du logement pour l'état des lieux de sortie. Cuisine, salle de bain, sols, vitres. Récupérez votre dépôt de garantie. Devis sous 24h.",
+    group: "batiment",
+    intro: [
+      "Vous quittez votre logement et voulez récupérer votre dépôt de garantie intégralement ? Nous prenons en charge la remise en état complète avant l'état des lieux de sortie : cuisine, salle de bain, sols, vitres et parties communes.",
+      "Une prestation rigoureuse, conforme aux exigences des agences immobilières et des propriétaires à Toulouse.",
+    ],
+    treated: [
+      "Cuisine : dégraissage complet, hotte, four, réfrigérateur",
+      "Salle de bain et WC : détartrage, joints, carrelage",
+      "Sols et plinthes : carrelage, parquet, moquette",
+      "Vitres et menuiseries intérieures",
+      "Murs et portes : retrait des marques et traces",
+    ],
+    problems: [
+      "Dépôt de garantie en jeu",
+      "Cuisine et salle de bain incrustées",
+      "Sols tachés ou rayés",
+      "Logement encrassé après plusieurs années",
+    ],
+    priceNote: "Sur devis selon la surface et l'état du logement — intervention disponible sous 48h.",
+    method: [
+      "Visite ou photos pour évaluation précise.",
+      "Nettoyage pièce par pièce, du plafond au sol.",
+      "Détartrage, dégraissage et désinfection des zones sensibles.",
+      "Contrôle qualité final, prêt pour l'état des lieux.",
+    ],
+  },
+  {
+    slug: "/nettoyage-diogene-toulouse",
+    navLabel: "Nettoyage Diogène Toulouse",
+    h1: "Nettoyage Diogène à Toulouse",
+    short: "Syndrome de Diogène",
+    subtitle:
+      "Désencombrement, débarras et remise en état de logements en syndrome de Diogène, à Toulouse et en Haute-Garonne.",
+    metaTitle: "Nettoyage Diogène Toulouse — désencombrement logement | Clean&Fresh",
+    metaDescription:
+      "Nettoyage Diogène à Toulouse : logement très encombré, accumulation de déchets, désinfection complète. Intervention discrète, sans jugement. Devis confidentiel sous 24h.",
+    group: "batiment",
+    intro: [
+      "Le syndrome de Diogène se caractérise par une accumulation extrême d'objets et de déchets dans un logement. Nous intervenons avec discrétion, sans jugement, pour désencombrer, nettoyer et remettre le logement en état.",
+      "Notre équipe équipée en protection individuelle prend en charge le tri, l'évacuation et la désinfection complète, du sol au plafond.",
+    ],
+    treated: [
+      "Logements en accumulation extrême",
+      "Appartements et maisons insalubres",
+      "Débarras complet et évacuation des encombrants",
+      "Désinfection et traitement des odeurs",
+      "Remise en état avant vente, location ou succession",
+    ],
+    problems: [
+      "Accumulation massive de déchets et d'objets",
+      "Odeurs très fortes et persistantes",
+      "Moisissures, humidité et risque sanitaire",
+      "Présence de nuisibles",
+    ],
+    priceNote: "Sur devis confidentiel après évaluation — intervention rapide et discrète.",
+    method: [
+      "Évaluation confidentielle sur place ou par photos.",
+      "Tri, débarras et évacuation en filière adaptée.",
+      "Nettoyage complet en profondeur, sols, murs et sanitaires.",
+      "Désinfection, traitement des odeurs et assainissement de l'air.",
     ],
   },
   {

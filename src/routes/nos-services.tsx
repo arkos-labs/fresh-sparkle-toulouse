@@ -13,6 +13,8 @@ import {
   Building,
   ArrowRight,
   CalendarCheck,
+  KeyRound,
+  PackageOpen,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { COMPANY, SERVICES } from "@/data/site";
@@ -46,6 +48,8 @@ const SERVICE_ICONS: Record<string, React.ReactNode> = {
   "/nettoyage-facade-toulouse": <Building className="size-7 stroke-[1.4]" />,
   "/nettoyage-dappartement-ou-maison": <Building2 className="size-7 stroke-[1.4]" />,
   "/nettoyage-de-fin-de-chantier-toulouse": <Wrench className="size-7 stroke-[1.4]" />,
+  "/nettoyage-fin-de-bail-toulouse": <KeyRound className="size-7 stroke-[1.4]" />,
+  "/nettoyage-diogene-toulouse": <PackageOpen className="size-7 stroke-[1.4]" />,
   "/nettoyage-extreme-toulouse": <Zap className="size-7 stroke-[1.4]" />,
 };
 
@@ -92,7 +96,7 @@ function ServicesPage() {
         {/* ── TEXTILE & AUTO ── */}
         <div className="rounded-2xl border border-border bg-card shadow-sm overflow-hidden">
           <div className="border-b border-border px-8 py-5">
-            <h2 className="text-xl font-bold">Textile &amp; Auto</h2>
+            <h2 className="text-xl font-bold">Nettoyage Textile et Auto Toulouse</h2>
           </div>
 
           <div className="flex flex-col md:flex-row">
