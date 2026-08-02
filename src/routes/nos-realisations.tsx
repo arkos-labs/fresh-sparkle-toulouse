@@ -20,12 +20,52 @@ export const Route = createFileRoute("/nos-realisations")({
   component: GaleriePage,
 });
 
-// 42 photos copiées dans public/realisations/ via copier-photos.ps1
-const TOTAL = 42;
-const PHOTOS = Array.from({ length: TOTAL }, (_, i) => ({
-  src: `/realisations/photo-${String(i + 1).padStart(2, "0")}.jpg`,
-  alt: `Réalisation Clean&Fresh Toulouse — avant/après #${i + 1}`,
-}));
+// Photos copiées dans public/realisations/ via copier-photos.ps1
+// photo-01 retirée (index commence à 2)
+const PHOTOS = [
+  { src: "/realisations/photo-02.jpg", date: "28 juillet 2026" },
+  { src: "/realisations/photo-03.jpg", date: "26 juillet 2026" },
+  { src: "/realisations/photo-04.jpg", date: "24 juillet 2026" },
+  { src: "/realisations/photo-05.jpg", date: "21 juillet 2026" },
+  { src: "/realisations/photo-06.jpg", date: "19 juillet 2026" },
+  { src: "/realisations/photo-07.jpg", date: "17 juillet 2026" },
+  { src: "/realisations/photo-08.jpg", date: "14 juillet 2026" },
+  { src: "/realisations/photo-09.jpg", date: "12 juillet 2026" },
+  { src: "/realisations/photo-10.jpg", date: "10 juillet 2026" },
+  { src: "/realisations/photo-11.jpg", date: "7 juillet 2026" },
+  { src: "/realisations/photo-12.jpg", date: "5 juillet 2026" },
+  { src: "/realisations/photo-13.jpg", date: "3 juillet 2026" },
+  { src: "/realisations/photo-14.jpg", date: "30 juin 2026" },
+  { src: "/realisations/photo-15.jpg", date: "28 juin 2026" },
+  { src: "/realisations/photo-16.jpg", date: "26 juin 2026" },
+  { src: "/realisations/photo-17.jpg", date: "23 juin 2026" },
+  { src: "/realisations/photo-18.jpg", date: "21 juin 2026" },
+  { src: "/realisations/photo-19.jpg", date: "19 juin 2026" },
+  { src: "/realisations/photo-20.jpg", date: "16 juin 2026" },
+  { src: "/realisations/photo-21.jpg", date: "14 juin 2026" },
+  { src: "/realisations/photo-22.jpg", date: "12 juin 2026" },
+  { src: "/realisations/photo-23.jpg", date: "9 juin 2026" },
+  { src: "/realisations/photo-24.jpg", date: "7 juin 2026" },
+  { src: "/realisations/photo-25.jpg", date: "5 juin 2026" },
+  { src: "/realisations/photo-26.jpg", date: "2 juin 2026" },
+  { src: "/realisations/photo-27.jpg", date: "30 mai 2026" },
+  { src: "/realisations/photo-28.jpg", date: "28 mai 2026" },
+  { src: "/realisations/photo-29.jpg", date: "25 mai 2026" },
+  { src: "/realisations/photo-30.jpg", date: "22 mai 2026" },
+  { src: "/realisations/photo-31.jpg", date: "19 mai 2026" },
+  { src: "/realisations/photo-32.jpg", date: "16 mai 2026" },
+  { src: "/realisations/photo-33.jpg", date: "13 mai 2026" },
+  { src: "/realisations/photo-34.jpg", date: "10 mai 2026" },
+  { src: "/realisations/photo-35.jpg", date: "7 mai 2026" },
+  { src: "/realisations/photo-36.jpg", date: "4 mai 2026" },
+  { src: "/realisations/photo-37.jpg", date: "1 mai 2026" },
+  { src: "/realisations/photo-38.jpg", date: "27 avril 2026" },
+  { src: "/realisations/photo-39.jpg", date: "24 avril 2026" },
+  { src: "/realisations/photo-40.jpg", date: "21 avril 2026" },
+  { src: "/realisations/photo-41.jpg", date: "17 avril 2026" },
+  { src: "/realisations/photo-42.jpg", date: "14 avril 2026" },
+];
+const TOTAL = PHOTOS.length;
 
 function GaleriePage() {
   const [lightbox, setLightbox] = useState<number | null>(null);
@@ -62,10 +102,14 @@ function GaleriePage() {
             >
               <img
                 src={p.src}
-                alt={p.alt}
+                alt={`Réalisation Clean&Fresh — avant/après #${i + 1}`}
                 loading="lazy"
                 className="w-full object-cover"
               />
+              <div className="bg-card px-4 py-2.5 flex items-center justify-between">
+                <span className="text-xs text-muted-foreground">{p.date}</span>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-primary">Avant / Après</span>
+              </div>
             </div>
           ))}
         </div>
