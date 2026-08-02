@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { CalendarCheck, Check, MapPin, Phone, Sparkles, ArrowRight, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { COMMUNES, COMPANY, SERVICES, type Service } from "@/data/site";
+import { ReviewsCarousel } from "@/components/site/ReviewsCarousel";
 import avantCanape from "@/assets/avant-canape.jpg";
 import apresCanape from "@/assets/apres-canape.jpg";
 import avantAuto from "@/assets/avant-auto.jpg";
@@ -240,6 +241,9 @@ export function ServicePage({ service }: { service: Service }) {
           </div>
         </div>
       </section>
+
+      {/* ── AVIS CLIENTS ── */}
+      <ReviewsCarousel />
 
       {/* ── MÉTHODE ── */}
       <section className="mx-auto max-w-6xl px-4 py-16">
