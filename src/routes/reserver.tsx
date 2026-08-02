@@ -1,0 +1,846 @@
+import { useState, useEffect } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import {
+  Armchair, BedDouble, Layers, Car,
+  Check, ArrowRight, ChevronLeft, ChevronRight,
+  CalendarCheck, Info, Clock, Phone, Mail, User,
+  Loader2, CheckCircle2,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { COMPANY } from "@/data/site";
+import { fetchBusySlots, buildSlots } from "@/lib/gcal";
+import { sendBookingEmails } from "@/lib/emailService";
+
+export const Route = createFileRoute("/reserver")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    service: (search.service as string) ?? "",
+  }),
+  head: () => ({
+    meta: [
+      { title: "Réserver — Clean&Fresh Toulouse" },
+      { name: "description", content: "Réservez votre nettoyage à domicile à Toulouse en 2 minutes." },
+    ],
+  }),
+  component: ReserverPage,
+});
+
+// ─── TYPES ───────────────────────────────────────────────────────────────────
+
+type Option = { id: string; name: string; desc: string; price: number; popular?: boolean };
+type Formule = { id: string; name: string; desc?: string; price: number; duration: string; durationMin: number; options: Option[] };
+type ServiceDef = { id: string; label: string; shortLabel: string; desc: string; from: number; icon: React.ReactNode; formules: Formule[] };
+
+// ─── OPTIONS PARTAGÉES ───────────────────────────────────────────────────────
+
+const OA: Option = { id: "acariens",  name: "Traitement anti-acariens et bactériens",  desc: "Élimine 99,9% des acariens et allergènes. Idéal pour les personnes sensibles.",                      price: 19, popular: true };
+const OP: Option = { id: "poils",     name: "Élimination des poils d'animaux",          desc: "Brossage mécanique spécifique avant l'injection-extraction.",                                           price: 15, popular: true };
+const OPA: Option= { id: "poils",     name: "Élimination des poils d'animaux",          desc: "Brossage spécifique avant nettoyage des sièges et moquettes.",                                          price: 25 };
+const OD: Option = { id: "detachage", name: "Détachage intensif",                        desc: "Traitement ciblé pour les tâches anciennes (sang, vin, encre, café).",                                  price: 19 };
+const ODA:Option = { id: "detachage", name: "Détachage intensif — siège très taché",    desc: "Traitement ciblé pour les tâches résistantes sur sièges.",                                               price: 19 };
+const OO: Option = { id: "odeur",     name: "Traitement anti-odeur",                     desc: "Neutralisation moléculaire des mauvaises odeurs incrustées.",                                            price: 15, popular: true };
+const ORV:Option = { id: "rectoverso",name: "Nettoyage recto-verso",                     desc: "Nettoyage des deux faces du tapis pour un résultat total.",                                              price: 25 };
+const OV: Option = { id: "vitres",    name: "Vitres sans traces",                        desc: "Nettoyage intérieur des vitres, sans auréoles.",                                                         price: 9  };
+const OTS:Option = { id: "tapis-sol", name: "Shampouinage des tapis de sol",             desc: "Nettoyage injection-extraction des tapis de sol du véhicule.",                                          price: 15 };
+const OC: Option = { id: "ciel",      name: "Nettoyage du ciel de toit",                 desc: "Nettoyage en profondeur du revêtement du plafond de l'habitacle.",                                      price: 29 };
+const OSA:Option = { id: "sieges",    name: "Shampouinage des sièges auto",              desc: "Injection-extraction complète des sièges tissu ou Alcantara.",                                           price: 39 };
+
+const CAN = [OA, OP, OD, OO];
+const TAP = [OA, ORV, OD, OO];
+const MAT = [OA, OD, OO];
+
+const SERVICES: ServiceDef[] = [
+  {
+    id: "canape", label: "Canapé & Fauteuils", shortLabel: "Canapé",
+    desc: "Nettoyage en profondeur par injection-extraction, élimination des tâches et ravivement des couleurs.",
+    from: 15, icon: <Armchair className="size-6 stroke-[1.4]" />,
+    formules: [
+      { id: "fauteuil",     name: "Fauteuil",                       price: 49,  duration: "45 min",  durationMin: 45,  options: CAN },
+      { id: "canape-2",     name: "Canapé 2 places",                 price: 79,  duration: "1h",      durationMin: 60,  options: CAN },
+      { id: "canape-3",     name: "Canapé 3 places",                 price: 79,  duration: "1h",      durationMin: 60,  options: CAN },
+      { id: "canape-angle", name: "Canapé d'angle",                  price: 99,  duration: "1h",      durationMin: 60,  options: CAN },
+      { id: "canape-45",    name: "Canapé 4/5 places",               price: 99,  duration: "1h",      durationMin: 60,  options: CAN },
+      { id: "canape-u",     name: "Canapé en U",                     price: 99,  duration: "1h15",    durationMin: 75,  options: CAN },
+      { id: "pouf",         name: "Pouf",                            price: 19,  duration: "20 min",  durationMin: 20,  options: CAN },
+      { id: "chaise",       name: "Chaise rembourrée (à la pièce)",  price: 15,  duration: "15 min",  durationMin: 15,  options: CAN },
+    ],
+  },
+  {
+    id: "tapis", label: "Tapis & Moquettes", shortLabel: "Tapis",
+    desc: "Restauration des fibres, traitement anti-tâches et désodorisation en profondeur.",
+    from: 49, icon: <Layers className="size-6 stroke-[1.4]" />,
+    formules: [
+      { id: "tapis-1", name: "1 Tapis", price: 49, duration: "45 min", durationMin: 45, options: TAP },
+      { id: "tapis-2", name: "2 Tapis", price: 79, duration: "1h",     durationMin: 60, options: TAP },
+      { id: "tapis-3", name: "3 Tapis", price: 99, duration: "1h15",   durationMin: 75, options: TAP },
+    ],
+  },
+  {
+    id: "matelas", label: "Matelas", shortLabel: "Matelas",
+    desc: "Assainissement complet, éradication des acariens et auréoles de transpiration.",
+    from: 39, icon: <BedDouble className="size-6 stroke-[1.4]" />,
+    formules: [
+      { id: "matelas-enfant", name: "Matelas enfant",   price: 39,  duration: "30 min", durationMin: 30, options: MAT },
+      { id: "matelas-1",      name: "Matelas 1 place",  price: 59,  duration: "1h",     durationMin: 60, options: MAT },
+      { id: "matelas-2",      name: "Matelas 2 places", price: 99,  duration: "1h",     durationMin: 60, options: MAT },
+    ],
+  },
+  {
+    id: "auto", label: "Intérieur Auto", shortLabel: "Auto",
+    desc: "Shampouinage des sièges, moquettes et plastiques pour un habitacle comme neuf.",
+    from: 69, icon: <Car className="size-6 stroke-[1.4]" />,
+    formules: [
+      { id: "bronze", name: "Pack Bronze", desc: "Aspiration habitacle + coffre + nettoyage plastiques.",          price: 69,  duration: "1h",    durationMin: 60,  options: [OA, OPA, OV, OTS, OC, OSA, OO] },
+      { id: "argent", name: "Pack Argent", desc: "Pack Bronze + shampouinage sièges + vitres sans traces.",        price: 99,  duration: "1h30",  durationMin: 90,  options: [OA, ODA, OPA, OTS, OC, OO] },
+      { id: "or",     name: "Pack Or",     desc: "Pack Argent + shampouinage tapis de sol et moquettes.",          price: 129, duration: "1h55",  durationMin: 115, options: [OA, ODA, OPA, OC, OO] },
+      { id: "siege",  name: "Rénovation siège auto", desc: "Injection-extraction intensive d'un siège encrassé.",  price: 59,  duration: "45 min",durationMin: 45,  options: [OA, ODA, OPA, OO] },
+    ],
+  },
+];
+
+const SLUG_TO_SERVICE: Record<string, string> = { canape: "canape", tapis: "tapis", matelas: "matelas", auto: "auto" };
+
+// ─── CALENDRIER ──────────────────────────────────────────────────────────────
+
+const MOIS = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
+const JOURS = ["Lu","Ma","Me","Je","Ve","Sa","Di"];
+
+function getDaysInMonth(year: number, month: number) {
+  return new Date(year, month + 1, 0).getDate();
+}
+function getFirstDayOfMonth(year: number, month: number) {
+  // 0=Di, renormalisé pour lundi=0
+  const d = new Date(year, month, 1).getDay();
+  return d === 0 ? 6 : d - 1;
+}
+
+function CalendarPicker({
+  formule,
+  selectedDate,
+  onSelect,
+}: {
+  formule: Formule;
+  selectedDate: Date | null;
+  onSelect: (d: Date) => void;
+}) {
+  const today = new Date();
+  const [viewYear, setViewYear] = useState(today.getFullYear());
+  const [viewMonth, setViewMonth] = useState(today.getMonth());
+  const [busyByDay, setBusyByDay] = useState<Record<string, boolean>>({});
+  const [loadingMonth, setLoadingMonth] = useState(false);
+
+  // Pré-charger les dispo du mois visible
+  useEffect(() => {
+    let cancelled = false;
+    async function load() {
+      setLoadingMonth(true);
+      const days = getDaysInMonth(viewYear, viewMonth);
+      const newBusy: Record<string, boolean> = {};
+      // On vérifie chaque jour du mois (si Google Calendar configuré)
+      const promises = Array.from({ length: days }, async (_, i) => {
+        const d = new Date(viewYear, viewMonth, i + 1);
+        if (d < today) return;
+        if (d.getDay() === 0) return; // dimanche
+        const busy = await fetchBusySlots(d);
+        const slots = buildSlots(d, formule.durationMin, busy);
+        const key = d.toISOString().slice(0, 10);
+        newBusy[key] = slots.every(s => !s.available);
+      });
+      await Promise.all(promises);
+      if (!cancelled) {
+        setBusyByDay(newBusy);
+        setLoadingMonth(false);
+      }
+    }
+    load();
+    return () => { cancelled = true; };
+  }, [viewYear, viewMonth, formule.durationMin]);
+
+  const prevMonth = () => {
+    if (viewMonth === 0) { setViewYear(y => y - 1); setViewMonth(11); }
+    else setViewMonth(m => m - 1);
+  };
+  const nextMonth = () => {
+    if (viewMonth === 11) { setViewYear(y => y + 1); setViewMonth(0); }
+    else setViewMonth(m => m + 1);
+  };
+
+  const days = getDaysInMonth(viewYear, viewMonth);
+  const firstDay = getFirstDayOfMonth(viewYear, viewMonth);
+  const cells: (number | null)[] = [
+    ...Array(firstDay).fill(null),
+    ...Array.from({ length: days }, (_, i) => i + 1),
+  ];
+  // Compléter à un multiple de 7
+  while (cells.length % 7 !== 0) cells.push(null);
+
+  const isTodayOrPast = (day: number) => {
+    const d = new Date(viewYear, viewMonth, day);
+    d.setHours(23, 59, 59, 999);
+    return d < today;
+  };
+  const isSunday = (day: number) => new Date(viewYear, viewMonth, day).getDay() === 0;
+  const isFullyBooked = (day: number) => {
+    const key = new Date(viewYear, viewMonth, day).toISOString().slice(0, 10);
+    return busyByDay[key] === true;
+  };
+  const isSelected = (day: number) => {
+    if (!selectedDate) return false;
+    return selectedDate.getFullYear() === viewYear &&
+      selectedDate.getMonth() === viewMonth &&
+      selectedDate.getDate() === day;
+  };
+
+  // Empêcher retour en arrière si on est dans le mois actuel
+  const canGoPrev = viewYear > today.getFullYear() || viewMonth > today.getMonth();
+
+  return (
+    <div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-4">
+        <button
+          onClick={prevMonth}
+          disabled={!canGoPrev}
+          className="flex size-8 items-center justify-center rounded-lg border border-border text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+        >
+          <ChevronLeft className="size-4" />
+        </button>
+        <span className="text-base font-bold capitalize">
+          {MOIS[viewMonth]} {viewYear}
+          {loadingMonth && <Loader2 className="inline ml-2 size-3.5 animate-spin text-muted-foreground" />}
+        </span>
+        <button
+          onClick={nextMonth}
+          className="flex size-8 items-center justify-center rounded-lg border border-border text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors"
+        >
+          <ChevronRight className="size-4" />
+        </button>
+      </div>
+
+      {/* Jours de semaine */}
+      <div className="grid grid-cols-7 mb-1">
+        {JOURS.map(j => (
+          <div key={j} className={`text-center text-[10px] font-bold uppercase tracking-wider py-1 ${j === "Di" ? "text-muted-foreground/40" : "text-muted-foreground"}`}>
+            {j}
+          </div>
+        ))}
+      </div>
+
+      {/* Grille des jours */}
+      <div className="grid grid-cols-7 gap-0.5">
+        {cells.map((day, i) => {
+          if (!day) return <div key={i} />;
+          const past = isTodayOrPast(day);
+          const sun = isSunday(day);
+          const full = isFullyBooked(day);
+          const disabled = past || sun || full;
+          const sel = isSelected(day);
+
+          return (
+            <button
+              key={day}
+              disabled={disabled}
+              onClick={() => onSelect(new Date(viewYear, viewMonth, day))}
+              className={`
+                relative flex items-center justify-center rounded-lg text-sm font-medium h-9 transition-all
+                ${sel
+                  ? "bg-primary text-primary-foreground shadow-sm"
+                  : disabled
+                    ? "text-muted-foreground/30 cursor-not-allowed"
+                    : "text-foreground hover:bg-primary/10 hover:text-primary cursor-pointer"
+                }
+                ${full && !past && !sun ? "line-through" : ""}
+              `}
+            >
+              {day}
+            </button>
+          );
+        })}
+      </div>
+
+      <p className="mt-3 text-[11px] text-center text-muted-foreground">
+        Lundi – Samedi · Dimanches non ouvrés
+      </p>
+    </div>
+  );
+}
+
+// ─── CRÉNEAUX HORAIRES ────────────────────────────────────────────────────────
+
+function TimeSlotPicker({
+  date,
+  formule,
+  selected,
+  onSelect,
+}: {
+  date: Date;
+  formule: Formule;
+  selected: string | null;
+  onSelect: (t: string) => void;
+}) {
+  const [slots, setSlots] = useState<{ time: string; available: boolean }[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    async function load() {
+      setLoading(true);
+      const busy = await fetchBusySlots(date);
+      const s = buildSlots(date, formule.durationMin, busy);
+      if (!cancelled) { setSlots(s); setLoading(false); }
+    }
+    load();
+    return () => { cancelled = true; };
+  }, [date, formule.durationMin]);
+
+  const formatted = date.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" });
+
+  return (
+    <div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+      <p className="text-sm font-bold capitalize text-foreground mb-3">{formatted}</p>
+      {loading ? (
+        <div className="flex items-center justify-center py-6 gap-2 text-sm text-muted-foreground">
+          <Loader2 className="size-4 animate-spin" /> Vérification des disponibilités…
+        </div>
+      ) : (
+        <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
+          {slots.map(slot => (
+            <button
+              key={slot.time}
+              disabled={!slot.available}
+              onClick={() => onSelect(slot.time)}
+              className={`
+                flex flex-col items-center rounded-xl border-2 py-2.5 text-sm font-semibold transition-all
+                ${!slot.available
+                  ? "border-border bg-secondary/40 text-muted-foreground/40 cursor-not-allowed line-through"
+                  : selected === slot.time
+                    ? "border-primary bg-primary text-primary-foreground shadow-sm"
+                    : "border-border hover:border-primary/40 hover:text-primary cursor-pointer"
+                }
+              `}
+            >
+              {slot.time}
+              {slot.available && (
+                <span className="text-[9px] font-normal opacity-60">Dispo</span>
+              )}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── BARRE D'ÉTAPES ──────────────────────────────────────────────────────────
+
+const STEP_LABELS = ["FORMULE", "OPTIONS", "CRÉNEAU", "CONFIRMATION"];
+
+function StepBar({ current }: { current: number }) {
+  return (
+    <div className="flex items-center mb-10">
+      {STEP_LABELS.map((label, i) => {
+        const n = i + 1;
+        const done = n < current;
+        const active = n === current;
+        return (
+          <div key={label} className="flex items-center flex-1 last:flex-none">
+            <div className="flex flex-col items-center gap-1 shrink-0">
+              <div className={`flex size-8 items-center justify-center rounded-full border-2 text-sm font-bold transition-all ${
+                done || active ? "border-primary bg-primary text-primary-foreground" : "border-border bg-background text-muted-foreground"
+              }`}>
+                {done ? <Check className="size-4" /> : n}
+              </div>
+              <span className={`hidden sm:block text-[9px] font-bold uppercase tracking-wider ${active || done ? "text-primary" : "text-muted-foreground"}`}>
+                {label}
+              </span>
+            </div>
+            {i < STEP_LABELS.length - 1 && (
+              <div className={`h-0.5 flex-1 mx-2 mb-4 ${done ? "bg-primary" : "bg-border"}`} />
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+// ─── SIDEBAR RÉCAP ───────────────────────────────────────────────────────────
+
+function Sidebar({
+  formule, selectedOptions, selectedDate, selectedTime, onContinue, step,
+}: {
+  formule: Formule | null;
+  selectedOptions: string[];
+  selectedDate: Date | null;
+  selectedTime: string | null;
+  onContinue: () => void;
+  step: number;
+}) {
+  const optTotal = formule
+    ? formule.options.filter(o => selectedOptions.includes(o.id)).reduce((s, o) => s + o.price, 0)
+    : 0;
+  const total = formule ? formule.price + optTotal : 0;
+
+  const canContinue =
+    step === 1 ? !!formule :
+    step === 2 ? !!formule :
+    step === 3 ? !!(selectedDate && selectedTime) :
+    false;
+
+  const continuLabel =
+    step === 1 ? "Continuer vers les options" :
+    step === 2 ? "Choisir mon créneau" :
+    step === 3 ? "Finaliser ma réservation" :
+    "";
+
+  return (
+    <aside className="sticky top-24 rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-card)]">
+      <h2 className="text-lg font-bold">Votre réservation</h2>
+
+      <div className="mt-4 border-t border-border pt-4 space-y-3">
+        {formule ? (
+          <>
+            <div className="flex items-start justify-between gap-2">
+              <div>
+                <p className="font-semibold text-sm">{formule.name}</p>
+                <p className="text-xs text-muted-foreground flex items-center gap-1">
+                  <Clock className="size-3" /> {formule.duration}
+                </p>
+              </div>
+              <span className="font-bold text-sm shrink-0">{formule.price} €</span>
+            </div>
+            {formule.options.filter(o => selectedOptions.includes(o.id)).map(o => (
+              <div key={o.id} className="flex items-center justify-between gap-2 text-xs">
+                <span className="text-muted-foreground truncate">{o.name}</span>
+                <span className="font-semibold text-primary shrink-0">+{o.price} €</span>
+              </div>
+            ))}
+          </>
+        ) : (
+          <p className="text-sm text-muted-foreground">Sélectionnez une prestation.</p>
+        )}
+
+        {selectedDate && (
+          <div className="rounded-lg bg-secondary/60 px-3 py-2 text-xs">
+            <p className="font-semibold text-foreground">
+              {selectedDate.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" })}
+            </p>
+            {selectedTime && <p className="text-primary font-bold mt-0.5">{selectedTime}</p>}
+          </div>
+        )}
+      </div>
+
+      {total > 0 && (
+        <div className="mt-4 flex items-baseline justify-between border-t border-border pt-4">
+          <span className="text-sm text-muted-foreground">Total estimé</span>
+          <span className="font-display text-3xl font-bold">{total} €</span>
+        </div>
+      )}
+
+      {step < 4 && (
+        <Button
+          onClick={onContinue}
+          disabled={!canContinue}
+          size="lg"
+          className="mt-5 w-full bg-accent-gradient text-accent-foreground font-bold hover:opacity-90 disabled:opacity-40"
+        >
+          {continuLabel} <ArrowRight className="size-4" />
+        </Button>
+      )}
+
+      <p className="mt-3 text-center text-[11px] text-muted-foreground">
+        Paiement sur place · Annulation gratuite 24h avant
+      </p>
+    </aside>
+  );
+}
+
+// ─── PAGE PRINCIPALE ─────────────────────────────────────────────────────────
+
+function ReserverPage() {
+  const { service: serviceParam } = Route.useSearch();
+  const preselected = SERVICES.find(s => s.id === SLUG_TO_SERVICE[serviceParam]) ?? null;
+
+  const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
+  const [done, setDone] = useState(false);
+  const [service, setService] = useState<ServiceDef | null>(preselected);
+  const [formule, setFormule] = useState<Formule | null>(null);
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+  const [showCategories, setShowCategories] = useState(!preselected);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [form, setForm] = useState({ name: "", phone: "", email: "" });
+  const [submitting, setSubmitting] = useState(false);
+  const [cancelToken, setCancelToken] = useState<string>("");
+
+  const toggleOption = (id: string) =>
+    setSelectedOptions(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
+
+  const handleSelectFormule = (f: Formule) => { setFormule(f); setSelectedOptions([]); };
+  const handleSelectDate = (d: Date) => { setSelectedDate(d); setSelectedTime(null); };
+
+  const handleContinue = () => {
+    setStep(s => (s < 4 ? (s + 1) as 1|2|3|4 : s));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleBack = () => {
+    if (step > 1) {
+      setStep(s => (s - 1) as 1|2|3|4);
+    } else if (!preselected && !showCategories) {
+      setShowCategories(true); setService(null); setFormule(null);
+    } else {
+      window.history.back();
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formule || !selectedDate || !selectedTime || !service) return;
+    setSubmitting(true);
+    try {
+      const token = await sendBookingEmails({
+        service_id:    service.id,
+        service_name:  service.label,
+        formule_id:    formule.id,
+        formule_name:  formule.name,
+        formule_price: formule.price,
+        options:       formule.options.filter(o => selectedOptions.includes(o.id)).map(o => ({ name: o.name, price: o.price })),
+        total_price:   total,
+        booking_date:  selectedDate.toISOString().slice(0, 10),
+        booking_time:  selectedTime,
+        client_name:   form.name,
+        client_phone:  form.phone,
+        client_email:  form.email,
+      });
+      setCancelToken(token);
+      setDone(true);
+    } catch (err) {
+      console.error("Erreur envoi réservation :", err);
+      setDone(true); // On affiche quand même la confirmation
+    }
+    setSubmitting(false);
+  };
+
+  const optTotal = formule
+    ? formule.options.filter(o => selectedOptions.includes(o.id)).reduce((s, o) => s + o.price, 0)
+    : 0;
+  const total = formule ? formule.price + optTotal : 0;
+
+  // ── CONFIRMATION ──────────────────────────────────────────────────────────
+  if (done) {
+    const siteUrl = import.meta.env.VITE_SITE_URL ?? "";
+    const cancelUrl = cancelToken ? `${siteUrl}/annuler?token=${cancelToken}` : null;
+
+    return (
+      <div className="min-h-screen bg-[#f9f9f7] flex items-center justify-center px-4 py-16">
+        <div className="max-w-md w-full text-center">
+          <div className="flex size-20 items-center justify-center rounded-full bg-primary/10 text-primary mx-auto">
+            <CheckCircle2 className="size-10" />
+          </div>
+          <h1 className="mt-6 text-3xl font-bold">Réservation confirmée !</h1>
+          <p className="mt-3 text-muted-foreground leading-relaxed">
+            Un email de confirmation vient d'être envoyé à <strong>{form.email}</strong>.
+            Nous vous rappelons <strong>24h avant</strong> votre rendez-vous.
+          </p>
+
+          {/* Récap */}
+          <div className="mt-6 rounded-2xl border border-border bg-card p-5 text-left space-y-3">
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">Prestation</span>
+              <span className="font-semibold">{formule?.name}</span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">Date</span>
+              <span className="font-semibold text-primary">
+                {selectedDate?.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" })} à {selectedTime}
+              </span>
+            </div>
+            <div className="flex justify-between text-sm border-t border-border pt-2">
+              <span className="font-bold">Total estimé</span>
+              <span className="font-bold">{total} €</span>
+            </div>
+          </div>
+
+          {/* Contact */}
+          <div className="mt-4 flex justify-center gap-4 text-sm">
+            <a href={COMPANY.phoneHref} className="flex items-center gap-1.5 font-medium text-foreground hover:text-primary transition-colors">
+              <Phone className="size-4" /> {COMPANY.phone}
+            </a>
+            <a href={`mailto:${COMPANY.email}`} className="flex items-center gap-1.5 text-muted-foreground hover:text-primary transition-colors">
+              <Mail className="size-4" /> Email
+            </a>
+          </div>
+
+          {/* Annulation */}
+          {cancelUrl && (
+            <div className="mt-6 rounded-xl border border-border bg-secondary/40 px-5 py-4">
+              <p className="text-xs text-muted-foreground mb-2">Vous souhaitez annuler ce rendez-vous ?</p>
+              <a
+                href={cancelUrl}
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-destructive hover:underline"
+              >
+                <CalendarCheck className="size-4" /> Annuler mon rendez-vous
+              </a>
+            </div>
+          )}
+
+          <Link to="/" className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground">
+            <ChevronLeft className="size-4" /> Retour à l'accueil
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-[#f9f9f7] pb-24 lg:pb-0">
+
+      {/* Top bar */}
+      <div className="border-b border-border bg-background px-4 py-3 flex items-center justify-between">
+        <Link to="/" className="flex items-center gap-2">
+          <div className="flex size-7 items-center justify-center rounded-lg bg-primary-gradient">
+            <span className="font-display text-xs font-bold text-primary-foreground">C&F</span>
+          </div>
+          <span className="font-display font-bold text-foreground">
+            Clean<span className="text-primary">&amp;</span>Fresh
+          </span>
+        </Link>
+        <button onClick={handleBack} className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+          <ChevronLeft className="size-4" /> Retour
+        </button>
+      </div>
+
+      <div className="mx-auto max-w-5xl px-4 py-10">
+        <StepBar current={step} />
+
+        <div className="grid gap-8 lg:grid-cols-[1fr_300px] items-start">
+
+          {/* ── CONTENU PRINCIPAL ── */}
+          <div>
+
+            {/* ─ ÉTAPE 1 : Catégorie ─ */}
+            {step === 1 && showCategories && (
+              <>
+                <h1 className="text-3xl font-bold">Que pouvons-nous purifier pour vous ?</h1>
+                <p className="mt-2 text-muted-foreground">Choisissez le type de mobilier à traiter.</p>
+                <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                  {SERVICES.map(s => (
+                    <button key={s.id} onClick={() => { setService(s); setShowCategories(false); }}
+                      className="group flex flex-col items-start rounded-2xl border-2 border-border bg-card p-6 text-left transition-all hover:border-primary/50 hover:shadow-[var(--shadow-card)]">
+                      <div className="flex size-11 items-center justify-center rounded-xl bg-secondary text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+                        {s.icon}
+                      </div>
+                      <h3 className="mt-4 text-xl font-bold">{s.label}</h3>
+                      <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
+                      <p className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary">
+                        À partir de {s.from} € <ArrowRight className="size-3.5" />
+                      </p>
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
+
+            {/* ─ ÉTAPE 1 : Formules ─ */}
+            {step === 1 && !showCategories && service && (
+              <>
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="flex size-10 items-center justify-center rounded-xl bg-primary/10 text-primary">{service.icon}</div>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-widest text-primary">Étape 1 — Choisir la prestation</p>
+                    <h1 className="text-2xl font-bold">{service.label}</h1>
+                  </div>
+                  {!preselected && (
+                    <button onClick={() => setShowCategories(true)} className="ml-auto text-xs text-muted-foreground underline underline-offset-2 hover:text-foreground">
+                      Changer
+                    </button>
+                  )}
+                </div>
+                <div className="space-y-3">
+                  {service.formules.map(f => {
+                    const active = formule?.id === f.id;
+                    return (
+                      <button key={f.id} onClick={() => handleSelectFormule(f)}
+                        className={`flex w-full items-center gap-4 rounded-2xl border-2 bg-card px-5 py-4 text-left transition-all hover:shadow-[var(--shadow-card)] ${active ? "border-primary shadow-[var(--shadow-card)]" : "border-border hover:border-primary/40"}`}>
+                        <div className={`flex size-5 shrink-0 items-center justify-center rounded-full border-2 transition-all ${active ? "border-primary bg-primary" : "border-border"}`}>
+                          {active && <div className="size-2 rounded-full bg-primary-foreground" />}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-bold">{f.name}</p>
+                          {f.desc && <p className="mt-0.5 text-xs text-muted-foreground">{f.desc}</p>}
+                          <div className="mt-1 flex items-center gap-3 flex-wrap">
+                            <span className="inline-flex items-center gap-1 text-xs text-muted-foreground"><Clock className="size-3" /> {f.duration}</span>
+                            <span className="text-xs text-muted-foreground">{f.options.length} options disponibles</span>
+                          </div>
+                        </div>
+                        <div className="text-right shrink-0">
+                          <p className="text-xl font-bold text-primary">{f.price} €</p>
+                          <p className="text-xs text-muted-foreground">À partir de</p>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </>
+            )}
+
+            {/* ─ ÉTAPE 2 : Options ─ */}
+            {step === 2 && service && formule && (
+              <>
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="flex size-10 items-center justify-center rounded-xl bg-primary/10 text-primary">{service.icon}</div>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-widest text-primary">Étape 2 — Options</p>
+                    <h2 className="text-2xl font-bold">Options pour <span className="text-accent">{formule.name}</span></h2>
+                  </div>
+                </div>
+                <div className="divide-y divide-border rounded-2xl border border-border bg-card overflow-hidden">
+                  {formule.options.map(opt => {
+                    const checked = selectedOptions.includes(opt.id);
+                    return (
+                      <label key={opt.id} className={`flex cursor-pointer items-start gap-4 px-5 py-4 transition-colors hover:bg-secondary/40 ${checked ? "bg-primary/5" : ""}`}>
+                        <div className={`mt-0.5 flex size-5 shrink-0 items-center justify-center rounded border-2 transition-colors ${checked ? "border-primary bg-primary" : "border-border bg-background"}`}>
+                          {checked && <Check className="size-3 text-primary-foreground" />}
+                        </div>
+                        <input type="checkbox" className="sr-only" checked={checked} onChange={() => toggleOption(opt.id)} />
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="font-semibold text-sm">{opt.name}</span>
+                            {opt.popular && (
+                              <span className="rounded-full bg-accent/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-accent">Populaire</span>
+                            )}
+                          </div>
+                          <p className="mt-0.5 text-xs text-muted-foreground leading-relaxed">{opt.desc}</p>
+                        </div>
+                        <span className="shrink-0 font-bold text-sm text-primary">+{opt.price} €</span>
+                      </label>
+                    );
+                  })}
+                </div>
+                <div className="mt-4 flex items-start gap-2 rounded-xl border border-border bg-card px-4 py-3">
+                  <Info className="size-4 shrink-0 text-muted-foreground mt-0.5" />
+                  <p className="text-xs text-muted-foreground">Les options peuvent aussi être ajustées le jour de l'intervention.</p>
+                </div>
+              </>
+            )}
+
+            {/* ─ ÉTAPE 3 : Calendrier ─ */}
+            {step === 3 && formule && (
+              <>
+                <div className="mb-6">
+                  <p className="text-xs font-bold uppercase tracking-widest text-primary">Étape 3 — Choisir votre créneau</p>
+                  <h2 className="mt-1 text-2xl font-bold">Quand souhaitez-vous votre intervention ?</h2>
+                  <p className="mt-1 text-sm text-muted-foreground">Les créneaux grisés sont déjà réservés.</p>
+                </div>
+
+                <CalendarPicker
+                  formule={formule}
+                  selectedDate={selectedDate}
+                  onSelect={handleSelectDate}
+                />
+
+                {selectedDate && (
+                  <div className="mt-4">
+                    <TimeSlotPicker
+                      date={selectedDate}
+                      formule={formule}
+                      selected={selectedTime}
+                      onSelect={setSelectedTime}
+                    />
+                  </div>
+                )}
+              </>
+            )}
+
+            {/* ─ ÉTAPE 4 : Coordonnées ─ */}
+            {step === 4 && formule && selectedDate && selectedTime && (
+              <>
+                <div className="mb-6">
+                  <p className="text-xs font-bold uppercase tracking-widest text-primary">Étape 4 — Vos coordonnées</p>
+                  <h2 className="mt-1 text-2xl font-bold">Finaliser la réservation</h2>
+                  <p className="mt-1 text-sm text-muted-foreground">Nous vous confirmons par SMS sous 1h.</p>
+                </div>
+
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  <div>
+                    <Label htmlFor="name" className="text-sm font-semibold">Nom complet *</Label>
+                    <div className="relative mt-1.5">
+                      <User className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+                      <Input id="name" required placeholder="Jean Dupont" value={form.name}
+                        onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
+                        className="pl-9" />
+                    </div>
+                  </div>
+                  <div>
+                    <Label htmlFor="phone" className="text-sm font-semibold">Téléphone *</Label>
+                    <div className="relative mt-1.5">
+                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+                      <Input id="phone" required type="tel" placeholder="06 12 34 56 78" value={form.phone}
+                        onChange={e => setForm(f => ({ ...f, phone: e.target.value }))}
+                        className="pl-9" />
+                    </div>
+                  </div>
+                  <div>
+                    <Label htmlFor="email" className="text-sm font-semibold">Email *</Label>
+                    <div className="relative mt-1.5">
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+                      <Input id="email" required type="email" placeholder="jean@exemple.fr" value={form.email}
+                        onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
+                        className="pl-9" />
+                    </div>
+                  </div>
+
+                  {/* Récap final */}
+                  <div className="rounded-2xl border border-border bg-secondary/40 p-5 space-y-2">
+                    <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-3">Récapitulatif</p>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted-foreground">{formule.name}</span>
+                      <span className="font-semibold">{formule.price} €</span>
+                    </div>
+                    {formule.options.filter(o => selectedOptions.includes(o.id)).map(o => (
+                      <div key={o.id} className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">{o.name}</span>
+                        <span className="font-semibold text-primary">+{o.price} €</span>
+                      </div>
+                    ))}
+                    <div className="border-t border-border pt-2 flex justify-between">
+                      <span className="font-bold">Total estimé</span>
+                      <span className="font-bold text-lg">{total} €</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      📅 {selectedDate.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" })} à {selectedTime}
+                    </p>
+                  </div>
+
+                  <Button type="submit" disabled={submitting} size="xl"
+                    className="w-full bg-accent-gradient text-accent-foreground font-bold hover:opacity-90 disabled:opacity-60">
+                    {submitting
+                      ? <><Loader2 className="size-4 animate-spin" /> Envoi en cours…</>
+                      : <><CalendarCheck className="size-4" /> Confirmer la réservation</>}
+                  </Button>
+                  <p className="text-center text-xs text-muted-foreground">
+                    Annulation gratuite jusqu'à 24h avant · Paiement sur place
+                  </p>
+                </form>
+              </>
+            )}
+          </div>
+
+          {/* ── SIDEBAR ── */}
+          {!showCategories && step < 4 && (
+            <Sidebar
+              formule={formule}
+              selectedOptions={selectedOptions}
+              selectedDate={selectedDate}
+              selectedTime={selectedTime}
+              onContinue={handleContinue}
+              step={step}
+            />
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}

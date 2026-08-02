@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AnnulerRouteImport } from './routes/annuler'
 import { Route as ContactezNousRouteImport } from './routes/contactez-nous'
 import { Route as FormulesRouteImport } from './routes/formules'
 import { Route as NettoyageAutoADomicileToulouseRouteImport } from './routes/nettoyage-auto-a-domicile-toulouse'
@@ -23,10 +24,17 @@ import { Route as NettoyageMatelasToulouseRouteImport } from './routes/nettoyage
 import { Route as NettoyageTapisToulouseRouteImport } from './routes/nettoyage-tapis-toulouse'
 import { Route as NettoyageTerrasseToulouseRouteImport } from './routes/nettoyage-terrasse-toulouse'
 import { Route as NettoyageToitureToulouseRouteImport } from './routes/nettoyage-toiture-toulouse'
+import { Route as NosServicesRouteImport } from './routes/nos-services'
+import { Route as ReserverRouteImport } from './routes/reserver'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnnulerRoute = AnnulerRouteImport.update({
+  id: '/annuler',
+  path: '/annuler',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactezNousRoute = ContactezNousRouteImport.update({
@@ -102,9 +110,20 @@ const NettoyageToitureToulouseRoute =
     path: '/nettoyage-toiture-toulouse',
     getParentRoute: () => rootRouteImport,
   } as any)
+const NosServicesRoute = NosServicesRouteImport.update({
+  id: '/nos-services',
+  path: '/nos-services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReserverRoute = ReserverRouteImport.update({
+  id: '/reserver',
+  path: '/reserver',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/annuler': typeof AnnulerRoute
   '/contactez-nous': typeof ContactezNousRoute
   '/formules': typeof FormulesRoute
   '/nettoyage-auto-a-domicile-toulouse': typeof NettoyageAutoADomicileToulouseRoute
@@ -118,9 +137,12 @@ export interface FileRoutesByFullPath {
   '/nettoyage-tapis-toulouse': typeof NettoyageTapisToulouseRoute
   '/nettoyage-terrasse-toulouse': typeof NettoyageTerrasseToulouseRoute
   '/nettoyage-toiture-toulouse': typeof NettoyageToitureToulouseRoute
+  '/nos-services': typeof NosServicesRoute
+  '/reserver': typeof ReserverRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/annuler': typeof AnnulerRoute
   '/contactez-nous': typeof ContactezNousRoute
   '/formules': typeof FormulesRoute
   '/nettoyage-auto-a-domicile-toulouse': typeof NettoyageAutoADomicileToulouseRoute
@@ -134,10 +156,13 @@ export interface FileRoutesByTo {
   '/nettoyage-tapis-toulouse': typeof NettoyageTapisToulouseRoute
   '/nettoyage-terrasse-toulouse': typeof NettoyageTerrasseToulouseRoute
   '/nettoyage-toiture-toulouse': typeof NettoyageToitureToulouseRoute
+  '/nos-services': typeof NosServicesRoute
+  '/reserver': typeof ReserverRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/annuler': typeof AnnulerRoute
   '/contactez-nous': typeof ContactezNousRoute
   '/formules': typeof FormulesRoute
   '/nettoyage-auto-a-domicile-toulouse': typeof NettoyageAutoADomicileToulouseRoute
@@ -151,11 +176,14 @@ export interface FileRoutesById {
   '/nettoyage-tapis-toulouse': typeof NettoyageTapisToulouseRoute
   '/nettoyage-terrasse-toulouse': typeof NettoyageTerrasseToulouseRoute
   '/nettoyage-toiture-toulouse': typeof NettoyageToitureToulouseRoute
+  '/nos-services': typeof NosServicesRoute
+  '/reserver': typeof ReserverRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/annuler'
     | '/contactez-nous'
     | '/formules'
     | '/nettoyage-auto-a-domicile-toulouse'
@@ -169,9 +197,12 @@ export interface FileRouteTypes {
     | '/nettoyage-tapis-toulouse'
     | '/nettoyage-terrasse-toulouse'
     | '/nettoyage-toiture-toulouse'
+    | '/nos-services'
+    | '/reserver'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/annuler'
     | '/contactez-nous'
     | '/formules'
     | '/nettoyage-auto-a-domicile-toulouse'
@@ -185,9 +216,12 @@ export interface FileRouteTypes {
     | '/nettoyage-tapis-toulouse'
     | '/nettoyage-terrasse-toulouse'
     | '/nettoyage-toiture-toulouse'
+    | '/nos-services'
+    | '/reserver'
   id:
     | '__root__'
     | '/'
+    | '/annuler'
     | '/contactez-nous'
     | '/formules'
     | '/nettoyage-auto-a-domicile-toulouse'
@@ -201,10 +235,13 @@ export interface FileRouteTypes {
     | '/nettoyage-tapis-toulouse'
     | '/nettoyage-terrasse-toulouse'
     | '/nettoyage-toiture-toulouse'
+    | '/nos-services'
+    | '/reserver'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AnnulerRoute: typeof AnnulerRoute
   ContactezNousRoute: typeof ContactezNousRoute
   FormulesRoute: typeof FormulesRoute
   NettoyageAutoADomicileToulouseRoute: typeof NettoyageAutoADomicileToulouseRoute
@@ -218,6 +255,8 @@ export interface RootRouteChildren {
   NettoyageTapisToulouseRoute: typeof NettoyageTapisToulouseRoute
   NettoyageTerrasseToulouseRoute: typeof NettoyageTerrasseToulouseRoute
   NettoyageToitureToulouseRoute: typeof NettoyageToitureToulouseRoute
+  NosServicesRoute: typeof NosServicesRoute
+  ReserverRoute: typeof ReserverRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -227,6 +266,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/annuler': {
+      id: '/annuler'
+      path: '/annuler'
+      fullPath: '/annuler'
+      preLoaderRoute: typeof AnnulerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contactez-nous': {
@@ -320,11 +366,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NettoyageToitureToulouseRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/nos-services': {
+      id: '/nos-services'
+      path: '/nos-services'
+      fullPath: '/nos-services'
+      preLoaderRoute: typeof NosServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reserver': {
+      id: '/reserver'
+      path: '/reserver'
+      fullPath: '/reserver'
+      preLoaderRoute: typeof ReserverRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AnnulerRoute: AnnulerRoute,
   ContactezNousRoute: ContactezNousRoute,
   FormulesRoute: FormulesRoute,
   NettoyageAutoADomicileToulouseRoute: NettoyageAutoADomicileToulouseRoute,
@@ -338,6 +399,8 @@ const rootRouteChildren: RootRouteChildren = {
   NettoyageTapisToulouseRoute: NettoyageTapisToulouseRoute,
   NettoyageTerrasseToulouseRoute: NettoyageTerrasseToulouseRoute,
   NettoyageToitureToulouseRoute: NettoyageToitureToulouseRoute,
+  NosServicesRoute: NosServicesRoute,
+  ReserverRoute: ReserverRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

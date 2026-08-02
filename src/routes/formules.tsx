@@ -1,11 +1,22 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { CalendarCheck, Clock, Phone, Star, ChevronRight } from "lucide-react";
+import {
+  CalendarCheck,
+  Phone,
+  Star,
+  ArrowRight,
+  Armchair,
+  Car,
+  CheckCircle2,
+  Info,
+  Layers,
+  BedDouble,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { COMPANY } from "@/data/site";
 
 const TITLE = "Formules & Tarifs — Clean&Fresh Toulouse";
 const DESC =
-  "Découvrez toutes nos formules de nettoyage à Toulouse : canapé, tapis, auto, matelas. Tarifs clairs, réservation en ligne en 2 minutes. À partir de 39 €.";
+  "Toutes les formules de nettoyage à Toulouse : canapé, tapis, auto, matelas. Tarifs et options détaillés. Réservation en ligne en 2 minutes. À partir de 39 €.";
 
 export const Route = createFileRoute("/formules")({
   head: () => ({
@@ -21,261 +32,266 @@ export const Route = createFileRoute("/formules")({
   component: FormulesPage,
 });
 
+// ─── DATA ────────────────────────────────────────────────────────────────────
+
+type Option = {
+  name: string;
+  extra: number;      // prix en plus (€)
+  extraTime: string;  // "+Xmin"
+  popular?: boolean;
+};
+
 type Formule = {
   name: string;
   desc?: string;
   duration: string;
-  options: number;
   price: number;
   badge?: string;
+  options: Option[];
 };
 
-const CATEGORIES: { id: string; label: string; emoji: string; formules: Formule[] }[] = [
+type Category = {
+  id: string;
+  label: string;
+  slug: string;
+  icon: React.ReactNode;
+  formules: Formule[];
+};
+
+const CANAPE_OPTIONS: Option[] = [
+  { name: "Traitement anti-acariens et bactériens", extra: 19, extraTime: "+20 min", popular: true },
+  { name: "Élimination des poils d'animaux", extra: 15, extraTime: "+30 min", popular: true },
+  { name: "Détachage intensif", extra: 19, extraTime: "+30 min" },
+  { name: "Traitement anti-odeur", extra: 15, extraTime: "+10 min", popular: true },
+];
+
+const TAPIS_OPTIONS: Option[] = [
+  { name: "Traitement anti-acariens et bactériens", extra: 19, extraTime: "+20 min", popular: true },
+  { name: "Nettoyage recto-verso", extra: 25, extraTime: "+30 min" },
+  { name: "Détachage intensif", extra: 19, extraTime: "+30 min" },
+  { name: "Traitement anti-odeur", extra: 15, extraTime: "+10 min", popular: true },
+];
+
+const MATELAS_OPTIONS: Option[] = [
+  { name: "Traitement anti-acariens et bactériens", extra: 19, extraTime: "+20 min", popular: true },
+  { name: "Détachage intensif", extra: 19, extraTime: "+20 min" },
+  { name: "Traitement anti-odeur", extra: 15, extraTime: "+10 min", popular: true },
+];
+
+const CATEGORIES: Category[] = [
   {
     id: "canape",
     label: "Nettoyage canapé",
-    emoji: "🛋️",
+    slug: "/nettoyage-canape-toulouse",
+    icon: <Armchair className="size-5" />,
     formules: [
-      { name: "Canapé 2 places", duration: "1h", options: 4, price: 79 },
-      { name: "Canapé 3 places", duration: "1h", options: 4, price: 79 },
-      { name: "Fauteuil", duration: "45 min", options: 4, price: 49 },
-      { name: "Canapé d'angle", duration: "1h", options: 4, price: 99 },
-      { name: "Canapé 4/5 places", duration: "1h", options: 4, price: 99 },
+      { name: "Fauteuil", duration: "45 min", price: 49, options: CANAPE_OPTIONS },
+      { name: "Canapé 2 places", duration: "1h", price: 79, options: CANAPE_OPTIONS },
+      { name: "Canapé 3 places", duration: "1h", price: 79, options: CANAPE_OPTIONS },
+      { name: "Canapé d'angle", duration: "1h", price: 99, options: CANAPE_OPTIONS },
+      { name: "Canapé 4/5 places", duration: "1h", price: 99, options: CANAPE_OPTIONS },
     ],
   },
   {
     id: "tapis",
     label: "Nettoyage tapis",
-    emoji: "🪄",
+    slug: "/nettoyage-tapis-toulouse",
+    icon: <Layers className="size-5" />,
     formules: [
-      { name: "1 Tapis", duration: "45 min", options: 4, price: 49 },
-      { name: "2 Tapis", duration: "1h", options: 4, price: 79 },
-      { name: "3 Tapis", duration: "1h15", options: 4, price: 99 },
+      { name: "1 Tapis", duration: "45 min", price: 49, options: TAPIS_OPTIONS },
+      { name: "2 Tapis", duration: "1h", price: 79, options: TAPIS_OPTIONS },
+      { name: "3 Tapis", duration: "1h15", price: 99, options: TAPIS_OPTIONS },
     ],
   },
   {
     id: "auto",
     label: "Nettoyage auto",
-    emoji: "🚗",
+    slug: "/nettoyage-auto-a-domicile-toulouse",
+    icon: <Car className="size-5" />,
     formules: [
       {
         name: "Pack Bronze",
         desc: "Aspiration complète de l'habitacle et du coffre + nettoyage des plastiques.",
         duration: "1h",
-        options: 7,
         price: 69,
+        options: [
+          { name: "Traitement anti-acariens et bactériens", extra: 19, extraTime: "+20 min", popular: true },
+          { name: "Élimination des poils d'animaux", extra: 25, extraTime: "+45 min" },
+          { name: "Vitres sans traces", extra: 9, extraTime: "+20 min" },
+          { name: "Shampouinage des tapis de sol", extra: 15, extraTime: "+25 min" },
+          { name: "Nettoyage du ciel de toit", extra: 29, extraTime: "+30 min" },
+          { name: "Shampouinage des sièges auto", extra: 45, extraTime: "+45 min" },
+          { name: "Traitement anti-odeur", extra: 15, extraTime: "+10 min", popular: true },
+        ],
       },
       {
         name: "Pack Argent",
         desc: "Pack Bronze inclus + shampouinage des sièges et vitres sans traces.",
         duration: "1h30",
-        options: 6,
         price: 99,
         badge: "Populaire",
+        options: [
+          { name: "Traitement anti-acariens et bactériens", extra: 19, extraTime: "+20 min", popular: true },
+          { name: "Détachage intensif – sièges très tachés", extra: 19, extraTime: "+30 min" },
+          { name: "Élimination des poils d'animaux", extra: 25, extraTime: "+45 min" },
+          { name: "Shampouinage des tapis de sol", extra: 15, extraTime: "+25 min" },
+          { name: "Nettoyage du ciel de toit", extra: 29, extraTime: "+30 min" },
+          { name: "Traitement anti-odeur", extra: 15, extraTime: "+10 min", popular: true },
+        ],
       },
       {
         name: "Pack Or",
         desc: "Pack Argent inclus + shampouinage des tapis de sol et des moquettes.",
         duration: "1h55",
-        options: 5,
         price: 129,
         badge: "Complet",
+        options: [
+          { name: "Traitement anti-acariens et bactériens", extra: 19, extraTime: "+20 min", popular: true },
+          { name: "Détachage intensif – sièges très tachés", extra: 19, extraTime: "+30 min" },
+          { name: "Élimination des poils d'animaux", extra: 25, extraTime: "+45 min" },
+          { name: "Nettoyage du ciel de toit", extra: 29, extraTime: "+30 min" },
+          { name: "Traitement anti-odeur", extra: 15, extraTime: "+10 min", popular: true },
+        ],
       },
       {
         name: "Rénovation siège auto",
+        desc: "Nettoyage en profondeur d'un siège auto isolé.",
         duration: "45 min",
-        options: 4,
         price: 59,
+        options: [
+          { name: "Traitement anti-acariens et bactériens", extra: 19, extraTime: "+20 min", popular: true },
+          { name: "Détachage intensif – sièges très tachés", extra: 19, extraTime: "+30 min" },
+          { name: "Élimination des poils d'animaux", extra: 25, extraTime: "+45 min" },
+          { name: "Traitement anti-odeur", extra: 15, extraTime: "+10 min", popular: true },
+        ],
       },
     ],
   },
   {
     id: "matelas",
     label: "Nettoyage matelas",
-    emoji: "🛏️",
+    slug: "/nettoyage-matelas-toulouse",
+    icon: <BedDouble className="size-5" />,
     formules: [
-      { name: "Matelas 1 place", duration: "1h", options: 3, price: 59 },
-      { name: "Matelas 2 places", duration: "1h", options: 3, price: 99 },
-      { name: "Matelas enfant", duration: "30 min", options: 3, price: 39 },
+      { name: "Matelas enfant", duration: "30 min", price: 39, options: MATELAS_OPTIONS },
+      { name: "Matelas 1 place", duration: "1h", price: 59, options: MATELAS_OPTIONS },
+      { name: "Matelas 2 places", duration: "1h", price: 99, options: MATELAS_OPTIONS },
     ],
   },
 ];
 
-function FormuleCard({ f }: { f: Formule }) {
-  const isPopular = f.badge === "Populaire";
-  return (
-    <div
-      className={`relative flex flex-col rounded-2xl border bg-card shadow-[var(--shadow-soft)] transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-card)] ${
-        isPopular ? "border-primary/40 ring-1 ring-primary/20" : "border-border"
-      }`}
-    >
-      {f.badge && (
-        <span
-          className={`absolute -top-3 left-4 rounded-full px-3 py-0.5 text-xs font-bold ${
-            isPopular
-              ? "bg-primary-gradient text-primary-foreground"
-              : "bg-accent-gradient text-accent-foreground"
-          }`}
-        >
-          {f.badge}
-        </span>
-      )}
 
-      <div className="flex flex-1 flex-col p-5">
-        <p className="font-bold text-foreground">{f.name}</p>
-        {f.desc && (
-          <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
-        )}
-
-        <div className="mt-3 flex flex-wrap gap-2">
-          <span className="inline-flex items-center gap-1 rounded-full border border-border bg-secondary px-2.5 py-0.5 text-xs text-muted-foreground">
-            <Clock className="size-3" /> {f.duration}
-          </span>
-          <span className="inline-flex items-center gap-1 rounded-full border border-border bg-secondary px-2.5 py-0.5 text-xs text-muted-foreground">
-            +{f.options} options
-          </span>
-        </div>
-
-        <div className="mt-auto pt-4">
-          <p className="text-xs text-muted-foreground">À partir de</p>
-          <p className="text-3xl font-bold text-primary">
-            {f.price}&nbsp;<span className="text-lg font-semibold">€</span>
-          </p>
-        </div>
-      </div>
-
-      <div className="border-t border-border px-5 py-3">
-        <Button
-          asChild
-          className="w-full bg-accent-gradient text-accent-foreground font-bold hover:opacity-90"
-        >
-          <a href={COMPANY.booking} target="_blank" rel="noopener noreferrer">
-            <CalendarCheck className="size-4" /> Réserver en ligne
-          </a>
-        </Button>
-      </div>
-    </div>
-  );
-}
+// ─── PAGE ─────────────────────────────────────────────────────────────────────
 
 function FormulesPage() {
-  const totalFormules = CATEGORIES.reduce((s, c) => s + c.formules.length, 0);
-
   return (
     <div className="pb-24 lg:pb-0">
-      {/* ── HERO ── */}
-      <section className="relative overflow-hidden bg-hero-gradient text-ink-foreground">
-        <div className="pointer-events-none absolute -right-32 -top-32 size-96 rounded-full bg-primary/20 blur-3xl" />
-        <div className="pointer-events-none absolute -left-16 bottom-0 size-64 rounded-full bg-accent/10 blur-2xl" />
-        <div className="relative mx-auto max-w-4xl px-4 py-20 text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-ink-foreground/20 bg-ink-foreground/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider backdrop-blur">
-            <Star className="size-3 fill-current" /> 4,9 · 91 avis Google
-          </span>
-          <h1 className="mt-5 text-5xl font-bold leading-tight tracking-tight md:text-6xl">
-            Nos formules & tarifs
-          </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-ink-foreground/75">
-            {totalFormules} formules de nettoyage à Toulouse — canapé, tapis, intérieur auto, matelas.
-            Tarifs affichés, sans surprise. Réservation en ligne en 2 minutes.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Button
-              asChild
-              size="xl"
-              className="bg-accent-gradient text-accent-foreground font-bold shadow-[var(--shadow-card)] hover:opacity-90"
-            >
-              <a href={COMPANY.booking} target="_blank" rel="noopener noreferrer">
-                <CalendarCheck /> Réserver en ligne
-              </a>
-            </Button>
-            <Button asChild variant="onDark" size="xl">
-              <a href={COMPANY.phoneHref}>
-                <Phone /> {COMPANY.phone}
-              </a>
-            </Button>
-          </div>
+
+      {/* ── HERO TITRE ── */}
+      <div className="mx-auto max-w-3xl px-4 pt-16 pb-4 text-center">
+        <span className="inline-block rounded-full border border-border bg-card px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-muted-foreground shadow-sm">
+          Tarifs &amp; Prestations
+        </span>
+        <h1 className="mt-5 font-display text-5xl font-bold leading-tight tracking-tight md:text-6xl">
+          L'Excellence à Prix Juste
+        </h1>
+        <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
+          15 formules, options personnalisables à la réservation. Intervention à domicile sur Toulouse
+          avec du matériel professionnel et des produits certifiés Écolabel.
+        </p>
+        <div className="mt-3 flex items-center justify-center gap-1.5 text-sm text-muted-foreground">
+          {[1,2,3,4,5].map(i => <Star key={i} className="size-3.5 fill-amber-400 text-amber-400" />)}
+          <span className="font-semibold text-foreground">4,9</span>
+          <span>· 91 avis Google</span>
         </div>
-      </section>
-
-      {/* ── NAV ANCRES ── */}
-      <nav className="sticky top-16 z-40 border-b border-border bg-background/95 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl gap-1 overflow-x-auto px-4 py-2 scrollbar-none">
-          {CATEGORIES.map((cat) => (
-            <a
-              key={cat.id}
-              href={`#${cat.id}`}
-              className="flex-shrink-0 rounded-lg px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-primary"
-            >
-              {cat.emoji} {cat.label}
-            </a>
-          ))}
-        </div>
-      </nav>
-
-      {/* ── CATÉGORIES ── */}
-      <div className="mx-auto max-w-6xl px-4 py-12 space-y-16">
-        {CATEGORIES.map((cat) => (
-          <section key={cat.id} id={cat.id}>
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-xs font-bold uppercase tracking-widest text-primary">
-                  {cat.emoji} {cat.label}
-                </p>
-                <h2 className="mt-1 text-2xl font-bold tracking-tight">
-                  {cat.formules.length} formule{cat.formules.length > 1 ? "s" : ""}
-                </h2>
-              </div>
-              <a
-                href={COMPANY.booking}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden sm:inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
-              >
-                Voir sur Dispoo <ChevronRight className="size-3.5" />
-              </a>
-            </div>
-
-            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {cat.formules.map((f) => (
-                <FormuleCard key={f.name} f={f} />
-              ))}
-            </div>
-          </section>
-        ))}
       </div>
 
-      {/* ── CTA FINAL ── */}
-      <section className="mx-auto max-w-6xl px-4 pb-12">
-        <div className="relative overflow-hidden rounded-3xl bg-hero-gradient px-6 py-14 text-center text-ink-foreground shadow-[var(--shadow-card)]">
-          <div className="pointer-events-none absolute -right-16 -top-16 size-72 rounded-full bg-primary/20 blur-3xl" />
-          <div className="relative">
-            <p className="text-xs font-bold uppercase tracking-widest text-ink-foreground/60">
-              Réservation 100% en ligne
+      {/* ── 3 TIERS ── */}
+      <section className="mx-auto max-w-5xl px-4 pt-10 pb-6">
+        <div className="grid gap-4 md:grid-cols-3 items-stretch">
+          {/* Tier 1 */}
+          <div className="flex flex-col rounded-2xl border border-border bg-card p-7 shadow-sm">
+            <Armchair className="size-7 stroke-[1.4] text-accent" />
+            <h2 className="mt-4 text-2xl font-bold tracking-tight">Textile Essentiel</h2>
+            <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">
+              Fauteuils, canapés simples et matelas.
             </p>
-            <h2 className="mt-2 text-3xl font-bold md:text-4xl">
-              Choisissez votre créneau maintenant
-            </h2>
-            <p className="mx-auto mt-3 max-w-xl text-ink-foreground/75">
-              Sélectionnez votre prestation, votre date et votre heure en moins de 2 minutes.
-              Paiement sur place par carte ou espèces.
-            </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <Button
-                asChild
-                size="xl"
-                className="bg-accent-gradient text-accent-foreground font-bold hover:opacity-90"
-              >
-                <a href={COMPANY.booking} target="_blank" rel="noopener noreferrer">
-                  <CalendarCheck /> Réserver en ligne
-                </a>
-              </Button>
-              <Button asChild variant="onDark" size="xl">
-                <Link to="/contactez-nous">Demander un devis</Link>
-              </Button>
+            <div className="mt-5">
+              <span className="text-sm text-muted-foreground">À partir de</span>
+              <p className="font-display text-5xl font-bold leading-none">39 <span className="text-2xl">€</span></p>
             </div>
+            <ul className="mt-5 flex-1 space-y-2.5">
+              {["Injection-extraction pro", "Détachage standard", "Produits Écolabel", "4 options disponibles"].map((item) => (
+                <li key={item} className="flex items-center gap-2 text-sm text-foreground">
+                  <CheckCircle2 className="size-4 shrink-0 text-primary" />{item}
+                </li>
+              ))}
+            </ul>
+            <Button asChild variant="outline" size="lg" className="mt-6 w-full">
+              <a href="/reserver">Choisir ma prestation <ArrowRight className="size-4" /></a>
+            </Button>
+          </div>
+
+          {/* Tier 2 — featured */}
+          <div className="relative flex flex-col rounded-2xl bg-ink p-7 shadow-[var(--shadow-card)] text-ink-foreground">
+            <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-accent-gradient px-4 py-1 text-[11px] font-bold uppercase tracking-widest text-accent-foreground shadow">
+              Le plus demandé
+            </span>
+            <Armchair className="size-7 stroke-[1.4] text-accent" />
+            <h2 className="mt-4 text-2xl font-bold leading-snug tracking-tight">Canapé &amp; Grand Confort</h2>
+            <p className="mt-1.5 text-sm text-ink-foreground/65 leading-relaxed">
+              Grands canapés, angles et matelas 2 places.
+            </p>
+            <div className="mt-5">
+              <span className="text-sm text-ink-foreground/60">À partir de</span>
+              <p className="font-display text-5xl font-bold leading-none">79 <span className="text-2xl">€</span></p>
+            </div>
+            <ul className="mt-5 flex-1 space-y-2.5">
+              {["Canapés 3 places et + / Angles", "Traitement anti-acariens disponible", "Neutralisation des odeurs", "Séchage express"].map((item) => (
+                <li key={item} className="flex items-center gap-2 text-sm">
+                  <CheckCircle2 className="size-4 shrink-0 text-accent" />{item}
+                </li>
+              ))}
+            </ul>
+            <Button asChild size="lg" className="mt-6 w-full bg-accent-gradient text-accent-foreground font-bold hover:opacity-90">
+              <a href="/reserver">Choisir ma prestation <ArrowRight className="size-4" /></a>
+            </Button>
+          </div>
+
+          {/* Tier 3 */}
+          <div className="flex flex-col rounded-2xl border border-border bg-card p-7 shadow-sm">
+            <Car className="size-7 stroke-[1.4] text-accent" />
+            <h2 className="mt-4 text-2xl font-bold tracking-tight">Auto &amp; Extérieur</h2>
+            <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">
+              Habitacle auto complet — du Bronze au Pack Or.
+            </p>
+            <div className="mt-5">
+              <span className="text-sm text-muted-foreground">À partir de</span>
+              <p className="font-display text-5xl font-bold leading-none">69 <span className="text-2xl">€</span></p>
+            </div>
+            <ul className="mt-5 flex-1 space-y-2.5">
+              {["Sièges, moquettes, coffre", "Jusqu'à 7 options disponibles", "Intervention à domicile", "Devis sous 24h"].map((item) => (
+                <li key={item} className="flex items-center gap-2 text-sm text-foreground">
+                  <CheckCircle2 className="size-4 shrink-0 text-primary" />{item}
+                </li>
+              ))}
+            </ul>
+            <Button asChild variant="outline" size="lg" className="mt-6 w-full">
+              <a href="/reserver">Choisir ma prestation <ArrowRight className="size-4" /></a>
+            </Button>
           </div>
         </div>
+
+        <p className="mt-5 flex items-center justify-center gap-2 text-center text-sm text-muted-foreground">
+          <Info className="size-4 shrink-0" />
+          Besoin d'un nettoyage d'appartement ou fin de chantier ?{" "}
+          <Link to="/contactez-nous" className="font-medium text-foreground underline underline-offset-2 hover:text-primary">
+            Contactez-nous pour un devis sur-mesure.
+          </Link>
+        </p>
       </section>
+
+
     </div>
   );
 }

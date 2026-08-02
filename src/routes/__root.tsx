@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Header } from "@/components/site/Header";
 import { Footer, StickyCallCta } from "@/components/site/Footer";
+import { TopBanner } from "@/components/site/TopBanner";
 import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
@@ -148,6 +149,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <TopBanner />
       <Header />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <main>

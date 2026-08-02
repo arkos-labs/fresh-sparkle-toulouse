@@ -8,8 +8,17 @@ import apresCanape from "@/assets/apres-canape.jpg";
 import avantAuto from "@/assets/avant-auto.jpg";
 import apresAuto from "@/assets/apres-auto.jpg";
 
+function getBookingServiceId(slug: string): string | null {
+  if (slug.includes("canape")) return "canape";
+  if (slug.includes("matelas")) return "matelas";
+  if (slug.includes("tapis")) return "tapis";
+  if (slug.includes("auto")) return "auto";
+  return null;
+}
+
 export function ServicePage({ service }: { service: Service }) {
   const others = SERVICES.filter((s) => s.slug !== service.slug).slice(0, 6);
+  const bookingServiceId = getBookingServiceId(service.slug);
 
   return (
     <div className="pb-24 lg:pb-0">
@@ -34,9 +43,15 @@ export function ServicePage({ service }: { service: Service }) {
                 size="xl"
                 className="bg-accent-gradient text-accent-foreground font-bold shadow-[var(--shadow-card)] hover:opacity-90"
               >
-                <a href={COMPANY.booking} target="_blank" rel="noopener noreferrer">
-                  <CalendarCheck /> Réserver en ligne
-                </a>
+                {bookingServiceId ? (
+                  <Link to="/reserver" search={{ service: bookingServiceId }}>
+                    <CalendarCheck /> Réserver en ligne
+                  </Link>
+                ) : (
+                  <a href={COMPANY.booking} target="_blank" rel="noopener noreferrer">
+                    <CalendarCheck /> Réserver en ligne
+                  </a>
+                )}
               </Button>
             ) : (
               <Button asChild variant="cta" size="xl">
@@ -280,9 +295,15 @@ export function ServicePage({ service }: { service: Service }) {
                 size="xl"
                 className="bg-accent-gradient text-accent-foreground font-bold hover:opacity-90"
               >
-                <a href={COMPANY.booking} target="_blank" rel="noopener noreferrer">
-                  <CalendarCheck /> Réserver en ligne
-                </a>
+                {bookingServiceId ? (
+                  <Link to="/reserver" search={{ service: bookingServiceId }}>
+                    <CalendarCheck /> Réserver en ligne
+                  </Link>
+                ) : (
+                  <a href={COMPANY.booking} target="_blank" rel="noopener noreferrer">
+                    <CalendarCheck /> Réserver en ligne
+                  </a>
+                )}
               </Button>
               <Button asChild variant="onDark" size="xl">
                 <Link to="/contactez-nous">Devis gratuit</Link>

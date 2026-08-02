@@ -1,46 +1,21 @@
 import { useState, useEffect } from "react";
 import { Link } from "@tanstack/react-router";
-import { Menu, Phone, X, ChevronDown, CalendarCheck } from "lucide-react";
+import { Menu, Phone, X, CalendarCheck, ChevronDown, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { COMPANY, MENU_BATIMENT, MENU_TEXTILE } from "@/data/site";
-
-function Dropdown({
-  label,
-  items,
-}: {
-  label: string;
-  items: { slug: string; navLabel: string }[];
-}) {
-  return (
-    <div className="group relative">
-      <button className="inline-flex items-center gap-1 px-3 py-2 text-sm font-medium text-foreground/75 transition-colors hover:text-primary">
-        {label}
-        <ChevronDown className="size-3.5 transition-transform group-hover:rotate-180" />
-      </button>
-      <div className="invisible absolute left-0 top-full z-50 w-72 translate-y-2 rounded-2xl border border-border bg-popover p-2 opacity-0 shadow-[var(--shadow-card)] transition-all duration-200 group-hover:visible group-hover:translate-y-1 group-hover:opacity-100">
-        {items.map((item) => (
-          <Link
-            key={item.slug}
-            to={item.slug}
-            className="block rounded-xl px-3 py-2.5 text-sm text-popover-foreground transition-colors hover:bg-secondary hover:text-primary"
-          >
-            {item.navLabel}
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
-}
+import { COMPANY, MENU_TEXTILE, MENU_BATIMENT } from "@/data/site";
 
 export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const close = () => { setOpen(false); setServicesOpen(false); };
 
   return (
     <header
@@ -51,11 +26,15 @@ export function Header() {
       }`}
     >
       {/* Accent top bar */}
-      <div className="h-1 w-full bg-primary-gradient" />
+      <div className="h-0.5 w-full bg-primary-gradient" />
 
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4">
+
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2.5 shrink-0" onClick={close}>
+          <div className="flex size-8 items-center justify-center rounded-lg bg-primary-gradient shadow-sm">
+            <span className="font-display text-sm font-bold text-primary-foreground">C&F</span>
+          </div>
           <span className="font-display text-xl font-bold tracking-tight text-foreground">
             Clean<span className="text-primary">&amp;</span>Fresh
           </span>
@@ -66,24 +45,41 @@ export function Header() {
 
         {/* Desktop nav */}
         <nav className="hidden items-center gap-0.5 lg:flex">
-          <Link
-            to="/"
-            className="px-3 py-2 text-sm font-medium text-foreground/75 transition-colors hover:text-primary"
-          >
+          <Link to="/" className="px-3 py-2 text-sm font-medium text-foreground/75 transition-colors hover:text-primary">
             Accueil
           </Link>
-          <Dropdown label="Textile & auto" items={MENU_TEXTILE} />
-          <Dropdown label="Nettoyage bâtiment" items={MENU_BATIMENT} />
-          <Link
-            to="/formules"
-            className="px-3 py-2 text-sm font-medium text-foreground/75 transition-colors hover:text-primary"
-          >
+
+          {/* Services dropdown */}
+          <div className="relative group">
+            <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-foreground/75 transition-colors hover:text-primary">
+              Nos services <ChevronDown className="size-3.5 transition-transform group-hover:rotate-180" />
+            </button>
+            <div className="absolute left-0 top-full hidden w-80 rounded-2xl border border-border bg-card pt-2 shadow-[var(--shadow-card)] group-hover:block">
+              <div className="px-3 pb-2">
+                <p className="px-2 py-1.5 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Textile &amp; Auto</p>
+                {MENU_TEXTILE.map((s) => (
+                  <Link key={s.slug} to={s.slug} className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm text-foreground hover:bg-secondary hover:text-primary transition-colors">
+                    <ChevronRight className="size-3.5 text-muted-foreground shrink-0" />
+                    {s.short}
+                  </Link>
+                ))}
+              </div>
+              <div className="border-t border-border px-3 pb-3 pt-2">
+                <p className="px-2 py-1.5 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Services de nettoyage</p>
+                {MENU_BATIMENT.map((s) => (
+                  <Link key={s.slug} to={s.slug} className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm text-foreground hover:bg-secondary hover:text-primary transition-colors">
+                    <ChevronRight className="size-3.5 text-muted-foreground shrink-0" />
+                    {s.short}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <Link to="/formules" className="px-3 py-2 text-sm font-medium text-foreground/75 transition-colors hover:text-primary">
             Tarifs
           </Link>
-          <Link
-            to="/contactez-nous"
-            className="px-3 py-2 text-sm font-medium text-foreground/75 transition-colors hover:text-primary"
-          >
+          <Link to="/contactez-nous" className="px-3 py-2 text-sm font-medium text-foreground/75 transition-colors hover:text-primary">
             Contact
           </Link>
         </nav>
@@ -92,21 +88,19 @@ export function Header() {
         <div className="hidden items-center gap-2 lg:flex">
           <Button asChild variant="ghost" size="sm" className="text-foreground/75 hover:text-primary">
             <a href={COMPANY.phoneHref}>
-              <Phone className="size-4" />
-              {COMPANY.phone}
+              <Phone className="size-4" /> {COMPANY.phone}
             </a>
           </Button>
           <Button asChild size="sm" className="bg-accent-gradient text-accent-foreground font-semibold shadow-[var(--shadow-soft)] hover:opacity-90">
             <a href={COMPANY.booking} target="_blank" rel="noopener noreferrer">
-              <CalendarCheck className="size-4" />
-              Réserver en ligne
+              <CalendarCheck className="size-4" /> Réserver en ligne
             </a>
           </Button>
         </div>
 
-        {/* Mobile menu toggle */}
+        {/* Mobile hamburger */}
         <button
-          className="rounded-lg p-2 text-foreground/70 hover:bg-secondary lg:hidden"
+          className="flex size-10 items-center justify-center rounded-lg border border-border bg-card text-foreground/70 shadow-sm hover:bg-secondary lg:hidden"
           aria-label="Ouvrir le menu"
           onClick={() => setOpen((v) => !v)}
         >
@@ -114,70 +108,87 @@ export function Header() {
         </button>
       </div>
 
-      {/* Mobile menu */}
+      {/* ── MENU MOBILE ── */}
       {open && (
-        <div className="max-h-[75vh] overflow-y-auto border-t border-border bg-background px-4 py-5 lg:hidden">
-          <Link
-            to="/"
-            onClick={() => setOpen(false)}
-            className="block rounded-lg py-2.5 font-medium text-foreground hover:text-primary"
-          >
-            Accueil
-          </Link>
+        <div className="border-t border-border bg-background lg:hidden overflow-y-auto max-h-[80vh]">
+          <div className="px-4 py-4 space-y-1">
 
-          <p className="mt-4 mb-1 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-            Textile & auto
-          </p>
-          {MENU_TEXTILE.map((s) => (
-            <Link
-              key={s.slug}
-              to={s.slug}
-              onClick={() => setOpen(false)}
-              className="block rounded-lg py-2 pl-2 text-sm text-foreground/80 hover:text-primary"
-            >
-              {s.navLabel}
+            <Link to="/" onClick={close} className="block rounded-xl px-3 py-2.5 font-semibold text-foreground hover:bg-secondary hover:text-primary transition-colors">
+              Accueil
             </Link>
-          ))}
 
-          <p className="mt-4 mb-1 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-            Nettoyage bâtiment
-          </p>
-          {MENU_BATIMENT.map((s) => (
-            <Link
-              key={s.slug}
-              to={s.slug}
-              onClick={() => setOpen(false)}
-              className="block rounded-lg py-2 pl-2 text-sm text-foreground/80 hover:text-primary"
-            >
-              {s.navLabel}
+            {/* Services accordion */}
+            <div>
+              <button
+                onClick={() => setServicesOpen((v) => !v)}
+                className="flex w-full items-center justify-between rounded-xl px-3 py-2.5 font-semibold text-foreground hover:bg-secondary hover:text-primary transition-colors"
+              >
+                Nos services
+                <ChevronDown className={`size-4 transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
+              </button>
+
+              {servicesOpen && (
+                <div className="mt-1 ml-3 space-y-4 rounded-xl border border-border bg-secondary/40 px-3 py-3">
+                  {/* Textile */}
+                  <div>
+                    <p className="mb-1.5 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                      Textile &amp; Auto
+                    </p>
+                    <div className="space-y-0.5">
+                      {MENU_TEXTILE.map((s) => (
+                        <Link
+                          key={s.slug}
+                          to={s.slug}
+                          onClick={close}
+                          className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm font-medium text-foreground hover:bg-card hover:text-primary transition-colors"
+                        >
+                          <ChevronRight className="size-3.5 text-primary shrink-0" />
+                          {s.short}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                  {/* Bâtiment */}
+                  <div>
+                    <p className="mb-1.5 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                      Services de nettoyage
+                    </p>
+                    <div className="space-y-0.5">
+                      {MENU_BATIMENT.map((s) => (
+                        <Link
+                          key={s.slug}
+                          to={s.slug}
+                          onClick={close}
+                          className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm font-medium text-foreground hover:bg-card hover:text-primary transition-colors"
+                        >
+                          <ChevronRight className="size-3.5 text-primary shrink-0" />
+                          {s.short}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <Link to="/formules" onClick={close} className="block rounded-xl px-3 py-2.5 font-semibold text-foreground hover:bg-secondary hover:text-primary transition-colors">
+              Tarifs
             </Link>
-          ))}
+            <Link to="/contactez-nous" onClick={close} className="block rounded-xl px-3 py-2.5 font-semibold text-foreground hover:bg-secondary hover:text-primary transition-colors">
+              Contact
+            </Link>
+          </div>
 
-          <Link
-            to="/formules"
-            onClick={() => setOpen(false)}
-            className="block rounded-lg py-2.5 font-medium text-foreground hover:text-primary"
-          >
-            Tarifs & Formules
-          </Link>
-          <Link
-            to="/contactez-nous"
-            onClick={() => setOpen(false)}
-            className="block rounded-lg py-2.5 font-medium text-foreground hover:text-primary"
-          >
-            Contact
-          </Link>
-
-          <div className="mt-5 grid gap-2">
-            <Button asChild variant="outline" className="w-full justify-start">
-              <Link to="/contactez-nous" onClick={() => setOpen(false)}>
-                Demander un devis gratuit
-              </Link>
+          {/* Mobile CTAs */}
+          <div className="border-t border-border px-4 py-4 grid gap-2">
+            <Button asChild className="w-full bg-accent-gradient text-accent-foreground font-bold hover:opacity-90">
+              <a href={COMPANY.booking} target="_blank" rel="noopener noreferrer" onClick={close}>
+                <CalendarCheck className="size-4" /> Réserver en ligne
+              </a>
             </Button>
-            <Button asChild className="w-full bg-accent-gradient text-accent-foreground font-semibold hover:opacity-90">
-              <a href={COMPANY.booking} target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)}>
-                <CalendarCheck className="size-4" />
-                Réserver en ligne
+            <Button asChild variant="outline" className="w-full">
+              <a href={COMPANY.phoneHref} onClick={close}>
+                <Phone className="size-4" /> {COMPANY.phone}
               </a>
             </Button>
           </div>

@@ -5,16 +5,30 @@ import {
   Leaf,
   MapPin,
   Phone,
-  Quote,
-  ShieldCheck,
-  Star,
   ArrowRight,
   Sparkles,
   CheckCircle2,
+  Armchair,
+  BedDouble,
+  Layers,
+  Car,
+  Droplets,
+  Sun,
+  Home,
+  Building2,
+  Wrench,
+  Zap,
+  Building,
+  Star,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { COMMUNES, COMPANY, SERVICES, TESTIMONIALS } from "@/data/site";
+import { COMMUNES, COMPANY, SERVICES } from "@/data/site";
+import { ReviewsCarousel } from "@/components/site/ReviewsCarousel";
 import heroImg from "@/assets/hero-nettoyage.jpg";
+import avantCanape from "@/assets/avant-canape.jpg";
+import apresCanape from "@/assets/apres-canape.jpg";
+import avantAuto from "@/assets/avant-auto.jpg";
+import apresAuto from "@/assets/apres-auto.jpg";
 
 const TITLE = "Entreprise de nettoyage à Toulouse — Clean&Fresh";
 const DESC =
@@ -34,19 +48,64 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const SERVICE_ICONS: Record<string, string> = {
-  "/nettoyage-canape-toulouse": "🛋️",
-  "/nettoyage-matelas-toulouse": "🛏️",
-  "/nettoyage-tapis-toulouse": "🪴",
-  "/nettoyage-auto-a-domicile-toulouse": "🚗",
-  "/nettoyage-de-vitres-toulouse": "🪟",
-  "/nettoyage-terrasse-toulouse": "🏡",
-  "/nettoyage-toiture-toulouse": "🏗️",
-  "/nettoyage-facade-toulouse": "🧱",
-  "/nettoyage-dappartement-ou-maison": "🏠",
-  "/nettoyage-de-fin-de-chantier-toulouse": "🔧",
-  "/nettoyage-extreme-toulouse": "⚡",
+const SERVICE_ICONS: Record<string, React.ReactNode> = {
+  "/nettoyage-canape-toulouse": <Armchair className="size-6" />,
+  "/nettoyage-matelas-toulouse": <BedDouble className="size-6" />,
+  "/nettoyage-tapis-toulouse": <Layers className="size-6" />,
+  "/nettoyage-auto-a-domicile-toulouse": <Car className="size-6" />,
+  "/nettoyage-de-vitres-toulouse": <Droplets className="size-6" />,
+  "/nettoyage-terrasse-toulouse": <Sun className="size-6" />,
+  "/nettoyage-toiture-toulouse": <Home className="size-6" />,
+  "/nettoyage-facade-toulouse": <Building className="size-6" />,
+  "/nettoyage-dappartement-ou-maison": <Building2 className="size-6" />,
+  "/nettoyage-de-fin-de-chantier-toulouse": <Wrench className="size-6" />,
+  "/nettoyage-extreme-toulouse": <Zap className="size-6" />,
 };
+
+const HERO_REVIEWS = [
+  { name: "Sophie M.", text: "Canapé comme neuf après le passage !", stars: 5 },
+  { name: "Karim B.", text: "Voiture impeccable, équipe très pro.", stars: 5 },
+  { name: "Laurence T.", text: "Matelas propre et sans odeur. Merci !", stars: 5 },
+  { name: "Thomas D.", text: "Tapis transformé, je recommande.", stars: 5 },
+  { name: "Amina R.", text: "Rapide, efficace, tarifs honnêtes.", stars: 5 },
+  { name: "Pierre V.", text: "Résultat bluffant sur mon canapé cuir.", stars: 5 },
+  { name: "Nadia K.", text: "Super service, ponctuels et soigneux.", stars: 5 },
+  { name: "Marc L.", text: "Terrasse nettoyée en 1h, top !", stars: 5 },
+];
+
+function HeroReviewTicker() {
+  const all = [...HERO_REVIEWS, ...HERO_REVIEWS];
+  return (
+    <div
+      className="relative overflow-hidden"
+      style={{
+        height: "420px",
+        maskImage: "linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)",
+        WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)",
+      }}
+    >
+      <div
+        className="flex flex-col gap-3"
+        style={{ animation: "hero-ticker-v 28s linear infinite" }}
+      >
+        {all.map((r, i) => (
+          <div
+            key={i}
+            className="w-44 h-44 flex-shrink-0 rounded-xl border border-white/20 bg-white/10 backdrop-blur-md p-4 flex flex-col justify-between"
+          >
+            <div className="flex gap-0.5">
+              {Array.from({ length: r.stars }).map((_, j) => (
+                <Star key={j} className="size-3 fill-yellow-400 text-yellow-400" />
+              ))}
+            </div>
+            <p className="text-xs text-white/90 leading-snug line-clamp-4">{r.text}</p>
+            <p className="text-[10px] font-bold uppercase tracking-widest text-white/50">{r.name}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 const STATS = [
   { value: "500+", label: "Clients satisfaits" },
@@ -77,78 +136,76 @@ function Index() {
   return (
     <div className="pb-24 lg:pb-0">
 
-      {/* ── HERO ── */}
-      <section className="relative overflow-hidden bg-hero-gradient text-ink-foreground">
-        {/* Decorative circle */}
-        <div className="pointer-events-none absolute -right-32 -top-32 size-[480px] rounded-full bg-primary/20 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-24 -left-24 size-[320px] rounded-full bg-primary-glow/15 blur-2xl" />
+      {/* ── HERO FULL-WIDTH ── */}
+      <section
+        className="relative flex min-h-[88vh] items-center bg-cover bg-center"
+        style={{ backgroundImage: `url(${heroImg})` }}
+      >
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-ink/65" />
 
-        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-4 py-20 lg:grid-cols-2 lg:py-28">
-          <div>
-            {/* Badge */}
-            <span className="inline-flex items-center gap-2 rounded-full border border-ink-foreground/20 bg-ink-foreground/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider backdrop-blur">
+        <div className="relative mx-auto w-full max-w-6xl px-4 py-24 flex items-center gap-12">
+          {/* ── GAUCHE : contenu ── */}
+          <div className="flex-1 min-w-0">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur">
               <MapPin className="size-3" /> Toulouse & Haute-Garonne
             </span>
 
-            <h1 className="mt-5 text-5xl font-bold leading-[1.1] tracking-tight md:text-6xl lg:text-7xl">
+            <h1 className="mt-6 max-w-2xl text-5xl font-bold leading-[1.1] tracking-tight text-white md:text-6xl lg:text-7xl">
               Entreprise de<br />
-              <span className="text-primary-glow">nettoyage</span><br />
+              <em className="not-italic text-accent">nettoyage</em><br />
               à Toulouse
             </h1>
 
-            <p className="mt-5 max-w-lg text-lg text-ink-foreground/75 leading-relaxed">
-              Textiles d'ameublement, logements et extérieurs — nous intervenons directement chez vous avec du matériel professionnel. <strong className="font-semibold text-ink-foreground">Particuliers & professionnels.</strong>
+            <p className="mt-6 max-w-xl text-lg text-white/75 leading-relaxed">
+              Textiles d'ameublement, logements et extérieurs — nous intervenons directement chez vous avec du matériel professionnel.{" "}
+              <strong className="font-semibold text-white">Particuliers & professionnels.</strong>
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-accent/20 border border-accent/40 px-4 py-1.5 text-sm font-bold text-accent">
+              <span className="relative flex size-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
+                <span className="relative inline-flex size-2 rounded-full bg-accent" />
+              </span>
+              Disponible 24h/24, 7j/7 — Réservation en 2 min
+            </div>
+
+            <div className="mt-6 flex flex-wrap gap-3">
               <Button
                 asChild
                 size="xl"
-                className="bg-accent-gradient text-accent-foreground font-bold shadow-[var(--shadow-card)] hover:opacity-90 transition-opacity"
+                className="bg-accent-gradient text-accent-foreground font-bold text-lg shadow-[var(--shadow-card)] hover:opacity-90 px-8"
               >
-                <a href={COMPANY.booking} target="_blank" rel="noopener noreferrer">
-                  <CalendarCheck className="size-5" /> Réserver en ligne
-                </a>
-              </Button>
-              <Button asChild variant="onDark" size="xl">
-                <Link to="/contactez-nous">
-                  Devis gratuit sous 24h
+                <Link to="/reserver">
+                  <CalendarCheck className="size-5" /> Réserver maintenant
                 </Link>
+              </Button>
+              <Button
+                asChild
+                size="xl"
+                variant="outline"
+                className="border-white/40 bg-white/10 text-white backdrop-blur hover:bg-white/20 hover:border-white/60"
+              >
+                <a href={COMPANY.phoneHref}><Phone className="size-4" /> {COMPANY.phone}</a>
               </Button>
             </div>
 
-            {/* Trust row */}
-            <div className="mt-8 flex flex-wrap gap-4 text-sm text-ink-foreground/70">
+            <div className="mt-8 flex flex-wrap gap-5 text-sm text-white/70">
               <span className="inline-flex items-center gap-1.5">
-                <CheckCircle2 className="size-4 text-primary-glow" /> Intervention rapide
+                <CheckCircle2 className="size-4 text-accent" /> Intervention rapide
               </span>
               <span className="inline-flex items-center gap-1.5">
-                <CheckCircle2 className="size-4 text-primary-glow" /> Sans déplacer vos meubles
+                <CheckCircle2 className="size-4 text-accent" /> Sans déplacer vos meubles
               </span>
               <span className="inline-flex items-center gap-1.5">
-                <CheckCircle2 className="size-4 text-primary-glow" /> Séchage express
+                <CheckCircle2 className="size-4 text-accent" /> Séchage express
               </span>
             </div>
           </div>
 
-          <div className="relative">
-            <img
-              src={heroImg}
-              alt="Technicien Clean&Fresh nettoyant un canapé par injection-extraction à Toulouse"
-              width={1600}
-              height={1100}
-              className="rounded-3xl shadow-[0_32px_64px_-16px_oklch(0.13_0.04_252/0.5)]"
-            />
-            {/* Floating rating card */}
-            <div className="absolute -bottom-5 -left-4 rounded-2xl border border-border/60 bg-card/95 px-5 py-3 shadow-[var(--shadow-card)] backdrop-blur lg:-left-8">
-              <div className="flex items-center gap-1">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="size-4 fill-accent text-accent" />
-                ))}
-              </div>
-              <p className="mt-1 text-xs font-semibold text-foreground">500+ clients satisfaits</p>
-              <p className="text-[10px] text-muted-foreground">Toulouse & agglomération</p>
-            </div>
+          {/* ── DROITE : avis défilants ── */}
+          <div className="hidden lg:block flex-shrink-0">
+            <HeroReviewTicker />
           </div>
         </div>
       </section>
@@ -157,12 +214,22 @@ function Index() {
       <section className="border-b border-border bg-card">
         <div className="mx-auto grid max-w-6xl grid-cols-2 divide-x divide-border md:grid-cols-4">
           {STATS.map((s) => (
-            <div key={s.label} className="flex flex-col items-center justify-center py-6 px-4">
+            <div key={s.label} className="flex flex-col items-center justify-center py-7 px-4">
               <span className="font-display text-3xl font-bold text-primary">{s.value}</span>
-              <span className="mt-1 text-xs text-muted-foreground">{s.label}</span>
+              <span className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">{s.label}</span>
             </div>
           ))}
         </div>
+      </section>
+
+      {/* ── INTRO TEXTE ── */}
+      <section className="mx-auto max-w-4xl px-4 pt-16 pb-4 text-center">
+        <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+          Entreprise de nettoyage à Toulouse
+        </h2>
+        <p className="mx-auto mt-5 max-w-3xl text-base leading-relaxed text-muted-foreground">
+          Notre entreprise de nettoyage met à disposition des services complets aussi bien pour les particuliers que pour les professionnels à Toulouse et dans les communes voisines. Nos agents de nettoyage interviennent avec sérieux et fiabilité afin de garantir des prestations adaptées à chaque besoin.
+        </p>
       </section>
 
       {/* ── SERVICES GRID ── */}
@@ -175,30 +242,31 @@ function Index() {
               À domicile ou sur site, pour particuliers et professionnels à Toulouse et sa banlieue.
             </p>
           </div>
-          <Button asChild variant="outline">
-            <Link to="/contactez-nous">Tous les devis <ArrowRight className="size-4" /></Link>
-          </Button>
+          <Link
+            to="/contactez-nous"
+            className="text-sm font-semibold uppercase tracking-widest text-foreground hover:text-primary transition-colors"
+          >
+            Tous les devis <ArrowRight className="inline size-3.5" />
+          </Link>
         </div>
 
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {SERVICES.map((s) => (
             <article
               key={s.slug}
-              className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-[var(--shadow-soft)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-card)]"
+              className="group flex flex-col rounded-2xl border border-border bg-card p-7 shadow-[var(--shadow-soft)] transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-card)]"
             >
-              {/* Top accent */}
-              <div className="h-1 w-full bg-primary-gradient opacity-0 transition-opacity group-hover:opacity-100" />
-              <div className="flex flex-col p-6">
-                <span className="text-3xl">{SERVICE_ICONS[s.slug] ?? "✨"}</span>
-                <h3 className="mt-3 text-lg font-bold">{s.short}</h3>
-                <p className="mt-2 flex-1 text-sm text-muted-foreground leading-relaxed">{s.subtitle}</p>
-                <Link
-                  to={s.slug}
-                  className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:gap-2.5 transition-all"
-                >
-                  En savoir plus <ArrowRight className="size-4" />
-                </Link>
+              <div className="flex size-11 items-center justify-center rounded-xl border border-border text-muted-foreground transition-colors group-hover:border-primary/30 group-hover:text-primary">
+                {SERVICE_ICONS[s.slug] ?? <Sparkles className="size-6" />}
               </div>
+              <h3 className="mt-4 text-lg font-bold leading-snug">{s.short}</h3>
+              <p className="mt-2 flex-1 text-sm text-muted-foreground leading-relaxed">{s.subtitle}</p>
+              <Link
+                to={s.slug}
+                className="mt-5 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-foreground/60 transition-colors hover:text-primary group-hover:text-primary"
+              >
+                En savoir plus <ArrowRight className="size-3.5" />
+              </Link>
             </article>
           ))}
         </div>
@@ -235,19 +303,13 @@ function Index() {
             ))}
           </div>
           <div className="mt-10 flex flex-wrap gap-3 justify-center">
-            <Button
-              asChild
-              size="xl"
-              className="bg-accent-gradient text-accent-foreground font-bold hover:opacity-90"
-            >
-              <a href={COMPANY.booking} target="_blank" rel="noopener noreferrer">
+            <Button asChild size="xl" className="bg-accent-gradient text-accent-foreground font-bold hover:opacity-90">
+              <Link to="/reserver">
                 <CalendarCheck /> Réserver un créneau
-              </a>
+              </Link>
             </Button>
             <Button asChild variant="outline" size="xl">
-              <a href={COMPANY.phoneHref}>
-                <Phone /> {COMPANY.phone}
-              </a>
+              <a href={COMPANY.phoneHref}><Phone /> {COMPANY.phone}</a>
             </Button>
           </div>
         </div>
@@ -270,37 +332,56 @@ function Index() {
         </div>
       </section>
 
-      {/* ── TESTIMONIALS ── */}
+      {/* ── CARROUSEL AVIS GOOGLE ── */}
+      <ReviewsCarousel />
+
+      {/* ── GALERIE AVANT / APRÈS ── */}
       <section className="bg-secondary/60 py-20">
         <div className="mx-auto max-w-6xl px-4">
-          <p className="text-xs font-bold uppercase tracking-widest text-primary">Avis clients</p>
-          <h2 className="mt-2 text-4xl font-bold tracking-tight">Ce que disent nos clients</h2>
-          <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {TESTIMONIALS.map((t) => (
-              <figure
-                key={t.name}
-                className="flex flex-col rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-soft)]"
-              >
-                <div className="flex items-center gap-0.5">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className="size-4 fill-accent text-accent" />
-                  ))}
-                </div>
-                <Quote className="mt-4 size-5 text-primary/40" />
-                <blockquote className="mt-2 flex-1 text-sm text-muted-foreground leading-relaxed">
-                  {t.text}
-                </blockquote>
-                <figcaption className="mt-5 flex items-center justify-between border-t border-border pt-4">
-                  <div>
-                    <p className="text-sm font-bold">{t.name}</p>
-                    <p className="text-xs text-muted-foreground">{t.city}</p>
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-widest text-primary">Nos réalisations</p>
+              <h2 className="mt-2 text-4xl font-bold tracking-tight">La différence Clean&Fresh</h2>
+              <p className="mt-2 text-muted-foreground">Photos réelles prises chez nos clients à Toulouse.</p>
+            </div>
+            <Link
+              to="/reserver"
+              className="inline-flex items-center gap-2 rounded-full bg-accent-gradient px-5 py-2.5 text-sm font-bold text-accent-foreground hover:opacity-90 transition-opacity"
+            >
+              <CalendarCheck className="size-4" /> Je réserve maintenant
+            </Link>
+          </div>
+          <div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
+            {[
+              { src: avantCanape, label: "Avant", sublabel: "Canapé encrassé" },
+              { src: apresCanape, label: "Après", sublabel: "Canapé ravivé" },
+              { src: avantAuto, label: "Avant", sublabel: "Habitacle sale" },
+              { src: apresAuto, label: "Après", sublabel: "Comme neuf" },
+            ].map((img) => {
+              const isAfter = img.label === "Après";
+              return (
+                <figure key={img.sublabel} className="group overflow-hidden rounded-2xl shadow-[var(--shadow-card)]">
+                  <div className="relative">
+                    <img
+                      src={img.src}
+                      alt={`${img.label} — ${img.sublabel}`}
+                      loading="lazy"
+                      className="h-52 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <span className={`absolute left-3 top-3 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider ${
+                      isAfter
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-black/50 text-white backdrop-blur"
+                    }`}>
+                      {img.label}
+                    </span>
                   </div>
-                  <span className="rounded-full bg-secondary px-2.5 py-1 text-[10px] font-semibold text-primary">
-                    {t.service}
-                  </span>
-                </figcaption>
-              </figure>
-            ))}
+                  <figcaption className="bg-card px-4 py-2.5 text-sm font-medium text-muted-foreground">
+                    {img.sublabel}
+                  </figcaption>
+                </figure>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -318,10 +399,7 @@ function Index() {
             </p>
             <ul className="mt-6 flex flex-wrap gap-2">
               {COMMUNES.map((c) => (
-                <li
-                  key={c}
-                  className="rounded-full border border-border bg-card px-3 py-1 text-sm font-medium text-muted-foreground"
-                >
+                <li key={c} className="rounded-full border border-border bg-card px-3 py-1 text-sm font-medium text-muted-foreground">
                   {c}
                 </li>
               ))}
@@ -337,21 +415,20 @@ function Index() {
               Choisissez votre créneau en ligne en moins de 2 minutes, ou demandez un devis gratuit. Nous répondons sous 24h.
             </p>
             <div className="mt-6 grid gap-3">
-              <Button
-                asChild
-                size="xl"
-                className="w-full bg-accent-gradient text-accent-foreground font-bold hover:opacity-90"
-              >
-                <a href={COMPANY.booking} target="_blank" rel="noopener noreferrer">
+              <Button asChild size="xl" className="w-full bg-accent-gradient text-accent-foreground font-bold hover:opacity-90">
+                <Link to="/reserver">
                   <CalendarCheck /> Réserver en ligne
-                </a>
+                </Link>
               </Button>
               <Button asChild variant="onDark" size="xl" className="w-full">
                 <Link to="/contactez-nous">Demander un devis gratuit</Link>
               </Button>
             </div>
             <p className="mt-4 text-center text-xs text-ink-foreground/50">
-              Ou appelez directement : <a href={COMPANY.phoneHref} className="font-semibold text-ink-foreground/80 hover:text-ink-foreground">{COMPANY.phone}</a>
+              Ou appelez directement :{" "}
+              <a href={COMPANY.phoneHref} className="font-semibold text-ink-foreground/80 hover:text-ink-foreground">
+                {COMPANY.phone}
+              </a>
             </p>
           </div>
         </div>
