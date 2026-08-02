@@ -26,6 +26,7 @@ import { Route as NettoyageMatelasToulouseRouteImport } from './routes/nettoyage
 import { Route as NettoyageTapisToulouseRouteImport } from './routes/nettoyage-tapis-toulouse'
 import { Route as NettoyageTerrasseToulouseRouteImport } from './routes/nettoyage-terrasse-toulouse'
 import { Route as NettoyageToitureToulouseRouteImport } from './routes/nettoyage-toiture-toulouse'
+import { Route as NosRealisationsRouteImport } from './routes/nos-realisations'
 import { Route as NosServicesRouteImport } from './routes/nos-services'
 import { Route as ReserverRouteImport } from './routes/reserver'
 
@@ -124,6 +125,11 @@ const NettoyageToitureToulouseRoute =
     path: '/nettoyage-toiture-toulouse',
     getParentRoute: () => rootRouteImport,
   } as any)
+const NosRealisationsRoute = NosRealisationsRouteImport.update({
+  id: '/nos-realisations',
+  path: '/nos-realisations',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NosServicesRoute = NosServicesRouteImport.update({
   id: '/nos-services',
   path: '/nos-services',
@@ -153,6 +159,7 @@ export interface FileRoutesByFullPath {
   '/nettoyage-tapis-toulouse': typeof NettoyageTapisToulouseRoute
   '/nettoyage-terrasse-toulouse': typeof NettoyageTerrasseToulouseRoute
   '/nettoyage-toiture-toulouse': typeof NettoyageToitureToulouseRoute
+  '/nos-realisations': typeof NosRealisationsRoute
   '/nos-services': typeof NosServicesRoute
   '/reserver': typeof ReserverRoute
 }
@@ -174,6 +181,7 @@ export interface FileRoutesByTo {
   '/nettoyage-tapis-toulouse': typeof NettoyageTapisToulouseRoute
   '/nettoyage-terrasse-toulouse': typeof NettoyageTerrasseToulouseRoute
   '/nettoyage-toiture-toulouse': typeof NettoyageToitureToulouseRoute
+  '/nos-realisations': typeof NosRealisationsRoute
   '/nos-services': typeof NosServicesRoute
   '/reserver': typeof ReserverRoute
 }
@@ -196,6 +204,7 @@ export interface FileRoutesById {
   '/nettoyage-tapis-toulouse': typeof NettoyageTapisToulouseRoute
   '/nettoyage-terrasse-toulouse': typeof NettoyageTerrasseToulouseRoute
   '/nettoyage-toiture-toulouse': typeof NettoyageToitureToulouseRoute
+  '/nos-realisations': typeof NosRealisationsRoute
   '/nos-services': typeof NosServicesRoute
   '/reserver': typeof ReserverRoute
 }
@@ -219,6 +228,7 @@ export interface FileRouteTypes {
     | '/nettoyage-tapis-toulouse'
     | '/nettoyage-terrasse-toulouse'
     | '/nettoyage-toiture-toulouse'
+    | '/nos-realisations'
     | '/nos-services'
     | '/reserver'
   fileRoutesByTo: FileRoutesByTo
@@ -240,6 +250,7 @@ export interface FileRouteTypes {
     | '/nettoyage-tapis-toulouse'
     | '/nettoyage-terrasse-toulouse'
     | '/nettoyage-toiture-toulouse'
+    | '/nos-realisations'
     | '/nos-services'
     | '/reserver'
   id:
@@ -261,6 +272,7 @@ export interface FileRouteTypes {
     | '/nettoyage-tapis-toulouse'
     | '/nettoyage-terrasse-toulouse'
     | '/nettoyage-toiture-toulouse'
+    | '/nos-realisations'
     | '/nos-services'
     | '/reserver'
   fileRoutesById: FileRoutesById
@@ -283,6 +295,7 @@ export interface RootRouteChildren {
   NettoyageTapisToulouseRoute: typeof NettoyageTapisToulouseRoute
   NettoyageTerrasseToulouseRoute: typeof NettoyageTerrasseToulouseRoute
   NettoyageToitureToulouseRoute: typeof NettoyageToitureToulouseRoute
+  NosRealisationsRoute: typeof NosRealisationsRoute
   NosServicesRoute: typeof NosServicesRoute
   ReserverRoute: typeof ReserverRoute
 }
@@ -408,6 +421,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NettoyageToitureToulouseRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/nos-realisations': {
+      id: '/nos-realisations'
+      path: '/nos-realisations'
+      fullPath: '/nos-realisations'
+      preLoaderRoute: typeof NosRealisationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/nos-services': {
       id: '/nos-services'
       path: '/nos-services'
@@ -443,6 +463,7 @@ const rootRouteChildren: RootRouteChildren = {
   NettoyageTapisToulouseRoute: NettoyageTapisToulouseRoute,
   NettoyageTerrasseToulouseRoute: NettoyageTerrasseToulouseRoute,
   NettoyageToitureToulouseRoute: NettoyageToitureToulouseRoute,
+  NosRealisationsRoute: NosRealisationsRoute,
   NosServicesRoute: NosServicesRoute,
   ReserverRoute: ReserverRoute,
 }

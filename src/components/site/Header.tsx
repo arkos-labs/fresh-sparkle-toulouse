@@ -76,6 +76,9 @@ export function Header() {
             </div>
           </div>
 
+          <Link to="/nos-realisations" className="px-3 py-2 text-sm font-medium text-foreground/75 transition-colors hover:text-primary">
+            Réalisations
+          </Link>
           <Link to="/formules" className="px-3 py-2 text-sm font-medium text-foreground/75 transition-colors hover:text-primary">
             Tarifs
           </Link>
