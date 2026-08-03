@@ -5,6 +5,7 @@ import {
   CheckCircle2, Info, Layers, BedDouble, MapPin, Zap, Shield, Leaf, ChevronDown, ChevronRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { COMPANY } from "@/data/site";
 
 const TITLE = "Tarifs nettoyage à domicile Toulouse — Clean&Fresh";
@@ -165,73 +166,19 @@ function OptionsBlock({ options }: { options: { name: string; price: number; des
 
 // ─── CANAPÉ DETAIL ────────────────────────────────────────────────────────────
 
-const CANAPE_SVGS: Record<string, ReactNode> = {
-  "fauteuil": (
-    <svg viewBox="0 0 80 62" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-      <rect x="14" y="52" width="6" height="9" rx="3" fill="currentColor" opacity="0.35"/>
-      <rect x="60" y="52" width="6" height="9" rx="3" fill="currentColor" opacity="0.35"/>
-      <rect x="10" y="32" width="60" height="22" rx="8" fill="currentColor"/>
-      <rect x="10" y="8" width="60" height="26" rx="8" fill="currentColor" opacity="0.6"/>
-      <rect x="3" y="29" width="13" height="18" rx="6" fill="currentColor" opacity="0.85"/>
-      <rect x="64" y="29" width="13" height="18" rx="6" fill="currentColor" opacity="0.85"/>
-    </svg>
-  ),
-  "canape-2-3": (
-    <svg viewBox="0 0 100 62" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-      <rect x="12" y="52" width="6" height="9" rx="3" fill="currentColor" opacity="0.35"/>
-      <rect x="82" y="52" width="6" height="9" rx="3" fill="currentColor" opacity="0.35"/>
-      <rect x="8" y="32" width="38" height="22" rx="7" fill="currentColor"/>
-      <rect x="54" y="32" width="38" height="22" rx="7" fill="currentColor"/>
-      <rect x="8" y="8" width="84" height="26" rx="8" fill="currentColor" opacity="0.6"/>
-      <rect x="2" y="29" width="11" height="18" rx="5" fill="currentColor" opacity="0.85"/>
-      <rect x="87" y="29" width="11" height="18" rx="5" fill="currentColor" opacity="0.85"/>
-    </svg>
-  ),
-  "canape-4-5": (
-    <svg viewBox="0 0 140 62" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-      <rect x="14" y="52" width="6" height="9" rx="3" fill="currentColor" opacity="0.35"/>
-      <rect x="120" y="52" width="6" height="9" rx="3" fill="currentColor" opacity="0.35"/>
-      <rect x="10" y="32" width="26" height="22" rx="6" fill="currentColor"/>
-      <rect x="40" y="32" width="26" height="22" rx="6" fill="currentColor"/>
-      <rect x="70" y="32" width="26" height="22" rx="6" fill="currentColor"/>
-      <rect x="100" y="32" width="26" height="22" rx="6" fill="currentColor"/>
-      <rect x="10" y="8" width="116" height="26" rx="8" fill="currentColor" opacity="0.6"/>
-      <rect x="3" y="29" width="10" height="18" rx="5" fill="currentColor" opacity="0.85"/>
-      <rect x="127" y="29" width="10" height="18" rx="5" fill="currentColor" opacity="0.85"/>
-    </svg>
-  ),
-  "canape-u": (
-    <svg viewBox="0 0 90 82" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-      <rect x="3" y="6" width="60" height="22" rx="7" fill="currentColor" opacity="0.6"/>
-      <rect x="3" y="26" width="60" height="20" rx="7" fill="currentColor"/>
-      <rect x="58" y="6" width="26" height="52" rx="7" fill="currentColor" opacity="0.6"/>
-      <rect x="58" y="26" width="26" height="30" rx="7" fill="currentColor"/>
-      <rect x="1" y="23" width="10" height="17" rx="5" fill="currentColor" opacity="0.85"/>
-      <rect x="3" y="57" width="56" height="10" rx="5" fill="currentColor" opacity="0.85"/>
-      <rect x="8" y="65" width="5" height="10" rx="2" fill="currentColor" opacity="0.35"/>
-      <rect x="44" y="65" width="5" height="10" rx="2" fill="currentColor" opacity="0.35"/>
-    </svg>
-  ),
-  "pouf": (
-    <svg viewBox="0 0 80 52" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-      <ellipse cx="40" cy="44" rx="30" ry="6" fill="currentColor" opacity="0.2"/>
-      <rect x="6" y="20" width="68" height="24" rx="12" fill="currentColor" opacity="0.7"/>
-      <rect x="10" y="10" width="60" height="26" rx="13" fill="currentColor"/>
-      <rect x="18" y="8" width="44" height="14" rx="7" fill="currentColor" opacity="0.4"/>
-    </svg>
-  ),
-  "chaise": (
-    <svg viewBox="0 0 60 82" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-      <rect x="16" y="10" width="5" height="68" rx="2.5" fill="currentColor" opacity="0.3"/>
-      <rect x="39" y="10" width="5" height="68" rx="2.5" fill="currentColor" opacity="0.3"/>
-      <rect x="12" y="56" width="6" height="22" rx="3" fill="currentColor" opacity="0.5"/>
-      <rect x="42" y="56" width="6" height="22" rx="3" fill="currentColor" opacity="0.5"/>
-      <rect x="10" y="8" width="40" height="24" rx="7" fill="currentColor" opacity="0.65"/>
-      <rect x="6" y="38" width="48" height="20" rx="8" fill="currentColor"/>
-      <rect x="6" y="54" width="48" height="6" rx="3" fill="currentColor" opacity="0.5"/>
-    </svg>
-  ),
+const CANAPE_IMAGES: Record<string, string> = {
+  "fauteuil": "/images/canape/fauteuil.png",
+  "canape-2-3": "/images/canape/canape-2-3.png",
+  "canape-4-5": "/images/canape/canape-4-5.png",
+  "canape-u": "/images/canape/canape-u.png",
+  "pouf": "/images/canape/pouf.png",
+  "chaise": "/images/canape/chaise.png",
 };
+
+
+const CARD_UNSELECTED_CLASS = "relative flex flex-col items-center rounded-[20px] border border-transparent bg-[#e5e9f0]/60 px-2 py-4 text-center transition-all duration-300 shadow-[0_4px_20px_-5px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_25px_-5px_rgba(0,0,0,0.1)] hover:-translate-y-1";
+const CARD_SELECTED_CLASS = "relative flex flex-col items-center rounded-[20px] border-2 border-[#7cdcdc] bg-[#d0ebeb]/80 px-2 py-4 text-center transition-all duration-300 shadow-[0_0_30px_-5px_rgba(124,220,220,0.7)]";
+const BADGE_CLASS = "absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-lg border border-[#d4af37] bg-[#1a2b4c] px-3 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[#d4af37] shadow-lg";
 
 function CanapeDetail() {
   const [selected, setSelected] = useState("canape-2-3");
@@ -239,36 +186,25 @@ function CanapeDetail() {
 
   return (
     <div>
-      {/* Card grid selector */}
-      <div className="grid grid-cols-3 sm:grid-cols-6 gap-2.5 mb-5">
+      <div className="grid grid-cols-3 sm:grid-cols-6 gap-4 mb-6">
         {CANAPE_ITEMS.map((c) => {
           const isSelected = selected === c.id;
           return (
             <button
               key={c.id}
               onClick={() => setSelected(c.id)}
-              className={[
-                "relative flex flex-col items-center rounded-xl border-2 px-2 py-3 text-center transition-all",
-                isSelected
-                  ? "border-primary bg-primary/5 shadow-md"
-                  : "border-border bg-white hover:border-primary/40 hover:shadow-sm",
-              ].join(" ")}
+              className={isSelected ? CARD_SELECTED_CLASS : CARD_UNSELECTED_CLASS}
             >
-              {"popular" in c && c.popular && (
-                <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-primary px-2 py-0.5 text-[8px] font-bold uppercase tracking-wide text-white shadow">
-                  Le plus choisi
-                </span>
-              )}
 
-              <div className={`w-14 h-10 mb-2 mt-0.5 ${isSelected ? "text-primary" : "text-primary/60"}`}>
-                {CANAPE_SVGS[c.id]}
+              <div className={`flex items-center justify-center w-full h-24 sm:h-32 mb-3 mt-1 px-0 transition-colors ${isSelected ? "text-[#1a2b4c]" : "text-primary/70"}`}>
+                <img src={CANAPE_IMAGES[c.id]} alt={c.label} className="w-full h-full object-contain mix-blend-multiply scale-125 sm:scale-[1.35]" />
               </div>
 
-              <p className="text-[8px] font-semibold uppercase tracking-widest text-muted-foreground leading-none">Dès</p>
-              <p className={`text-base font-bold leading-tight mt-0.5 ${isSelected ? "text-primary" : "text-foreground"}`}>
+              <p className="text-[9px] font-semibold uppercase tracking-widest text-muted-foreground/80 leading-none">Dès</p>
+              <p className={`text-lg font-bold leading-tight mt-1 ${isSelected ? "text-[#1a2b4c]" : "text-foreground"}`}>
                 {c.price}
               </p>
-              <p className="text-[10px] font-semibold text-muted-foreground leading-snug mt-1 text-center">
+              <p className="text-[11px] font-medium text-muted-foreground leading-snug mt-1.5 text-center px-1">
                 {c.label}
               </p>
             </button>
@@ -276,33 +212,30 @@ function CanapeDetail() {
         })}
       </div>
 
-      {/* Detail panel for selected type */}
-      <div className="rounded-2xl border border-primary/20 bg-white p-6 shadow-sm">
-        <div className="flex flex-col sm:flex-row sm:items-start gap-6">
+      {/* Detail panel */}
+      <div className="rounded-[24px] border border-primary/10 bg-white p-7 shadow-lg">
+        <div className="flex flex-col sm:flex-row sm:items-start gap-8">
           <div className="flex-1">
-            <div className="flex items-center gap-3 mb-1">
-              <div className="w-14 h-10 text-primary shrink-0">{CANAPE_SVGS[item.id]}</div>
-              <h3 className="text-xl font-bold">{item.label}</h3>
-            </div>
-            <p className="mt-1 text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
-            <div className="mt-4 space-y-2">
+            
+            <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+            <div className="mt-5 space-y-2.5">
               {["Injection-extraction professionnelle", "Tâches, auréoles et odeurs éliminées", "Résultat visible immédiatement", "Satisfait ou on revient gratuitement"].map((pt) => (
-                <div key={pt} className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <CheckCircle2 className="size-4 shrink-0 text-primary" /> {pt}
+                <div key={pt} className="flex items-center gap-3 text-sm text-foreground/80 font-medium">
+                  <CheckCircle2 className="size-4.5 shrink-0 text-primary" /> {pt}
                 </div>
               ))}
             </div>
           </div>
-          <div className="flex flex-col items-start sm:items-end shrink-0 gap-3">
+          <div className="flex flex-col items-start sm:items-end shrink-0 gap-4 bg-secondary/30 p-5 rounded-2xl w-full sm:w-auto">
             <div className="sm:text-right">
-              <p className="text-xs text-muted-foreground uppercase tracking-wider">À partir de</p>
-              <p className="text-5xl font-bold text-primary leading-none mt-0.5">{item.price}</p>
+              <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold">À partir de</p>
+              <p className="text-5xl font-black text-primary leading-none mt-1">{item.price}</p>
             </div>
             <a href={COMPANY.booking} target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-white hover:opacity-90 transition-opacity">
+              className="inline-flex items-center justify-center gap-2 w-full rounded-xl bg-primary px-6 py-3.5 text-sm font-bold text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all">
               <CalendarCheck className="size-4" /> Je réserve
             </a>
-            <p className="text-xs text-muted-foreground">Déplacement gratuit · Paiement sur place</p>
+            <p className="text-xs text-muted-foreground/80 font-medium">Déplacement gratuit · Paiement sur place</p>
           </div>
         </div>
       </div>
@@ -438,17 +371,83 @@ const SVG_MATELAS_2PLACES = (
 
 // ─── TAPIS DETAIL ─────────────────────────────────────────────────────────────
 
+const TAPIS_ITEMS = [
+  { id: "1-tapis", label: "1 tapis", price: "49 €", desc: "Fibres et couleurs ravivées, tâches et odeurs éliminées. Satisfait ou on revient." },
+  { id: "2-tapis", label: "2 tapis", price: "79 €", popular: true, desc: "Économisez 19 € vs 2 × 1 tapis. Tâches et odeurs éliminées. Satisfait ou on revient." },
+  { id: "3-tapis", label: "3 tapis", price: "99 €", desc: "Toute la maison en 1 visite. Tâches et odeurs éliminées. Satisfait ou on revient." },
+];
+
 function TapisDetail() {
+  const [selected, setSelected] = useState("2-tapis");
+  const item = TAPIS_ITEMS.find((i) => i.id === selected)!;
+
+  const TAPIS_IMAGES: Record<string, string> = {
+    "1-tapis": "/images/tapis/1-tapis.png",
+    "2-tapis": "/images/tapis/2-tapis.png",
+    "3-tapis": "/images/tapis/3-tapis.png",
+  };
+
   return (
     <div>
-      <div className="grid gap-4 sm:grid-cols-3">
-        <MiniPriceCard title="1 tapis" price="49 €" icon={SVG_1_TAPIS}
-          items={["Fibres et couleurs ravivées", "Tâches et odeurs éliminées", "Résultat visible immédiatement", "Satisfait ou on revient"]} />
-        <MiniPriceCard title="2 tapis" price="79 €" badge="💰 Meilleur rapport qualité/prix" featured icon={SVG_2_TAPIS}
-          items={["Économisez 19 € vs 2 × 1 tapis", "Tâches et odeurs éliminées", "Résultat visible immédiatement", "Satisfait ou on revient"]} />
-        <MiniPriceCard title="3 tapis" price="99 €" icon={SVG_3_TAPIS}
-          items={["Toute la maison en 1 visite", "Tâches et odeurs éliminées", "Résultat visible immédiatement", "Satisfait ou on revient"]} />
+      <div className="grid grid-cols-3 gap-3 mb-6">
+        {TAPIS_ITEMS.map((c) => {
+          const isSelected = selected === c.id;
+          return (
+            <button
+              key={c.id}
+              onClick={() => setSelected(c.id)}
+              className={isSelected ? CARD_SELECTED_CLASS : CARD_UNSELECTED_CLASS}
+            >
+              {"popular" in c && c.popular && (
+                <span className={BADGE_CLASS}>
+                  Populaire
+                </span>
+              )}
+
+              <div className={`flex items-center justify-center w-full h-32 sm:h-48 mb-3 mt-1 px-0 transition-colors ${isSelected ? "text-[#1a2b4c]" : "text-primary/70"}`}>
+                <img src={TAPIS_IMAGES[c.id]} alt={c.label} className="w-full h-full object-contain mix-blend-multiply scale-125 sm:scale-150" />
+              </div>
+
+              <p className="text-[9px] font-semibold uppercase tracking-widest text-muted-foreground/80 leading-none">Dès</p>
+              <p className={`text-lg font-bold leading-tight mt-1 ${isSelected ? "text-[#1a2b4c]" : "text-foreground"}`}>
+                {c.price}
+              </p>
+              <p className="text-[11px] font-medium text-muted-foreground leading-snug mt-1.5 text-center px-1">
+                {c.label}
+              </p>
+            </button>
+          );
+        })}
       </div>
+
+      {/* Detail panel */}
+      <div className="rounded-[24px] border border-primary/10 bg-white p-7 shadow-lg">
+        <div className="flex flex-col sm:flex-row sm:items-start gap-8">
+          <div className="flex-1">
+            
+            <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+            <div className="mt-5 space-y-2.5">
+              {["Injection-extraction professionnelle", "Tâches, auréoles et odeurs éliminées", "Résultat visible immédiatement", "Satisfait ou on revient gratuitement"].map((pt) => (
+                <div key={pt} className="flex items-center gap-3 text-sm text-foreground/80 font-medium">
+                  <CheckCircle2 className="size-4.5 shrink-0 text-primary" /> {pt}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="flex flex-col items-start sm:items-end shrink-0 gap-4 bg-secondary/30 p-5 rounded-2xl w-full sm:w-auto">
+            <div className="sm:text-right">
+              <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold">À partir de</p>
+              <p className="text-5xl font-black text-primary leading-none mt-1">{item.price}</p>
+            </div>
+            <a href={COMPANY.booking} target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 w-full rounded-xl bg-primary px-6 py-3.5 text-sm font-bold text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all">
+              <CalendarCheck className="size-4" /> Je réserve
+            </a>
+            <p className="text-xs text-muted-foreground/80 font-medium">Déplacement gratuit · Paiement sur place</p>
+          </div>
+        </div>
+      </div>
+
       <OptionsBlock options={TAPIS_OPTIONS} />
     </div>
   );
@@ -456,108 +455,167 @@ function TapisDetail() {
 
 // ─── AUTO DETAIL ──────────────────────────────────────────────────────────────
 
+const AUTO_IMAGES: Record<string, string> = {
+  "bronze": "/images/auto/bronze.png",
+  "argent": "/images/auto/argent.png",
+  "or": "/images/auto/or.png",
+};
+
+const AUTO_GRID_ITEMS = [
+  ...AUTO_PACKS
+];
+
 function AutoDetail() {
-  const [expanded, setExpanded] = useState<string | null>(null);
+  const [selected, setSelected] = useState("argent");
+  const item = AUTO_GRID_ITEMS.find((i) => i.id === selected)!;
 
   return (
     <div>
-      <div className="grid gap-4 sm:grid-cols-3">
-        {AUTO_PACKS.map((pack) => (
-          <div key={pack.id} className={[
-            "relative flex flex-col rounded-2xl shadow-sm",
-            pack.featured ? "bg-primary text-white ring-2 ring-primary scale-[1.02]" : "border border-border bg-white",
-          ].join(" ")}>
-            {pack.badge && (
-              <span className={[
-                "absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full px-3 py-1 text-[10px] font-bold shadow",
-                pack.featured ? "bg-white text-primary" : "bg-primary text-white",
-              ].join(" ")}>{pack.badge}</span>
-            )}
-            <div className="flex flex-col flex-1 p-5">
-              <div className={`w-20 h-12 mb-3 ${pack.featured ? "text-white/80" : "text-primary/70"}`}>{SVG_AUTO}</div>
-              <h3 className={`text-base font-bold ${pack.featured ? "text-white" : "text-foreground"}`}>{pack.name}</h3>
-              <p className={`text-xs mt-0.5 ${pack.featured ? "text-white/70" : "text-muted-foreground"}`}>{pack.tagline}</p>
-              <p className={`mt-2.5 text-3xl font-bold leading-none ${pack.featured ? "text-white" : "text-primary"}`}>{pack.price}</p>
-
-              <ul className="mt-4 flex-1 space-y-2">
-                {pack.included.map((item, i) => (
-                  <li key={i} className="flex items-start gap-2 text-xs">
-                    <CheckCircle2 className={`size-3.5 shrink-0 mt-0.5 ${pack.featured ? "text-white/80" : "text-primary"}`} />
-                    <span className={pack.featured ? "text-white/90" : "text-muted-foreground"}>{item}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <button
-                onClick={() => setExpanded(expanded === pack.id ? null : pack.id)}
-                className={[
-                  "mt-4 flex w-full items-center justify-between rounded-xl px-3 py-2 text-xs font-semibold transition-colors",
-                  pack.featured ? "bg-white/20 text-white hover:bg-white/30" : "border border-border bg-secondary/50 text-foreground hover:border-primary hover:text-primary",
-                ].join(" ")}>
-                {expanded === pack.id ? "Masquer les options" : "Voir les options"}
-                <ChevronDown className={`size-3.5 transition-transform duration-200 ${expanded === pack.id ? "rotate-180" : ""}`} />
-              </button>
-
-              {expanded === pack.id && (
-                <div className="mt-2.5 space-y-1.5">
-                  {pack.options.map((opt) => (
-                    <div key={opt.name} className={[
-                      "flex items-center justify-between rounded-lg px-2.5 py-2 text-xs",
-                      pack.featured ? "bg-white/15" : "border border-border bg-secondary/40",
-                    ].join(" ")}>
-                      <div className="flex items-center gap-1.5 flex-1 min-w-0">
-                        <CheckCircle2 className={`size-3 shrink-0 ${pack.featured ? "text-white/70" : "text-primary"}`} />
-                        <span className={`font-medium truncate ${pack.featured ? "text-white/90" : "text-foreground"}`}>{opt.name}</span>
-                        {opt.popular && (
-                          <span className={["rounded-full px-1 py-px text-[8px] font-bold uppercase shrink-0", pack.featured ? "bg-white/20 text-white" : "bg-primary/10 text-primary"].join(" ")}>Pop.</span>
-                        )}
-                      </div>
-                      <span className={`font-bold ml-2 shrink-0 ${pack.featured ? "text-white" : "text-primary"}`}>+{opt.price} €</span>
-                    </div>
-                  ))}
-                </div>
+      <div className="grid grid-cols-3 gap-3 mb-6">
+        {AUTO_GRID_ITEMS.map((c) => {
+          const isSelected = selected === c.id;
+          return (
+            <button
+              key={c.id}
+              onClick={() => setSelected(c.id)}
+              className={isSelected ? CARD_SELECTED_CLASS : CARD_UNSELECTED_CLASS}
+            >
+              {c.badge && (
+                <span className={BADGE_CLASS}>
+                  {c.badge.replace("⭐ ", "").replace("✨ ", "")}
+                </span>
               )}
 
-              <a href={COMPANY.booking} target="_blank" rel="noopener noreferrer"
-                className={["mt-3 inline-flex w-full items-center justify-center gap-1.5 rounded-xl py-2.5 text-xs font-bold transition-opacity hover:opacity-90", pack.featured ? "bg-white text-primary" : "bg-primary text-white"].join(" ")}>
-                <CalendarCheck className="size-3.5" /> Je réserve
-              </a>
-            </div>
-          </div>
-        ))}
+              <div className={`flex items-center justify-center w-full h-24 sm:h-32 mb-3 mt-1 px-2 transition-colors ${isSelected ? "text-[#1a2b4c]" : "text-primary/70"}`}>
+                <img src={AUTO_IMAGES[c.id]} alt={c.name} className="w-full h-full object-contain mix-blend-multiply scale-110" />
+              </div>
+
+              <p className="text-[9px] font-semibold uppercase tracking-widest text-muted-foreground/80 leading-none">{c.tagline}</p>
+              <p className={`text-lg font-bold leading-tight mt-1 ${isSelected ? "text-[#1a2b4c]" : "text-foreground"}`}>
+                {c.price}
+              </p>
+              <p className="text-[11px] font-medium text-muted-foreground leading-snug mt-1.5 text-center px-1">
+                {c.name}
+              </p>
+            </button>
+          );
+        })}
       </div>
 
-      {/* Siège isolé */}
-      <div className="mt-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 rounded-2xl border border-border bg-white p-4">
-        <div className="flex-1">
-          <p className="text-sm font-bold">Siège auto isolé</p>
-          <p className="mt-0.5 text-xs text-muted-foreground">Siège enfant, conducteur ou passager — tâches et odeurs disparues.</p>
-        </div>
-        <div className="flex items-center gap-3 shrink-0">
-          <p className="text-2xl font-bold text-primary">59 €</p>
-          <a href={COMPANY.booking} target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-xl bg-primary px-3.5 py-2 text-xs font-bold text-white hover:opacity-90">
-            <CalendarCheck className="size-3.5" /> Je réserve
-          </a>
+      {/* Detail panel */}
+      <div className="rounded-[24px] border border-primary/10 bg-white p-7 shadow-lg">
+        <div className="flex flex-col sm:flex-row sm:items-start gap-8">
+          <div className="flex-1">
+            
+            <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{item.tagline}</p>
+            <div className="mt-5 space-y-2.5">
+              {item.included.map((pt) => (
+                <div key={pt} className="flex items-center gap-3 text-sm text-foreground/80 font-medium">
+                  <CheckCircle2 className="size-4.5 shrink-0 text-primary" /> {pt}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="flex flex-col items-start sm:items-end shrink-0 gap-4 bg-secondary/30 p-5 rounded-2xl w-full sm:w-auto">
+            <div className="sm:text-right">
+              <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold">Tarif</p>
+              <p className="text-5xl font-black text-primary leading-none mt-1">{item.price}</p>
+            </div>
+            <a href={COMPANY.booking} target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 w-full rounded-xl bg-primary px-6 py-3.5 text-sm font-bold text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all">
+              <CalendarCheck className="size-4" /> Je réserve
+            </a>
+            <p className="text-xs text-muted-foreground/80 font-medium">Déplacement gratuit · Paiement sur place</p>
+          </div>
         </div>
       </div>
+
+      {item.options && item.options.length > 0 && (
+        <OptionsBlock options={item.options.map(o => ({...o, desc: "S'ajoute au tarif de base lors de la réservation."}))} />
+      )}
     </div>
   );
 }
 
 // ─── MATELAS DETAIL ───────────────────────────────────────────────────────────
 
+const MATELAS_ITEMS = [
+  { id: "enfant", label: "Matelas enfant", price: "39 €", desc: "Votre enfant dort dans un lit sain. Tâches et odeurs éliminées, 2 côtés. Anti-acariens inclus d'office." },
+  { id: "1-place", label: "Matelas 1 place", price: "59 €", popular: true, desc: "Dormez dans un matelas comme neuf. Tâches et odeurs éliminées, 2 côtés. Anti-acariens inclus d'office." },
+  { id: "2-places", label: "Matelas 2 places", price: "99 €", desc: "Chambre entièrement assainie. Tâches et odeurs éliminées, 2 côtés. Anti-acariens inclus d'office." },
+];
+
 function MatelasDetail() {
+  const [selected, setSelected] = useState("1-place");
+  const item = MATELAS_ITEMS.find((i) => i.id === selected)!;
+
+  const MATELAS_IMAGES: Record<string, string> = {
+    "enfant": "/images/matelas/enfant.png",
+    "1-place": "/images/matelas/1-place.png",
+    "2-places": "/images/matelas/2-places.png",
+  };
+
   return (
     <div>
-      <div className="grid gap-4 sm:grid-cols-3">
-        <MiniPriceCard title="Matelas enfant" price="39 €" icon={SVG_MATELAS_ENFANT}
-          items={["Votre enfant dort dans un lit sain", "Anti-acariens inclus", "Tâches et odeurs éliminées, 2 côtés", "Satisfait ou on revient"]} />
-        <MiniPriceCard title="Matelas 1 place" price="59 €" badge="🌿 Recommandé" featured icon={SVG_MATELAS_1PLACE}
-          items={["Dormez dans un matelas comme neuf", "Anti-acariens inclus", "Tâches et odeurs éliminées, 2 côtés", "Satisfait ou on revient"]} />
-        <MiniPriceCard title="Matelas 2 places" price="99 €" icon={SVG_MATELAS_2PLACES}
-          items={["Chambre entièrement assainie", "Anti-acariens inclus", "Tâches et odeurs éliminées, 2 côtés", "Satisfait ou on revient"]} />
+      <div className="grid grid-cols-3 gap-3 mb-6">
+        {MATELAS_ITEMS.map((c) => {
+          const isSelected = selected === c.id;
+          return (
+            <button
+              key={c.id}
+              onClick={() => setSelected(c.id)}
+              className={isSelected ? CARD_SELECTED_CLASS : CARD_UNSELECTED_CLASS}
+            >
+              {"popular" in c && c.popular && (
+                <span className={BADGE_CLASS}>
+                  Recommandé
+                </span>
+              )}
+
+              <div className={`flex items-center justify-center w-full h-32 sm:h-48 mb-3 mt-1 px-0 transition-colors ${isSelected ? "text-[#1a2b4c]" : "text-primary/70"}`}>
+                <img src={MATELAS_IMAGES[c.id]} alt={c.label} className="w-full h-full object-contain mix-blend-multiply scale-125 sm:scale-150" />
+              </div>
+
+              <p className="text-[9px] font-semibold uppercase tracking-widest text-muted-foreground/80 leading-none">Dès</p>
+              <p className={`text-lg font-bold leading-tight mt-1 ${isSelected ? "text-[#1a2b4c]" : "text-foreground"}`}>
+                {c.price}
+              </p>
+              <p className="text-[11px] font-medium text-muted-foreground leading-snug mt-1.5 text-center px-1">
+                {c.label}
+              </p>
+            </button>
+          );
+        })}
       </div>
+
+      {/* Detail panel */}
+      <div className="rounded-[24px] border border-primary/10 bg-white p-7 shadow-lg">
+        <div className="flex flex-col sm:flex-row sm:items-start gap-8">
+          <div className="flex-1">
+            
+            <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+            <div className="mt-5 space-y-2.5">
+              {["Injection-extraction professionnelle", "Tâches, auréoles et odeurs éliminées", "Résultat visible immédiatement", "Satisfait ou on revient gratuitement"].map((pt) => (
+                <div key={pt} className="flex items-center gap-3 text-sm text-foreground/80 font-medium">
+                  <CheckCircle2 className="size-4.5 shrink-0 text-primary" /> {pt}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="flex flex-col items-start sm:items-end shrink-0 gap-4 bg-secondary/30 p-5 rounded-2xl w-full sm:w-auto">
+            <div className="sm:text-right">
+              <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold">À partir de</p>
+              <p className="text-5xl font-black text-primary leading-none mt-1">{item.price}</p>
+            </div>
+            <a href={COMPANY.booking} target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 w-full rounded-xl bg-primary px-6 py-3.5 text-sm font-bold text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all">
+              <CalendarCheck className="size-4" /> Je réserve
+            </a>
+            <p className="text-xs text-muted-foreground/80 font-medium">Déplacement gratuit · Paiement sur place</p>
+          </div>
+        </div>
+      </div>
+
       <OptionsBlock options={MATELAS_OPTIONS} />
     </div>
   );
@@ -619,28 +677,77 @@ function FormulesPage() {
     <div className="bg-[#f4f6f9] pb-24 lg:pb-0">
 
       {/* ── HERO ── */}
-      <div className="mx-auto max-w-3xl px-4 pt-16 pb-10 text-center">
-        <span className="inline-block rounded-full border border-border bg-white px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-muted-foreground shadow-sm">
-          Tarifs & Prestations — Toulouse
-        </span>
-        <h1 className="mt-5 font-display text-5xl font-bold leading-tight tracking-tight md:text-6xl">
-          Des tarifs clairs,<br />un résultat <span className="text-primary">impeccable</span>
-        </h1>
-        <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
-          Nettoyage à domicile sur Toulouse et agglomération. Matériel professionnel, produits certifiés Écolabel, intervention 7j/7.
-        </p>
-        <div className="mt-4 flex items-center justify-center gap-1.5 text-sm">
-          {[1, 2, 3, 4, 5].map((i) => <Star key={i} className="size-4 fill-amber-400 text-amber-400" />)}
-          <span className="font-bold text-foreground ml-1">4,9 / 5</span>
-          <span className="text-muted-foreground">· 91 avis Google vérifiés</span>
+      <div className="mx-auto max-w-6xl px-4 pt-16 pb-10 flex flex-col lg:flex-row items-center gap-10">
+        <div className="flex-1 text-center lg:text-left">
+          <span className="inline-block rounded-full border border-border bg-white px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-muted-foreground shadow-sm">
+            Tarifs & Prestations — Toulouse
+          </span>
+          <h1 className="mt-5 font-display text-5xl font-bold leading-tight tracking-tight md:text-6xl">
+            Des tarifs clairs,<br />un résultat <span className="text-primary">impeccable</span>
+          </h1>
+          <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground mx-auto lg:mx-0">
+            Nettoyage à domicile sur Toulouse et agglomération. Matériel professionnel, produits certifiés Écolabel, intervention 7j/7.
+          </p>
+          <div className="mt-4 flex items-center justify-center lg:justify-start gap-1.5 text-sm">
+            {[1, 2, 3, 4, 5].map((i) => <Star key={i} className="size-4 fill-amber-400 text-amber-400" />)}
+            <span className="font-bold text-foreground ml-1">4,9 / 5</span>
+            <span className="text-muted-foreground">· 91 avis Google vérifiés</span>
+          </div>
+          <div className="mt-6 flex flex-wrap gap-3 justify-center lg:justify-start">
+            <Button asChild size="lg" className="font-bold">
+              <Link to="/reserver"><CalendarCheck className="size-4" /> Réserver en ligne</Link>
+            </Button>
+            <Button asChild variant="outline" size="lg" className="bg-white">
+              <a href={COMPANY.phoneHref}><Phone className="size-4" /> {COMPANY.phone}</a>
+            </Button>
+          </div>
         </div>
-        <div className="mt-6 flex flex-wrap gap-3 justify-center">
-          <Button asChild size="lg" className="font-bold">
-            <Link to="/reserver"><CalendarCheck className="size-4" /> Réserver en ligne</Link>
-          </Button>
-          <Button asChild variant="outline" size="lg">
-            <a href={COMPANY.phoneHref}><Phone className="size-4" /> {COMPANY.phone}</a>
-          </Button>
+
+        {/* Carrousel Avant/Après - Intégré subtilement à la page tarifs */}
+        <div className="w-full max-w-[360px] shrink-0 hidden md:block">
+          <div className="rounded-2xl border border-border bg-white p-5 shadow-sm">
+            <p className="mb-4 text-center text-xs font-bold uppercase tracking-widest text-muted-foreground">
+              Résultats Avant / Après
+            </p>
+            <Carousel
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+              className="w-full"
+            >
+              <CarouselContent>
+                {[
+                  { src: "/realisations/photo-02.jpg", title: "Nettoyage Canapé" },
+                  { src: "/realisations/photo-11.jpg", title: "Sièges Auto" },
+                  { src: "/realisations/photo-19.jpg", title: "Tapis" },
+                  { src: "/realisations/photo-28.jpg", title: "Matelas" },
+                  { src: "/realisations/photo-34.jpg", title: "Habitacle Auto" },
+                  { src: "/realisations/photo-40.jpg", title: "Canapé d'angle" },
+                ].map((img, idx) => (
+                  <CarouselItem key={idx}>
+                    <div className="relative overflow-hidden rounded-xl">
+                      <img
+                        src={img.src}
+                        alt={`Réalisation Avant / Après - ${img.title}`}
+                        className="aspect-[4/3] w-full object-cover"
+                      />
+                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4">
+                        <span className="inline-block rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-primary text-primary-foreground">
+                          Avant / Après
+                        </span>
+                        <p className="mt-1 text-sm font-medium text-white">{img.title}</p>
+                      </div>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <div className="flex justify-center gap-3 mt-5">
+                <CarouselPrevious className="static translate-y-0 h-9 w-9 bg-secondary text-foreground hover:bg-secondary/80 border-none" />
+                <CarouselNext className="static translate-y-0 h-9 w-9 bg-secondary text-foreground hover:bg-secondary/80 border-none" />
+              </div>
+            </Carousel>
+          </div>
         </div>
       </div>
 

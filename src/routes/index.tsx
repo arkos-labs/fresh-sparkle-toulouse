@@ -24,6 +24,7 @@ import {
   PackageOpen,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { COMMUNES, COMPANY, SERVICES, SITE_URL } from "@/data/site";
 import { ReviewsCarousel } from "@/components/site/ReviewsCarousel";
 import heroImg from "@/assets/hero-nettoyage.jpg";
@@ -159,12 +160,14 @@ function Index() {
 
         {/* Contenu principal — prend tout l'espace disponible */}
         <div className="relative flex-1 flex items-center">
-          <div className="mx-auto w-full max-w-6xl px-4 py-20">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur">
-              <MapPin className="size-3" /> Toulouse & Haute-Garonne
-            </span>
+          <div className="mx-auto w-full max-w-6xl px-4 py-20 flex flex-col lg:flex-row items-center justify-between gap-10">
+            {/* Texte de gauche */}
+            <div className="flex-1 max-w-2xl">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur">
+                <MapPin className="size-3" /> Toulouse & Haute-Garonne
+              </span>
 
-            <h1 className="mt-6 max-w-2xl text-5xl font-bold leading-[1.1] tracking-tight text-white md:text-6xl lg:text-7xl">
+              <h1 className="mt-6 text-5xl font-bold leading-[1.1] tracking-tight text-white md:text-6xl lg:text-7xl">
               Entreprise de<br />
               <em className="not-italic text-accent">nettoyage</em><br />
               à Toulouse
@@ -214,6 +217,53 @@ function Index() {
                 <CheckCircle2 className="size-4 text-accent" /> Séchage express
               </span>
             </div>
+            </div>
+
+            {/* Carrousel Avant/Après - Discret (glassmorphism) pour ne pas gâcher la vue */}
+            <div className="hidden lg:block w-full max-w-[360px] shrink-0">
+              <div className="rounded-2xl border border-white/20 bg-black/40 backdrop-blur-md p-5 shadow-2xl">
+                <p className="mb-4 text-center text-xs font-bold uppercase tracking-widest text-white/90">
+                  Résultats Avant / Après
+                </p>
+                <Carousel
+                  opts={{
+                    align: "start",
+                    loop: true,
+                  }}
+                  className="w-full"
+                >
+                  <CarouselContent>
+                    {[
+                      { src: avantCanape, label: "Avant", title: "Canapé" },
+                      { src: apresCanape, label: "Après", title: "Canapé ravivé" },
+                      { src: avantAuto, label: "Avant", title: "Habitacle sale" },
+                      { src: apresAuto, label: "Après", title: "Habitacle propre" },
+                    ].map((img, idx) => (
+                      <CarouselItem key={idx}>
+                        <div className="relative overflow-hidden rounded-xl">
+                          <img
+                            src={img.src}
+                            alt={img.label}
+                            className="aspect-[4/3] w-full object-cover"
+                          />
+                          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4">
+                            <span className={`inline-block rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${img.label === 'Après' ? 'bg-primary text-primary-foreground' : 'bg-white/20 text-white backdrop-blur'}`}>
+                              {img.label}
+                            </span>
+                            <p className="mt-1 text-sm font-medium text-white">{img.title}</p>
+                          </div>
+                        </div>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <div className="flex justify-center gap-3 mt-5">
+                    <CarouselPrevious className="static translate-y-0 h-9 w-9 bg-white/10 border-white/20 text-white hover:bg-white/20 hover:text-white" />
+                    <CarouselNext className="static translate-y-0 h-9 w-9 bg-white/10 border-white/20 text-white hover:bg-white/20 hover:text-white" />
+                  </div>
+                </Carousel>
+              </div>
+            </div>
+
           </div>
         </div>
 

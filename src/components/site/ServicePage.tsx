@@ -4,10 +4,14 @@ import { CalendarCheck, Check, MapPin, Phone, Sparkles, ArrowRight, Clock, Shiel
 import { Button } from "@/components/ui/button";
 import { COMMUNES, COMPANY, SERVICES, type Service } from "@/data/site";
 import { ReviewsCarousel } from "@/components/site/ReviewsCarousel";
-import avantCanape from "@/assets/avant-canape.jpg";
-import apresCanape from "@/assets/apres-canape.jpg";
-import avantAuto from "@/assets/avant-auto.jpg";
-import apresAuto from "@/assets/apres-auto.jpg";
+
+const PHOTOS_BY_CATEGORY: Record<string, string[]> = {
+  canape: ["/realisations/photo-01.jpg", "/realisations/photo-04.jpg", "/realisations/photo-05.jpg", "/realisations/photo-08.jpg"],
+  auto: ["/realisations/photo-02.jpg", "/realisations/photo-03.jpg", "/realisations/photo-10.jpg", "/realisations/photo-16.jpg"],
+  tapis: ["/realisations/photo-07.jpg", "/realisations/photo-28.jpg", "/realisations/photo-36.jpg", "/realisations/photo-21.jpg"],
+  matelas: ["/realisations/photo-09.jpg", "/realisations/photo-15.jpg", "/realisations/photo-31.jpg", "/realisations/photo-22.jpg"],
+  batiment: ["/realisations/photo-06.jpg", "/realisations/photo-32.jpg", "/realisations/photo-11.jpg", "/realisations/photo-12.jpg"]
+};
 
 function getBookingServiceId(slug: string): string | null {
   if (slug.includes("canape")) return "canape";
@@ -51,6 +55,8 @@ export function ServicePage({ service }: { service: Service }) {
   const others = SERVICES.filter((s) => s.slug !== service.slug).slice(0, 6);
   const bookingServiceId = getBookingServiceId(service.slug);
   const serviceOptions = bookingServiceId ? (OPTIONS_BY_SERVICE[bookingServiceId] ?? []) : [];
+  
+  const categoryImages = bookingServiceId ? PHOTOS_BY_CATEGORY[bookingServiceId] : PHOTOS_BY_CATEGORY["batiment"];
 
   return (
     <div className="pb-24 lg:pb-0">
@@ -321,26 +327,21 @@ export function ServicePage({ service }: { service: Service }) {
             Photos réelles prises sur nos chantiers à Toulouse et dans l'agglomération.
           </p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              { src: avantCanape, label: "Avant — assise tachée" },
-              { src: apresCanape, label: "Après — tissu ravivé" },
-              { src: avantAuto, label: "Avant — habitacle encrassé" },
-              { src: apresAuto, label: "Après — intérieur comme neuf" },
-            ].map((img) => (
+            {categoryImages.map((src, idx) => (
               <figure
-                key={img.label}
-                className="overflow-hidden rounded-2xl border border-border bg-card shadow-[var(--shadow-soft)]"
+                key={idx}
+                className="overflow-hidden rounded-2xl border border-border bg-card shadow-[var(--shadow-soft)] transition-transform hover:-translate-y-0.5"
               >
                 <img
-                  src={img.src}
-                  alt={`${service.h1} — ${img.label}`}
+                  src={src}
+                  alt={`${service.h1} — Avant / Après ${idx + 1}`}
                   loading="lazy"
                   width={1000}
                   height={800}
                   className="h-48 w-full object-cover"
                 />
-                <figcaption className="p-3 text-xs font-medium text-muted-foreground">
-                  {img.label}
+                <figcaption className="p-3 text-[10px] font-bold uppercase tracking-widest text-primary text-center">
+                  Avant / Après
                 </figcaption>
               </figure>
             ))}
