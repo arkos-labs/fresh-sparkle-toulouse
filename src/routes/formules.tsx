@@ -126,13 +126,13 @@ function MiniPriceCard({ title, price, items, badge, featured, icon }: {
           </li>
         ))}
       </ul>
-      <a href={COMPANY.booking} target="_blank" rel="noopener noreferrer"
+      <Link to="/reserver"
         className={[
           "mt-4 inline-flex w-full items-center justify-center gap-1.5 rounded-xl py-2.5 text-xs font-bold transition-opacity hover:opacity-90",
           featured ? "bg-white text-primary" : "bg-primary text-white",
         ].join(" ")}>
         <CalendarCheck className="size-3.5" /> Je réserve
-      </a>
+      </Link>
     </div>
   );
 }
@@ -231,10 +231,10 @@ function CanapeDetail() {
               <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold">À partir de</p>
               <p className="text-5xl font-black text-primary leading-none mt-1">{item.price}</p>
             </div>
-            <a href={COMPANY.booking} target="_blank" rel="noopener noreferrer"
+            <Link to="/reserver" search={{ service: "canape" }}
               className="inline-flex items-center justify-center gap-2 w-full rounded-xl bg-primary px-6 py-3.5 text-sm font-bold text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all">
               <CalendarCheck className="size-4" /> Je réserve
-            </a>
+            </Link>
             <p className="text-xs text-muted-foreground/80 font-medium">Déplacement gratuit · Paiement sur place</p>
           </div>
         </div>
@@ -439,10 +439,10 @@ function TapisDetail() {
               <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold">À partir de</p>
               <p className="text-5xl font-black text-primary leading-none mt-1">{item.price}</p>
             </div>
-            <a href={COMPANY.booking} target="_blank" rel="noopener noreferrer"
+            <Link to="/reserver" search={{ service: "tapis" }}
               className="inline-flex items-center justify-center gap-2 w-full rounded-xl bg-primary px-6 py-3.5 text-sm font-bold text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all">
               <CalendarCheck className="size-4" /> Je réserve
-            </a>
+            </Link>
             <p className="text-xs text-muted-foreground/80 font-medium">Déplacement gratuit · Paiement sur place</p>
           </div>
         </div>
@@ -521,10 +521,10 @@ function AutoDetail() {
               <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold">Tarif</p>
               <p className="text-5xl font-black text-primary leading-none mt-1">{item.price}</p>
             </div>
-            <a href={COMPANY.booking} target="_blank" rel="noopener noreferrer"
+            <Link to="/reserver" search={{ service: "auto" }}
               className="inline-flex items-center justify-center gap-2 w-full rounded-xl bg-primary px-6 py-3.5 text-sm font-bold text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all">
               <CalendarCheck className="size-4" /> Je réserve
-            </a>
+            </Link>
             <p className="text-xs text-muted-foreground/80 font-medium">Déplacement gratuit · Paiement sur place</p>
           </div>
         </div>
@@ -607,10 +607,10 @@ function MatelasDetail() {
               <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold">À partir de</p>
               <p className="text-5xl font-black text-primary leading-none mt-1">{item.price}</p>
             </div>
-            <a href={COMPANY.booking} target="_blank" rel="noopener noreferrer"
+            <Link to="/reserver" search={{ service: "matelas" }}
               className="inline-flex items-center justify-center gap-2 w-full rounded-xl bg-primary px-6 py-3.5 text-sm font-bold text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all">
               <CalendarCheck className="size-4" /> Je réserve
-            </a>
+            </Link>
             <p className="text-xs text-muted-foreground/80 font-medium">Déplacement gratuit · Paiement sur place</p>
           </div>
         </div>

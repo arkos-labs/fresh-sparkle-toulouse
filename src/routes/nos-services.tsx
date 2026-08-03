@@ -123,9 +123,9 @@ function ServicesPage() {
                   size="sm"
                   className="mt-4 bg-accent-gradient text-accent-foreground font-bold hover:opacity-90"
                 >
-                  <a href={COMPANY.booking} target="_blank" rel="noopener noreferrer">
+                  <Link to="/reserver">
                     <CalendarCheck className="size-4" /> Book Now
-                  </a>
+                  </Link>
                 </Button>
               </div>
             </div>
@@ -155,9 +155,9 @@ function ServicesPage() {
               <Link to="/contactez-nous">Demander un devis</Link>
             </Button>
             <Button asChild size="sm" className="bg-accent-gradient text-accent-foreground font-bold hover:opacity-90">
-              <a href={COMPANY.booking} target="_blank" rel="noopener noreferrer">
+              <Link to="/reserver">
                 <CalendarCheck className="size-4" /> Réserver en ligne
-              </a>
+              </Link>
             </Button>
           </div>
         </div>

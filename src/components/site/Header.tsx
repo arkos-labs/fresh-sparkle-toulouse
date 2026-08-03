@@ -95,9 +95,9 @@ export function Header() {
             </a>
           </Button>
           <Button asChild size="sm" className="bg-accent-gradient text-accent-foreground font-semibold shadow-[var(--shadow-soft)] hover:opacity-90">
-            <a href={COMPANY.booking} target="_blank" rel="noopener noreferrer">
+            <Link to="/reserver">
               <CalendarCheck className="size-4" /> Réserver en ligne
-            </a>
+            </Link>
           </Button>
         </div>
 
@@ -185,9 +185,9 @@ export function Header() {
           {/* Mobile CTAs */}
           <div className="border-t border-border px-4 py-4 grid gap-2">
             <Button asChild className="w-full bg-accent-gradient text-accent-foreground font-bold hover:opacity-90">
-              <a href={COMPANY.booking} target="_blank" rel="noopener noreferrer" onClick={close}>
+              <Link to="/reserver" onClick={close}>
                 <CalendarCheck className="size-4" /> Réserver en ligne
-              </a>
+              </Link>
             </Button>
             <Button asChild variant="outline" className="w-full">
               <a href={COMPANY.phoneHref} onClick={close}>

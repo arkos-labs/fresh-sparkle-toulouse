@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { CalendarCheck, X } from "lucide-react";
 import { COMPANY } from "@/data/site";
 
@@ -8,10 +9,8 @@ export function TopBanner() {
 
   return (
     <div className="relative z-50 bg-accent-gradient text-accent-foreground">
-      <a
-        href={COMPANY.booking}
-        target="_blank"
-        rel="noopener noreferrer"
+      <Link
+        to="/reserver"
         className="flex items-center justify-center gap-3 px-4 py-2.5 hover:opacity-90 transition-opacity"
       >
         <CalendarCheck className="size-4 shrink-0" />
@@ -21,7 +20,7 @@ export function TopBanner() {
         <span className="hidden shrink-0 rounded-full border border-accent-foreground/30 bg-accent-foreground/15 px-3 py-0.5 text-xs font-bold uppercase tracking-wider sm:inline-block">
           Réserver ici →
         </span>
-      </a>
+      </Link>
       <button
         onClick={() => setVisible(false)}
         aria-label="Fermer"

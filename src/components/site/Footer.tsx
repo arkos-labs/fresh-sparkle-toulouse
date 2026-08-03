@@ -19,14 +19,12 @@ export function Footer() {
             Entreprise de nettoyage à Toulouse et dans toute la Haute-Garonne, pour les particuliers
             et les professionnels.
           </p>
-          <a
-            href={COMPANY.booking}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            to="/reserver"
             className="mt-5 inline-flex items-center gap-2 rounded-xl bg-accent-gradient px-4 py-2.5 text-sm font-bold text-accent-foreground hover:opacity-90 transition-opacity"
           >
             <CalendarCheck className="size-4" /> Réserver en ligne
-          </a>
+          </Link>
         </div>
 
         {/* Textile & auto */}
@@ -121,14 +119,12 @@ export function StickyCallCta() {
         >
           <Phone className="size-4" /> {COMPANY.phone}
         </a>
-        <a
-          href={COMPANY.booking}
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          to="/reserver"
           className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-accent-gradient px-4 text-sm font-bold text-accent-foreground shadow-[var(--shadow-soft)]"
         >
           <CalendarCheck className="size-4" /> Je réserve
-        </a>
+        </Link>
       </div>
     </div>
   );

@@ -86,9 +86,9 @@ export function ServicePage({ service }: { service: Service }) {
                     <CalendarCheck /> Réserver en ligne
                   </Link>
                 ) : (
-                  <a href={COMPANY.booking} target="_blank" rel="noopener noreferrer">
+                  <Link to="/reserver">
                     <CalendarCheck /> Réserver en ligne
-                  </a>
+                  </Link>
                 )}
               </Button>
             ) : (
@@ -194,9 +194,9 @@ export function ServicePage({ service }: { service: Service }) {
                       className="mt-5 bg-accent-gradient text-accent-foreground font-semibold hover:opacity-90"
                       size="sm"
                     >
-                      <a href={COMPANY.booking} target="_blank" rel="noopener noreferrer">
+                      <Link to="/reserver" search={bookingServiceId ? { service: bookingServiceId } : undefined}>
                         <CalendarCheck className="size-4" /> Je réserve
-                      </a>
+                      </Link>
                     </Button>
                   </div>
                 ))}
@@ -260,9 +260,9 @@ export function ServicePage({ service }: { service: Service }) {
                   size="lg"
                   className="bg-accent-gradient text-accent-foreground font-bold hover:opacity-90 shrink-0"
                 >
-                  <a href={COMPANY.booking} target="_blank" rel="noopener noreferrer">
+                  <Link to="/reserver" search={bookingServiceId ? { service: bookingServiceId } : undefined}>
                     Réserver en ligne <ArrowRight className="size-4" />
-                  </a>
+                  </Link>
                 </Button>
               </div>
             </>
@@ -430,9 +430,9 @@ export function ServicePage({ service }: { service: Service }) {
                     <CalendarCheck /> Réserver en ligne
                   </Link>
                 ) : (
-                  <a href={COMPANY.booking} target="_blank" rel="noopener noreferrer">
+                  <Link to="/reserver">
                     <CalendarCheck /> Réserver en ligne
-                  </a>
+                  </Link>
                 )}
               </Button>
               <Button asChild variant="onDark" size="xl">
