@@ -50,6 +50,7 @@ export function FadeIn({
         ease: "easeOut",
       }}
       className={cn(className)}
+      style={{ willChange: "opacity, transform" }}
     >
       {children}
     </motion.div>
