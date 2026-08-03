@@ -8,12 +8,14 @@ export const Route = createFileRoute("/nettoyage-toiture-toulouse")({
   head: () => ({
     meta: [
       { title: "Nettoyage toiture Toulouse \u2014 d\u00e9moussage | Clean&Fresh" },
-      { name: "description", content: "Nettoyage et d\u00e9moussage de toiture \u00e0 Toulouse : tuiles, ardoises, goutti\u00e8res. Haute pression et traitement anti-mousse. Devis gratuit sous 24h." },
+      { name: "description", content: "Nettoyage et d\u00e9moussage toiture \u00e0 Toulouse et dans le 31. Traitement hydrofuge, anti-algues, anti-lichens garanti. Prolongez la dur\u00e9e de votre toit. Devis !" },
       { property: "og:title", content: "Nettoyage toiture Toulouse \u2014 d\u00e9moussage | Clean&Fresh" },
-      { property: "og:description", content: "Nettoyage et d\u00e9moussage de toiture \u00e0 Toulouse : tuiles, ardoises, goutti\u00e8res. Haute pression et traitement anti-mousse. Devis gratuit sous 24h." },
-      { property: "og:url", content: "/nettoyage-toiture-toulouse" },
+      { property: "og:description", content: "Nettoyage et d\u00e9moussage toiture \u00e0 Toulouse et dans le 31. Traitement hydrofuge, anti-algues, anti-lichens garanti. Prolongez la dur\u00e9e de votre toit. Devis !" },
+      { property: "og:url", content: "https://cleanfresh-toulouse.fr/nettoyage-toiture-toulouse" },
+      { name: "twitter:title", content: "Nettoyage toiture Toulouse — démoussage | Clean&Fresh" },
+      { name: "twitter:description", content: "Nettoyage et démoussage toiture à Toulouse et dans le 31. Traitement hydrofuge, anti-algues, anti-lichens garanti. Prolongez la durée de votre toit. Devis !" },
     ],
-    links: [{ rel: "canonical", href: "/nettoyage-toiture-toulouse" }],
+    links: [{ rel: "canonical", href: "https://cleanfresh-toulouse.fr/nettoyage-toiture-toulouse" }],
   }),
   component: () => <ServicePage service={service} />,
 });

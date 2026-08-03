@@ -11,6 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { OG_IMAGE } from "@/data/site";
 import { Header } from "@/components/site/Header";
 import { Footer, StickyCallCta } from "@/components/site/Footer";
 import { TopBanner } from "@/components/site/TopBanner";
@@ -87,12 +88,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" },
       { name: "twitter:card", content: "summary_large_image" },
-      { title: "Lovable App" },
-      { property: "og:title", content: "Lovable App" },
-      { name: "twitter:title", content: "Lovable App" },
-      { name: "description", content: "Clean&Fresh offers professional cleaning services for homes, businesses, and vehicles in Toulouse." },
-      { property: "og:description", content: "Clean&Fresh offers professional cleaning services for homes, businesses, and vehicles in Toulouse." },
-      { name: "twitter:description", content: "Clean&Fresh offers professional cleaning services for homes, businesses, and vehicles in Toulouse." },
+      { property: "og:image", content: OG_IMAGE },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "Clean&Fresh — nettoyage professionnel Toulouse" },
+      { name: "twitter:image", content: OG_IMAGE },
+      { title: "Entreprise de nettoyage à Toulouse | Clean&Fresh" },
+      { property: "og:title", content: "Entreprise de nettoyage à Toulouse | Clean&Fresh" },
+      { name: "twitter:title", content: "Entreprise de nettoyage à Toulouse | Clean&Fresh" },
+      { name: "description", content: "Entreprise de nettoyage à Toulouse et dans le 31 — canapé, matelas, tapis, auto, vitres, façade, fin de chantier. À domicile, résultat garanti. Devis gratuit !" },
+      { property: "og:description", content: "Entreprise de nettoyage à Toulouse et dans le 31 — canapé, matelas, tapis, auto, vitres, façade, fin de chantier. À domicile, résultat garanti. Devis gratuit !" },
+      { name: "twitter:description", content: "Entreprise de nettoyage à Toulouse et dans le 31 — canapé, matelas, tapis, auto, vitres, façade, fin de chantier. À domicile, résultat garanti. Devis gratuit !" },
     ],
     links: [
       {
@@ -132,7 +138,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="fr">
       <head>
         <HeadContent />
       </head>

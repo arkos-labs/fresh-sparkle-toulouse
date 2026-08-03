@@ -8,12 +8,14 @@ export const Route = createFileRoute("/nettoyage-dappartement-ou-maison")({
   head: () => ({
     meta: [
       { title: "Nettoyage appartement ou maison Toulouse | Clean&Fresh" },
-      { name: "description", content: "Nettoyage complet d'appartement ou de maison \u00e0 Toulouse : grand m\u00e9nage, remise en \u00e9tat avant ou apr\u00e8s d\u00e9m\u00e9nagement, entretien r\u00e9gulier. Devis sous 24h." },
+      { name: "description", content: "Nettoyage appartement et maison \u00e0 Toulouse et dans le 31. Grand m\u00e9nage, remise en \u00e9tat, entretien r\u00e9gulier. \u00c9quipe qualifi\u00e9e, r\u00e9sultat garanti. Devis gratuit !" },
       { property: "og:title", content: "Nettoyage appartement ou maison Toulouse | Clean&Fresh" },
-      { property: "og:description", content: "Nettoyage complet d'appartement ou de maison \u00e0 Toulouse : grand m\u00e9nage, remise en \u00e9tat avant ou apr\u00e8s d\u00e9m\u00e9nagement, entretien r\u00e9gulier. Devis sous 24h." },
-      { property: "og:url", content: "/nettoyage-dappartement-ou-maison" },
+      { property: "og:description", content: "Nettoyage appartement et maison \u00e0 Toulouse et dans le 31. Grand m\u00e9nage, remise en \u00e9tat, entretien r\u00e9gulier. \u00c9quipe qualifi\u00e9e, r\u00e9sultat garanti. Devis gratuit !" },
+      { property: "og:url", content: "https://cleanfresh-toulouse.fr/nettoyage-dappartement-ou-maison" },
+      { name: "twitter:title", content: "Nettoyage appartement ou maison Toulouse | Clean&Fresh" },
+      { name: "twitter:description", content: "Nettoyage appartement et maison à Toulouse et dans le 31. Grand ménage, remise en état, entretien régulier. Équipe qualifiée, résultat garanti. Devis gratuit !" },
     ],
-    links: [{ rel: "canonical", href: "/nettoyage-dappartement-ou-maison" }],
+    links: [{ rel: "canonical", href: "https://cleanfresh-toulouse.fr/nettoyage-dappartement-ou-maison" }],
   }),
   component: () => <ServicePage service={service} />,
 });

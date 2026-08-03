@@ -8,12 +8,14 @@ export const Route = createFileRoute("/nettoyage-tapis-toulouse")({
   head: () => ({
     meta: [
       { title: "Nettoyage tapis et moquette Toulouse | Clean&Fresh" },
-      { name: "description", content: "Nettoyage de tapis et moquette \u00e0 domicile \u00e0 Toulouse : injection-extraction, taches et odeurs \u00e9limin\u00e9es, fibres raviv\u00e9es. Devis gratuit sous 24h." },
+      { name: "description", content: "Nettoyage tapis et moquettes \u00e0 Toulouse et dans le 31. Shampouinage pro, taches et odeurs \u00e9limin\u00e9es, s\u00e9chage rapide. \u00c0 domicile. Devis gratuit rapide !" },
       { property: "og:title", content: "Nettoyage tapis et moquette Toulouse | Clean&Fresh" },
-      { property: "og:description", content: "Nettoyage de tapis et moquette \u00e0 domicile \u00e0 Toulouse : injection-extraction, taches et odeurs \u00e9limin\u00e9es, fibres raviv\u00e9es. Devis gratuit sous 24h." },
-      { property: "og:url", content: "/nettoyage-tapis-toulouse" },
+      { property: "og:description", content: "Nettoyage tapis et moquettes \u00e0 Toulouse et dans le 31. Shampouinage pro, taches et odeurs \u00e9limin\u00e9es, s\u00e9chage rapide. \u00c0 domicile. Devis gratuit rapide !" },
+      { property: "og:url", content: "https://cleanfresh-toulouse.fr/nettoyage-tapis-toulouse" },
+      { name: "twitter:title", content: "Nettoyage tapis et moquette Toulouse | Clean&Fresh" },
+      { name: "twitter:description", content: "Nettoyage tapis et moquettes à Toulouse et dans le 31. Shampouinage pro, taches et odeurs éliminées, séchage rapide. À domicile. Devis gratuit rapide !" },
     ],
-    links: [{ rel: "canonical", href: "/nettoyage-tapis-toulouse" }],
+    links: [{ rel: "canonical", href: "https://cleanfresh-toulouse.fr/nettoyage-tapis-toulouse" }],
   }),
   component: () => <ServicePage service={service} />,
 });

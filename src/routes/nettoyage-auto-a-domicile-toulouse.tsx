@@ -8,12 +8,14 @@ export const Route = createFileRoute("/nettoyage-auto-a-domicile-toulouse")({
   head: () => ({
     meta: [
       { title: "Nettoyage auto \u00e0 domicile Toulouse \u2014 int\u00e9rieur | Clean&Fresh" },
-      { name: "description", content: "Nettoyage int\u00e9rieur de voiture \u00e0 domicile \u00e0 Toulouse : si\u00e8ges, moquettes, coffre, plastiques. Injection-extraction et produits \u00e9cologiques. Devis sous 24h." },
+      { name: "description", content: "Nettoyage auto \u00e0 domicile \u00e0 Toulouse et dans le 31. Int\u00e9rieur, ext\u00e9rieur, sellerie, vitres \u2014 un expert se d\u00e9place chez vous. Prix r\u00e9duit. Devis gratuit !" },
       { property: "og:title", content: "Nettoyage auto \u00e0 domicile Toulouse \u2014 int\u00e9rieur | Clean&Fresh" },
-      { property: "og:description", content: "Nettoyage int\u00e9rieur de voiture \u00e0 domicile \u00e0 Toulouse : si\u00e8ges, moquettes, coffre, plastiques. Injection-extraction et produits \u00e9cologiques. Devis sous 24h." },
-      { property: "og:url", content: "/nettoyage-auto-a-domicile-toulouse" },
+      { property: "og:description", content: "Nettoyage auto \u00e0 domicile \u00e0 Toulouse et dans le 31. Int\u00e9rieur, ext\u00e9rieur, sellerie, vitres \u2014 un expert se d\u00e9place chez vous. Prix r\u00e9duit. Devis gratuit !" },
+      { property: "og:url", content: "https://cleanfresh-toulouse.fr/nettoyage-auto-a-domicile-toulouse" },
+      { name: "twitter:title", content: "Nettoyage auto à domicile Toulouse — intérieur | Clean&Fresh" },
+      { name: "twitter:description", content: "Nettoyage auto à domicile à Toulouse et dans le 31. Intérieur, extérieur, sellerie, vitres — un expert se déplace chez vous. Prix réduit. Devis gratuit !" },
     ],
-    links: [{ rel: "canonical", href: "/nettoyage-auto-a-domicile-toulouse" }],
+    links: [{ rel: "canonical", href: "https://cleanfresh-toulouse.fr/nettoyage-auto-a-domicile-toulouse" }],
   }),
   component: () => <ServicePage service={service} />,
 });

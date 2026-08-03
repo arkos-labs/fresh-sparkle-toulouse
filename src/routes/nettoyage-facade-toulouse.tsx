@@ -7,13 +7,15 @@ const service = getService("/nettoyage-facade-toulouse");
 export const Route = createFileRoute("/nettoyage-facade-toulouse")({
   head: () => ({
     meta: [
-      { title: "Nettoyage fa\u00e7ade Toulouse \u2014 maisons & immeubles | Clean&Fresh" },
-      { name: "description", content: "Nettoyage de fa\u00e7ade \u00e0 Toulouse : cr\u00e9pi, enduit, brique, b\u00e9ton. \u00c9limination des mousses, pollution et traces noires. Devis gratuit sous 24h." },
-      { property: "og:title", content: "Nettoyage fa\u00e7ade Toulouse \u2014 maisons & immeubles | Clean&Fresh" },
-      { property: "og:description", content: "Nettoyage de fa\u00e7ade \u00e0 Toulouse : cr\u00e9pi, enduit, brique, b\u00e9ton. \u00c9limination des mousses, pollution et traces noires. Devis gratuit sous 24h." },
-      { property: "og:url", content: "/nettoyage-facade-toulouse" },
+      { title: "Nettoyage fa\u00e7ade Toulouse \u2014 d\u00e9moussage pro | Clean&Fresh" },
+      { name: "description", content: "Nettoyage fa\u00e7ade \u00e0 Toulouse et dans le 31. Pierre, cr\u00e9pi, brique : d\u00e9moussage, haute pression, traitement hydrofuge. R\u00e9sultat garanti. Devis gratuit !" },
+      { property: "og:title", content: "Nettoyage fa\u00e7ade Toulouse \u2014 d\u00e9moussage pro | Clean&Fresh" },
+      { property: "og:description", content: "Nettoyage fa\u00e7ade \u00e0 Toulouse et dans le 31. Pierre, cr\u00e9pi, brique : d\u00e9moussage, haute pression, traitement hydrofuge. R\u00e9sultat garanti. Devis gratuit !" },
+      { property: "og:url", content: "https://cleanfresh-toulouse.fr/nettoyage-facade-toulouse" },
+      { name: "twitter:title", content: "Nettoyage façade Toulouse — maisons & immeubles | Clean&Fresh" },
+      { name: "twitter:description", content: "Nettoyage façade à Toulouse et dans le 31. Pierre, crépi, brique : démoussage, haute pression, traitement hydrofuge. Résultat garanti. Devis gratuit !" },
     ],
-    links: [{ rel: "canonical", href: "/nettoyage-facade-toulouse" }],
+    links: [{ rel: "canonical", href: "https://cleanfresh-toulouse.fr/nettoyage-facade-toulouse" }],
   }),
   component: () => <ServicePage service={service} />,
 });
