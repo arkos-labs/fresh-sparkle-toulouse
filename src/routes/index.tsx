@@ -153,7 +153,7 @@ function Index() {
 
       {/* ── HERO FULL-WIDTH ── */}
       <section
-        className="relative flex flex-col min-h-[70vh] bg-cover bg-center"
+        className="relative flex flex-col lg:min-h-[60vh] bg-cover bg-center"
         style={{ backgroundImage: `url(${heroImg})` }}
       >
         {/* Dark overlay — plus dense en bas pour préparer la fusion */}
@@ -161,7 +161,7 @@ function Index() {
 
         {/* Contenu principal — prend tout l'espace disponible */}
         <div className="relative flex-1 flex items-center">
-          <div className="mx-auto w-full max-w-6xl px-4 py-12 flex flex-col lg:flex-row items-center justify-between gap-10">
+          <div className="mx-auto w-full max-w-6xl px-4 py-8 lg:py-12 flex flex-col lg:flex-row items-center justify-between gap-10">
             {/* Texte de gauche */}
             <div className="flex-1 max-w-2xl">
               <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur">
@@ -296,7 +296,7 @@ function Index() {
         <section className="border-b border-border bg-card">
         <div className="mx-auto grid max-w-6xl grid-cols-2 divide-x divide-border md:grid-cols-4">
           {STATS.map((s) => (
-            <div key={s.label} className="flex flex-col items-center justify-center py-7 px-4">
+            <div key={s.label} className="flex flex-col items-center justify-center py-5 px-4">
               <span className="font-display text-3xl font-bold text-primary">{s.value}</span>
               <span className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">{s.label}</span>
             </div>
