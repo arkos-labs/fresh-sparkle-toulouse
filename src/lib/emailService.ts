@@ -69,6 +69,7 @@ export type BookingPayload = {
   client_name:   string;
   client_phone:  string;
   client_email:  string;
+  client_address: string;
 };
 
 // ─── Fonctions publiques ──────────────────────────────────────────────────────
@@ -99,6 +100,7 @@ export async function sendBookingEmails(b: BookingPayload): Promise<string> {
     client_name:    b.client_name,
     client_phone:   b.client_phone,
     client_email:   b.client_email,
+    client_address: b.client_address,
     formule_name:   b.formule_name,
     formule_price:  String(b.formule_price),
     options_list:   optionsList,

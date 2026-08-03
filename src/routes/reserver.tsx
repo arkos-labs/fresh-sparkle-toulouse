@@ -4,7 +4,7 @@ import {
   Armchair, BedDouble, Layers, Car,
   Check, ArrowRight, ChevronLeft, ChevronRight,
   CalendarCheck, Info, Clock, Phone, Mail, User,
-  Loader2, CheckCircle2,
+  Loader2, CheckCircle2, Shield, Dog, Droplets, Wind, Sparkles, MapPin,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,6 +16,7 @@ import { sendBookingEmails } from "@/lib/emailService";
 export const Route = createFileRoute("/reserver")({
   validateSearch: (search: Record<string, unknown>) => ({
     service: (search.service as string) ?? "",
+    formule: (search.formule as string) ?? "",
   }),
   head: () => ({
     meta: [
@@ -28,23 +29,23 @@ export const Route = createFileRoute("/reserver")({
 
 // ─── TYPES ───────────────────────────────────────────────────────────────────
 
-type Option = { id: string; name: string; desc: string; price: number; popular?: boolean };
+type Option = { id: string; name: string; desc: string; price: number; popular?: boolean; icon?: React.ReactNode };
 type Formule = { id: string; name: string; desc?: string; price: number; duration: string; durationMin: number; options: Option[] };
-type ServiceDef = { id: string; label: string; shortLabel: string; desc: string; from: number; icon: React.ReactNode; formules: Formule[] };
+type ServiceDef = { id: string; label: string; shortLabel: string; desc: string; from: number; icon: React.ReactNode; formules: Formule[]; features: string[]; badge?: string };
 
 // ─── OPTIONS PARTAGÉES ───────────────────────────────────────────────────────
 
-const OA: Option = { id: "acariens",  name: "Traitement anti-acariens et bactériens",  desc: "Élimine 99,9% des acariens et allergènes. Idéal pour les personnes sensibles.",                      price: 19, popular: true };
-const OP: Option = { id: "poils",     name: "Élimination des poils d'animaux",          desc: "Brossage mécanique spécifique avant l'injection-extraction.",                                           price: 15, popular: true };
-const OPA: Option= { id: "poils",     name: "Élimination des poils d'animaux",          desc: "Brossage spécifique avant nettoyage des sièges et moquettes.",                                          price: 25 };
-const OD: Option = { id: "detachage", name: "Détachage intensif",                        desc: "Traitement ciblé pour les tâches anciennes (sang, vin, encre, café).",                                  price: 19 };
-const ODA:Option = { id: "detachage", name: "Détachage intensif — siège très taché",    desc: "Traitement ciblé pour les tâches résistantes sur sièges.",                                               price: 19 };
-const OO: Option = { id: "odeur",     name: "Traitement anti-odeur",                     desc: "Neutralisation moléculaire des mauvaises odeurs incrustées.",                                            price: 15, popular: true };
-const ORV:Option = { id: "rectoverso",name: "Nettoyage recto-verso",                     desc: "Nettoyage des deux faces du tapis pour un résultat total.",                                              price: 25 };
-const OV: Option = { id: "vitres",    name: "Vitres sans traces",                        desc: "Nettoyage intérieur des vitres, sans auréoles.",                                                         price: 9  };
-const OTS:Option = { id: "tapis-sol", name: "Shampouinage des tapis de sol",             desc: "Nettoyage injection-extraction des tapis de sol du véhicule.",                                          price: 15 };
-const OC: Option = { id: "ciel",      name: "Nettoyage du ciel de toit",                 desc: "Nettoyage en profondeur du revêtement du plafond de l'habitacle.",                                      price: 29 };
-const OSA:Option = { id: "sieges",    name: "Shampouinage des sièges auto",              desc: "Injection-extraction complète des sièges tissu ou Alcantara.",                                           price: 39 };
+const OA: Option = { id: "acariens",  name: "Traitement anti-acariens et bactériens",  desc: "Élimine 99,9% des acariens et allergènes. Idéal pour les personnes sensibles.",                      price: 19, popular: true, icon: <Shield className="size-4" /> };
+const OP: Option = { id: "poils",     name: "Élimination des poils d'animaux",          desc: "Brossage mécanique spécifique avant l'injection-extraction.",                                           price: 15, popular: true, icon: <Dog className="size-4" /> };
+const OPA: Option= { id: "poils",     name: "Élimination des poils d'animaux",          desc: "Brossage spécifique avant nettoyage des sièges et moquettes.",                                          price: 25, icon: <Dog className="size-4" /> };
+const OD: Option = { id: "detachage", name: "Détachage intensif",                        desc: "Traitement ciblé pour les tâches anciennes (sang, vin, encre, café).",                                  price: 19, icon: <Droplets className="size-4" /> };
+const ODA:Option = { id: "detachage", name: "Détachage intensif — siège très taché",    desc: "Traitement ciblé pour les tâches résistantes sur sièges.",                                               price: 19, icon: <Droplets className="size-4" /> };
+const OO: Option = { id: "odeur",     name: "Traitement anti-odeur",                     desc: "Neutralisation moléculaire des mauvaises odeurs incrustées.",                                            price: 15, popular: true, icon: <Wind className="size-4" /> };
+const ORV:Option = { id: "rectoverso",name: "Nettoyage recto-verso",                     desc: "Nettoyage des deux faces du tapis pour un résultat total.",                                              price: 25, icon: <Layers className="size-4" /> };
+const OV: Option = { id: "vitres",    name: "Vitres sans traces",                        desc: "Nettoyage intérieur des vitres, sans auréoles.",                                                         price: 9, icon: <Sparkles className="size-4" />  };
+const OTS:Option = { id: "tapis-sol", name: "Shampouinage des tapis de sol",             desc: "Nettoyage injection-extraction des tapis de sol du véhicule.",                                          price: 15, icon: <Droplets className="size-4" /> };
+const OC: Option = { id: "ciel",      name: "Nettoyage du ciel de toit",                 desc: "Nettoyage en profondeur du revêtement du plafond de l'habitacle.",                                      price: 29, icon: <Sparkles className="size-4" /> };
+const OSA:Option = { id: "sieges",    name: "Shampouinage des sièges auto",              desc: "Injection-extraction complète des sièges tissu ou Alcantara.",                                           price: 39, icon: <Droplets className="size-4" /> };
 
 const CAN = [OA, OP, OD, OO];
 const TAP = [OA, ORV, OD, OO];
@@ -52,9 +53,10 @@ const MAT = [OA, OD, OO];
 
 const SERVICES: ServiceDef[] = [
   {
-    id: "canape", label: "Canapé & Fauteuils", shortLabel: "Canapé",
+    id: "canape", label: "Nettoyage Canapé & Fauteuil", shortLabel: "Canapé",
     desc: "Nettoyage en profondeur par injection-extraction, élimination des tâches et ravivement des couleurs.",
     from: 15, icon: <Armchair className="size-6 stroke-[1.4]" />,
+    features: ["Fauteuil, canapé 2/3, 4/5 places", "Canapé U/angle, pouf, chaise", "Options anti-acariens, anti-odeur"],
     formules: [
       { id: "fauteuil",     name: "Fauteuil",                       price: 49,  duration: "45 min",  durationMin: 45,  options: CAN },
       { id: "canape-2",     name: "Canapé 2 places",                 price: 79,  duration: "1h",      durationMin: 60,  options: CAN },
@@ -67,9 +69,10 @@ const SERVICES: ServiceDef[] = [
     ],
   },
   {
-    id: "tapis", label: "Tapis & Moquettes", shortLabel: "Tapis",
+    id: "tapis", label: "Shampouinage Tapis & Moquette", shortLabel: "Tapis",
     desc: "Restauration des fibres, traitement anti-tâches et désodorisation en profondeur.",
     from: 49, icon: <Layers className="size-6 stroke-[1.4]" />,
+    features: ["1 tapis, 2 tapis, 3 tapis", "Toutes tailles et matières", "Options anti-acariens, recto-verso"],
     formules: [
       { id: "tapis-1", name: "1 Tapis", price: 49, duration: "45 min", durationMin: 45, options: TAP },
       { id: "tapis-2", name: "2 Tapis", price: 79, duration: "1h",     durationMin: 60, options: TAP },
@@ -77,24 +80,27 @@ const SERVICES: ServiceDef[] = [
     ],
   },
   {
-    id: "matelas", label: "Matelas", shortLabel: "Matelas",
-    desc: "Assainissement complet, éradication des acariens et auréoles de transpiration.",
-    from: 39, icon: <BedDouble className="size-6 stroke-[1.4]" />,
-    formules: [
-      { id: "matelas-enfant", name: "Matelas enfant",   price: 39,  duration: "30 min", durationMin: 30, options: MAT },
-      { id: "matelas-1",      name: "Matelas 1 place",  price: 59,  duration: "1h",     durationMin: 60, options: MAT },
-      { id: "matelas-2",      name: "Matelas 2 places", price: 99,  duration: "1h",     durationMin: 60, options: MAT },
-    ],
-  },
-  {
-    id: "auto", label: "Intérieur Auto", shortLabel: "Auto",
+    id: "auto", label: "Nettoyage Intérieur Auto", shortLabel: "Auto",
     desc: "Shampouinage des sièges, moquettes et plastiques pour un habitacle comme neuf.",
     from: 69, icon: <Car className="size-6 stroke-[1.4]" />,
+    features: ["Pack Bronze, Argent, Or", "Sièges, plastiques, vitres, coffre", "Options poils, anti-odeur, ciel de toit"],
     formules: [
       { id: "bronze", name: "Pack Bronze", desc: "Aspiration habitacle + coffre + nettoyage plastiques.",          price: 69,  duration: "1h",    durationMin: 60,  options: [OA, OPA, OV, OTS, OC, OSA, OO] },
       { id: "argent", name: "Pack Argent", desc: "Pack Bronze + shampouinage sièges + vitres sans traces.",        price: 99,  duration: "1h30",  durationMin: 90,  options: [OA, ODA, OPA, OTS, OC, OO] },
       { id: "or",     name: "Pack Or",     desc: "Pack Argent + shampouinage tapis de sol et moquettes.",          price: 129, duration: "1h55",  durationMin: 115, options: [OA, ODA, OPA, OC, OO] },
       { id: "siege",  name: "Rénovation siège auto", desc: "Injection-extraction intensive d'un siège encrassé.",  price: 59,  duration: "45 min",durationMin: 45,  options: [OA, ODA, OPA, OO] },
+    ],
+  },
+  {
+    id: "matelas", label: "Nettoyage Matelas", shortLabel: "Matelas",
+    desc: "Assainissement complet, éradication des acariens et auréoles de transpiration.",
+    from: 39, icon: <BedDouble className="size-6 stroke-[1.4]" />,
+    features: ["Matelas enfant, 1 place, 2 places", "Anti-acariens inclus d'office", "Recommandé pour les allergiques"],
+    badge: "⭐ Recommandé",
+    formules: [
+      { id: "matelas-enfant", name: "Matelas enfant",   price: 39,  duration: "30 min", durationMin: 30, options: MAT },
+      { id: "matelas-1",      name: "Matelas 1 place",  price: 59,  duration: "1h",     durationMin: 60, options: MAT },
+      { id: "matelas-2",      name: "Matelas 2 places", price: 99,  duration: "1h",     durationMin: 60, options: MAT },
     ],
   },
 ];
@@ -459,18 +465,19 @@ function Sidebar({
 // ─── PAGE PRINCIPALE ─────────────────────────────────────────────────────────
 
 function ReserverPage() {
-  const { service: serviceParam } = Route.useSearch();
+  const { service: serviceParam, formule: formuleParam } = Route.useSearch();
   const preselected = SERVICES.find(s => s.id === SLUG_TO_SERVICE[serviceParam]) ?? null;
+  const preselectedFormule = preselected?.formules.find(f => f.id === formuleParam) ?? null;
 
-  const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
+  const [step, setStep] = useState<1 | 2 | 3 | 4>(preselectedFormule ? 2 : 1);
   const [done, setDone] = useState(false);
   const [service, setService] = useState<ServiceDef | null>(preselected);
-  const [formule, setFormule] = useState<Formule | null>(null);
+  const [formule, setFormule] = useState<Formule | null>(preselectedFormule);
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [showCategories, setShowCategories] = useState(!preselected);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
-  const [form, setForm] = useState({ name: "", phone: "", email: "" });
+  const [form, setForm] = useState({ name: "", phone: "", email: "", address: "" });
   const [submitting, setSubmitting] = useState(false);
   const [cancelToken, setCancelToken] = useState<string>("");
 
@@ -513,6 +520,7 @@ function ReserverPage() {
         client_name:   form.name,
         client_phone:  form.phone,
         client_email:  form.email,
+        client_address: form.address,
       });
       setCancelToken(token);
       setDone(true);
@@ -615,7 +623,7 @@ function ReserverPage() {
       <div className="mx-auto max-w-5xl px-4 py-10">
         <StepBar current={step} />
 
-        <div className="grid gap-8 lg:grid-cols-[1fr_300px] items-start">
+        <div className={`grid gap-8 items-start ${!showCategories && step < 4 ? "lg:grid-cols-[1fr_300px]" : "grid-cols-1"}`}>
 
           {/* ── CONTENU PRINCIPAL ── */}
           <div>
@@ -623,20 +631,37 @@ function ReserverPage() {
             {/* ─ ÉTAPE 1 : Catégorie ─ */}
             {step === 1 && showCategories && (
               <>
-                <h1 className="text-3xl font-bold">Que pouvons-nous purifier pour vous ?</h1>
-                <p className="mt-2 text-muted-foreground">Choisissez le type de mobilier à traiter.</p>
-                <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                <h1 className="text-3xl font-bold text-center">CHOISISSEZ UNE PRESTATION POUR VOIR TOUTES LES FORMULES</h1>
+                <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                   {SERVICES.map(s => (
                     <button key={s.id} onClick={() => { setService(s); setShowCategories(false); }}
-                      className="group flex flex-col items-start rounded-2xl border-2 border-border bg-card p-6 text-left transition-all hover:border-primary/50 hover:shadow-[var(--shadow-card)]">
-                      <div className="flex size-11 items-center justify-center rounded-xl bg-secondary text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+                      className="group relative flex flex-col items-start rounded-2xl border border-border bg-white p-6 text-left shadow-sm transition-all hover:border-primary/50 hover:shadow-md">
+                      {s.badge && (
+                        <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[#0055ff] px-3 py-1 text-[10px] font-bold text-white shadow-md">
+                          {s.badge}
+                        </span>
+                      )}
+                      <div className="flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-primary mb-6 transition-colors group-hover:bg-primary group-hover:text-white">
                         {s.icon}
                       </div>
-                      <h3 className="mt-4 text-xl font-bold">{s.label}</h3>
-                      <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
-                      <p className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary">
-                        À partir de {s.from} € <ArrowRight className="size-3.5" />
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 mb-1">
+                        À partir de
                       </p>
+                      <p className="text-4xl font-bold text-primary mb-4">
+                        {s.from} €
+                      </p>
+                      <h3 className="text-lg font-bold text-foreground mb-4 leading-tight min-h-[2.5rem]">{s.label}</h3>
+                      <ul className="space-y-2.5 mb-6 flex-1 text-sm text-muted-foreground">
+                        {s.features.map(f => (
+                          <li key={f} className="flex gap-2 items-start">
+                            <CheckCircle2 className="size-4 shrink-0 mt-0.5 text-primary" />
+                            <span className="leading-snug">{f}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <div className="mt-auto flex w-full items-center justify-center gap-1.5 rounded-xl bg-primary/10 px-4 py-3 text-sm font-bold text-primary transition-colors group-hover:bg-primary group-hover:text-white">
+                        <ChevronRight className="size-4" /> Voir les formules
+                      </div>
                     </button>
                   ))}
                 </div>
@@ -788,6 +813,16 @@ function ReserverPage() {
                       <Mail className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
                       <Input id="email" required type="email" placeholder="jean@exemple.fr" value={form.email}
                         onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
+                        className="pl-9" />
+                    </div>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="address" className="text-sm font-semibold">Adresse complète *</Label>
+                    <div className="relative mt-1.5">
+                      <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+                      <Input id="address" required placeholder="12 rue de la Paix, 31000 Toulouse" value={form.address}
+                        onChange={e => setForm(f => ({ ...f, address: e.target.value }))}
                         className="pl-9" />
                     </div>
                   </div>

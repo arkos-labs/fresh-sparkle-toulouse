@@ -220,51 +220,6 @@ function Index() {
             </div>
             </div>
 
-            {/* Carrousel Avant/Après - Discret (glassmorphism) pour ne pas gâcher la vue */}
-            <div className="hidden lg:block w-full max-w-[360px] shrink-0">
-              <div className="rounded-2xl border border-white/20 bg-black/40 backdrop-blur-md p-5 shadow-2xl">
-                <p className="mb-4 text-center text-xs font-bold uppercase tracking-widest text-white/90">
-                  Résultats Avant / Après
-                </p>
-                <Carousel
-                  opts={{
-                    align: "start",
-                    loop: true,
-                  }}
-                  className="w-full"
-                >
-                  <CarouselContent>
-                    {[
-                      { src: avantCanape, label: "Avant", title: "Canapé" },
-                      { src: apresCanape, label: "Après", title: "Canapé ravivé" },
-                      { src: avantAuto, label: "Avant", title: "Habitacle sale" },
-                      { src: apresAuto, label: "Après", title: "Habitacle propre" },
-                    ].map((img, idx) => (
-                      <CarouselItem key={idx}>
-                        <div className="relative overflow-hidden rounded-xl">
-                          <img
-                            src={img.src}
-                            alt={img.label}
-                            className="aspect-[4/3] w-full object-cover"
-                          />
-                          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4">
-                            <span className={`inline-block rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${img.label === 'Après' ? 'bg-primary text-primary-foreground' : 'bg-white/20 text-white backdrop-blur'}`}>
-                              {img.label}
-                            </span>
-                            <p className="mt-1 text-sm font-medium text-white">{img.title}</p>
-                          </div>
-                        </div>
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                  <div className="flex justify-center gap-3 mt-5">
-                    <CarouselPrevious className="static translate-y-0 h-9 w-9 bg-white/10 border-white/20 text-white hover:bg-white/20 hover:text-white" />
-                    <CarouselNext className="static translate-y-0 h-9 w-9 bg-white/10 border-white/20 text-white hover:bg-white/20 hover:text-white" />
-                  </div>
-                </Carousel>
-              </div>
-            </div>
-
           </div>
         </div>
 
