@@ -153,7 +153,7 @@ function Index() {
 
       {/* ── HERO FULL-WIDTH ── */}
       <section
-        className="relative flex flex-col min-h-[88vh] bg-cover bg-center"
+        className="relative flex flex-col min-h-[70vh] bg-cover bg-center"
         style={{ backgroundImage: `url(${heroImg})` }}
       >
         {/* Dark overlay — plus dense en bas pour préparer la fusion */}
@@ -161,7 +161,7 @@ function Index() {
 
         {/* Contenu principal — prend tout l'espace disponible */}
         <div className="relative flex-1 flex items-center">
-          <div className="mx-auto w-full max-w-6xl px-4 py-20 flex flex-col lg:flex-row items-center justify-between gap-10">
+          <div className="mx-auto w-full max-w-6xl px-4 py-12 flex flex-col lg:flex-row items-center justify-between gap-10">
             {/* Texte de gauche */}
             <div className="flex-1 max-w-2xl">
               <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur">
