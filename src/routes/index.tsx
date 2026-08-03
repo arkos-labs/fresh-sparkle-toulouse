@@ -63,6 +63,8 @@ const SERVICE_ICONS: Record<string, React.ReactNode> = {
   "/nettoyage-facade-toulouse": <Building className="size-6" />,
   "/nettoyage-dappartement-ou-maison": <Building2 className="size-6" />,
   "/nettoyage-de-fin-de-chantier-toulouse": <Wrench className="size-6" />,
+  "/nettoyage-fin-de-bail-toulouse": <KeyRound className="size-6" />,
+  "/nettoyage-diogene-toulouse": <PackageOpen className="size-6" />,
   "/nettoyage-extreme-toulouse": <Zap className="size-6" />,
 };
 
@@ -121,8 +123,8 @@ function HeroReviewTicker() {
 const STATS = [
   { value: "500+", label: "Clients satisfaits" },
   { value: "24h", label: "Délai devis" },
-  { value: "10", label: "Prestations" },
-  { value: "Écolabel", label: "Produits certifiés" },
+  { value: "13", label: "Prestations" },
+  { value: "Pro", label: "Matériel certifié" },
 ];
 
 const WHY_US = [
@@ -265,7 +267,7 @@ function Index() {
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-xs font-bold uppercase tracking-widest text-primary">Nos prestations</p>
-            <h2 className="mt-2 text-4xl font-bold tracking-tight">10 services de nettoyage</h2>
+            <h2 className="mt-2 text-4xl font-bold tracking-tight">13 services de nettoyage</h2>
             <p className="mt-2 max-w-2xl text-muted-foreground">
               À domicile ou sur site, pour particuliers et professionnels à Toulouse et sa banlieue.
             </p>

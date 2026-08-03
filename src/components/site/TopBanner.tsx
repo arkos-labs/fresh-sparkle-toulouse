@@ -7,18 +7,20 @@ export function TopBanner() {
   if (!visible) return null;
 
   return (
-    <div className="relative z-50 flex items-center justify-center gap-3 bg-accent-gradient px-4 py-2.5 text-accent-foreground">
-      <CalendarCheck className="size-4 shrink-0" />
-      <p className="text-sm font-semibold">
-        Disponible dès demain — réservez votre nettoyage en ligne en 2 minutes
-      </p>
+    <div className="relative z-50 bg-accent-gradient text-accent-foreground">
       <a
         href={COMPANY.booking}
         target="_blank"
         rel="noopener noreferrer"
-        className="hidden shrink-0 rounded-full border border-accent-foreground/30 bg-accent-foreground/15 px-3 py-0.5 text-xs font-bold uppercase tracking-wider hover:bg-accent-foreground/25 transition-colors sm:inline-block"
+        className="flex items-center justify-center gap-3 px-4 py-2.5 hover:opacity-90 transition-opacity"
       >
-        Réserver ici →
+        <CalendarCheck className="size-4 shrink-0" />
+        <p className="text-sm font-semibold">
+          Disponible dès demain — réservez votre nettoyage en ligne en 2 minutes
+        </p>
+        <span className="hidden shrink-0 rounded-full border border-accent-foreground/30 bg-accent-foreground/15 px-3 py-0.5 text-xs font-bold uppercase tracking-wider sm:inline-block">
+          Réserver ici →
+        </span>
       </a>
       <button
         onClick={() => setVisible(false)}

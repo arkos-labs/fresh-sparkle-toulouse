@@ -60,7 +60,7 @@ export function Header() {
                 {MENU_TEXTILE.map((s) => (
                   <Link key={s.slug} to={s.slug} className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm text-foreground hover:bg-secondary hover:text-primary transition-colors">
                     <ChevronRight className="size-3.5 text-muted-foreground shrink-0" />
-                    {s.short}
+                    {s.navLabel}
                   </Link>
                 ))}
               </div>
@@ -69,7 +69,7 @@ export function Header() {
                 {MENU_BATIMENT.map((s) => (
                   <Link key={s.slug} to={s.slug} className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm text-foreground hover:bg-secondary hover:text-primary transition-colors">
                     <ChevronRight className="size-3.5 text-muted-foreground shrink-0" />
-                    {s.short}
+                    {s.navLabel}
                   </Link>
                 ))}
               </div>
@@ -146,7 +146,7 @@ export function Header() {
                           className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm font-medium text-foreground hover:bg-card hover:text-primary transition-colors"
                         >
                           <ChevronRight className="size-3.5 text-primary shrink-0" />
-                          {s.short}
+                          {s.navLabel}
                         </Link>
                       ))}
                     </div>
@@ -165,7 +165,7 @@ export function Header() {
                           className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm font-medium text-foreground hover:bg-card hover:text-primary transition-colors"
                         >
                           <ChevronRight className="size-3.5 text-primary shrink-0" />
-                          {s.short}
+                          {s.navLabel}
                         </Link>
                       ))}
                     </div>

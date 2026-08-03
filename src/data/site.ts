@@ -285,7 +285,7 @@ export const SERVICES: Service[] = [
       "Nettoyage des plastiques, vitres intérieures et désodorisation.",
     ],
     faq: [
-      { q: "Combien coûte un nettoyage intérieur de voiture à domicile à Toulouse ?", a: "À partir de 69 € (Pack Bronze), 99 € (Pack Argent) ou 129 € (Pack Or). Le tarif varie selon la taille du véhicule et la formule choisie. Devis gratuit sous 24h." },
+      { q: "Combien coûte un nettoyage intérieur de voiture à domicile à Toulouse ?", a: "À partir de 69 € (Pack Bronze), 99 € (Pack Argent) ou 129 € (Pack Or) pour les véhicules standards. Pour les SUV, utilitaires ou gros volumes, contactez-nous pour un tarif personnalisé." },
       { q: "Faut-il amener la voiture quelque part pour le nettoyage ?", a: "Non, nous venons directement à votre adresse — domicile, parking de bureau ou copropriété. Il suffit d'une prise électrique à proximité du véhicule." },
       { q: "Pouvez-vous éliminer l'odeur de tabac ou de chien dans une voiture ?", a: "Oui, nous proposons un traitement anti-odeur par neutralisation moléculaire qui élimine les odeurs de tabac, d'animaux et de transpiration incrustées dans les textiles de l'habitacle." },
       { q: "Combien de temps dure un nettoyage intérieur de voiture ?", a: "Entre 1h (Pack Bronze) et 2h30 (Pack Or) selon la formule et l'état du véhicule. Vous pouvez reprendre votre voiture dès la fin de l'intervention." },

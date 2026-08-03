@@ -21,29 +21,29 @@ type ServiceOption = { name: string; price: number; desc: string; popular?: bool
 
 const OPTIONS_BY_SERVICE: Record<string, ServiceOption[]> = {
   canape: [
-    { icon: <Shield className="size-5" />,    name: "Traitement anti-acariens", price: 19, desc: "Élimine 99,9% des acariens et allergènes. Idéal pour les personnes sensibles.", popular: true },
-    { icon: <PawPrint className="size-5" />,  name: "Élimination des poils d'animaux", price: 15, desc: "Brossage mécanique spécifique avant l'injection-extraction.", popular: true },
-    { icon: <Eraser className="size-5" />,    name: "Détachage intensif", price: 19, desc: "Traitement ciblé pour les tâches anciennes (sang, vin, encre, café)." },
-    { icon: <Wind className="size-5" />,      name: "Traitement anti-odeur", price: 15, desc: "Neutralisation moléculaire des mauvaises odeurs incrustées.", popular: true },
+    { icon: <Shield className="size-8" />,    name: "Traitement anti-acariens", price: 19, desc: "Élimine 99,9% des acariens et allergènes. Idéal pour les personnes sensibles.", popular: true },
+    { icon: <PawPrint className="size-8" />,  name: "Élimination des poils d'animaux", price: 15, desc: "Brossage mécanique spécifique avant l'injection-extraction.", popular: true },
+    { icon: <Eraser className="size-8" />,    name: "Détachage intensif", price: 19, desc: "Traitement ciblé pour les tâches anciennes (sang, vin, encre, café)." },
+    { icon: <Wind className="size-8" />,      name: "Traitement anti-odeur", price: 15, desc: "Neutralisation moléculaire des mauvaises odeurs incrustées.", popular: true },
   ],
   tapis: [
-    { icon: <Shield className="size-5" />,      name: "Traitement anti-acariens", price: 19, desc: "Élimine les acariens et allergènes présents dans les fibres du tapis.", popular: true },
-    { icon: <RotateCcw className="size-5" />,   name: "Nettoyage recto-verso", price: 25, desc: "Nettoyage des deux faces du tapis pour un résultat total." },
-    { icon: <Eraser className="size-5" />,      name: "Détachage intensif", price: 19, desc: "Traitement ciblé pour les tâches anciennes (sang, vin, encre, café)." },
-    { icon: <Wind className="size-5" />,        name: "Traitement anti-odeur", price: 15, desc: "Neutralisation moléculaire des mauvaises odeurs incrustées.", popular: true },
+    { icon: <Shield className="size-8" />,      name: "Traitement anti-acariens", price: 19, desc: "Élimine les acariens et allergènes présents dans les fibres du tapis.", popular: true },
+    { icon: <RotateCcw className="size-8" />,   name: "Nettoyage recto-verso", price: 25, desc: "Nettoyage des deux faces du tapis pour un résultat total." },
+    { icon: <Eraser className="size-8" />,      name: "Détachage intensif", price: 19, desc: "Traitement ciblé pour les tâches anciennes (sang, vin, encre, café)." },
+    { icon: <Wind className="size-8" />,        name: "Traitement anti-odeur", price: 15, desc: "Neutralisation moléculaire des mauvaises odeurs incrustées.", popular: true },
   ],
   matelas: [
-    { icon: <Shield className="size-5" />,  name: "Traitement anti-acariens", price: 19, desc: "Élimine 99,9% des acariens. Indispensable pour les allergiques.", popular: true },
-    { icon: <Eraser className="size-5" />,  name: "Détachage intensif", price: 19, desc: "Traitement ciblé pour les tâches résistantes (transpiration, sang…)." },
-    { icon: <Wind className="size-5" />,    name: "Traitement anti-odeur", price: 15, desc: "Neutralisation moléculaire des mauvaises odeurs incrustées.", popular: true },
+    { icon: <Shield className="size-8" />,  name: "Traitement anti-acariens", price: 19, desc: "Élimine 99,9% des acariens. Indispensable pour les allergiques.", popular: true },
+    { icon: <Eraser className="size-8" />,  name: "Détachage intensif", price: 19, desc: "Traitement ciblé pour les tâches résistantes (transpiration, sang…)." },
+    { icon: <Wind className="size-8" />,    name: "Traitement anti-odeur", price: 15, desc: "Neutralisation moléculaire des mauvaises odeurs incrustées.", popular: true },
   ],
   auto: [
-    { icon: <Shield className="size-5" />,   name: "Traitement anti-acariens", price: 19, desc: "Élimine les allergènes des textiles de l'habitacle.", popular: true },
-    { icon: <PawPrint className="size-5" />, name: "Élimination des poils d'animaux", price: 25, desc: "Brossage spécifique avant nettoyage des sièges et moquettes.", popular: true },
-    { icon: <Sofa className="size-5" />,     name: "Shampouinage des tapis de sol", price: 15, desc: "Nettoyage injection-extraction des tapis de sol du véhicule." },
-    { icon: <CarIcon className="size-5" />,  name: "Nettoyage du ciel de toit", price: 29, desc: "Nettoyage en profondeur du revêtement du plafond de l'habitacle." },
-    { icon: <Eraser className="size-5" />,   name: "Détachage intensif — siège", price: 19, desc: "Traitement ciblé pour les tâches résistantes sur sièges." },
-    { icon: <Wind className="size-5" />,     name: "Traitement anti-odeur", price: 15, desc: "Neutralisation des mauvaises odeurs incrustées (tabac, animaux…)", popular: true },
+    { icon: <Shield className="size-8" />,   name: "Traitement anti-acariens", price: 19, desc: "Élimine les allergènes des textiles de l'habitacle.", popular: true },
+    { icon: <PawPrint className="size-8" />, name: "Élimination des poils d'animaux", price: 25, desc: "Brossage spécifique avant nettoyage des sièges et moquettes.", popular: true },
+    { icon: <Sofa className="size-8" />,     name: "Shampouinage des tapis de sol", price: 15, desc: "Nettoyage injection-extraction des tapis de sol du véhicule." },
+    { icon: <CarIcon className="size-8" />,  name: "Nettoyage du ciel de toit", price: 29, desc: "Nettoyage en profondeur du revêtement du plafond de l'habitacle." },
+    { icon: <Eraser className="size-8" />,   name: "Détachage intensif — siège", price: 19, desc: "Traitement ciblé pour les tâches résistantes sur sièges." },
+    { icon: <Wind className="size-8" />,     name: "Traitement anti-odeur", price: 15, desc: "Neutralisation des mauvaises odeurs incrustées (tabac, animaux…)", popular: true },
   ],
 };
 
@@ -217,7 +217,7 @@ export function ServicePage({ service }: { service: Service }) {
                       >
                         {/* Icon + badge */}
                         <div className="flex items-start justify-between mb-3">
-                          <div className="flex size-10 items-center justify-center rounded-xl bg-secondary text-muted-foreground">
+                          <div className="flex size-14 items-center justify-center rounded-xl bg-secondary text-primary">
                             {opt.icon}
                           </div>
                           {opt.popular && (
