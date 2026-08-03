@@ -2,84 +2,164 @@ import { Star, ExternalLink } from "lucide-react";
 
 const REVIEWS = [
   {
-    name: "Mélodie Dougnac-m",
-    initials: "M",
+    name: "Nicolas Cherki",
+    initials: "N",
     color: "#f87171",
-    time: "il y a 2 semaines",
+    time: "il y a un jour",
     stars: 5,
-    text: "J'ai réservé un dimanche pour un rendez-vous dès le lendemain, et il était disponible sans problème. La réservation en ligne est simple. Prestation impeccable, l'avant/après parle de lui-même.",
+    text: "Prestation au top, il a fait mon canapé et mon tapis du salon, plus aucune tache, ça sent très bon je recommande",
   },
   {
-    name: "Jade Orlini",
+    name: "Jean Baptiste ANDRE SANVITI",
     initials: "J",
     color: "#34d399",
-    time: "il y a moins d'une semaine",
+    time: "il y a un mois",
     stars: 5,
-    text: "Nettoyage de fin de bail à Toulouse. Communication très fluide et flexibilité sur les dates. L'appartement était très sale, résultat très complet. Je recommande !",
+    text: "J’ai fait appel à Clean & Fresh à Toulouse pour le nettoyage intérieur de ma voiture avant de la vendre. Je suis très satisfait du travail réalisé...",
   },
   {
-    name: "Jean-Pierre Thoulouse",
-    initials: "J",
-    color: "#818cf8",
-    time: "il y a une semaine",
-    stars: 5,
-    text: "Prestation impeccable pour le nettoyage complet d'un logement insalubre. Récupération et désinfection d'un canapé, d'un tapis et d'un matelas. Un grand merci à l'équipe Clean&Fresh.",
-  },
-  {
-    name: "Sarah D.",
-    initials: "S",
-    color: "#94a3b8",
-    time: "il y a 2 semaines",
-    stars: 5,
-    text: "J'ai fait appel à cette entreprise de Nettoyage, résultats magnifiques. Les tapis de toute la maison sont propres et désinfectés. Je n'hésiterai pas à refaire appel à eux.",
-  },
-  {
-    name: "Marion L.",
-    initials: "M",
-    color: "#f472b6",
-    time: "il y a 3 semaines",
-    stars: 5,
-    text: "Canapé en tissu clair récupéré alors que je pensais le jeter. Résultat impeccable, plus une tache ni d'odeur. Je recommande les yeux fermés.",
-  },
-  {
-    name: "Sabrina M.",
-    initials: "S",
-    color: "#a78bfa",
-    time: "il y a 1 mois",
-    stars: 5,
-    text: "Réactivité au top : devis le matin, intervention le lendemain devant chez moi. La voiture est comme neuve à l'intérieur. Très professionnel.",
-  },
-  {
-    name: "Julien D.",
-    initials: "J",
-    color: "#38bdf8",
-    time: "il y a 1 mois",
-    stars: 5,
-    text: "Très professionnel et ponctuel. Le matelas de mon fils a été traité anti-acariens, il dort beaucoup mieux depuis. Prix annoncé respecté à la lettre.",
-  },
-  {
-    name: "Claire B.",
-    initials: "C",
-    color: "#2dd4bf",
-    time: "il y a 2 mois",
-    stars: 5,
-    text: "Un grand tapis de salon très encrassé retrouvé comme au premier jour. Travail soigné et conseils utiles pour l'entretien. Merci !",
-  },
-  {
-    name: "Da Cova M.",
+    name: "Dom",
     initials: "D",
-    color: "#fb923c",
-    time: "il y a 2 mois",
-    stars: 5,
-    text: "Superbe entreprise de nettoyage à Toulouse, ponctuelle, résultat impeccable. Mon canapé est reparti pour un an !",
-  },
-  {
-    name: "Antoine R.",
-    initials: "A",
-    color: "#84cc16",
+    color: "#818cf8",
     time: "il y a 3 mois",
     stars: 5,
-    text: "Appartement livré nickel après nos travaux de rénovation. Équipe sérieuse, rien n'a été oublié, même les rails de fenêtres.",
+    text: "Service au top ! J’ai pris rendez-vous à la dernière minute et ils ont été super réactifs en venant directement à domicile. Le travail est impeccable, tout est parfaitement propre. Je recommande sans hésitation !",
+  },
+  {
+    name: "maxime gayraud",
+    initials: "M",
+    color: "#94a3b8",
+    time: "il y a 5 mois",
+    stars: 5,
+    text: "Initialement, mon véhicule était vraiment très sale et avait grand besoin d’un nettoyage en profondeur. Le résultat est tout simplement impressionnant.",
+  },
+  {
+    name: "mahe geslain",
+    initials: "M",
+    color: "#f472b6",
+    time: "il y a 3 mois",
+    stars: 5,
+    text: "Un grand merci pour le nettoyage de mon canapé. Je recommande pour toutes vos demandes de nettoyage sur Toulouse. Un gros + pour le service réactif, rdv pris la veille pour le lendemain. Très professionnel. Encore merci !",
+  },
+  {
+    name: "christelle lapierre",
+    initials: "C",
+    color: "#a78bfa",
+    time: "il y a 5 mois",
+    stars: 5,
+    text: "Exceptionnel ! Notre voiture était dans un état lamentable et elle est désormais comme neuve !",
+  },
+  {
+    name: "Fabien Solar",
+    initials: "F",
+    color: "#38bdf8",
+    time: "il y a 4 mois",
+    stars: 5,
+    text: "Contacté pour le nettoyage d'un appartement avant aménagement, la prestation a été très profesionnelle et de grande qualité, que se soit pour le ménage ou le nettoyage et la desinfection du canapé. Je recommande fortement",
+  },
+  {
+    name: "Lelièvre-Oury Floriane",
+    initials: "L",
+    color: "#2dd4bf",
+    time: "il y a 4 mois",
+    stars: 5,
+    text: "J’ai pris rdv à la dernière minute, qui plus est un dimanche, sans trop y croire. L’entreprise Clean&Fresh s’est non seulement rendue disponible mais avec même...",
+  },
+  {
+    name: "Beatriz Catarino",
+    initials: "B",
+    color: "#fb923c",
+    time: "il y a 3 mois",
+    stars: 5,
+    text: "Ma voiture était très sale après 1 an de travaux et beaucoup d'allers/retours a la déchetterie. Le résultat est au top, merci encore pour le super travail!",
+  },
+  {
+    name: "Abhigyan Prakash",
+    initials: "A",
+    color: "#84cc16",
+    time: "il y a 4 mois",
+    stars: 5,
+    text: "Très bon service, efficaces et professionnels. Ils ont fait un très bon travail de nettoyage, parfaitement adapté pour un état des lieux. Je recommande.",
+  },
+  {
+    name: "Sylvain Gil",
+    initials: "S",
+    color: "#f87171",
+    time: "il y a 3 semaines",
+    stars: 5,
+    text: "Venue aujourd'hui a toulouse me nettoyer mon véhicule très belle prestation je recommande Clean&fresh le rendue final es irréprochable 👍",
+  },
+  {
+    name: "anthony xacot",
+    initials: "A",
+    color: "#34d399",
+    time: "il y a 5 mois",
+    stars: 5,
+    text: "Je suis extrêmement satisfait du service de cette entreprise de nettoyage ! Le travail est impeccable, rapide et professionnel. L’équipe est très sérieuse...",
+  },
+  {
+    name: "Emilie Rodrigues",
+    initials: "E",
+    color: "#818cf8",
+    time: "il y a 2 mois",
+    stars: 5,
+    text: "J’ai fais appel Clean&French pour un pack bronze. La voiture est niquel et le service était rapide. Merci beaucoup À bientôt pour le pack or",
+  },
+  {
+    name: "Jules Julien",
+    initials: "J",
+    color: "#94a3b8",
+    time: "il y a 5 mois",
+    stars: 5,
+    text: "J’avais quelques taches tenaces sur mon canapé ! Le problème est réglé et mon canapé est reparti pour 10ans ! La prestation est au Top ! Le jeune homme est ponctuel, consciencieux et sympathique .",
+  },
+  {
+    name: "Wari Épicerie",
+    initials: "W",
+    color: "#f472b6",
+    time: "il y a 5 mois",
+    stars: 5,
+    text: "J’ai contacté cette entreprise pour un entretien de mon local et je pense bien que je vais faire appel à eux tous les mois efficace rapide et sympathique. Que demander de plus, je recommande sans hésiter. À bientôt !",
+  },
+  {
+    name: "djo kitoko-zola",
+    initials: "D",
+    color: "#a78bfa",
+    time: "il y a 8 mois",
+    stars: 5,
+    text: "J’ai récemment fais appel aux services de nettoyage de cette entreprise, pour nettoyer un canapé taché lors d’une soirée. Très content du résultat il est redevenu comme neuf, plus aucune traces. Service très efficace et professionnel.",
+  },
+  {
+    name: "François DAUPHIN",
+    initials: "F",
+    color: "#38bdf8",
+    time: "il y a 4 mois",
+    stars: 5,
+    text: "Parfait ! Je conseille fortement. Personnes agréables, bien équipées et autonomes. Résultat impeccable.",
+  },
+  {
+    name: "Valentine Pradal",
+    initials: "V",
+    color: "#2dd4bf",
+    time: "il y a 5 mois",
+    stars: 5,
+    text: "Très bonne expérience - notre tapis & notre canapé sont impeccables. Je recommande vivement!",
+  },
+  {
+    name: "nicolas",
+    initials: "N",
+    color: "#fb923c",
+    time: "il y a 10 heures",
+    stars: 5,
+    text: "J'ai fait appel à Clean&Fresh pour le nettoyage intérieur de ma voiture et je suis très satisfait ! Ils m'ont rappelé rapidement pour convenir d'un rendez-vous...",
+  },
+  {
+    name: "Ghi Morgane",
+    initials: "G",
+    color: "#84cc16",
+    time: "il y a un jour",
+    stars: 5,
+    text: "Au top! Ponctuel , très gentil et surtout très efficace ! Il m’a récupéré un fauteuil parfaitement que je pensais irrécupérable , ainsi que mon canapé et mon tapis ! Je recommande++",
   },
 ];
 
@@ -122,7 +202,7 @@ export function ReviewsCarousel() {
                     </span>
                   </span>
                 </div>
-                <span className="text-sm text-muted-foreground">(91 avis)</span>
+                <span className="text-sm text-muted-foreground">(101 avis)</span>
               </div>
             </div>
           </div>
@@ -135,7 +215,7 @@ export function ReviewsCarousel() {
             className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-medium text-foreground shadow-sm transition-colors hover:border-primary/40 hover:text-primary"
           >
             <GoogleLogo />
-            4,9 (91 avis)
+            4,9 (101 avis)
             <ExternalLink className="size-3 text-muted-foreground" />
           </a>
         </div>
@@ -152,7 +232,7 @@ export function ReviewsCarousel() {
         <div
           className="flex gap-4 w-max"
           style={{
-            animation: "reviews-scroll 40s linear infinite",
+            animation: "reviews-scroll 80s linear infinite",
           }}
           onMouseEnter={(e) => {
             (e.currentTarget as HTMLElement).style.animationPlayState = "paused";
