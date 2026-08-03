@@ -7,6 +7,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { COMPANY } from "@/data/site";
+import { FadeIn } from "@/components/ui/fade-in";
 
 const TITLE = "Tarifs nettoyage à domicile Toulouse — Clean&Fresh";
 const DESC =
@@ -677,8 +678,9 @@ function FormulesPage() {
     <div className="bg-[#f4f6f9] pb-24 lg:pb-0">
 
       {/* ── HERO ── */}
-      <div className="mx-auto max-w-6xl px-4 pt-16 pb-10 flex flex-col lg:flex-row items-center gap-10">
-        <div className="flex-1 text-center lg:text-left">
+      <FadeIn delay={0.1}>
+        <div className="mx-auto max-w-6xl px-4 pt-16 pb-10 flex flex-col lg:flex-row items-center gap-10">
+          <div className="flex-1 text-center lg:text-left">
           <span className="inline-block rounded-full border border-border bg-white px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-muted-foreground shadow-sm">
             Tarifs & Prestations — Toulouse
           </span>
@@ -750,10 +752,12 @@ function FormulesPage() {
           </div>
         </div>
       </div>
+      </FadeIn>
 
       {/* ── TRUST BAR ── */}
-      <div className="border-y border-border bg-white py-4 mb-10">
-        <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
+      <FadeIn delay={0.2}>
+        <div className="border-y border-border bg-white py-4 mb-10">
+          <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
           {[
             { icon: <Zap className="size-4 text-primary" />, text: "Disponible dès demain" },
             { icon: <Leaf className="size-4 text-primary" />, text: "Produits Écolabel certifiés" },
@@ -763,11 +767,13 @@ function FormulesPage() {
             <span key={t.text} className="inline-flex items-center gap-1.5">{t.icon} {t.text}</span>
           ))}
         </div>
-      </div>
+          </div>
+      </FadeIn>
 
       {/* ── CATEGORY GRID ── */}
-      <div className="mx-auto max-w-5xl px-4 mb-4">
-        <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4 text-center">
+      <FadeIn delay={0.1}>
+        <div className="mx-auto max-w-5xl px-4 mb-4">
+          <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4 text-center">
           Choisissez une prestation pour voir toutes les formules
         </p>
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
@@ -839,10 +845,12 @@ function FormulesPage() {
           })}
         </div>
       </div>
+      </FadeIn>
 
       {/* ── DETAIL PANEL ── */}
       {selectedCat && (
-        <div className="mx-auto max-w-5xl px-4 mb-10">
+        <FadeIn delay={0.1} direction="up">
+          <div className="mx-auto max-w-5xl px-4 mb-10">
           <div className="rounded-2xl border border-primary/20 bg-white shadow-md overflow-hidden">
             <div className="flex items-center gap-3 border-b border-border bg-secondary/30 px-6 py-4">
               <div className="flex size-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
@@ -857,12 +865,14 @@ function FormulesPage() {
               {selectedCat.content}
             </div>
           </div>
-        </div>
+          </div>
+        </FadeIn>
       )}
 
       {/* ── AUTRES SERVICES ── */}
-      <section className="mx-auto max-w-5xl px-4 mb-12">
-        <div className="rounded-2xl border border-border bg-white p-8 shadow-sm">
+      <FadeIn delay={0.1}>
+        <section className="mx-auto max-w-5xl px-4 mb-12">
+          <div className="rounded-2xl border border-border bg-white p-8 shadow-sm">
           <p className="text-xs font-bold uppercase tracking-widest text-primary mb-2">Sur devis</p>
           <h2 className="text-2xl font-bold tracking-tight">Autres prestations de nettoyage à Toulouse</h2>
           <p className="mt-2 text-sm text-muted-foreground max-w-2xl">
@@ -877,12 +887,14 @@ function FormulesPage() {
               <a href={COMPANY.phoneHref}><Phone className="size-4" /> {COMPANY.phone}</a>
             </Button>
           </div>
-        </div>
-      </section>
+          </div>
+        </section>
+      </FadeIn>
 
       {/* ── SEO GÉO ── */}
-      <section className="mx-auto max-w-5xl px-4 mb-12">
-        <div className="rounded-2xl bg-secondary/40 border border-border px-8 py-10">
+      <FadeIn delay={0.1}>
+        <section className="mx-auto max-w-5xl px-4 mb-12">
+          <div className="rounded-2xl bg-secondary/40 border border-border px-8 py-10">
           <div className="flex items-center gap-2 text-primary mb-3">
             <MapPin className="size-4" />
             <span className="text-xs font-bold uppercase tracking-widest">Zone d'intervention</span>
@@ -906,12 +918,14 @@ function FormulesPage() {
           <p className="mt-3 text-sm text-muted-foreground">
             📞 Devis gratuit sous 24h · 7j/7 · Intervention rapide · Produits certifiés Écolabel européen
           </p>
-        </div>
-      </section>
+          </div>
+        </section>
+      </FadeIn>
 
       {/* ── CTA FINAL ── */}
-      <div className="mx-auto max-w-xl px-4 pb-16 text-center">
-        <p className="text-lg font-bold">Prêt à retrouver un intérieur comme neuf ?</p>
+      <FadeIn delay={0.2}>
+        <div className="mx-auto max-w-xl px-4 pb-16 text-center">
+          <p className="text-lg font-bold">Prêt à retrouver un intérieur comme neuf ?</p>
         <p className="mt-1 text-sm text-muted-foreground">Réservation en ligne en 2 minutes, confirmation immédiate.</p>
         <div className="mt-5 flex flex-wrap gap-3 justify-center">
           <Button asChild size="xl" className="font-bold">
@@ -922,10 +936,10 @@ function FormulesPage() {
           </Button>
         </div>
         <p className="mt-3 text-xs text-muted-foreground flex items-center justify-center gap-1">
-          <Info className="size-3.5" /> Déplacement gratuit · Paiement sur place
+          <CheckCircle2 className="size-3 text-primary" /> Sans engagement, annulation gratuite.
         </p>
       </div>
-
+      </FadeIn>
     </div>
   );
 }

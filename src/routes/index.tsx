@@ -27,6 +27,7 @@ import { Button } from "@/components/ui/button";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { COMMUNES, COMPANY, SERVICES, SITE_URL } from "@/data/site";
 import { ReviewsCarousel } from "@/components/site/ReviewsCarousel";
+import { FadeIn } from "@/components/ui/fade-in";
 import heroImg from "@/assets/hero-nettoyage.jpg";
 import avantCanape from "@/assets/avant-canape.jpg";
 import apresCanape from "@/assets/apres-canape.jpg";
@@ -291,7 +292,8 @@ function Index() {
       </section>
 
       {/* ── STATS STRIP ── */}
-      <section className="border-b border-border bg-card">
+      <FadeIn delay={0.1}>
+        <section className="border-b border-border bg-card">
         <div className="mx-auto grid max-w-6xl grid-cols-2 divide-x divide-border md:grid-cols-4">
           {STATS.map((s) => (
             <div key={s.label} className="flex flex-col items-center justify-center py-7 px-4">
@@ -300,20 +302,24 @@ function Index() {
             </div>
           ))}
         </div>
-      </section>
+        </section>
+      </FadeIn>
 
       {/* ── INTRO TEXTE ── */}
-      <section className="mx-auto max-w-4xl px-4 pt-16 pb-4 text-center">
+      <FadeIn delay={0.2}>
+        <section className="mx-auto max-w-4xl px-4 pt-16 pb-4 text-center">
         <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
           Entreprise de nettoyage à Toulouse
         </h2>
         <p className="mx-auto mt-5 max-w-3xl text-base leading-relaxed text-muted-foreground">
           Notre entreprise de nettoyage met à disposition des services complets aussi bien pour les particuliers que pour les professionnels à Toulouse et dans les communes voisines. Nos agents de nettoyage interviennent avec sérieux et fiabilité afin de garantir des prestations adaptées à chaque besoin.
         </p>
-      </section>
+        </section>
+      </FadeIn>
 
       {/* ── SERVICES GRID ── */}
-      <section className="mx-auto max-w-6xl px-4 py-20">
+      <FadeIn delay={0.1}>
+        <section className="mx-auto max-w-6xl px-4 py-20">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-xs font-bold uppercase tracking-widest text-primary">Nos prestations</p>
@@ -350,10 +356,12 @@ function Index() {
             </article>
           ))}
         </div>
-      </section>
+        </section>
+      </FadeIn>
 
       {/* ── COMMENT ÇA MARCHE ── */}
-      <section className="bg-secondary/60 py-20">
+      <FadeIn delay={0.2}>
+        <section className="bg-secondary/60 py-20">
         <div className="mx-auto max-w-6xl px-4">
           <p className="text-xs font-bold uppercase tracking-widest text-primary">Simple & rapide</p>
           <h2 className="mt-2 text-4xl font-bold tracking-tight">Comment ça marche ?</h2>
@@ -393,7 +401,8 @@ function Index() {
             </Button>
           </div>
         </div>
-      </section>
+        </section>
+      </FadeIn>
 
       {/* ── POURQUOI CLEAN&FRESH ── */}
       <section className="mx-auto max-w-6xl px-4 py-20">

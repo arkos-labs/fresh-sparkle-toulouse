@@ -4,6 +4,7 @@ import { CalendarCheck, Check, MapPin, Phone, Sparkles, ArrowRight, Clock, Shiel
 import { Button } from "@/components/ui/button";
 import { COMMUNES, COMPANY, SERVICES, type Service } from "@/data/site";
 import { ReviewsCarousel } from "@/components/site/ReviewsCarousel";
+import { FadeIn } from "@/components/ui/fade-in";
 
 const PHOTOS_BY_CATEGORY: Record<string, string[]> = {
   canape: ["/realisations/photo-01.jpg", "/realisations/photo-04.jpg", "/realisations/photo-05.jpg", "/realisations/photo-08.jpg"],
@@ -111,8 +112,9 @@ export function ServicePage({ service }: { service: Service }) {
       </section>
 
       {/* ── DETAIL ── */}
-      <section className="mx-auto max-w-6xl px-4 py-16">
-        <div className="grid gap-10 md:grid-cols-2">
+      <FadeIn delay={0.1}>
+        <section className="mx-auto max-w-6xl px-4 py-16">
+          <div className="grid gap-10 md:grid-cols-2">
           <div>
             <p className="text-xs font-bold uppercase tracking-widest text-primary">Le service en détail</p>
             <h2 className="mt-2 text-3xl font-bold tracking-tight">Comment ça se passe ?</h2>
@@ -317,10 +319,12 @@ export function ServicePage({ service }: { service: Service }) {
           )}
         </div>
       </section>
+      </FadeIn>
 
       {/* ── AVANT / APRÈS ── */}
-      <section className="bg-secondary/60 py-16">
-        <div className="mx-auto max-w-6xl px-4">
+      <FadeIn delay={0.2}>
+        <section className="bg-secondary/60 py-16">
+          <div className="mx-auto max-w-6xl px-4">
           <p className="text-xs font-bold uppercase tracking-widest text-primary">Nos réalisations</p>
           <h2 className="mt-2 text-3xl font-bold tracking-tight">Avant / après nos interventions</h2>
           <p className="mt-3 text-muted-foreground">
@@ -346,15 +350,17 @@ export function ServicePage({ service }: { service: Service }) {
               </figure>
             ))}
           </div>
-        </div>
-      </section>
+            </div>
+        </section>
+      </FadeIn>
 
       {/* ── AVIS CLIENTS ── */}
       <ReviewsCarousel />
 
       {/* ── MÉTHODE ── */}
-      <section className="mx-auto max-w-6xl px-4 py-16">
-        <p className="text-xs font-bold uppercase tracking-widest text-primary">Notre savoir-faire</p>
+      <FadeIn delay={0.1}>
+        <section className="mx-auto max-w-6xl px-4 py-16">
+          <p className="text-xs font-bold uppercase tracking-widest text-primary">Notre savoir-faire</p>
         <h2 className="mt-2 text-3xl font-bold tracking-tight">Notre méthode de travail</h2>
         <ol className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {service.method.map((step, i) => (
@@ -368,13 +374,15 @@ export function ServicePage({ service }: { service: Service }) {
               <p className="mt-4 text-sm text-muted-foreground leading-relaxed">{step}</p>
             </li>
           ))}
-        </ol>
-      </section>
+          </ol>
+        </section>
+      </FadeIn>
 
       {/* ── FAQ ── */}
       {service.faq && service.faq.length > 0 && (
-        <section className="mx-auto max-w-6xl px-4 py-16">
-          <script
+        <FadeIn delay={0.1}>
+          <section className="mx-auto max-w-6xl px-4 py-16">
+            <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{
               __html: JSON.stringify({
@@ -407,11 +415,13 @@ export function ServicePage({ service }: { service: Service }) {
             ))}
           </div>
         </section>
+      </FadeIn>
       )}
 
       {/* ── CTA RÉSERVATION ── */}
-      <section className="mx-auto max-w-6xl px-4 pb-16">
-        <div className="relative overflow-hidden rounded-3xl bg-hero-gradient px-6 py-14 text-center text-ink-foreground shadow-[var(--shadow-card)]">
+      <FadeIn delay={0.2}>
+        <section className="mx-auto max-w-6xl px-4 pb-16">
+          <div className="relative overflow-hidden rounded-3xl bg-hero-gradient px-6 py-14 text-center text-ink-foreground shadow-[var(--shadow-card)]">
           <div className="pointer-events-none absolute -right-16 -top-16 size-72 rounded-full bg-primary/20 blur-3xl" />
           <div className="relative">
             <h2 className="text-3xl font-bold md:text-4xl">Prêt à réserver ?</h2>
@@ -445,12 +455,15 @@ export function ServicePage({ service }: { service: Service }) {
               </Button>
             </div>
           </div>
-        </div>
-      </section>
+          </div>
+        </section>
+      </FadeIn>
 
       {/* ── AUTRES SERVICES ── */}
-      <section className="mx-auto max-w-6xl px-4 pb-16">
-        <h2 className="text-2xl font-bold tracking-tight">Nos autres services</h2>
+      {/* ── AUTRES SERVICES ── */}
+      <FadeIn delay={0.1}>
+        <section className="mx-auto max-w-6xl px-4 pb-16">
+          <h2 className="text-2xl font-bold tracking-tight">Nos autres services</h2>
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {others.map((s) => (
             <Link
@@ -467,6 +480,7 @@ export function ServicePage({ service }: { service: Service }) {
           ))}
         </div>
       </section>
+      </FadeIn>
     </div>
   );
 }
