@@ -174,6 +174,9 @@ export function Header() {
               )}
             </div>
 
+            <Link to="/nos-realisations" onClick={close} className="block rounded-xl px-3 py-2.5 font-semibold text-foreground hover:bg-secondary hover:text-primary transition-colors">
+              Réalisations
+            </Link>
             <Link to="/formules" onClick={close} className="block rounded-xl px-3 py-2.5 font-semibold text-foreground hover:bg-secondary hover:text-primary transition-colors">
               Tarifs
             </Link>

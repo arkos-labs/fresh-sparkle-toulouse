@@ -62,7 +62,7 @@ const AUTO_PACKS = [
   {
     id: "bronze", emoji: "🥉", name: "Pack Bronze", price: "69 €", tagline: "Entretien régulier",
     badge: null as string | null, featured: false,
-    included: ["Aspiration complète de l'habitacle", "Nettoyage des plastiques et tableau de bord", "Nettoyage des vitres intérieures", "Nettoyage des tapis de sol", "Satisfait ou on revient gratuitement"],
+    included: ["Aspiration complète de l'habitacle", "Nettoyage des plastiques et tableau de bord", "Nettoyage des vitres intérieures", "Nettoyage des tapis de sol", "Résultat professionnel garanti"],
     options: [
       { name: "Traitement anti-acariens et bactériens", price: 19, popular: true },
       { name: "Élimination des poils d'animaux", price: 25, popular: false },
@@ -75,7 +75,7 @@ const AUTO_PACKS = [
   {
     id: "argent", emoji: "🥈", name: "Pack Argent", price: "99 €", tagline: "Nettoyage complet",
     badge: "⭐ Le + vendu" as string | null, featured: true,
-    included: ["Tout le Pack Bronze inclus", "Injection-extraction des sièges tissu", "Vitres sans traces (intérieur + extérieur)", "Joints et recoins traités en détail", "Satisfait ou on revient gratuitement"],
+    included: ["Tout le Pack Bronze inclus", "Injection-extraction des sièges tissu", "Vitres sans traces (intérieur + extérieur)", "Joints et recoins traités en détail", "Résultat professionnel garanti"],
     options: [
       { name: "Traitement anti-acariens et bactériens", price: 19, popular: true },
       { name: "Élimination des poils d'animaux", price: 25, popular: false },
@@ -220,7 +220,7 @@ function CanapeDetail() {
             
             <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
             <div className="mt-5 space-y-2.5">
-              {["Injection-extraction professionnelle", "Tâches, auréoles et odeurs éliminées", "Résultat visible immédiatement", "Satisfait ou on revient gratuitement"].map((pt) => (
+              {["Injection-extraction professionnelle", "Tâches, auréoles et odeurs éliminées", "Résultat visible immédiatement", "Résultat professionnel garanti"].map((pt) => (
                 <div key={pt} className="flex items-center gap-3 text-sm text-foreground/80 font-medium">
                   <CheckCircle2 className="size-4.5 shrink-0 text-primary" /> {pt}
                 </div>
@@ -232,7 +232,7 @@ function CanapeDetail() {
               <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold">À partir de</p>
               <p className="text-5xl font-black text-primary leading-none mt-1">{item.price}</p>
             </div>
-            <Link to="/reserver" search={{ service: "canape" }}
+            <Link to="/reserver" search={{ service: "canape", formule: selected }} onClick={() => window.scrollTo(0,0)}
               className="inline-flex items-center justify-center gap-2 w-full rounded-xl bg-primary px-6 py-3.5 text-sm font-bold text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all">
               <CalendarCheck className="size-4" /> Je réserve
             </Link>
@@ -373,9 +373,9 @@ const SVG_MATELAS_2PLACES = (
 // ─── TAPIS DETAIL ─────────────────────────────────────────────────────────────
 
 const TAPIS_ITEMS = [
-  { id: "1-tapis", label: "1 tapis", price: "49 €", desc: "Fibres et couleurs ravivées, tâches et odeurs éliminées. Satisfait ou on revient." },
-  { id: "2-tapis", label: "2 tapis", price: "79 €", popular: true, desc: "Économisez 19 € vs 2 × 1 tapis. Tâches et odeurs éliminées. Satisfait ou on revient." },
-  { id: "3-tapis", label: "3 tapis", price: "99 €", desc: "Toute la maison en 1 visite. Tâches et odeurs éliminées. Satisfait ou on revient." },
+  { id: "1-tapis", label: "1 tapis", price: "49 €", desc: "Fibres et couleurs ravivées, tâches et odeurs éliminées. Résultat professionnel garanti." },
+  { id: "2-tapis", label: "2 tapis", price: "79 €", desc: "Économisez 19 € vs 2 × 1 tapis. Tâches et odeurs éliminées. Résultat professionnel garanti." },
+  { id: "3-tapis", label: "3 tapis", price: "99 €", desc: "Toute la maison en 1 visite. Tâches et odeurs éliminées. Résultat professionnel garanti." },
 ];
 
 function TapisDetail() {
@@ -399,11 +399,6 @@ function TapisDetail() {
               onClick={() => setSelected(c.id)}
               className={isSelected ? CARD_SELECTED_CLASS : CARD_UNSELECTED_CLASS}
             >
-              {"popular" in c && c.popular && (
-                <span className={BADGE_CLASS}>
-                  Populaire
-                </span>
-              )}
 
               <div className={`flex items-center justify-center w-full h-32 sm:h-48 mb-3 mt-1 px-0 transition-colors ${isSelected ? "text-[#1a2b4c]" : "text-primary/70"}`}>
                 <img src={TAPIS_IMAGES[c.id]} alt={c.label} className="w-full h-full object-contain mix-blend-multiply scale-125 sm:scale-150" />
@@ -428,7 +423,7 @@ function TapisDetail() {
             
             <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
             <div className="mt-5 space-y-2.5">
-              {["Injection-extraction professionnelle", "Tâches, auréoles et odeurs éliminées", "Résultat visible immédiatement", "Satisfait ou on revient gratuitement"].map((pt) => (
+              {["Injection-extraction professionnelle", "Tâches, auréoles et odeurs éliminées", "Résultat visible immédiatement", "Résultat professionnel garanti"].map((pt) => (
                 <div key={pt} className="flex items-center gap-3 text-sm text-foreground/80 font-medium">
                   <CheckCircle2 className="size-4.5 shrink-0 text-primary" /> {pt}
                 </div>
@@ -440,7 +435,7 @@ function TapisDetail() {
               <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold">À partir de</p>
               <p className="text-5xl font-black text-primary leading-none mt-1">{item.price}</p>
             </div>
-            <Link to="/reserver" search={{ service: "tapis" }}
+            <Link to="/reserver" search={{ service: "tapis", formule: selected }} onClick={() => window.scrollTo(0,0)}
               className="inline-flex items-center justify-center gap-2 w-full rounded-xl bg-primary px-6 py-3.5 text-sm font-bold text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all">
               <CalendarCheck className="size-4" /> Je réserve
             </Link>
@@ -522,7 +517,7 @@ function AutoDetail() {
               <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold">Tarif</p>
               <p className="text-5xl font-black text-primary leading-none mt-1">{item.price}</p>
             </div>
-            <Link to="/reserver" search={{ service: "auto" }}
+            <Link to="/reserver" search={{ service: "auto", formule: selected }} onClick={() => window.scrollTo(0,0)}
               className="inline-flex items-center justify-center gap-2 w-full rounded-xl bg-primary px-6 py-3.5 text-sm font-bold text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all">
               <CalendarCheck className="size-4" /> Je réserve
             </Link>
@@ -541,9 +536,9 @@ function AutoDetail() {
 // ─── MATELAS DETAIL ───────────────────────────────────────────────────────────
 
 const MATELAS_ITEMS = [
-  { id: "enfant", label: "Matelas enfant", price: "39 €", desc: "Votre enfant dort dans un lit sain. Tâches et odeurs éliminées, 2 côtés. Anti-acariens inclus d'office." },
-  { id: "1-place", label: "Matelas 1 place", price: "59 €", popular: true, desc: "Dormez dans un matelas comme neuf. Tâches et odeurs éliminées, 2 côtés. Anti-acariens inclus d'office." },
-  { id: "2-places", label: "Matelas 2 places", price: "99 €", desc: "Chambre entièrement assainie. Tâches et odeurs éliminées, 2 côtés. Anti-acariens inclus d'office." },
+  { id: "enfant", label: "Matelas enfant", price: "39 €", desc: "Votre enfant dort dans un lit sain. Tâches et odeurs éliminées, 2 côtés. Traitement anti-acariens en option. Résultat professionnel garanti." },
+  { id: "1-place", label: "Matelas 1 place", price: "59 €", desc: "Dormez dans un matelas comme neuf. Tâches et odeurs éliminées, 2 côtés. Traitement anti-acariens en option. Résultat professionnel garanti." },
+  { id: "2-places", label: "Matelas 2 places", price: "99 €", desc: "Chambre entièrement assainie. Tâches et odeurs éliminées, 2 côtés. Traitement anti-acariens en option. Résultat professionnel garanti." },
 ];
 
 function MatelasDetail() {
@@ -596,7 +591,7 @@ function MatelasDetail() {
             
             <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
             <div className="mt-5 space-y-2.5">
-              {["Injection-extraction professionnelle", "Tâches, auréoles et odeurs éliminées", "Résultat visible immédiatement", "Satisfait ou on revient gratuitement"].map((pt) => (
+              {["Injection-extraction professionnelle", "Tâches, auréoles et odeurs éliminées", "Résultat visible immédiatement", "Résultat professionnel garanti"].map((pt) => (
                 <div key={pt} className="flex items-center gap-3 text-sm text-foreground/80 font-medium">
                   <CheckCircle2 className="size-4.5 shrink-0 text-primary" /> {pt}
                 </div>
@@ -608,7 +603,7 @@ function MatelasDetail() {
               <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold">À partir de</p>
               <p className="text-5xl font-black text-primary leading-none mt-1">{item.price}</p>
             </div>
-            <Link to="/reserver" search={{ service: "matelas" }}
+            <Link to="/reserver" search={{ service: "matelas", formule: selected }} onClick={() => window.scrollTo(0,0)}
               className="inline-flex items-center justify-center gap-2 w-full rounded-xl bg-primary px-6 py-3.5 text-sm font-bold text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all">
               <CalendarCheck className="size-4" /> Je réserve
             </Link>
@@ -761,7 +756,7 @@ function FormulesPage() {
           {[
             { icon: <Zap className="size-4 text-primary" />, text: "Disponible dès demain" },
             { icon: <Leaf className="size-4 text-primary" />, text: "Produits Écolabel certifiés" },
-            { icon: <Shield className="size-4 text-primary" />, text: "Satisfait ou on revient" },
+            { icon: <Shield className="size-4 text-primary" />, text: "Résultat professionnel garanti" },
             { icon: <MapPin className="size-4 text-primary" />, text: "Intervention à domicile" },
           ].map((t) => (
             <span key={t.text} className="inline-flex items-center gap-1.5">{t.icon} {t.text}</span>

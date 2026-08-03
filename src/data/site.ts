@@ -470,7 +470,7 @@ export const SERVICES: Service[] = [
     slug: "/nettoyage-dappartement-ou-maison",
     navLabel: "Nettoyage d'appartement ou maison Toulouse",
     h1: "Nettoyage d'appartement ou de maison à Toulouse",
-    short: "Appartement / maison",
+    short: "Nettoyage Appartement / maison Toulouse",
     subtitle:
       "Grand ménage ponctuel ou entretien régulier de votre logement, à Toulouse et dans toute l'agglomération.",
     metaTitle: "Nettoyage appartement ou maison Toulouse | Clean&Fresh",
@@ -514,7 +514,7 @@ export const SERVICES: Service[] = [
     slug: "/nettoyage-de-fin-de-chantier-toulouse",
     navLabel: "Nettoyage de fin de chantier Toulouse",
     h1: "Nettoyage de fin de chantier à Toulouse",
-    short: "Fin de chantier",
+    short: "Nettoyage Fin de chantier Toulouse",
     subtitle:
       "Poussières, résidus et traces de peinture éliminés après vos travaux, à Toulouse et en Haute-Garonne.",
     metaTitle: "Nettoyage fin de chantier Toulouse | Clean&Fresh",
@@ -558,7 +558,7 @@ export const SERVICES: Service[] = [
     slug: "/nettoyage-fin-de-bail-toulouse",
     navLabel: "Nettoyage fin de bail Toulouse",
     h1: "Nettoyage fin de bail à Toulouse",
-    short: "Fin de bail",
+    short: "Nettoyage Fin de bail Toulouse",
     subtitle:
       "Remise en état complète de votre logement pour l'état des lieux de sortie, à Toulouse et en Haute-Garonne.",
     metaTitle: "Nettoyage fin de bail Toulouse — état des lieux | Clean&Fresh",
@@ -602,7 +602,7 @@ export const SERVICES: Service[] = [
     slug: "/nettoyage-diogene-toulouse",
     navLabel: "Nettoyage Diogène Toulouse",
     h1: "Nettoyage Diogène à Toulouse",
-    short: "Syndrome de Diogène",
+    short: "Nettoyage Syndrome de Diogène Toulouse",
     subtitle:
       "Désencombrement, débarras et remise en état de logements en syndrome de Diogène, à Toulouse et en Haute-Garonne.",
     metaTitle: "Nettoyage Diogène Toulouse — débarras | Clean&Fresh",
@@ -646,7 +646,7 @@ export const SERVICES: Service[] = [
     slug: "/nettoyage-extreme-toulouse",
     navLabel: "Nettoyage extrême Toulouse",
     h1: "Nettoyage extrême à Toulouse",
-    short: "Nettoyage extrême",
+    short: "Nettoyage extrême Toulouse",
     subtitle:
       "Intervention lourde sur logement très dégradé, insalubre ou encombré, à Toulouse et alentours.",
     metaTitle: "Nettoyage extrême Toulouse — logement insalubre | Clean&Fresh",

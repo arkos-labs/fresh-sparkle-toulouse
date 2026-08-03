@@ -35,17 +35,17 @@ type ServiceDef = { id: string; label: string; shortLabel: string; desc: string;
 
 // ─── OPTIONS PARTAGÉES ───────────────────────────────────────────────────────
 
-const OA: Option = { id: "acariens",  name: "Traitement anti-acariens et bactériens",  desc: "Élimine 99,9% des acariens et allergènes. Idéal pour les personnes sensibles.",                      price: 19, popular: true, icon: <Shield className="size-4" /> };
-const OP: Option = { id: "poils",     name: "Élimination des poils d'animaux",          desc: "Brossage mécanique spécifique avant l'injection-extraction.",                                           price: 15, popular: true, icon: <Dog className="size-4" /> };
-const OPA: Option= { id: "poils",     name: "Élimination des poils d'animaux",          desc: "Brossage spécifique avant nettoyage des sièges et moquettes.",                                          price: 25, icon: <Dog className="size-4" /> };
-const OD: Option = { id: "detachage", name: "Détachage intensif",                        desc: "Traitement ciblé pour les tâches anciennes (sang, vin, encre, café).",                                  price: 19, icon: <Droplets className="size-4" /> };
-const ODA:Option = { id: "detachage", name: "Détachage intensif — siège très taché",    desc: "Traitement ciblé pour les tâches résistantes sur sièges.",                                               price: 19, icon: <Droplets className="size-4" /> };
-const OO: Option = { id: "odeur",     name: "Traitement anti-odeur",                     desc: "Neutralisation moléculaire des mauvaises odeurs incrustées.",                                            price: 15, popular: true, icon: <Wind className="size-4" /> };
-const ORV:Option = { id: "rectoverso",name: "Nettoyage recto-verso",                     desc: "Nettoyage des deux faces du tapis pour un résultat total.",                                              price: 25, icon: <Layers className="size-4" /> };
-const OV: Option = { id: "vitres",    name: "Vitres sans traces",                        desc: "Nettoyage intérieur des vitres, sans auréoles.",                                                         price: 9, icon: <Sparkles className="size-4" />  };
-const OTS:Option = { id: "tapis-sol", name: "Shampouinage des tapis de sol",             desc: "Nettoyage injection-extraction des tapis de sol du véhicule.",                                          price: 15, icon: <Droplets className="size-4" /> };
-const OC: Option = { id: "ciel",      name: "Nettoyage du ciel de toit",                 desc: "Nettoyage en profondeur du revêtement du plafond de l'habitacle.",                                      price: 29, icon: <Sparkles className="size-4" /> };
-const OSA:Option = { id: "sieges",    name: "Shampouinage des sièges auto",              desc: "Injection-extraction complète des sièges tissu ou Alcantara.",                                           price: 39, icon: <Droplets className="size-4" /> };
+const OA: Option = { id: "acariens",  name: "Traitement anti-acariens et bactériens",  desc: "Élimine 99,9% des acariens et allergènes. Idéal pour les personnes sensibles.",                      price: 19, popular: true, icon: <Shield className="size-5" /> };
+const OP: Option = { id: "poils",     name: "Élimination des poils d'animaux",          desc: "Brossage mécanique spécifique avant l'injection-extraction.",                                           price: 15, popular: true, icon: <Dog className="size-5" /> };
+const OPA: Option= { id: "poils",     name: "Élimination des poils d'animaux",          desc: "Brossage spécifique avant nettoyage des sièges et moquettes.",                                          price: 25, icon: <Dog className="size-5" /> };
+const OD: Option = { id: "detachage", name: "Détachage intensif",                        desc: "Traitement ciblé pour les tâches anciennes (sang, vin, encre, café).",                                  price: 19, icon: <Droplets className="size-5" /> };
+const ODA:Option = { id: "detachage", name: "Détachage intensif — siège très taché",    desc: "Traitement ciblé pour les tâches résistantes sur sièges.",                                               price: 19, icon: <Droplets className="size-5" /> };
+const OO: Option = { id: "odeur",     name: "Traitement anti-odeur",                     desc: "Neutralisation moléculaire des mauvaises odeurs incrustées.",                                            price: 15, popular: true, icon: <Wind className="size-5" /> };
+const ORV:Option = { id: "rectoverso",name: "Nettoyage recto-verso",                     desc: "Nettoyage des deux faces du tapis pour un résultat total.",                                              price: 25, icon: <Layers className="size-5" /> };
+const OV: Option = { id: "vitres",    name: "Vitres sans traces",                        desc: "Nettoyage intérieur des vitres, sans auréoles.",                                                         price: 9, icon: <Sparkles className="size-5" />  };
+const OTS:Option = { id: "tapis-sol", name: "Shampouinage des tapis de sol",             desc: "Nettoyage injection-extraction des tapis de sol du véhicule.",                                          price: 15, icon: <Droplets className="size-5" /> };
+const OC: Option = { id: "ciel",      name: "Nettoyage du ciel de toit",                 desc: "Nettoyage en profondeur du revêtement du plafond de l'habitacle.",                                      price: 29, icon: <Sparkles className="size-5" /> };
+const OSA:Option = { id: "sieges",    name: "Shampouinage des sièges auto",              desc: "Injection-extraction complète des sièges tissu ou Alcantara.",                                           price: 39, icon: <Droplets className="size-5" /> };
 
 const CAN = [OA, OP, OD, OO];
 const TAP = [OA, ORV, OD, OO];
@@ -96,7 +96,6 @@ const SERVICES: ServiceDef[] = [
     desc: "Assainissement complet, éradication des acariens et auréoles de transpiration.",
     from: 39, icon: <BedDouble className="size-6 stroke-[1.4]" />,
     features: ["Matelas enfant, 1 place, 2 places", "Anti-acariens inclus d'office", "Recommandé pour les allergiques"],
-    badge: "⭐ Recommandé",
     formules: [
       { id: "matelas-enfant", name: "Matelas enfant",   price: 39,  duration: "30 min", durationMin: 30, options: MAT },
       { id: "matelas-1",      name: "Matelas 1 place",  price: 59,  duration: "1h",     durationMin: 60, options: MAT },
@@ -726,10 +725,15 @@ function ReserverPage() {
                     const checked = selectedOptions.includes(opt.id);
                     return (
                       <label key={opt.id} className={`flex cursor-pointer items-start gap-4 px-5 py-4 transition-colors hover:bg-secondary/40 ${checked ? "bg-primary/5" : ""}`}>
-                        <div className={`mt-0.5 flex size-5 shrink-0 items-center justify-center rounded border-2 transition-colors ${checked ? "border-primary bg-primary" : "border-border bg-background"}`}>
+                        <div className={`mt-2 flex size-5 shrink-0 items-center justify-center rounded border-2 transition-colors ${checked ? "border-primary bg-primary" : "border-border bg-background"}`}>
                           {checked && <Check className="size-3 text-primary-foreground" />}
                         </div>
                         <input type="checkbox" className="sr-only" checked={checked} onChange={() => toggleOption(opt.id)} />
+                        
+                        <div className={`flex size-10 shrink-0 items-center justify-center rounded-xl transition-colors ${checked ? "bg-primary text-white" : "bg-primary/10 text-primary"}`}>
+                          {opt.icon}
+                        </div>
+
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 flex-wrap">
                             <span className="font-semibold text-sm">{opt.name}</span>
@@ -739,7 +743,7 @@ function ReserverPage() {
                           </div>
                           <p className="mt-0.5 text-xs text-muted-foreground leading-relaxed">{opt.desc}</p>
                         </div>
-                        <span className="shrink-0 font-bold text-sm text-primary">+{opt.price} €</span>
+                        <span className="shrink-0 font-bold text-sm text-primary mt-1">+{opt.price} €</span>
                       </label>
                     );
                   })}
