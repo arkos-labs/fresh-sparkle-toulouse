@@ -205,3 +205,31 @@ export async function sendReminderEmail(params: {
     owner_phone: ownerPhone,
   });
 }
+
+export type ContactPayload = {
+  nom: string;
+  telephone: string;
+  email: string;
+  service: string;
+  message: string;
+};
+
+export async function sendContactMessage(c: ContactPayload) {
+  // Use VITE_EMAILJS_TEMPLATE_CONTACT if defined, else fallback to owner template
+  const tplId = CFG.tplContact || CFG.tplOwner;
+  if (!tplId) {
+    console.warn("No contact template ID found.");
+    return;
+  }
+
+  await send(tplId, {
+    client_name: c.nom,
+    client_phone: c.telephone,
+    client_email: c.email,
+    service_name: c.service,
+    message: c.message,
+    // Add extra params just in case template requires them
+    formule_name: "Demande de contact", 
+    booking_date: new Date().toLocaleDateString("fr-FR"),
+  });
+}
