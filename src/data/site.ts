@@ -11,6 +11,13 @@ export const COMPANY = {
   booking: "https://app.dispoo.fr/website/385-clean-fresh",
 };
 
+export const DISPLACEMENT_RULES = {
+  freeKm: 20, // Offert jusqu'à 20 km
+  baseFee: 10, // 10€ de 21 à 34 km
+  extraFeePerTier: 10, // +10€ chaque tranche de 15km (ex: 35-49km = 20€)
+  tierSizeKm: 15,
+};
+
 export const COMMUNES = [
   "Toulouse",
   "Colomiers",

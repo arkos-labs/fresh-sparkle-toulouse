@@ -78,7 +78,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  head: () => ({
+  head: (ctx) => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
@@ -101,6 +101,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:description", content: "Entreprise de nettoyage à Toulouse et dans le 31 — canapé, matelas, tapis, auto, vitres, façade, fin de chantier. À domicile, Résultat soigné. Devis gratuit !" },
     ],
     links: [
+      {
+        rel: "canonical",
+        href: `https://cleanetfresh.fr${ctx?.location?.pathname ?? ""}`,
+      },
       {
         rel: "stylesheet",
         href: appCss,

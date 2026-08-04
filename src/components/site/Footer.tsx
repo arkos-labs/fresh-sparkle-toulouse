@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { CalendarCheck, Mail, Phone } from "lucide-react";
+import { CalendarCheck, Mail, Phone, Instagram, Facebook } from "lucide-react";
 import { COMPANY, MENU_BATIMENT, MENU_TEXTILE } from "@/data/site";
 
 export function Footer() {
@@ -97,6 +97,14 @@ export function Footer() {
               >
                 → Devis gratuit sous 24h
               </Link>
+            </li>
+            <li className="pt-2 flex items-center gap-4 text-ink-foreground/60">
+              <a href="#" aria-label="Instagram" className="text-[#E1306C] hover:opacity-80 transition-opacity">
+                <Instagram className="size-5" />
+              </a>
+              <a href="#" aria-label="Facebook" className="text-[#1877F2] hover:opacity-80 transition-opacity">
+                <Facebook className="size-5" />
+              </a>
             </li>
           </ul>
         </div>

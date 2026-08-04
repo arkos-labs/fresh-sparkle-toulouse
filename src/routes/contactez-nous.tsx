@@ -57,6 +57,14 @@ function ContactPage() {
     e.preventDefault();
     const form = e.currentTarget;
     const data = Object.fromEntries(new FormData(form));
+    
+    // Validation du nombre de fichiers (Max 8)
+    const fileInput = form.elements.namedItem("photos") as HTMLInputElement;
+    if (fileInput && fileInput.files && fileInput.files.length > 8) {
+      setErrors({ photos: "Vous ne pouvez pas sélectionner plus de 8 photos." });
+      return;
+    }
+
     const result = schema.safeParse(data);
     if (!result.success) {
       const next: Record<string, string> = {};
@@ -152,6 +160,14 @@ function ContactPage() {
             {errors.message && <p className="text-xs text-destructive">{errors.message}</p>}
           </div>
 
+          {/* Photos */}
+          <div className="mt-4 grid gap-2">
+            <Label htmlFor="photos">Photos de la zone (Max 8) — Optionnel</Label>
+            <Input id="photos" name="photos" type="file" multiple accept="image/*" className="cursor-pointer" />
+            <p className="text-[10px] text-muted-foreground">Sans hébergement dédié, les photos seront envoyées via votre client de messagerie.</p>
+            {errors.photos && <p className="text-xs text-destructive">{errors.photos}</p>}
+          </div>
+
           {/* Submit */}
           <Button
             type="submit"
@@ -220,9 +236,9 @@ function ContactPage() {
                 return (
                   <li key={c} className="rounded-full border border-border bg-secondary text-xs font-semibold uppercase tracking-wide text-muted-foreground overflow-hidden">
                     {hasPage ? (
-                      <Link to={`/nettoyage-${slug}`} className="block px-3 py-1 hover:text-primary transition-colors">
+                      <a href={`/nettoyage-${slug}`} className="block px-3 py-1 hover:text-primary transition-colors">
                         {c}
-                      </Link>
+                      </a>
                     ) : (
                       <span className="block px-3 py-1">{c}</span>
                     )}

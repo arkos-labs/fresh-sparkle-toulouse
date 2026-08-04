@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   Armchair, BedDouble, Layers, Car,
   Check, ArrowRight, ChevronLeft, ChevronRight,
@@ -56,7 +57,7 @@ const SERVICES: ServiceDef[] = [
   {
     id: "canape", label: "Nettoyage Canapé & Fauteuil", shortLabel: "Canapé",
     desc: "Nettoyage en profondeur par injection-extraction, élimination des tâches et ravivement des couleurs.",
-    from: 15, icon: <Armchair className="size-6 stroke-[1.4]" />,
+    from: 15, icon: <Armchair className="size-8" strokeWidth={1.5} />,
     features: ["Fauteuil, canapé 2/3, 4/5 places", "Canapé U/angle, pouf, chaise", "Options anti-acariens, anti-odeur"],
     formules: [
       { id: "fauteuil",     name: "Fauteuil",                       price: 49,  duration: "45 min",  durationMin: 45,  options: CAN },
@@ -72,7 +73,7 @@ const SERVICES: ServiceDef[] = [
   {
     id: "tapis", label: "Shampouinage Tapis & Moquette", shortLabel: "Tapis",
     desc: "Restauration des fibres, traitement anti-tâches et désodorisation en profondeur.",
-    from: 49, icon: <Layers className="size-6 stroke-[1.4]" />,
+    from: 49, icon: <Layers className="size-8" strokeWidth={1.5} />,
     features: ["1 tapis, 2 tapis, 3 tapis", "Toutes tailles et matières", "Options anti-acariens, recto-verso"],
     formules: [
       { id: "tapis-1", name: "1 Tapis", price: 49, duration: "45 min", durationMin: 45, options: TAP },
@@ -83,7 +84,7 @@ const SERVICES: ServiceDef[] = [
   {
     id: "auto", label: "Nettoyage Intérieur Auto", shortLabel: "Auto",
     desc: "Shampouinage des sièges, moquettes et plastiques pour un habitacle comme neuf.",
-    from: 69, icon: <Car className="size-6 stroke-[1.4]" />,
+    from: 69, icon: <Car className="size-8" strokeWidth={1.5} />,
     features: ["Pack Bronze, Argent, Or", "Sièges, plastiques, vitres, coffre", "Options poils, anti-odeur, ciel de toit"],
     formules: [
       { id: "bronze", name: "Pack Bronze", desc: "Aspiration habitacle + coffre + nettoyage plastiques.",          price: 69,  duration: "1h",    durationMin: 60,  options: [OA, OPA, OV, OTS, OC, OSA, OO] },
@@ -95,7 +96,7 @@ const SERVICES: ServiceDef[] = [
   {
     id: "matelas", label: "Nettoyage Matelas", shortLabel: "Matelas",
     desc: "Assainissement complet, éradication des acariens et auréoles de transpiration.",
-    from: 39, icon: <BedDouble className="size-6 stroke-[1.4]" />,
+    from: 39, icon: <BedDouble className="size-8" strokeWidth={1.5} />,
     features: ["Matelas enfant, 1 place, 2 places", "Anti-acariens inclus d'office", "Recommandé pour les allergiques"],
     formules: [
       { id: "matelas-enfant", name: "Matelas enfant",   price: 39,  duration: "30 min", durationMin: 30, options: MAT },
@@ -443,7 +444,7 @@ function Sidebar({
         </div>
       )}
 
-      {step < 4 && (
+      {step < 4 && step !== 1 && (
         <Button
           onClick={onContinue}
           disabled={!canContinue}
@@ -484,7 +485,12 @@ function ReserverPage() {
   const toggleOption = (id: string) =>
     setSelectedOptions(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
 
-  const handleSelectFormule = (f: Formule) => { setFormule(f); setSelectedOptions([]); };
+  const handleSelectFormule = (f: Formule) => { 
+    setFormule(f); 
+    setSelectedOptions([]); 
+    setStep(2);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
   const handleSelectDate = (d: Date) => { setSelectedDate(d); setSelectedTime(null); };
 
   const handleContinue = () => {
@@ -634,6 +640,9 @@ function ReserverPage() {
               <span className="font-bold">Total{optTotal > 0 ? " (avec options)" : ""}</span>
               <span className="font-bold">{total} €</span>
             </div>
+            <p className="text-[10px] text-muted-foreground mt-1">
+              * Frais de déplacement offerts jusqu'à 20 km. Au-delà : +10 € par tranche de 15 km (réglable sur place).
+            </p>
           </div>
 
           {/* Contact propriétaire */}
@@ -675,17 +684,14 @@ function ReserverPage() {
 
       {/* Top bar */}
       <div className="border-b border-border bg-background px-4 py-3 flex items-center justify-between">
+        <button onClick={handleBack} className="flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-primary transition-colors">
+          <ChevronLeft className="size-5" /> <span className="font-bold">Retour</span>
+        </button>
         <Link to="/" className="flex items-center gap-2">
-          <div className="flex size-7 items-center justify-center rounded-lg bg-primary-gradient">
-            <span className="font-display text-xs font-bold text-primary-foreground">C&F</span>
-          </div>
           <span className="font-display font-bold text-foreground">
             Clean<span className="text-primary">&amp;</span>Fresh
           </span>
         </Link>
-        <button onClick={handleBack} className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-          <ChevronLeft className="size-4" /> Retour
-        </button>
       </div>
 
       <div className="mx-auto max-w-5xl px-4 py-10">
@@ -694,7 +700,16 @@ function ReserverPage() {
         <div className={`grid gap-8 items-start ${!showCategories && step < 4 ? "lg:grid-cols-[1fr_300px]" : "grid-cols-1"}`}>
 
           {/* ── CONTENU PRINCIPAL ── */}
-          <div>
+          <div className="relative overflow-hidden w-full">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`${step}-${showCategories}`}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
+                className="w-full"
+              >
 
             {/* ─ ÉTAPE 1 : Catégorie ─ */}
             {step === 1 && showCategories && (
@@ -938,6 +953,9 @@ function ReserverPage() {
                       <span className="font-bold">Total estimé</span>
                       <span className="font-bold text-lg">{total} €</span>
                     </div>
+                    <p className="text-[10px] text-muted-foreground mt-0">
+                      * Frais de déplacement offerts jusqu'à 20 km. Au-delà : +10 € par tranche de 15 km.
+                    </p>
                     <p className="text-xs text-muted-foreground">
                       📅 {selectedDate.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" })} à {selectedTime}
                     </p>
@@ -955,6 +973,8 @@ function ReserverPage() {
                 </form>
               </>
             )}
+              </motion.div>
+            </AnimatePresence>
           </div>
 
           {/* ── SIDEBAR ── */}
