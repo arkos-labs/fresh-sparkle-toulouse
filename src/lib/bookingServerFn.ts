@@ -48,7 +48,7 @@ export const createBookingServerFn = createServerFn({ method: "POST" })
   .handler(async ({ data }): Promise<BookingResult> => {
     try {
       const siteUrl =
-        process.env["VITE_SITE_URL"] ?? "https://cleanfresh-toulouse.fr";
+        process.env["VITE_SITE_URL"] ?? "https://fresh-sparkle-toulouse-6hqe.vercel.app";
       const ownerPhone =
         process.env["VITE_OWNER_PHONE"] ?? "07 67 12 75 00";
       const cancelUrl = `${siteUrl}/annuler?token=${data.cancel_token}`;
@@ -78,12 +78,15 @@ export const createBookingServerFn = createServerFn({ method: "POST" })
       const day    = dateParts[2] ?? 1;
       const hour   = timeParts[0] ?? 8;
       const minute = timeParts[1] ?? 0;
-      const startDate = new Date(year, month - 1, day, hour, minute, 0);
-      const endDate = new Date(
-        startDate.getTime() + data.duration_min * 60_000,
-      );
+      
+      // On utilise Date.UTC pour éviter les décalages liés au fuseau du serveur
+      const startUtc = new Date(Date.UTC(year, month - 1, day, hour, minute, 0));
+      const endUtc = new Date(startUtc.getTime() + data.duration_min * 60_000);
 
-      const fmt = (d: Date) => d.toISOString().replace("Z", "+00:00");
+      const pad = (n: number) => String(n).padStart(2, "0");
+      // Format RFC3339 sans offset + timeZone: "Europe/Paris" = heure locale correcte
+      const fmt = (d: Date) => 
+        `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())}T${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}:00`;
 
       const fullAddress = `${data.client_street}, ${data.client_zip} ${data.client_city}`;
 
@@ -92,11 +95,11 @@ export const createBookingServerFn = createServerFn({ method: "POST" })
         description,
         location: fullAddress,
         start: {
-          dateTime: fmt(startDate),
+          dateTime: fmt(startUtc),
           timeZone: "Europe/Paris",
         },
         end: {
-          dateTime: fmt(endDate),
+          dateTime: fmt(endUtc),
           timeZone: "Europe/Paris",
         },
         reminders: {
