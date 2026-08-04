@@ -99,7 +99,6 @@ export const createBookingServerFn = createServerFn({ method: "POST" })
           dateTime: fmt(endDate),
           timeZone: "Europe/Paris",
         },
-        attendees: [{ email: data.client_email }],
         reminders: {
           useDefault: false,
           overrides: [

@@ -120,11 +120,25 @@ async function getAccessToken(
 }
 
 // ─── Fonctions publiques ──────────────────────────────────────────────────────
+import { config as dotenvConfig } from "dotenv";
+import { resolve } from "path";
 
 function getConfig() {
+  // Essaie de charger le .env depuis le répertoire de travail courant
+  const cwd = typeof process !== "undefined" ? process.cwd() : "";
+  dotenvConfig({ path: resolve(cwd, ".env") });
+
   const email = process.env["GCAL_SERVICE_ACCOUNT_EMAIL"];
   const key   = process.env["GCAL_SERVICE_ACCOUNT_KEY"];
   const calId = process.env["GCAL_CALENDAR_ID"];
+
+  console.log("[GCal] getConfig →", {
+    cwd,
+    email: email ? `${email.slice(0, 20)}...` : "⚠️ MANQUANT",
+    key:   key   ? `${key.slice(0, 30)}...`   : "⚠️ MANQUANT",
+    calId: calId ? calId                       : "⚠️ MANQUANT",
+  });
+
   // Supporte les clés stockées avec des \n littéraux
   return { email, key: key?.replace(/\\n/g, "\n"), calId };
 }
@@ -138,7 +152,7 @@ export async function createCalendarEvent(
 ): Promise<string | null> {
   const { email, key, calId } = getConfig();
   if (!email || !key || !calId) {
-    console.warn("[GCal] Variables serveur manquantes — événement non créé.");
+    console.warn("[GCal] ⚠️ Variables serveur manquantes — événement non créé. Vérifiez le fichier .env");
     return null;
   }
 
