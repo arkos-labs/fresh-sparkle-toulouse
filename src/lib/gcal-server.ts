@@ -120,14 +120,13 @@ async function getAccessToken(
 }
 
 // ─── Fonctions publiques ──────────────────────────────────────────────────────
-import { config } from "dotenv";
 
 function getConfig() {
-  config(); // Force loading .env file if process.env is empty
   const email = process.env["GCAL_SERVICE_ACCOUNT_EMAIL"];
   const key   = process.env["GCAL_SERVICE_ACCOUNT_KEY"];
   const calId = process.env["GCAL_CALENDAR_ID"];
-  return { email, key, calId };
+  // Supporte les clés stockées avec des \n littéraux
+  return { email, key: key?.replace(/\\n/g, "\n"), calId };
 }
 
 /**
