@@ -516,39 +516,20 @@ function ReserverPage() {
     const selectedOpts = formule.options
       .filter(o => selectedOptions.includes(o.id))
       .map(o => ({ name: o.name, price: o.price }));
-    const bookingDate = selectedDate.toISOString().slice(0, 10);
+    const bookingDate = `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`;
 
     // Token de base (sans gcal_event_id, utilisé dans les emails envoyés maintenant)
     const baseTokenData = {
       name: form.name, email: form.email, phone: form.phone,
       formule: formule.name, date: bookingDate, time: selectedTime,
     };
-    const baseToken = btoa(JSON.stringify(baseTokenData));
+    const baseToken = btoa(unescape(encodeURIComponent(JSON.stringify(baseTokenData))));
 
+    const siteUrl = "https://fresh-sparkle-toulouse-6hqe.vercel.app";
+
+    // 1. Créer l'événement Google Calendar (côté serveur) — erreur non bloquante
+    let gcalId: string | null = null;
     try {
-      // 1. Emails (client + propriétaire) via EmailJS
-      const siteUrl = import.meta.env["VITE_SITE_URL"] ?? "https://cleanetfresh.fr";
-      const cancelUrl = `${siteUrl}/annuler?token=${baseToken}`;
-
-      await sendBookingEmails({
-        service_id:   service.id,
-        service_name: service.label,
-        formule_name: formule.name,
-        formule_price: formule.price,
-        options:      selectedOpts,
-        total_price:  total,
-        booking_date: bookingDate,
-        booking_time: selectedTime,
-        client_name:  form.name,
-        client_phone: form.phone,
-        client_email: form.email,
-        client_street: form.street,
-        client_zip:   form.zip,
-        client_city:  form.city,
-        cancel_url:   cancelUrl,
-      });
-
-      // 2. Créer l'événement Google Calendar (côté serveur)
       const serverResult = await createBookingServerFn({
         data: {
           service_id:   service.id,
@@ -570,20 +551,41 @@ function ReserverPage() {
           cancel_token: baseToken,
         },
       });
-
-      // Token enrichi avec gcal_event_id pour le bouton d'annulation sur la page de confirmation
-      const gcalId = serverResult?.gcal_event_id ?? null;
+      gcalId = serverResult?.gcal_event_id ?? null;
       if (gcalId) setGcalEventId(gcalId);
-      const enrichedToken = btoa(JSON.stringify({ ...baseTokenData, gcal_event_id: gcalId }));
-
-      setCancelToken(enrichedToken);
-      setDone(true);
-    } catch (err) {
-      console.error("Erreur envoi réservation :", err);
-      // On affiche quand même la confirmation même en cas d'erreur partielle
-      setCancelToken(baseToken);
-      setDone(true);
+    } catch (gcalErr) {
+      console.error("[GCal] Erreur création calendrier (non bloquante) :", gcalErr);
     }
+
+    // Token enrichi avec gcal_event_id pour le bouton d'annulation
+    const enrichedToken = btoa(unescape(encodeURIComponent(JSON.stringify({ ...baseTokenData, gcal_event_id: gcalId }))));
+    const cancelUrl = `${siteUrl}/annuler?token=${enrichedToken}`;
+
+    // 2. Emails (client) via EmailJS — séparé du try GCal pour toujours s'exécuter
+    try {
+      await sendBookingEmails({
+        service_id:   service.id,
+        service_name: service.label,
+        formule_name: formule.name,
+        formule_price: formule.price,
+        options:      selectedOpts,
+        total_price:  total,
+        booking_date: bookingDate,
+        booking_time: selectedTime,
+        client_name:  form.name,
+        client_phone: form.phone,
+        client_email: form.email,
+        client_street: form.street,
+        client_zip:   form.zip,
+        client_city:  form.city,
+        cancel_url:   cancelUrl,
+      });
+    } catch (emailErr) {
+      console.error("[Email] Erreur envoi email (non bloquante) :", emailErr);
+    }
+
+    setCancelToken(enrichedToken);
+    setDone(true);
     setSubmitting(false);
   };
 
@@ -594,7 +596,7 @@ function ReserverPage() {
 
   // ── CONFIRMATION ──────────────────────────────────────────────────────────
   if (done) {
-    const siteUrl = import.meta.env["VITE_SITE_URL"] ?? "";
+    const siteUrl = "https://fresh-sparkle-toulouse-6hqe.vercel.app";
     const cancelUrl = cancelToken ? `${siteUrl}/annuler?token=${cancelToken}` : null;
     const fullAddress = `${form.street}, ${form.zip} ${form.city}`;
 

@@ -71,6 +71,8 @@ export const createBookingServerFn = createServerFn({ method: "POST" })
       });
 
       // ── 2. Calculer start / end ──
+      // On envoie l'heure LOCALE (ex: "2026-08-30T18:30:00") SANS offset
+      // + timeZone:"Europe/Paris" → Google Calendar gère lui-même la conversion UTC
       const dateParts = data.booking_date.split("-").map(Number);
       const timeParts = data.booking_time.split(":").map(Number);
       const year   = dateParts[0] ?? 2026;
@@ -78,33 +80,15 @@ export const createBookingServerFn = createServerFn({ method: "POST" })
       const day    = dateParts[2] ?? 1;
       const hour   = timeParts[0] ?? 8;
       const minute = timeParts[1] ?? 0;
-      
-      // Création d'une date en UTC qui représente l'heure locale souhaitée (ex: 18h30)
-      const startUtc = new Date(Date.UTC(year, month - 1, day, hour, minute, 0));
-      const endUtc = new Date(startUtc.getTime() + data.duration_min * 60_000);
 
-      // Fonction pour récupérer l'offset de Paris (gère heure d'été/hiver)
-      const getParisOffset = (dateUtc: Date) => {
-        const formatter = new Intl.DateTimeFormat("en-US", {
-          timeZone: "Europe/Paris",
-          timeZoneName: "shortOffset",
-        });
-        const parts = formatter.formatToParts(dateUtc);
-        const tzPart = parts.find((p) => p.type === 'timeZoneName');
-        if (!tzPart || !tzPart.value) return '+02:00'; 
-        const offsetRaw = tzPart.value.replace('GMT', '');
-        if (!offsetRaw) return 'Z';
-        const sign = offsetRaw[0];
-        const [h, m] = offsetRaw.slice(1).split(':');
-        return `${sign}${String(h).padStart(2, '0')}:${m || '00'}`;
-      };
-
-      const offset = getParisOffset(startUtc);
       const pad = (n: number) => String(n).padStart(2, "0");
-      
-      // Format RFC3339 AVEC offset obligatoire pour l'API Google
-      const fmt = (d: Date) => 
-        `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())}T${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}:00${offset}`;
+      const startLocalStr = `${year}-${pad(month)}-${pad(day)}T${pad(hour)}:${pad(minute)}:00`;
+
+      // Durée en millisecondes pour calculer l'heure de fin
+      const startMs = new Date(startLocalStr).getTime();
+      const endMs = startMs + data.duration_min * 60_000;
+      const endDate = new Date(endMs);
+      const endLocalStr = `${endDate.getFullYear()}-${pad(endDate.getMonth() + 1)}-${pad(endDate.getDate())}T${pad(endDate.getHours())}:${pad(endDate.getMinutes())}:00`;
 
       const fullAddress = `${data.client_street}, ${data.client_zip} ${data.client_city}`;
 
@@ -113,11 +97,11 @@ export const createBookingServerFn = createServerFn({ method: "POST" })
         description,
         location: fullAddress,
         start: {
-          dateTime: fmt(startUtc),
+          dateTime: startLocalStr,
           timeZone: "Europe/Paris",
         },
         end: {
-          dateTime: fmt(endUtc),
+          dateTime: endLocalStr,
           timeZone: "Europe/Paris",
         },
         reminders: {

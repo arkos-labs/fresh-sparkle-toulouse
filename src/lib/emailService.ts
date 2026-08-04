@@ -120,19 +120,6 @@ export async function sendBookingEmails(b: BookingPayload): Promise<string> {
       : "Aucune option";
 
   const tip = SERVICE_TIP[b.service_id] ?? "";
-  const cancelToken = btoa(
-    JSON.stringify({
-      name: b.client_name,
-      email: b.client_email,
-      phone: b.client_phone,
-      formule: b.formule_name,
-      date: b.booking_date,
-      time: b.booking_time,
-    }),
-  );
-
-  const siteUrl    = import.meta.env["VITE_SITE_URL"]    ?? "https://fresh-sparkle-toulouse-6hqe.vercel.app";
-  const cancelUrl  = `${siteUrl}/annuler?token=${cancelToken}`;
   const ownerPhone = import.meta.env["VITE_OWNER_PHONE"] ?? "07 67 12 75 00";
   const ownerEmail = import.meta.env["VITE_OWNER_EMAIL"] ?? "nettoyagecleanfresh@gmail.com";
 
@@ -150,7 +137,7 @@ export async function sendBookingEmails(b: BookingPayload): Promise<string> {
     booking_date: b.booking_date,
     booking_time: b.booking_time,
     service_tip: tip,
-    cancel_url: cancelUrl,
+    cancel_url: b.cancel_url, // ← URL déjà construite par reserver.tsx avec le bon domaine
     owner_phone: ownerPhone,
     owner_email: ownerEmail,
   };
@@ -158,7 +145,7 @@ export async function sendBookingEmails(b: BookingPayload): Promise<string> {
   // Email client uniquement
   await send(CFG.tplClient, common);
 
-  return cancelToken;
+  return "";
 }
 
 /**
