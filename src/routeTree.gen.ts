@@ -38,6 +38,7 @@ import { Route as NosRealisationsRouteImport } from './routes/nos-realisations'
 import { Route as NosServicesRouteImport } from './routes/nos-services'
 import { Route as PolitiqueConfidentialiteRouteImport } from './routes/politique-confidentialite'
 import { Route as ReserverRouteImport } from './routes/reserver'
+import { Route as TestRappelRouteImport } from './routes/test-rappel'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -195,6 +196,11 @@ const ReserverRoute = ReserverRouteImport.update({
   path: '/reserver',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TestRappelRoute = TestRappelRouteImport.update({
+  id: '/test-rappel',
+  path: '/test-rappel',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -226,6 +232,7 @@ export interface FileRoutesByFullPath {
   '/nos-services': typeof NosServicesRoute
   '/politique-confidentialite': typeof PolitiqueConfidentialiteRoute
   '/reserver': typeof ReserverRoute
+  '/test-rappel': typeof TestRappelRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -257,6 +264,7 @@ export interface FileRoutesByTo {
   '/nos-services': typeof NosServicesRoute
   '/politique-confidentialite': typeof PolitiqueConfidentialiteRoute
   '/reserver': typeof ReserverRoute
+  '/test-rappel': typeof TestRappelRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -289,6 +297,7 @@ export interface FileRoutesById {
   '/nos-services': typeof NosServicesRoute
   '/politique-confidentialite': typeof PolitiqueConfidentialiteRoute
   '/reserver': typeof ReserverRoute
+  '/test-rappel': typeof TestRappelRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -322,6 +331,7 @@ export interface FileRouteTypes {
     | '/nos-services'
     | '/politique-confidentialite'
     | '/reserver'
+    | '/test-rappel'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -353,6 +363,7 @@ export interface FileRouteTypes {
     | '/nos-services'
     | '/politique-confidentialite'
     | '/reserver'
+    | '/test-rappel'
   id:
     | '__root__'
     | '/'
@@ -384,6 +395,7 @@ export interface FileRouteTypes {
     | '/nos-services'
     | '/politique-confidentialite'
     | '/reserver'
+    | '/test-rappel'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -416,6 +428,7 @@ export interface RootRouteChildren {
   NosServicesRoute: typeof NosServicesRoute
   PolitiqueConfidentialiteRoute: typeof PolitiqueConfidentialiteRoute
   ReserverRoute: typeof ReserverRoute
+  TestRappelRoute: typeof TestRappelRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -623,6 +636,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReserverRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/test-rappel': {
+      id: '/test-rappel'
+      path: '/test-rappel'
+      fullPath: '/test-rappel'
+      preLoaderRoute: typeof TestRappelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -656,6 +676,7 @@ const rootRouteChildren: RootRouteChildren = {
   NosServicesRoute: NosServicesRoute,
   PolitiqueConfidentialiteRoute: PolitiqueConfidentialiteRoute,
   ReserverRoute: ReserverRoute,
+  TestRappelRoute: TestRappelRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

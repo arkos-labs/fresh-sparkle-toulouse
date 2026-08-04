@@ -199,7 +199,7 @@ export function ServicePage({ service }: { service: Service }) {
                       className="mt-5 bg-accent-gradient text-accent-foreground font-semibold hover:opacity-90"
                       size="sm"
                     >
-                      <Link to="/reserver" search={bookingServiceId ? { service: bookingServiceId } : undefined}>
+                      <Link to="/reserver" search={bookingServiceId ? { service: bookingServiceId, formule: row.formuleId } : undefined}>
                         <CalendarCheck className="size-4" /> Je réserve
                       </Link>
                     </Button>

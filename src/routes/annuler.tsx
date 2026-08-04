@@ -22,7 +22,7 @@ function AnnulerPage() {
   // Décoder les infos du token base64
   let info: { name: string; email: string; phone: string; formule: string; date: string; time: string; gcal_event_id?: string } | null = null;
   try {
-    info = JSON.parse(atob(token));
+    info = JSON.parse(decodeURIComponent(escape(atob(token))));
   } catch {
     info = null;
   }
