@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { COMMUNES, COMPANY, SITE_URL } from "@/data/site";
+import { sendContactMessage } from "@/lib/emailService";
 
 const TITLE = "Contact — Clean&Fresh, nettoyage à Toulouse";
 const DESC =
@@ -53,17 +54,16 @@ const schema = z.object({
 function ContactPage() {
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (isSubmitting) return;
+
     const form = e.currentTarget;
     const data = Object.fromEntries(new FormData(form));
     
-    // Validation du nombre de fichiers (Max 8)
-    const fileInput = form.elements.namedItem("photos") as HTMLInputElement;
-    if (fileInput && fileInput.files && fileInput.files.length > 8) {
-      setErrors({ photos: "Vous ne pouvez pas sélectionner plus de 8 photos." });
-      return;
-    }
+    // Remove photo logic
 
     const result = schema.safeParse(data);
     if (!result.success) {
@@ -73,12 +73,24 @@ function ContactPage() {
       return;
     }
     setErrors({});
-    const body = `Nom : ${result.data.nom}\nTéléphone : ${result.data.telephone}\nEmail : ${result.data.email}\nPrestation : ${result.data.service}\n\n${result.data.message}`;
-    window.location.href = `mailto:${COMPANY.email}?subject=${encodeURIComponent(
-      "Demande de devis — Clean&Fresh",
-    )}&body=${encodeURIComponent(body)}`;
-    toast.success("Votre message est prêt à être envoyé. Nous répondons sous 24h.");
-    form.reset();
+    setIsSubmitting(true);
+
+    try {
+      await sendContactMessage({
+        nom: result.data.nom,
+        telephone: result.data.telephone,
+        email: result.data.email,
+        service: result.data.service,
+        message: result.data.message,
+      });
+      toast.success("Votre message a été envoyé avec succès. Nous vous répondons sous 24h.");
+      form.reset();
+    } catch (err) {
+      console.error(err);
+      toast.error("Une erreur s'est produite lors de l'envoi de votre message.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -101,38 +113,38 @@ function ContactPage() {
         <form
           onSubmit={onSubmit}
           noValidate
-          className="rounded-2xl border border-border bg-card p-7 shadow-[var(--shadow-soft)]"
+          className="rounded-2xl border border-border bg-card p-7 shadow-sm space-y-6"
         >
           {/* Nom + Téléphone side by side */}
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="grid gap-2">
-              <Label htmlFor="nom">Nom complet</Label>
-              <Input id="nom" name="nom" maxLength={100} placeholder="Jean Dupont" />
+          <div className="grid gap-6 sm:grid-cols-2">
+            <div className="grid gap-1">
+              <Label htmlFor="nom" className="text-[11px] text-muted-foreground font-normal">Nom complet</Label>
+              <Input id="nom" name="nom" maxLength={100} placeholder="" className="rounded-none border-0 border-b border-border bg-transparent px-0 py-2 text-sm shadow-none focus-visible:ring-0 focus-visible:border-primary transition-colors" />
               {errors["nom"] && <p className="text-xs text-destructive">{errors["nom"]}</p>}
             </div>
-            <div className="grid gap-2">
-              <Label htmlFor="telephone">Téléphone</Label>
-              <Input id="telephone" name="telephone" maxLength={20} placeholder="07 67 12 75 00" />
+            <div className="grid gap-1">
+              <Label htmlFor="telephone" className="text-[11px] text-muted-foreground font-normal">Téléphone</Label>
+              <Input id="telephone" name="telephone" maxLength={20} placeholder="" className="rounded-none border-0 border-b border-border bg-transparent px-0 py-2 text-sm shadow-none focus-visible:ring-0 focus-visible:border-primary transition-colors" />
               {errors["telephone"] && <p className="text-xs text-destructive">{errors["telephone"]}</p>}
             </div>
           </div>
 
           {/* Email */}
-          <div className="mt-4 grid gap-2">
-            <Label htmlFor="email">Email</Label>
-            <Input id="email" name="email" type="email" maxLength={255} placeholder="jean.dupont@email.com" />
+          <div className="grid gap-1">
+            <Label htmlFor="email" className="text-[11px] text-muted-foreground font-normal">Email</Label>
+            <Input id="email" name="email" type="email" maxLength={255} placeholder="" className="rounded-none border-0 border-b border-border bg-transparent px-0 py-2 text-sm shadow-none focus-visible:ring-0 focus-visible:border-primary transition-colors" />
             {errors["email"] && <p className="text-xs text-destructive">{errors["email"]}</p>}
           </div>
 
           {/* Service select */}
-          <div className="mt-4 grid gap-2">
-            <Label htmlFor="service">Type de prestation</Label>
+          <div className="grid gap-1">
+            <Label htmlFor="service" className="text-[11px] text-muted-foreground font-normal">Type de prestation</Label>
             <div className="relative">
               <select
                 id="service"
                 name="service"
                 defaultValue=""
-                className="w-full appearance-none rounded-lg border border-input bg-background px-3 py-2.5 text-sm text-foreground shadow-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-colors"
+                className="w-full appearance-none rounded-none border-0 border-b border-border bg-transparent px-0 py-2 text-sm text-foreground shadow-none outline-none focus:border-primary focus:ring-0 transition-colors"
               >
                 <option value="" disabled>Sélectionnez un service...</option>
                 {SERVICES_LIST.map((s) => (
@@ -140,7 +152,7 @@ function ContactPage() {
                 ))}
               </select>
               {/* Chevron */}
-              <svg className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <svg className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
               </svg>
             </div>
@@ -148,34 +160,30 @@ function ContactPage() {
           </div>
 
           {/* Message */}
-          <div className="mt-4 grid gap-2">
-            <Label htmlFor="message">Détails de votre demande</Label>
+          <div className="grid gap-1">
+            <Label htmlFor="message" className="text-[11px] text-muted-foreground font-normal">Détails de votre demande</Label>
             <Textarea
               id="message"
               name="message"
-              rows={5}
+              rows={4}
               maxLength={1000}
-              placeholder="Décrivez l'état actuel, la surface estimée, ou toute information utile..."
+              placeholder=""
+              className="rounded-none border-0 border-b border-border bg-transparent px-0 py-2 text-sm shadow-none focus-visible:ring-0 focus-visible:border-primary resize-none transition-colors"
             />
             {errors["message"] && <p className="text-xs text-destructive">{errors["message"]}</p>}
           </div>
 
-          {/* Photos */}
-          <div className="mt-4 grid gap-2">
-            <Label htmlFor="photos">Photos de la zone (Max 8) — Optionnel</Label>
-            <Input id="photos" name="photos" type="file" multiple accept="image/*" className="cursor-pointer" />
-            <p className="text-[10px] text-muted-foreground">Sans hébergement dédié, les photos seront envoyées via votre client de messagerie.</p>
-            {errors["photos"] && <p className="text-xs text-destructive">{errors["photos"]}</p>}
-          </div>
-
           {/* Submit */}
-          <Button
-            type="submit"
-            size="xl"
-            className="mt-6 w-full bg-accent-gradient text-accent-foreground font-bold hover:opacity-90"
-          >
-            Demander un devis <ArrowRight className="size-4" />
-          </Button>
+          <div className="pt-2">
+            <Button
+              type="submit"
+              size="xl"
+              disabled={isSubmitting}
+              className="w-full rounded-sm bg-black hover:bg-black/90 text-white font-bold uppercase tracking-widest text-xs disabled:opacity-50 transition-colors"
+            >
+              {isSubmitting ? "Envoi en cours..." : "Demander un devis"}
+            </Button>
+          </div>
         </form>
 
         {/* Sidebar */}
