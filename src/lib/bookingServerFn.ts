@@ -79,14 +79,32 @@ export const createBookingServerFn = createServerFn({ method: "POST" })
       const hour   = timeParts[0] ?? 8;
       const minute = timeParts[1] ?? 0;
       
-      // On utilise Date.UTC pour éviter les décalages liés au fuseau du serveur
+      // Création d'une date en UTC qui représente l'heure locale souhaitée (ex: 18h30)
       const startUtc = new Date(Date.UTC(year, month - 1, day, hour, minute, 0));
       const endUtc = new Date(startUtc.getTime() + data.duration_min * 60_000);
 
+      // Fonction pour récupérer l'offset de Paris (gère heure d'été/hiver)
+      const getParisOffset = (dateUtc: Date) => {
+        const formatter = new Intl.DateTimeFormat("en-US", {
+          timeZone: "Europe/Paris",
+          timeZoneName: "shortOffset",
+        });
+        const parts = formatter.formatToParts(dateUtc);
+        const tzPart = parts.find((p) => p.type === 'timeZoneName');
+        if (!tzPart || !tzPart.value) return '+02:00'; 
+        const offsetRaw = tzPart.value.replace('GMT', '');
+        if (!offsetRaw) return 'Z';
+        const sign = offsetRaw[0];
+        const [h, m] = offsetRaw.slice(1).split(':');
+        return `${sign}${String(h).padStart(2, '0')}:${m || '00'}`;
+      };
+
+      const offset = getParisOffset(startUtc);
       const pad = (n: number) => String(n).padStart(2, "0");
-      // Format RFC3339 sans offset + timeZone: "Europe/Paris" = heure locale correcte
+      
+      // Format RFC3339 AVEC offset obligatoire pour l'API Google
       const fmt = (d: Date) => 
-        `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())}T${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}:00`;
+        `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())}T${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}:00${offset}`;
 
       const fullAddress = `${data.client_street}, ${data.client_zip} ${data.client_city}`;
 
