@@ -113,17 +113,17 @@ function ContactPage() {
         <form
           onSubmit={onSubmit}
           noValidate
-          className="rounded-2xl border border-border bg-card p-7 shadow-sm space-y-6"
+          className="space-y-6"
         >
           {/* Nom + Téléphone side by side */}
           <div className="grid gap-6 sm:grid-cols-2">
             <div className="grid gap-1">
-              <Label htmlFor="nom" className="text-[11px] text-muted-foreground font-normal">Nom complet</Label>
+              <Label htmlFor="nom" className="text-sm text-muted-foreground font-normal">Nom complet</Label>
               <Input id="nom" name="nom" maxLength={100} placeholder="" className="rounded-none border-0 border-b border-border bg-transparent px-0 py-2 text-sm shadow-none focus-visible:ring-0 focus-visible:border-primary transition-colors" />
               {errors["nom"] && <p className="text-xs text-destructive">{errors["nom"]}</p>}
             </div>
             <div className="grid gap-1">
-              <Label htmlFor="telephone" className="text-[11px] text-muted-foreground font-normal">Téléphone</Label>
+              <Label htmlFor="telephone" className="text-sm text-muted-foreground font-normal">Téléphone</Label>
               <Input id="telephone" name="telephone" maxLength={20} placeholder="" className="rounded-none border-0 border-b border-border bg-transparent px-0 py-2 text-sm shadow-none focus-visible:ring-0 focus-visible:border-primary transition-colors" />
               {errors["telephone"] && <p className="text-xs text-destructive">{errors["telephone"]}</p>}
             </div>
@@ -131,14 +131,14 @@ function ContactPage() {
 
           {/* Email */}
           <div className="grid gap-1">
-            <Label htmlFor="email" className="text-[11px] text-muted-foreground font-normal">Email</Label>
+            <Label htmlFor="email" className="text-sm text-muted-foreground font-normal">Email</Label>
             <Input id="email" name="email" type="email" maxLength={255} placeholder="" className="rounded-none border-0 border-b border-border bg-transparent px-0 py-2 text-sm shadow-none focus-visible:ring-0 focus-visible:border-primary transition-colors" />
             {errors["email"] && <p className="text-xs text-destructive">{errors["email"]}</p>}
           </div>
 
           {/* Service select */}
           <div className="grid gap-1">
-            <Label htmlFor="service" className="text-[11px] text-muted-foreground font-normal">Type de prestation</Label>
+            <Label htmlFor="service" className="text-sm text-muted-foreground font-normal">Type de prestation</Label>
             <div className="relative">
               <select
                 id="service"
@@ -161,7 +161,7 @@ function ContactPage() {
 
           {/* Message */}
           <div className="grid gap-1">
-            <Label htmlFor="message" className="text-[11px] text-muted-foreground font-normal">Détails de votre demande</Label>
+            <Label htmlFor="message" className="text-sm text-muted-foreground font-normal">Détails de votre demande</Label>
             <Textarea
               id="message"
               name="message"
@@ -179,9 +179,9 @@ function ContactPage() {
               type="submit"
               size="xl"
               disabled={isSubmitting}
-              className="w-full rounded-sm bg-black hover:bg-black/90 text-white font-bold uppercase tracking-widest text-xs disabled:opacity-50 transition-colors"
+              className="w-full rounded-sm bg-[#4a4a4a] hover:bg-[#333333] text-white font-semibold tracking-wider text-xs disabled:opacity-50 transition-colors"
             >
-              {isSubmitting ? "Envoi en cours..." : "Demander un devis"}
+              {isSubmitting ? "Envoi en cours..." : "DEMANDER UN DEVIS"}
             </Button>
           </div>
         </form>
