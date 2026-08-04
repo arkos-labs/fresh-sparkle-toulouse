@@ -8,7 +8,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { COMMUNES, COMPANY, SITE_URL } from "@/data/site";
-import { sendContactMessage } from "@/lib/emailService";
 
 const TITLE = "Contact — Clean&Fresh, nettoyage à Toulouse";
 const DESC =
@@ -76,15 +75,42 @@ function ContactPage() {
     setIsSubmitting(true);
 
     try {
-      await sendContactMessage({
-        nom: result.data.nom,
-        telephone: result.data.telephone,
-        email: result.data.email,
-        service: result.data.service,
-        message: result.data.message,
+      // Intégration de Web3Forms pour contourner EmailJS
+      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+      
+      if (!accessKey) {
+        toast.error("Clé Web3Forms manquante (VITE_WEB3FORMS_ACCESS_KEY).");
+        setIsSubmitting(false);
+        return;
+      }
+
+      const formDataForWeb3 = new FormData();
+      formDataForWeb3.append("access_key", accessKey);
+      formDataForWeb3.append("subject", `Nouveau message de ${result.data.nom}`);
+      formDataForWeb3.append("from_name", "Clean&Fresh Contact");
+      // Mettre l'email du client en "Reply-To" pour pouvoir lui répondre directement
+      formDataForWeb3.append("replyto", result.data.email);
+      
+      // Contenu du message
+      formDataForWeb3.append("Nom", result.data.nom);
+      formDataForWeb3.append("Téléphone", result.data.telephone);
+      formDataForWeb3.append("Email", result.data.email);
+      formDataForWeb3.append("Prestation", result.data.service);
+      formDataForWeb3.append("Message", result.data.message);
+
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formDataForWeb3,
       });
-      toast.success("Votre message a été envoyé avec succès. Nous vous répondons sous 24h.");
-      form.reset();
+
+      const resData = await response.json();
+
+      if (resData.success) {
+        toast.success("Votre message a été envoyé avec succès. Nous vous répondons sous 24h.");
+        form.reset();
+      } else {
+        throw new Error(resData.message || "Erreur Web3Forms");
+      }
     } catch (err) {
       console.error(err);
       toast.error("Une erreur s'est produite lors de l'envoi de votre message.");
