@@ -57,7 +57,10 @@ export function ServicePage({ service }: { service: Service }) {
   const bookingServiceId = getBookingServiceId(service.slug);
   const serviceOptions = bookingServiceId ? (OPTIONS_BY_SERVICE[bookingServiceId] ?? []) : [];
   
-  const categoryImages = bookingServiceId ? PHOTOS_BY_CATEGORY[bookingServiceId] : PHOTOS_BY_CATEGORY["batiment"];
+  const categoryImages =
+    (bookingServiceId
+      ? PHOTOS_BY_CATEGORY[bookingServiceId]
+      : PHOTOS_BY_CATEGORY["batiment"]) ?? [];
 
   return (
     <div className="pb-24 lg:pb-0">
@@ -362,7 +365,11 @@ export function ServicePage({ service }: { service: Service }) {
       </FadeIn>
 
       {/* ── AVIS CLIENTS ── */}
-      <ReviewsCarousel category={bookingServiceId ?? undefined} />
+      {bookingServiceId ? (
+        <ReviewsCarousel category={bookingServiceId} />
+      ) : (
+        <ReviewsCarousel />
+      )}
 
       {/* ── MÉTHODE ── */}
       <FadeIn delay={0.1}>

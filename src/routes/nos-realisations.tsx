@@ -153,10 +153,12 @@ function GaleriePage() {
           </button>
 
           {/* Image */}
-          <img src={PHOTOS[lightbox].src}
-            alt={PHOTOS[lightbox].alt}
+          <img
+            src={PHOTOS[lightbox]?.src}
+            alt={`Réalisation Clean&Fresh — ${PHOTOS[lightbox]?.date ?? ""}`}
+            loading="lazy"
             className="max-h-[90vh] max-w-[90vw] rounded-xl object-contain shadow-2xl"
-            onClick={(e) = loading="lazy"> e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()}
           />
 
           {/* Next */}

@@ -562,11 +562,9 @@ function MatelasDetail() {
               onClick={() => setSelected(c.id)}
               className={isSelected ? CARD_SELECTED_CLASS : CARD_UNSELECTED_CLASS}
             >
-              {"popular" in c && c.popular && (
-                <span className={BADGE_CLASS}>
-                  Recommandé
-                </span>
-              )}
+              {"popular" in c && (c as { popular?: boolean }).popular ? (
+                <span className={BADGE_CLASS}>Recommandé</span>
+              ) : null}
 
               <div className={`flex items-center justify-center w-full h-32 sm:h-48 mb-3 mt-1 px-0 transition-colors ${isSelected ? "text-[#1a2b4c]" : "text-primary/70"}`}>
                 <img src={MATELAS_IMAGES[c.id]} alt={c.label} className="w-full h-full object-contain mix-blend-multiply scale-125 sm:scale-150" loading="lazy" />
