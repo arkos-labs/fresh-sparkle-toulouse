@@ -22,7 +22,7 @@ import heroImg from "@/assets/hero-nettoyage.jpg";
 
 const TITLE = "Nos services de nettoyage à Toulouse — Clean&Fresh";
 const DESC =
-  "10 services de nettoyage à Toulouse : canapé, matelas, tapis, auto, vitres, terrasse, toiture, façade, appartement, fin de chantier. Particuliers & professionnels. Devis sous 24h.";
+  "13 services de nettoyage à Toulouse : canapé, matelas, tapis, auto, vitres, terrasse, toiture, façade, appartement, fin de chantier. Particuliers & professionnels. Devis sous 24h.";
 
 export const Route = createFileRoute("/nos-services")({
   head: () => ({
@@ -84,7 +84,7 @@ function ServicesPage() {
           Nos prestations
         </span>
         <h1 className="mt-5 font-display text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl">
-          10 services de nettoyage
+          13 services de nettoyage
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-base text-muted-foreground leading-relaxed">
           À domicile ou sur site, pour particuliers et professionnels à Toulouse et sa banlieue.
@@ -124,7 +124,7 @@ function ServicesPage() {
                   className="mt-4 bg-accent-gradient text-accent-foreground font-bold hover:opacity-90"
                 >
                   <Link to="/reserver">
-                    <CalendarCheck className="size-4" /> Book Now
+                    <CalendarCheck className="size-4" /> Je réserve
                   </Link>
                 </Button>
               </div>
