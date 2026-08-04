@@ -96,9 +96,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "Entreprise de nettoyage à Toulouse | Clean&Fresh" },
       { property: "og:title", content: "Entreprise de nettoyage à Toulouse | Clean&Fresh" },
       { name: "twitter:title", content: "Entreprise de nettoyage à Toulouse | Clean&Fresh" },
-      { name: "description", content: "Entreprise de nettoyage à Toulouse et dans le 31 — canapé, matelas, tapis, auto, vitres, façade, fin de chantier. À domicile, résultat garanti. Devis gratuit !" },
-      { property: "og:description", content: "Entreprise de nettoyage à Toulouse et dans le 31 — canapé, matelas, tapis, auto, vitres, façade, fin de chantier. À domicile, résultat garanti. Devis gratuit !" },
-      { name: "twitter:description", content: "Entreprise de nettoyage à Toulouse et dans le 31 — canapé, matelas, tapis, auto, vitres, façade, fin de chantier. À domicile, résultat garanti. Devis gratuit !" },
+      { name: "description", content: "Entreprise de nettoyage à Toulouse et dans le 31 — canapé, matelas, tapis, auto, vitres, façade, fin de chantier. À domicile, Résultat soigné. Devis gratuit !" },
+      { property: "og:description", content: "Entreprise de nettoyage à Toulouse et dans le 31 — canapé, matelas, tapis, auto, vitres, façade, fin de chantier. À domicile, Résultat soigné. Devis gratuit !" },
+      { name: "twitter:description", content: "Entreprise de nettoyage à Toulouse et dans le 31 — canapé, matelas, tapis, auto, vitres, façade, fin de chantier. À domicile, Résultat soigné. Devis gratuit !" },
     ],
     links: [
       {
@@ -144,6 +144,7 @@ function RootShell({ children }: { children: ReactNode }) {
       </head>
       <body>
         {children}
+        <script dangerouslySetInnerHTML={{__html: `if(window.location.hostname.includes('lovable.app')) { var m = document.createElement('meta'); m.name = 'robots'; m.content = 'noindex'; document.head.appendChild(m); }`}} />
         <Scripts />
       </body>
     </html>

@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AProposRouteImport } from './routes/a-propos'
 import { Route as AnnulerRouteImport } from './routes/annuler'
+import { Route as CgvRouteImport } from './routes/cgv'
 import { Route as ContactezNousRouteImport } from './routes/contactez-nous'
 import { Route as FormulesRouteImport } from './routes/formules'
+import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
 import { Route as NettoyageAutoADomicileToulouseRouteImport } from './routes/nettoyage-auto-a-domicile-toulouse'
+import { Route as NettoyageBalmaRouteImport } from './routes/nettoyage-balma'
+import { Route as NettoyageBlagnacRouteImport } from './routes/nettoyage-blagnac'
 import { Route as NettoyageCanapeToulouseRouteImport } from './routes/nettoyage-canape-toulouse'
+import { Route as NettoyageColomiersRouteImport } from './routes/nettoyage-colomiers'
 import { Route as NettoyageDappartementOuMaisonRouteImport } from './routes/nettoyage-dappartement-ou-maison'
 import { Route as NettoyageDeFinDeChantierToulouseRouteImport } from './routes/nettoyage-de-fin-de-chantier-toulouse'
 import { Route as NettoyageDeVitresToulouseRouteImport } from './routes/nettoyage-de-vitres-toulouse'
@@ -22,12 +28,15 @@ import { Route as NettoyageDiogeneToulouseRouteImport } from './routes/nettoyage
 import { Route as NettoyageExtremeToulouseRouteImport } from './routes/nettoyage-extreme-toulouse'
 import { Route as NettoyageFacadeToulouseRouteImport } from './routes/nettoyage-facade-toulouse'
 import { Route as NettoyageFinDeBailToulouseRouteImport } from './routes/nettoyage-fin-de-bail-toulouse'
+import { Route as NettoyageLUnionRouteImport } from './routes/nettoyage-l-union'
 import { Route as NettoyageMatelasToulouseRouteImport } from './routes/nettoyage-matelas-toulouse'
 import { Route as NettoyageTapisToulouseRouteImport } from './routes/nettoyage-tapis-toulouse'
 import { Route as NettoyageTerrasseToulouseRouteImport } from './routes/nettoyage-terrasse-toulouse'
 import { Route as NettoyageToitureToulouseRouteImport } from './routes/nettoyage-toiture-toulouse'
+import { Route as NettoyageTournefeuilleRouteImport } from './routes/nettoyage-tournefeuille'
 import { Route as NosRealisationsRouteImport } from './routes/nos-realisations'
 import { Route as NosServicesRouteImport } from './routes/nos-services'
+import { Route as PolitiqueConfidentialiteRouteImport } from './routes/politique-confidentialite'
 import { Route as ReserverRouteImport } from './routes/reserver'
 
 const IndexRoute = IndexRouteImport.update({
@@ -35,9 +44,19 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AProposRoute = AProposRouteImport.update({
+  id: '/a-propos',
+  path: '/a-propos',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AnnulerRoute = AnnulerRouteImport.update({
   id: '/annuler',
   path: '/annuler',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CgvRoute = CgvRouteImport.update({
+  id: '/cgv',
+  path: '/cgv',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactezNousRoute = ContactezNousRouteImport.update({
@@ -50,15 +69,35 @@ const FormulesRoute = FormulesRouteImport.update({
   path: '/formules',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MentionsLegalesRoute = MentionsLegalesRouteImport.update({
+  id: '/mentions-legales',
+  path: '/mentions-legales',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NettoyageAutoADomicileToulouseRoute =
   NettoyageAutoADomicileToulouseRouteImport.update({
     id: '/nettoyage-auto-a-domicile-toulouse',
     path: '/nettoyage-auto-a-domicile-toulouse',
     getParentRoute: () => rootRouteImport,
   } as any)
+const NettoyageBalmaRoute = NettoyageBalmaRouteImport.update({
+  id: '/nettoyage-balma',
+  path: '/nettoyage-balma',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NettoyageBlagnacRoute = NettoyageBlagnacRouteImport.update({
+  id: '/nettoyage-blagnac',
+  path: '/nettoyage-blagnac',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NettoyageCanapeToulouseRoute = NettoyageCanapeToulouseRouteImport.update({
   id: '/nettoyage-canape-toulouse',
   path: '/nettoyage-canape-toulouse',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NettoyageColomiersRoute = NettoyageColomiersRouteImport.update({
+  id: '/nettoyage-colomiers',
+  path: '/nettoyage-colomiers',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NettoyageDappartementOuMaisonRoute =
@@ -102,6 +141,11 @@ const NettoyageFinDeBailToulouseRoute =
     path: '/nettoyage-fin-de-bail-toulouse',
     getParentRoute: () => rootRouteImport,
   } as any)
+const NettoyageLUnionRoute = NettoyageLUnionRouteImport.update({
+  id: '/nettoyage-l-union',
+  path: '/nettoyage-l-union',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NettoyageMatelasToulouseRoute =
   NettoyageMatelasToulouseRouteImport.update({
     id: '/nettoyage-matelas-toulouse',
@@ -125,6 +169,11 @@ const NettoyageToitureToulouseRoute =
     path: '/nettoyage-toiture-toulouse',
     getParentRoute: () => rootRouteImport,
   } as any)
+const NettoyageTournefeuilleRoute = NettoyageTournefeuilleRouteImport.update({
+  id: '/nettoyage-tournefeuille',
+  path: '/nettoyage-tournefeuille',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NosRealisationsRoute = NosRealisationsRouteImport.update({
   id: '/nos-realisations',
   path: '/nos-realisations',
@@ -135,6 +184,12 @@ const NosServicesRoute = NosServicesRouteImport.update({
   path: '/nos-services',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PolitiqueConfidentialiteRoute =
+  PolitiqueConfidentialiteRouteImport.update({
+    id: '/politique-confidentialite',
+    path: '/politique-confidentialite',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ReserverRoute = ReserverRouteImport.update({
   id: '/reserver',
   path: '/reserver',
@@ -143,11 +198,17 @@ const ReserverRoute = ReserverRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/a-propos': typeof AProposRoute
   '/annuler': typeof AnnulerRoute
+  '/cgv': typeof CgvRoute
   '/contactez-nous': typeof ContactezNousRoute
   '/formules': typeof FormulesRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
   '/nettoyage-auto-a-domicile-toulouse': typeof NettoyageAutoADomicileToulouseRoute
+  '/nettoyage-balma': typeof NettoyageBalmaRoute
+  '/nettoyage-blagnac': typeof NettoyageBlagnacRoute
   '/nettoyage-canape-toulouse': typeof NettoyageCanapeToulouseRoute
+  '/nettoyage-colomiers': typeof NettoyageColomiersRoute
   '/nettoyage-dappartement-ou-maison': typeof NettoyageDappartementOuMaisonRoute
   '/nettoyage-de-fin-de-chantier-toulouse': typeof NettoyageDeFinDeChantierToulouseRoute
   '/nettoyage-de-vitres-toulouse': typeof NettoyageDeVitresToulouseRoute
@@ -155,21 +216,30 @@ export interface FileRoutesByFullPath {
   '/nettoyage-extreme-toulouse': typeof NettoyageExtremeToulouseRoute
   '/nettoyage-facade-toulouse': typeof NettoyageFacadeToulouseRoute
   '/nettoyage-fin-de-bail-toulouse': typeof NettoyageFinDeBailToulouseRoute
+  '/nettoyage-l-union': typeof NettoyageLUnionRoute
   '/nettoyage-matelas-toulouse': typeof NettoyageMatelasToulouseRoute
   '/nettoyage-tapis-toulouse': typeof NettoyageTapisToulouseRoute
   '/nettoyage-terrasse-toulouse': typeof NettoyageTerrasseToulouseRoute
   '/nettoyage-toiture-toulouse': typeof NettoyageToitureToulouseRoute
+  '/nettoyage-tournefeuille': typeof NettoyageTournefeuilleRoute
   '/nos-realisations': typeof NosRealisationsRoute
   '/nos-services': typeof NosServicesRoute
+  '/politique-confidentialite': typeof PolitiqueConfidentialiteRoute
   '/reserver': typeof ReserverRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/a-propos': typeof AProposRoute
   '/annuler': typeof AnnulerRoute
+  '/cgv': typeof CgvRoute
   '/contactez-nous': typeof ContactezNousRoute
   '/formules': typeof FormulesRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
   '/nettoyage-auto-a-domicile-toulouse': typeof NettoyageAutoADomicileToulouseRoute
+  '/nettoyage-balma': typeof NettoyageBalmaRoute
+  '/nettoyage-blagnac': typeof NettoyageBlagnacRoute
   '/nettoyage-canape-toulouse': typeof NettoyageCanapeToulouseRoute
+  '/nettoyage-colomiers': typeof NettoyageColomiersRoute
   '/nettoyage-dappartement-ou-maison': typeof NettoyageDappartementOuMaisonRoute
   '/nettoyage-de-fin-de-chantier-toulouse': typeof NettoyageDeFinDeChantierToulouseRoute
   '/nettoyage-de-vitres-toulouse': typeof NettoyageDeVitresToulouseRoute
@@ -177,22 +247,31 @@ export interface FileRoutesByTo {
   '/nettoyage-extreme-toulouse': typeof NettoyageExtremeToulouseRoute
   '/nettoyage-facade-toulouse': typeof NettoyageFacadeToulouseRoute
   '/nettoyage-fin-de-bail-toulouse': typeof NettoyageFinDeBailToulouseRoute
+  '/nettoyage-l-union': typeof NettoyageLUnionRoute
   '/nettoyage-matelas-toulouse': typeof NettoyageMatelasToulouseRoute
   '/nettoyage-tapis-toulouse': typeof NettoyageTapisToulouseRoute
   '/nettoyage-terrasse-toulouse': typeof NettoyageTerrasseToulouseRoute
   '/nettoyage-toiture-toulouse': typeof NettoyageToitureToulouseRoute
+  '/nettoyage-tournefeuille': typeof NettoyageTournefeuilleRoute
   '/nos-realisations': typeof NosRealisationsRoute
   '/nos-services': typeof NosServicesRoute
+  '/politique-confidentialite': typeof PolitiqueConfidentialiteRoute
   '/reserver': typeof ReserverRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/a-propos': typeof AProposRoute
   '/annuler': typeof AnnulerRoute
+  '/cgv': typeof CgvRoute
   '/contactez-nous': typeof ContactezNousRoute
   '/formules': typeof FormulesRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
   '/nettoyage-auto-a-domicile-toulouse': typeof NettoyageAutoADomicileToulouseRoute
+  '/nettoyage-balma': typeof NettoyageBalmaRoute
+  '/nettoyage-blagnac': typeof NettoyageBlagnacRoute
   '/nettoyage-canape-toulouse': typeof NettoyageCanapeToulouseRoute
+  '/nettoyage-colomiers': typeof NettoyageColomiersRoute
   '/nettoyage-dappartement-ou-maison': typeof NettoyageDappartementOuMaisonRoute
   '/nettoyage-de-fin-de-chantier-toulouse': typeof NettoyageDeFinDeChantierToulouseRoute
   '/nettoyage-de-vitres-toulouse': typeof NettoyageDeVitresToulouseRoute
@@ -200,23 +279,32 @@ export interface FileRoutesById {
   '/nettoyage-extreme-toulouse': typeof NettoyageExtremeToulouseRoute
   '/nettoyage-facade-toulouse': typeof NettoyageFacadeToulouseRoute
   '/nettoyage-fin-de-bail-toulouse': typeof NettoyageFinDeBailToulouseRoute
+  '/nettoyage-l-union': typeof NettoyageLUnionRoute
   '/nettoyage-matelas-toulouse': typeof NettoyageMatelasToulouseRoute
   '/nettoyage-tapis-toulouse': typeof NettoyageTapisToulouseRoute
   '/nettoyage-terrasse-toulouse': typeof NettoyageTerrasseToulouseRoute
   '/nettoyage-toiture-toulouse': typeof NettoyageToitureToulouseRoute
+  '/nettoyage-tournefeuille': typeof NettoyageTournefeuilleRoute
   '/nos-realisations': typeof NosRealisationsRoute
   '/nos-services': typeof NosServicesRoute
+  '/politique-confidentialite': typeof PolitiqueConfidentialiteRoute
   '/reserver': typeof ReserverRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/a-propos'
     | '/annuler'
+    | '/cgv'
     | '/contactez-nous'
     | '/formules'
+    | '/mentions-legales'
     | '/nettoyage-auto-a-domicile-toulouse'
+    | '/nettoyage-balma'
+    | '/nettoyage-blagnac'
     | '/nettoyage-canape-toulouse'
+    | '/nettoyage-colomiers'
     | '/nettoyage-dappartement-ou-maison'
     | '/nettoyage-de-fin-de-chantier-toulouse'
     | '/nettoyage-de-vitres-toulouse'
@@ -224,21 +312,30 @@ export interface FileRouteTypes {
     | '/nettoyage-extreme-toulouse'
     | '/nettoyage-facade-toulouse'
     | '/nettoyage-fin-de-bail-toulouse'
+    | '/nettoyage-l-union'
     | '/nettoyage-matelas-toulouse'
     | '/nettoyage-tapis-toulouse'
     | '/nettoyage-terrasse-toulouse'
     | '/nettoyage-toiture-toulouse'
+    | '/nettoyage-tournefeuille'
     | '/nos-realisations'
     | '/nos-services'
+    | '/politique-confidentialite'
     | '/reserver'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/a-propos'
     | '/annuler'
+    | '/cgv'
     | '/contactez-nous'
     | '/formules'
+    | '/mentions-legales'
     | '/nettoyage-auto-a-domicile-toulouse'
+    | '/nettoyage-balma'
+    | '/nettoyage-blagnac'
     | '/nettoyage-canape-toulouse'
+    | '/nettoyage-colomiers'
     | '/nettoyage-dappartement-ou-maison'
     | '/nettoyage-de-fin-de-chantier-toulouse'
     | '/nettoyage-de-vitres-toulouse'
@@ -246,21 +343,30 @@ export interface FileRouteTypes {
     | '/nettoyage-extreme-toulouse'
     | '/nettoyage-facade-toulouse'
     | '/nettoyage-fin-de-bail-toulouse'
+    | '/nettoyage-l-union'
     | '/nettoyage-matelas-toulouse'
     | '/nettoyage-tapis-toulouse'
     | '/nettoyage-terrasse-toulouse'
     | '/nettoyage-toiture-toulouse'
+    | '/nettoyage-tournefeuille'
     | '/nos-realisations'
     | '/nos-services'
+    | '/politique-confidentialite'
     | '/reserver'
   id:
     | '__root__'
     | '/'
+    | '/a-propos'
     | '/annuler'
+    | '/cgv'
     | '/contactez-nous'
     | '/formules'
+    | '/mentions-legales'
     | '/nettoyage-auto-a-domicile-toulouse'
+    | '/nettoyage-balma'
+    | '/nettoyage-blagnac'
     | '/nettoyage-canape-toulouse'
+    | '/nettoyage-colomiers'
     | '/nettoyage-dappartement-ou-maison'
     | '/nettoyage-de-fin-de-chantier-toulouse'
     | '/nettoyage-de-vitres-toulouse'
@@ -268,22 +374,31 @@ export interface FileRouteTypes {
     | '/nettoyage-extreme-toulouse'
     | '/nettoyage-facade-toulouse'
     | '/nettoyage-fin-de-bail-toulouse'
+    | '/nettoyage-l-union'
     | '/nettoyage-matelas-toulouse'
     | '/nettoyage-tapis-toulouse'
     | '/nettoyage-terrasse-toulouse'
     | '/nettoyage-toiture-toulouse'
+    | '/nettoyage-tournefeuille'
     | '/nos-realisations'
     | '/nos-services'
+    | '/politique-confidentialite'
     | '/reserver'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AProposRoute: typeof AProposRoute
   AnnulerRoute: typeof AnnulerRoute
+  CgvRoute: typeof CgvRoute
   ContactezNousRoute: typeof ContactezNousRoute
   FormulesRoute: typeof FormulesRoute
+  MentionsLegalesRoute: typeof MentionsLegalesRoute
   NettoyageAutoADomicileToulouseRoute: typeof NettoyageAutoADomicileToulouseRoute
+  NettoyageBalmaRoute: typeof NettoyageBalmaRoute
+  NettoyageBlagnacRoute: typeof NettoyageBlagnacRoute
   NettoyageCanapeToulouseRoute: typeof NettoyageCanapeToulouseRoute
+  NettoyageColomiersRoute: typeof NettoyageColomiersRoute
   NettoyageDappartementOuMaisonRoute: typeof NettoyageDappartementOuMaisonRoute
   NettoyageDeFinDeChantierToulouseRoute: typeof NettoyageDeFinDeChantierToulouseRoute
   NettoyageDeVitresToulouseRoute: typeof NettoyageDeVitresToulouseRoute
@@ -291,12 +406,15 @@ export interface RootRouteChildren {
   NettoyageExtremeToulouseRoute: typeof NettoyageExtremeToulouseRoute
   NettoyageFacadeToulouseRoute: typeof NettoyageFacadeToulouseRoute
   NettoyageFinDeBailToulouseRoute: typeof NettoyageFinDeBailToulouseRoute
+  NettoyageLUnionRoute: typeof NettoyageLUnionRoute
   NettoyageMatelasToulouseRoute: typeof NettoyageMatelasToulouseRoute
   NettoyageTapisToulouseRoute: typeof NettoyageTapisToulouseRoute
   NettoyageTerrasseToulouseRoute: typeof NettoyageTerrasseToulouseRoute
   NettoyageToitureToulouseRoute: typeof NettoyageToitureToulouseRoute
+  NettoyageTournefeuilleRoute: typeof NettoyageTournefeuilleRoute
   NosRealisationsRoute: typeof NosRealisationsRoute
   NosServicesRoute: typeof NosServicesRoute
+  PolitiqueConfidentialiteRoute: typeof PolitiqueConfidentialiteRoute
   ReserverRoute: typeof ReserverRoute
 }
 
@@ -309,11 +427,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/a-propos': {
+      id: '/a-propos'
+      path: '/a-propos'
+      fullPath: '/a-propos'
+      preLoaderRoute: typeof AProposRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/annuler': {
       id: '/annuler'
       path: '/annuler'
       fullPath: '/annuler'
       preLoaderRoute: typeof AnnulerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cgv': {
+      id: '/cgv'
+      path: '/cgv'
+      fullPath: '/cgv'
+      preLoaderRoute: typeof CgvRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contactez-nous': {
@@ -330,6 +462,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FormulesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mentions-legales': {
+      id: '/mentions-legales'
+      path: '/mentions-legales'
+      fullPath: '/mentions-legales'
+      preLoaderRoute: typeof MentionsLegalesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/nettoyage-auto-a-domicile-toulouse': {
       id: '/nettoyage-auto-a-domicile-toulouse'
       path: '/nettoyage-auto-a-domicile-toulouse'
@@ -337,11 +476,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NettoyageAutoADomicileToulouseRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/nettoyage-balma': {
+      id: '/nettoyage-balma'
+      path: '/nettoyage-balma'
+      fullPath: '/nettoyage-balma'
+      preLoaderRoute: typeof NettoyageBalmaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nettoyage-blagnac': {
+      id: '/nettoyage-blagnac'
+      path: '/nettoyage-blagnac'
+      fullPath: '/nettoyage-blagnac'
+      preLoaderRoute: typeof NettoyageBlagnacRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/nettoyage-canape-toulouse': {
       id: '/nettoyage-canape-toulouse'
       path: '/nettoyage-canape-toulouse'
       fullPath: '/nettoyage-canape-toulouse'
       preLoaderRoute: typeof NettoyageCanapeToulouseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nettoyage-colomiers': {
+      id: '/nettoyage-colomiers'
+      path: '/nettoyage-colomiers'
+      fullPath: '/nettoyage-colomiers'
+      preLoaderRoute: typeof NettoyageColomiersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/nettoyage-dappartement-ou-maison': {
@@ -393,6 +553,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NettoyageFinDeBailToulouseRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/nettoyage-l-union': {
+      id: '/nettoyage-l-union'
+      path: '/nettoyage-l-union'
+      fullPath: '/nettoyage-l-union'
+      preLoaderRoute: typeof NettoyageLUnionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/nettoyage-matelas-toulouse': {
       id: '/nettoyage-matelas-toulouse'
       path: '/nettoyage-matelas-toulouse'
@@ -421,6 +588,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NettoyageToitureToulouseRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/nettoyage-tournefeuille': {
+      id: '/nettoyage-tournefeuille'
+      path: '/nettoyage-tournefeuille'
+      fullPath: '/nettoyage-tournefeuille'
+      preLoaderRoute: typeof NettoyageTournefeuilleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/nos-realisations': {
       id: '/nos-realisations'
       path: '/nos-realisations'
@@ -435,6 +609,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NosServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/politique-confidentialite': {
+      id: '/politique-confidentialite'
+      path: '/politique-confidentialite'
+      fullPath: '/politique-confidentialite'
+      preLoaderRoute: typeof PolitiqueConfidentialiteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/reserver': {
       id: '/reserver'
       path: '/reserver'
@@ -447,11 +628,17 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AProposRoute: AProposRoute,
   AnnulerRoute: AnnulerRoute,
+  CgvRoute: CgvRoute,
   ContactezNousRoute: ContactezNousRoute,
   FormulesRoute: FormulesRoute,
+  MentionsLegalesRoute: MentionsLegalesRoute,
   NettoyageAutoADomicileToulouseRoute: NettoyageAutoADomicileToulouseRoute,
+  NettoyageBalmaRoute: NettoyageBalmaRoute,
+  NettoyageBlagnacRoute: NettoyageBlagnacRoute,
   NettoyageCanapeToulouseRoute: NettoyageCanapeToulouseRoute,
+  NettoyageColomiersRoute: NettoyageColomiersRoute,
   NettoyageDappartementOuMaisonRoute: NettoyageDappartementOuMaisonRoute,
   NettoyageDeFinDeChantierToulouseRoute: NettoyageDeFinDeChantierToulouseRoute,
   NettoyageDeVitresToulouseRoute: NettoyageDeVitresToulouseRoute,
@@ -459,12 +646,15 @@ const rootRouteChildren: RootRouteChildren = {
   NettoyageExtremeToulouseRoute: NettoyageExtremeToulouseRoute,
   NettoyageFacadeToulouseRoute: NettoyageFacadeToulouseRoute,
   NettoyageFinDeBailToulouseRoute: NettoyageFinDeBailToulouseRoute,
+  NettoyageLUnionRoute: NettoyageLUnionRoute,
   NettoyageMatelasToulouseRoute: NettoyageMatelasToulouseRoute,
   NettoyageTapisToulouseRoute: NettoyageTapisToulouseRoute,
   NettoyageTerrasseToulouseRoute: NettoyageTerrasseToulouseRoute,
   NettoyageToitureToulouseRoute: NettoyageToitureToulouseRoute,
+  NettoyageTournefeuilleRoute: NettoyageTournefeuilleRoute,
   NosRealisationsRoute: NosRealisationsRoute,
   NosServicesRoute: NosServicesRoute,
+  PolitiqueConfidentialiteRoute: PolitiqueConfidentialiteRoute,
   ReserverRoute: ReserverRoute,
 }
 export const routeTree = rootRouteImport

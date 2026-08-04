@@ -102,8 +102,14 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-ink-foreground/10 py-6 text-center text-xs text-ink-foreground/40">
-        © 2026 Clean&Fresh — Tous droits réservés — Toulouse, Haute-Garonne
+      <div className="border-t border-ink-foreground/10 py-6 text-center text-xs text-ink-foreground/40 space-y-2">
+        <p>© 2026 Clean&Fresh — Tous droits réservés — Toulouse, Haute-Garonne</p>
+        <div className="flex flex-wrap justify-center gap-4 text-ink-foreground/50">
+          <Link to="/a-propos" className="hover:text-ink-foreground transition-colors">À Propos</Link>
+          <Link to="/mentions-legales" className="hover:text-ink-foreground transition-colors">Mentions Légales</Link>
+          <Link to="/politique-confidentialite" className="hover:text-ink-foreground transition-colors">Confidentialité</Link>
+          <Link to="/cgv" className="hover:text-ink-foreground transition-colors">CGV</Link>
+        </div>
       </div>
     </footer>
   );

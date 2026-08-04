@@ -15,7 +15,7 @@ export function TopBanner() {
       >
         <CalendarCheck className="size-4 shrink-0" />
         <p className="text-sm font-semibold">
-          Disponible dès demain — réservez votre nettoyage en ligne en 2 minutes
+          Consultez les prochains créneaux disponibles — réservez votre nettoyage en ligne en 2 minutes
         </p>
         <span className="hidden shrink-0 rounded-full border border-accent-foreground/30 bg-accent-foreground/15 px-3 py-0.5 text-xs font-bold uppercase tracking-wider sm:inline-block">
           Réserver ici →

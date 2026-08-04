@@ -1,4 +1,4 @@
-export const SITE_URL = "https://cleanfresh-toulouse.fr";
+export const SITE_URL = "https://cleanetfresh.fr";
 export const OG_IMAGE = `${SITE_URL}/realisations/photo-01.jpg`;
 
 export const COMPANY = {
@@ -93,7 +93,7 @@ export const SERVICES: Service[] = [
     booking: true,
     intro: [
       "Votre canapé concentre poussière, acariens, transpiration et taches du quotidien. Notre équipe de nettoyage canapé à Toulouse intervient directement chez vous, sans déplacer vos meubles, avec un matériel professionnel d'injection-extraction et des produits certifiés Écolabel européen.",
-      "Chaque prestation comprend le nettoyage en profondeur de l'assise, du dossier et des coussins, l'élimination des taches et auréoles ainsi que la neutralisation des mauvaises odeurs. Tissu, microfibre, velours ou cuir : nous adaptons notre méthode à chaque matière pour un résultat impeccable sans risque d'endommager le revêtement.",
+      "Chaque prestation comprend le nettoyage en profondeur de l'assise, du dossier et des coussins, l'élimination des taches et auréoles ainsi que la neutralisation des mauvaises odeurs. Tissu, microfibre, velours ou cuir : nous adaptons notre méthode à chaque matière pour un résultat impeccable dans le respect du revêtement.",
       "Nous intervenons à Toulouse et dans toute la Haute-Garonne — Blagnac, Colomiers, Tournefeuille, Balma, Cugnaux et alentours. Devis gratuit sous 24h, intervention possible dès le lendemain.",
     ],
     treated: [
@@ -273,7 +273,7 @@ export const SERVICES: Service[] = [
     prices: [
       { label: "🥉 Pack Bronze", price: "69 €", items: ["Aspiration complète habitacle + coffre", "Nettoyage et rénovation des plastiques", "Remise en état visuel de l'habitacle"], note: "Idéal pour un entretien rapide et retrouver un intérieur propre au quotidien" },
       { label: "🥈 Pack Argent", price: "99 €", items: ["Tout le Pack Bronze inclus", "Injection-extraction des sièges tissu", "Vitres intérieures nettoyées sans traces", "Élimination des taches incrustées"], note: "Le plus vendu — habitacle transformé en 1h30" },
-      { label: "🥇 Pack Or", price: "129 €", items: ["Tout le Pack Argent inclus", "Injection-extraction moquettes + coffre", "Shampouinage des tapis de sol", "Nettoyage du ciel de toit"], note: "Idéal avant une revente — état showroom garanti" },
+      { label: "🥇 Pack Or", price: "129 €", items: ["Tout le Pack Argent inclus", "Injection-extraction moquettes + coffre", "Shampouinage des tapis de sol", "Nettoyage du ciel de toit"], note: "Idéal avant une revente — objectif état showroom" },
       { label: "Rénovation siège auto", price: "59 €", items: ["Siège traité en profondeur (tissu/Alcantara)", "Élimination des taches incrustées", "Neutralisation des mauvaises odeurs"] },
     ],
     priceNote: "Tarifs sur devis selon la taille du véhicule et son état — réponse sous 24h.",
@@ -479,7 +479,7 @@ export const SERVICES: Service[] = [
     group: "batiment",
     intro: [
       "Grand ménage de printemps, remise en état avant l'entrée d'un locataire, nettoyage après déménagement ou entretien régulier : notre service de nettoyage d'appartement et de maison à Toulouse prend en charge l'ensemble du logement.",
-      "Produits certifiés Écolabel, matériel professionnel et une équipe qui traite chaque pièce dans le détail — cuisine, salle de bain, sols, vitres, plinthes. Aucun angle mort, résultat garanti.",
+      "Produits certifiés Écolabel, matériel professionnel et une équipe qui traite chaque pièce dans le détail — cuisine, salle de bain, sols, vitres, plinthes. Aucun angle mort, Résultat soigné.",
       "Nous intervenons sur Toulouse et toute l'agglomération — Blagnac, Colomiers, Tournefeuille, Ramonville, Balma et alentours. Devis gratuit selon la surface et le niveau de prestation, ponctuel ou récurrent.",
     ],
     treated: [
@@ -506,7 +506,7 @@ export const SERVICES: Service[] = [
       { q: "Quel est le prix d'un nettoyage d'appartement à Toulouse ?", a: "Le tarif est calculé sur devis selon la surface, le nombre de pièces et le niveau de prestation. Nous proposons des prestations ponctuelles et des formules d'entretien régulier. Devis gratuit sous 24h." },
       { q: "Faut-il vider le logement avant votre intervention ?", a: "Non, pas nécessairement. Nous travaillons autour du mobilier en place. Pour un grand ménage très complet, nous recommandons de dégager les plans de travail et les sols pour un accès facilité." },
       { q: "Pouvez-vous intervenir entre deux locataires ?", a: "Oui, c'est l'une de nos prestations phares. Nous remettons le logement en état entre deux locations : cuisine dégraissée, salle de bain détartrée, sols nettoyés, vitres impeccables." },
-      { q: "Quels produits utilisez-vous pour le nettoyage des appartements ?", a: "Des produits certifiés Écolabel européen : sans danger pour les occupants, les animaux et l'environnement. Efficaces sur les graisses, le calcaire, les moisissures et les bactéries." },
+      { q: "Quels produits utilisez-vous pour le nettoyage des appartements ?", a: "Des produits certifiés Écolabel européen : certifiés Écolabel européen et utilisés conformément aux recommandations du fabricant. Efficaces sur les graisses, le calcaire, les moisissures et les bactéries." },
       { q: "Intervenez-vous le week-end pour le ménage à Toulouse ?", a: "Oui, nous sommes disponibles en semaine et le week-end selon les créneaux. Contactez-nous pour vérifier les disponibilités et réserver votre intervention." },
     ],
   },
@@ -655,7 +655,7 @@ export const SERVICES: Service[] = [
     group: "batiment",
     intro: [
       "Logement très encombré, insalubre ou laissé à l'abandon : notre service de nettoyage extrême à Toulouse prend en charge les situations que personne ne veut traiter, avec discrétion et sans jugement.",
-      "Équipe équipée en protection individuelle, débarras complet, nettoyage en profondeur et désinfection totale du logement — sols, murs, sanitaires, pièces encombrées. Nous évacuons les déchets en filière adaptée et réglementée.",
+      "Équipe équipée en protection individuelle, débarras complet, nettoyage en profondeur et Désinfection approfondie du logement — sols, murs, sanitaires, pièces encombrées. Nous évacuons les déchets en filière adaptée et réglementée.",
       "Nous intervenons rapidement à Toulouse et dans tout le département 31. Évaluation confidentielle sur photos ou sur place, devis sous 24h.",
     ],
     treated: [

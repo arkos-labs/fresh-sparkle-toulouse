@@ -1,5 +1,5 @@
 /**
- * Google Calendar — Vérification des créneaux disponibles
+ * Google Calendar — Vérification des créneaux disponibles (côté client)
  *
  * CONFIGURATION :
  * 1. Dans Google Calendar, partager le calendrier "Tout le monde peut voir quand je suis occupé(e)"
@@ -7,6 +7,8 @@
  * 3. Ajouter dans .env :
  *    VITE_GCAL_API_KEY=AIzaSy...
  *    VITE_GCAL_CALENDAR_ID=votremail@gmail.com
+ *
+ * NOTE : Pour l'écriture des événements (création/suppression), voir gcal-server.ts
  */
 
 export type BusySlot = { start: string; end: string };
@@ -16,10 +18,10 @@ export type BusySlot = { start: string; end: string };
  * Retourne [] si la configuration n'est pas définie (→ tous les créneaux affichés comme dispo).
  */
 export async function fetchBusySlots(date: Date): Promise<BusySlot[]> {
-  const apiKey   = import.meta.env.VITE_GCAL_API_KEY   as string | undefined;
-  const calId    = import.meta.env.VITE_GCAL_CALENDAR_ID as string | undefined;
+  const apiKey = import.meta.env.VITE_GCAL_API_KEY as string | undefined;
+  const calId = import.meta.env.VITE_GCAL_CALENDAR_ID as string | undefined;
 
-  if (!apiKey || !calId) return [];   // pas de config → tout libre
+  if (!apiKey || !calId) return []; // pas de config → tout libre
 
   const timeMin = new Date(date);
   timeMin.setHours(0, 0, 0, 0);
@@ -42,7 +44,7 @@ export async function fetchBusySlots(date: Date): Promise<BusySlot[]> {
     const data = await res.json();
     return (data?.calendars?.[calId]?.busy ?? []) as BusySlot[];
   } catch {
-    return [];   // en cas d'erreur réseau → tout libre (fail open)
+    return []; // en cas d'erreur réseau → tout libre (fail open)
   }
 }
 
@@ -64,19 +66,30 @@ export function isSlotFree(
 
 /**
  * Retourne les créneaux d'une journée avec leur statut disponible/indisponible.
+ * Plage horaire : 08h00 – 20h00 (7j/7 selon votre configuration)
  */
 export function buildSlots(
   date: Date,
   durationMin: number,
   busy: BusySlot[],
 ): { time: string; available: boolean }[] {
-  // Créneaux proposés : 8h – 17h30
-  const RAW_SLOTS = ["08:00", "09:30", "11:00", "12:30", "14:00", "15:30", "17:00"];
+  // Créneaux proposés : 08h – 20h00 (tous les jours, 7j/7)
+  const RAW_SLOTS = [
+    "08:00", "09:30", "11:00", "12:30",
+    "14:00", "15:30", "17:00", "18:30", "20:00",
+  ];
 
   return RAW_SLOTS.map((time) => {
     const [h, m] = time.split(":").map(Number);
     const slotStart = new Date(date);
     slotStart.setHours(h, m, 0, 0);
+
+    // Créneau de 20h : la prestation se terminerait à 20h + durée.
+    // On vérifie que la fin ne dépasse pas 22h (max).
+    const slotEnd = new Date(slotStart.getTime() + durationMin * 60_000);
+    if (slotEnd.getHours() >= 22 && slotEnd.getMinutes() > 0) {
+      return { time, available: false };
+    }
 
     // Passé → indispo
     if (slotStart <= new Date()) return { time, available: false };

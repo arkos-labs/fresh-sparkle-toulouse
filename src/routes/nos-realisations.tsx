@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/data/site";
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { X, ChevronLeft, ChevronRight, CalendarCheck } from "lucide-react";
@@ -15,7 +16,7 @@ export const Route = createFileRoute("/nos-realisations")({
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESC },
     ],
-    links: [{ rel: "canonical", href: "/nos-realisations" }],
+    links: [{ rel: "canonical", href: `${SITE_URL}/nos-realisations` }],
   }),
   component: GaleriePage,
 });
@@ -152,11 +153,10 @@ function GaleriePage() {
           </button>
 
           {/* Image */}
-          <img
-            src={PHOTOS[lightbox].src}
+          <img src={PHOTOS[lightbox].src}
             alt={PHOTOS[lightbox].alt}
             className="max-h-[90vh] max-w-[90vw] rounded-xl object-contain shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
+            onClick={(e) = loading="lazy"> e.stopPropagation()}
           />
 
           {/* Next */}

@@ -26,7 +26,7 @@ type ServiceOption = { name: string; price: number; desc: string; popular?: bool
 
 const OPTIONS_BY_SERVICE: Record<string, ServiceOption[]> = {
   canape: [
-    { icon: <Shield className="size-8" />,    name: "Traitement anti-acariens", price: 19, desc: "Élimine 99,9% des acariens et allergènes. Idéal pour les personnes sensibles.", popular: true },
+    { icon: <Shield className="size-8" />,    name: "Traitement anti-acariens", price: 19, desc: "Élimination des acariens et bactéries (traitement professionnel). Idéal pour les personnes sensibles.", popular: true },
     { icon: <PawPrint className="size-8" />,  name: "Élimination des poils d'animaux", price: 15, desc: "Brossage mécanique spécifique avant l'injection-extraction.", popular: true },
     { icon: <Eraser className="size-8" />,    name: "Détachage intensif", price: 19, desc: "Traitement ciblé pour les tâches anciennes (sang, vin, encre, café)." },
     { icon: <Wind className="size-8" />,      name: "Traitement anti-odeur", price: 15, desc: "Neutralisation moléculaire des mauvaises odeurs incrustées.", popular: true },
@@ -38,7 +38,7 @@ const OPTIONS_BY_SERVICE: Record<string, ServiceOption[]> = {
     { icon: <Wind className="size-8" />,        name: "Traitement anti-odeur", price: 15, desc: "Neutralisation moléculaire des mauvaises odeurs incrustées.", popular: true },
   ],
   matelas: [
-    { icon: <Shield className="size-8" />,  name: "Traitement anti-acariens", price: 19, desc: "Élimine 99,9% des acariens. Indispensable pour les allergiques.", popular: true },
+    { icon: <Shield className="size-8" />,  name: "Traitement anti-acariens", price: 19, desc: "Élimination des acariens et bactéries (traitement professionnel). Indispensable pour les allergiques.", popular: true },
     { icon: <Eraser className="size-8" />,  name: "Détachage intensif", price: 19, desc: "Traitement ciblé pour les tâches résistantes (transpiration, sang…)." },
     { icon: <Wind className="size-8" />,    name: "Traitement anti-odeur", price: 15, desc: "Neutralisation moléculaire des mauvaises odeurs incrustées.", popular: true },
   ],
@@ -290,14 +290,21 @@ export function ServicePage({ service }: { service: Service }) {
               Nous nous déplaçons dans toute la métropole toulousaine, chez les particuliers comme chez les professionnels.
             </p>
             <ul className="mt-5 flex flex-wrap gap-2">
-              {COMMUNES.map((c) => (
-                <li
-                  key={c}
-                  className="rounded-full border border-border bg-card px-3 py-1 text-sm text-muted-foreground"
-                >
-                  {c}
-                </li>
-              ))}
+              {COMMUNES.map((c) => {
+                const slug = c.toLowerCase().replace(/['\s]/g, "-");
+                const hasPage = ["colomiers", "blagnac", "tournefeuille", "balma", "l-union"].includes(slug);
+                return (
+                  <li key={c} className="rounded-full border border-border bg-card text-sm text-muted-foreground overflow-hidden">
+                    {hasPage ? (
+                      <Link to={`/nettoyage-${slug}`} className="block px-3 py-1 hover:text-primary transition-colors">
+                        {c}
+                      </Link>
+                    ) : (
+                      <span className="block px-3 py-1">{c}</span>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </div>
           {service.soils && (
@@ -355,7 +362,7 @@ export function ServicePage({ service }: { service: Service }) {
       </FadeIn>
 
       {/* ── AVIS CLIENTS ── */}
-      <ReviewsCarousel />
+      <ReviewsCarousel category={bookingServiceId ?? undefined} />
 
       {/* ── MÉTHODE ── */}
       <FadeIn delay={0.1}>

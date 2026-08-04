@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { COMMUNES, COMPANY } from "@/data/site";
+import { COMMUNES, COMPANY, SITE_URL } from "@/data/site";
 
 const TITLE = "Contact — Clean&Fresh, nettoyage à Toulouse";
 const DESC =
@@ -22,7 +22,7 @@ export const Route = createFileRoute("/contactez-nous")({
       { property: "og:description", content: DESC },
       { property: "og:url", content: "/contactez-nous" },
     ],
-    links: [{ rel: "canonical", href: "/contactez-nous" }],
+    links: [{ rel: "canonical", href: `${SITE_URL}/contactez-nous` }],
   }),
   component: ContactPage,
 });
@@ -82,7 +82,7 @@ function ContactPage() {
         </h1>
         <p className="mt-4 text-muted-foreground leading-relaxed max-w-xl mx-auto">
           Confiez-nous l'entretien de votre intérieur. Remplissez le formulaire ci-dessous et
-          recevez une proposition sur-mesure sous 24 heures, garantie.
+          recevez une proposition sur-mesure sous 24 heures, assurée.
         </p>
       </div>
 
@@ -199,7 +199,7 @@ function ContactPage() {
                 </div>
                 <div>
                   <p className="text-[10px] font-bold uppercase tracking-widest text-ink-foreground/50">Engagement</p>
-                  <p className="text-base font-bold text-accent">Devis garanti sous 24h</p>
+                  <p className="text-base font-bold text-accent">Devis sous 24h</p>
                 </div>
               </div>
             </div>
@@ -214,11 +214,21 @@ function ContactPage() {
               Nous nous déplaçons directement chez vous avec notre matériel professionnel dans toute l'agglomération toulousaine.
             </p>
             <ul className="mt-4 flex flex-wrap gap-2">
-              {COMMUNES.map((c) => (
-                <li key={c} className="rounded-full border border-border bg-secondary px-3 py-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                  {c}
-                </li>
-              ))}
+              {COMMUNES.map((c) => {
+                const slug = c.toLowerCase().replace(/['\s]/g, "-");
+                const hasPage = ["colomiers", "blagnac", "tournefeuille", "balma", "l-union"].includes(slug);
+                return (
+                  <li key={c} className="rounded-full border border-border bg-secondary text-xs font-semibold uppercase tracking-wide text-muted-foreground overflow-hidden">
+                    {hasPage ? (
+                      <Link to={`/nettoyage-${slug}`} className="block px-3 py-1 hover:text-primary transition-colors">
+                        {c}
+                      </Link>
+                    ) : (
+                      <span className="block px-3 py-1">{c}</span>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </aside>

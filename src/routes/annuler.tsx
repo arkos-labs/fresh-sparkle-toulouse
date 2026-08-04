@@ -4,6 +4,7 @@ import { CheckCircle2, XCircle, Phone, Mail, Loader2, CalendarX } from "lucide-r
 import { Button } from "@/components/ui/button";
 import { COMPANY } from "@/data/site";
 import { sendCancellationEmail } from "@/lib/emailService";
+import { cancelBookingServerFn } from "@/lib/cancelServerFn";
 
 export const Route = createFileRoute("/annuler")({
   validateSearch: (s: Record<string, unknown>) => ({
@@ -20,7 +21,7 @@ function AnnulerPage() {
   const [step, setStep] = useState<"confirm" | "loading" | "done" | "error">("confirm");
 
   // Décoder les infos du token base64
-  let info: { name: string; email: string; phone: string; formule: string; date: string; time: string } | null = null;
+  let info: { name: string; email: string; phone: string; formule: string; date: string; time: string; gcal_event_id?: string } | null = null;
   try {
     info = JSON.parse(atob(token));
   } catch {
@@ -31,6 +32,20 @@ function AnnulerPage() {
     if (!info) return;
     setStep("loading");
     try {
+      // 1. Supprimer l'événement Google Calendar (côté serveur)
+      await cancelBookingServerFn({
+        data: {
+          gcal_event_id: info.gcal_event_id ?? null,
+          client_name:   info.name,
+          client_phone:  info.phone,
+          client_email:  info.email,
+          formule:       info.formule,
+          date:          info.date,
+          time:          info.time,
+        },
+      });
+
+      // 2. Notifier le propriétaire par email
       await sendCancellationEmail({
         client_name:  info.name,
         client_phone: info.phone,

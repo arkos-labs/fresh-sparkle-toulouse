@@ -8,14 +8,14 @@ export const Route = createFileRoute("/nettoyage-de-fin-de-chantier-toulouse")({
   head: () => ({
     meta: [
       { title: "Nettoyage fin de chantier Toulouse | Clean&Fresh" },
-      { name: "description", content: "Nettoyage fin de chantier \u00e0 Toulouse et dans le 31. Poussi\u00e8res, r\u00e9sidus, vitres, sols \u2014 livraison propre garantie. Particuliers et pros. Devis gratuit !" },
+      { name: "description", content: "Nettoyage fin de chantier \u00e0 Toulouse et dans le 31. Poussi\u00e8res, r\u00e9sidus, vitres, sols \u2014 livraison propre assurée. Particuliers et pros. Devis gratuit !" },
       { property: "og:title", content: "Nettoyage fin de chantier Toulouse | Clean&Fresh" },
-      { property: "og:description", content: "Nettoyage fin de chantier \u00e0 Toulouse et dans le 31. Poussi\u00e8res, r\u00e9sidus, vitres, sols \u2014 livraison propre garantie. Particuliers et pros. Devis gratuit !" },
-      { property: "og:url", content: "https://cleanfresh-toulouse.fr/nettoyage-de-fin-de-chantier-toulouse" },
+      { property: "og:description", content: "Nettoyage fin de chantier \u00e0 Toulouse et dans le 31. Poussi\u00e8res, r\u00e9sidus, vitres, sols \u2014 livraison propre assurée. Particuliers et pros. Devis gratuit !" },
+      { property: "og:url", content: "https://cleanetfresh.fr/nettoyage-de-fin-de-chantier-toulouse" },
       { name: "twitter:title", content: "Nettoyage fin de chantier Toulouse | Clean&Fresh" },
-      { name: "twitter:description", content: "Nettoyage fin de chantier à Toulouse et dans le 31. Poussières, résidus, vitres, sols — livraison propre garantie. Particuliers et pros. Devis gratuit !" },
+      { name: "twitter:description", content: "Nettoyage fin de chantier à Toulouse et dans le 31. Poussières, résidus, vitres, sols — livraison propre assurée. Particuliers et pros. Devis gratuit !" },
     ],
-    links: [{ rel: "canonical", href: "https://cleanfresh-toulouse.fr/nettoyage-de-fin-de-chantier-toulouse" }],
+    links: [{ rel: "canonical", href: "https://cleanetfresh.fr/nettoyage-de-fin-de-chantier-toulouse" }],
   }),
   component: () => <ServicePage service={service} />,
 });

@@ -6,7 +6,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import { COMPANY } from "@/data/site";
+import { COMPANY, SITE_URL } from "@/data/site";
 import { FadeIn } from "@/components/ui/fade-in";
 
 const TITLE = "Tarifs nettoyage à domicile Toulouse — Clean&Fresh";
@@ -22,7 +22,7 @@ export const Route = createFileRoute("/formules")({
       { property: "og:description", content: DESC },
       { property: "og:url", content: "/formules" },
     ],
-    links: [{ rel: "canonical", href: "/formules" }],
+    links: [{ rel: "canonical", href: `${SITE_URL}/formules` }],
   }),
   component: FormulesPage,
 });
@@ -39,21 +39,21 @@ const CANAPE_ITEMS = [
 ];
 
 const CANAPE_OPTIONS = [
-  { name: "Traitement anti-acariens et bactériens", price: 19, desc: "Élimine 99,9% des acariens et allergènes. Recommandé pour les personnes sensibles.", popular: true },
+  { name: "Traitement anti-acariens et bactériens", price: 19, desc: "Élimination des acariens et bactéries (traitement professionnel). Recommandé pour les personnes sensibles.", popular: true },
   { name: "Élimination des poils d'animaux", price: 15, desc: "Brossage mécanique spécifique avant l'injection-extraction.", popular: true },
   { name: "Détachage intensif", price: 19, desc: "Traitement ciblé pour les tâches anciennes (sang, vin, encre, café).", popular: false },
   { name: "Traitement anti-odeur", price: 15, desc: "Neutralisation moléculaire des mauvaises odeurs incrustées.", popular: true },
 ];
 
 const TAPIS_OPTIONS = [
-  { name: "Traitement anti-acariens et bactériens", price: 19, desc: "Élimine 99,9% des acariens et allergènes dans les fibres du tapis.", popular: true },
+  { name: "Traitement anti-acariens et bactériens", price: 19, desc: "Élimination des acariens et bactéries (traitement professionnel) dans les fibres du tapis.", popular: true },
   { name: "Nettoyage recto-verso", price: 25, desc: "Nettoyage des deux faces du tapis pour un résultat total." },
   { name: "Détachage intensif", price: 19, desc: "Traitement ciblé pour les tâches anciennes (sang, vin, encre, café)." },
   { name: "Traitement anti-odeur", price: 15, desc: "Neutralisation moléculaire des mauvaises odeurs incrustées.", popular: true },
 ];
 
 const MATELAS_OPTIONS = [
-  { name: "Traitement anti-acariens et bactériens", price: 19, desc: "Élimine 99,9% des acariens. Indispensable pour les allergiques.", popular: true },
+  { name: "Traitement anti-acariens et bactériens", price: 19, desc: "Élimination des acariens et bactéries (traitement professionnel). Indispensable pour les allergiques.", popular: true },
   { name: "Détachage intensif", price: 19, desc: "Traitement ciblé pour les tâches résistantes (transpiration, sang…)." },
   { name: "Traitement anti-odeur", price: 15, desc: "Neutralisation moléculaire des mauvaises odeurs incrustées.", popular: true },
 ];
@@ -62,7 +62,7 @@ const AUTO_PACKS = [
   {
     id: "bronze", emoji: "🥉", name: "Pack Bronze", price: "69 €", tagline: "Entretien régulier",
     badge: null as string | null, featured: false,
-    included: ["Aspiration complète de l'habitacle", "Nettoyage des plastiques et tableau de bord", "Nettoyage des vitres intérieures", "Nettoyage des tapis de sol", "Résultat professionnel garanti"],
+    included: ["Aspiration complète de l'habitacle", "Nettoyage des plastiques et tableau de bord", "Nettoyage des vitres intérieures", "Nettoyage des tapis de sol", "Résultat professionnel"],
     options: [
       { name: "Traitement anti-acariens et bactériens", price: 19, popular: true },
       { name: "Élimination des poils d'animaux", price: 25, popular: false },
@@ -75,7 +75,7 @@ const AUTO_PACKS = [
   {
     id: "argent", emoji: "🥈", name: "Pack Argent", price: "99 €", tagline: "Nettoyage complet",
     badge: "⭐ Le + vendu" as string | null, featured: true,
-    included: ["Tout le Pack Bronze inclus", "Injection-extraction des sièges tissu", "Vitres sans traces (intérieur + extérieur)", "Joints et recoins traités en détail", "Résultat professionnel garanti"],
+    included: ["Tout le Pack Bronze inclus", "Injection-extraction des sièges tissu", "Vitres sans traces (intérieur + extérieur)", "Joints et recoins traités en détail", "Résultat professionnel"],
     options: [
       { name: "Traitement anti-acariens et bactériens", price: 19, popular: true },
       { name: "Élimination des poils d'animaux", price: 25, popular: false },
@@ -198,7 +198,7 @@ function CanapeDetail() {
             >
 
               <div className={`flex items-center justify-center w-full h-24 sm:h-32 mb-3 mt-1 px-0 transition-colors ${isSelected ? "text-[#1a2b4c]" : "text-primary/70"}`}>
-                <img src={CANAPE_IMAGES[c.id]} alt={c.label} className="w-full h-full object-contain mix-blend-multiply scale-125 sm:scale-[1.35]" />
+                <img src={CANAPE_IMAGES[c.id]} alt={c.label} className="w-full h-full object-contain mix-blend-multiply scale-125 sm:scale-[1.35]" loading="lazy" />
               </div>
 
               <p className="text-[9px] font-semibold uppercase tracking-widest text-muted-foreground/80 leading-none">Dès</p>
@@ -220,7 +220,7 @@ function CanapeDetail() {
             
             <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
             <div className="mt-5 space-y-2.5">
-              {["Injection-extraction professionnelle", "Tâches, auréoles et odeurs éliminées", "Résultat visible immédiatement", "Résultat professionnel garanti"].map((pt) => (
+              {["Injection-extraction professionnelle", "Traitement des taches, auréoles et odeurs", "Résultat visible immédiatement", "Résultat professionnel"].map((pt) => (
                 <div key={pt} className="flex items-center gap-3 text-sm text-foreground/80 font-medium">
                   <CheckCircle2 className="size-4.5 shrink-0 text-primary" /> {pt}
                 </div>
@@ -373,9 +373,9 @@ const SVG_MATELAS_2PLACES = (
 // ─── TAPIS DETAIL ─────────────────────────────────────────────────────────────
 
 const TAPIS_ITEMS = [
-  { id: "1-tapis", label: "1 tapis", price: "49 €", desc: "Fibres et couleurs ravivées, tâches et odeurs éliminées. Résultat professionnel garanti." },
-  { id: "2-tapis", label: "2 tapis", price: "79 €", desc: "Économisez 19 € vs 2 × 1 tapis. Tâches et odeurs éliminées. Résultat professionnel garanti." },
-  { id: "3-tapis", label: "3 tapis", price: "99 €", desc: "Toute la maison en 1 visite. Tâches et odeurs éliminées. Résultat professionnel garanti." },
+  { id: "1-tapis", label: "1 tapis", price: "49 €", desc: "Fibres et couleurs ravivées, Traitement des taches et odeurs. Résultat professionnel." },
+  { id: "2-tapis", label: "2 tapis", price: "79 €", desc: "Économisez 19 € vs 2 × 1 tapis. Traitement des taches et odeurs. Résultat professionnel." },
+  { id: "3-tapis", label: "3 tapis", price: "99 €", desc: "Toute la maison en 1 visite. Traitement des taches et odeurs. Résultat professionnel." },
 ];
 
 function TapisDetail() {
@@ -401,7 +401,7 @@ function TapisDetail() {
             >
 
               <div className={`flex items-center justify-center w-full h-32 sm:h-48 mb-3 mt-1 px-0 transition-colors ${isSelected ? "text-[#1a2b4c]" : "text-primary/70"}`}>
-                <img src={TAPIS_IMAGES[c.id]} alt={c.label} className="w-full h-full object-contain mix-blend-multiply scale-125 sm:scale-150" />
+                <img src={TAPIS_IMAGES[c.id]} alt={c.label} className="w-full h-full object-contain mix-blend-multiply scale-125 sm:scale-150" loading="lazy" />
               </div>
 
               <p className="text-[9px] font-semibold uppercase tracking-widest text-muted-foreground/80 leading-none">Dès</p>
@@ -423,7 +423,7 @@ function TapisDetail() {
             
             <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
             <div className="mt-5 space-y-2.5">
-              {["Injection-extraction professionnelle", "Tâches, auréoles et odeurs éliminées", "Résultat visible immédiatement", "Résultat professionnel garanti"].map((pt) => (
+              {["Injection-extraction professionnelle", "Traitement des taches, auréoles et odeurs", "Résultat visible immédiatement", "Résultat professionnel"].map((pt) => (
                 <div key={pt} className="flex items-center gap-3 text-sm text-foreground/80 font-medium">
                   <CheckCircle2 className="size-4.5 shrink-0 text-primary" /> {pt}
                 </div>
@@ -483,7 +483,7 @@ function AutoDetail() {
               )}
 
               <div className={`flex items-center justify-center w-full h-24 sm:h-32 mb-3 mt-1 px-2 transition-colors ${isSelected ? "text-[#1a2b4c]" : "text-primary/70"}`}>
-                <img src={AUTO_IMAGES[c.id]} alt={c.name} className="w-full h-full object-contain mix-blend-multiply scale-110" />
+                <img src={AUTO_IMAGES[c.id]} alt={c.name} className="w-full h-full object-contain mix-blend-multiply scale-110" loading="lazy" />
               </div>
 
               <p className="text-[9px] font-semibold uppercase tracking-widest text-muted-foreground/80 leading-none">{c.tagline}</p>
@@ -536,9 +536,9 @@ function AutoDetail() {
 // ─── MATELAS DETAIL ───────────────────────────────────────────────────────────
 
 const MATELAS_ITEMS = [
-  { id: "enfant", label: "Matelas enfant", price: "39 €", desc: "Votre enfant dort dans un lit sain. Tâches et odeurs éliminées, 2 côtés. Traitement anti-acariens en option. Résultat professionnel garanti." },
-  { id: "1-place", label: "Matelas 1 place", price: "59 €", desc: "Dormez dans un matelas comme neuf. Tâches et odeurs éliminées, 2 côtés. Traitement anti-acariens en option. Résultat professionnel garanti." },
-  { id: "2-places", label: "Matelas 2 places", price: "99 €", desc: "Chambre entièrement assainie. Tâches et odeurs éliminées, 2 côtés. Traitement anti-acariens en option. Résultat professionnel garanti." },
+  { id: "enfant", label: "Matelas enfant", price: "39 €", desc: "Votre enfant dort dans un lit sain. Traitement des taches et odeurs, 2 côtés. Traitement anti-acariens en option. Résultat professionnel." },
+  { id: "1-place", label: "Matelas 1 place", price: "59 €", desc: "Dormez dans un matelas comme neuf. Traitement des taches et odeurs, 2 côtés. Traitement anti-acariens en option. Résultat professionnel." },
+  { id: "2-places", label: "Matelas 2 places", price: "99 €", desc: "Chambre entièrement assainie. Traitement des taches et odeurs, 2 côtés. Traitement anti-acariens en option. Résultat professionnel." },
 ];
 
 function MatelasDetail() {
@@ -569,7 +569,7 @@ function MatelasDetail() {
               )}
 
               <div className={`flex items-center justify-center w-full h-32 sm:h-48 mb-3 mt-1 px-0 transition-colors ${isSelected ? "text-[#1a2b4c]" : "text-primary/70"}`}>
-                <img src={MATELAS_IMAGES[c.id]} alt={c.label} className="w-full h-full object-contain mix-blend-multiply scale-125 sm:scale-150" />
+                <img src={MATELAS_IMAGES[c.id]} alt={c.label} className="w-full h-full object-contain mix-blend-multiply scale-125 sm:scale-150" loading="lazy" />
               </div>
 
               <p className="text-[9px] font-semibold uppercase tracking-widest text-muted-foreground/80 leading-none">Dès</p>
@@ -591,7 +591,7 @@ function MatelasDetail() {
             
             <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
             <div className="mt-5 space-y-2.5">
-              {["Injection-extraction professionnelle", "Tâches, auréoles et odeurs éliminées", "Résultat visible immédiatement", "Résultat professionnel garanti"].map((pt) => (
+              {["Injection-extraction professionnelle", "Traitement des taches, auréoles et odeurs", "Résultat visible immédiatement", "Résultat professionnel"].map((pt) => (
                 <div key={pt} className="flex items-center gap-3 text-sm text-foreground/80 font-medium">
                   <CheckCircle2 className="size-4.5 shrink-0 text-primary" /> {pt}
                 </div>
@@ -724,11 +724,9 @@ function FormulesPage() {
                 ].map((img, idx) => (
                   <CarouselItem key={idx}>
                     <div className="relative overflow-hidden rounded-xl">
-                      <img
-                        src={img.src}
+                      <img src={img.src}
                         alt={`Réalisation Avant / Après - ${img.title}`}
-                        className="aspect-[4/3] w-full object-cover"
-                      />
+                        className="aspect-[4/3] w-full object-cover" loading="lazy" />
                       <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4">
                         <span className="inline-block rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-primary text-primary-foreground">
                           Avant / Après
@@ -754,9 +752,9 @@ function FormulesPage() {
         <div className="border-y border-border bg-white py-4 mb-10">
           <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
           {[
-            { icon: <Zap className="size-4 text-primary" />, text: "Disponible dès demain" },
+            { icon: <Zap className="size-4 text-primary" />, text: "Consultez les prochains créneaux disponibles" },
             { icon: <Leaf className="size-4 text-primary" />, text: "Produits Écolabel certifiés" },
-            { icon: <Shield className="size-4 text-primary" />, text: "Résultat professionnel garanti" },
+            { icon: <Shield className="size-4 text-primary" />, text: "Résultat professionnel" },
             { icon: <MapPin className="size-4 text-primary" />, text: "Intervention à domicile" },
           ].map((t) => (
             <span key={t.text} className="inline-flex items-center gap-1.5">{t.icon} {t.text}</span>

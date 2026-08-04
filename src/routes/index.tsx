@@ -72,61 +72,18 @@ const SERVICE_ICONS: Record<string, React.ReactNode> = {
 
 const QUICK_SERVICES = [
   { slug: "/nettoyage-canape-toulouse",          line1: "Nettoyage",    line2: "Canapé",             icon: <Armchair className="size-7 stroke-[1.4]" /> },
-  { slug: "/nettoyage-matelas-toulouse",         line1: "Nettoyage",    line2: "Matelas",            icon: <BedDouble className="size-7 stroke-[1.4]" /> },
   { slug: "/nettoyage-auto-a-domicile-toulouse", line1: "Nettoyage",    line2: "Intérieur Auto",     icon: <Car      className="size-7 stroke-[1.4]" /> },
-  { slug: "/nettoyage-tapis-toulouse",           line1: "Shampouinage", line2: "Moquette & Tapis",   icon: <Layers  className="size-7 stroke-[1.4]" /> },
+  { slug: "/nettoyage-matelas-toulouse",         line1: "Nettoyage",    line2: "Matelas",            icon: <BedDouble className="size-7 stroke-[1.4]" /> },
+  { slug: "/nettoyage-tapis-toulouse",           line1: "Shampouinage", line2: "Tapis",              icon: <Layers  className="size-7 stroke-[1.4]" /> },
+  { slug: "/nettoyage-fin-de-bail-toulouse",     line1: "Nettoyage",    line2: "Fin de bail",        icon: <KeyRound className="size-7 stroke-[1.4]" /> },
+  { slug: "/nettoyage-diogene-toulouse",         line1: "Nettoyage",    line2: "Diogène / Extrême",  icon: <PackageOpen className="size-7 stroke-[1.4]" /> },
 ];
-
-const HERO_REVIEWS = [
-  { name: "Sophie M.", text: "Canapé comme neuf après le passage !", stars: 5 },
-  { name: "Karim B.", text: "Voiture impeccable, équipe très pro.", stars: 5 },
-  { name: "Laurence T.", text: "Matelas propre et sans odeur. Merci !", stars: 5 },
-  { name: "Thomas D.", text: "Tapis transformé, je recommande.", stars: 5 },
-  { name: "Amina R.", text: "Rapide, efficace, tarifs honnêtes.", stars: 5 },
-  { name: "Pierre V.", text: "Résultat bluffant sur mon canapé cuir.", stars: 5 },
-  { name: "Nadia K.", text: "Super service, ponctuels et soigneux.", stars: 5 },
-  { name: "Marc L.", text: "Terrasse nettoyée en 1h, top !", stars: 5 },
-];
-
-function HeroReviewTicker() {
-  const all = [...HERO_REVIEWS, ...HERO_REVIEWS];
-  return (
-    <div
-      className="relative overflow-hidden"
-      style={{
-        height: "420px",
-        maskImage: "linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)",
-        WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)",
-      }}
-    >
-      <div
-        className="flex flex-col gap-3"
-        style={{ animation: "hero-ticker-v 28s linear infinite" }}
-      >
-        {all.map((r, i) => (
-          <div
-            key={i}
-            className="w-44 h-44 flex-shrink-0 rounded-xl border border-white/20 bg-white/10 backdrop-blur-md p-4 flex flex-col justify-between"
-          >
-            <div className="flex gap-0.5">
-              {Array.from({ length: r.stars }).map((_, j) => (
-                <Star key={j} className="size-3 fill-yellow-400 text-yellow-400" />
-              ))}
-            </div>
-            <p className="text-xs text-white/90 leading-snug line-clamp-4">{r.text}</p>
-            <p className="text-[10px] font-bold uppercase tracking-widest text-white/50">{r.name}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
 
 const STATS = [
-  { value: "500+", label: "Clients satisfaits" },
+  { value: "500+", label: "Interventions réalisées" },
   { value: "24h", label: "Délai devis" },
   { value: "13", label: "Prestations" },
-  { value: "Pro", label: "Matériel certifié" },
+  { value: "Pro", label: "Matériel professionnel" },
 ];
 
 const WHY_US = [
@@ -142,8 +99,8 @@ const WHY_US = [
   },
   {
     icon: <Leaf className="size-6 text-primary" />,
-    title: "Produits Écolabel",
-    desc: "Formules certifiées Écolabel européen, sans danger pour vos enfants, vos animaux et l'environnement.",
+    title: "Produits professionnels",
+    desc: "Produits professionnels sélectionnés, dont certaines références certifiées Écolabel européen, utilisés conformément aux recommandations du fabricant.",
   },
 ];
 
@@ -156,70 +113,63 @@ function Index() {
         className="relative flex flex-col lg:min-h-[60vh] bg-cover bg-center"
         style={{ backgroundImage: `url(${heroImg})` }}
       >
-        {/* Dark overlay — plus dense en bas pour préparer la fusion */}
         <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(10,15,30,0.60) 0%, rgba(10,15,30,0.65) 60%, rgba(10,15,30,0.85) 100%)" }} />
 
-        {/* Contenu principal — prend tout l'espace disponible */}
         <div className="relative flex-1 flex items-center">
           <div className="mx-auto w-full max-w-6xl px-4 py-8 lg:py-12 flex flex-col lg:flex-row items-center justify-between gap-10">
-            {/* Texte de gauche */}
-            <div className="flex-1 max-w-2xl">
+            <div className="flex-1 max-w-3xl">
               <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur">
                 <MapPin className="size-3" /> Toulouse & Haute-Garonne
               </span>
 
-              <h1 className="mt-6 text-5xl font-bold leading-[1.1] tracking-tight text-white md:text-6xl lg:text-7xl">
-              Entreprise de<br />
-              <em className="not-italic text-accent">nettoyage</em><br />
-              à Toulouse
-            </h1>
+              <h1 className="mt-6 text-4xl font-bold leading-[1.1] tracking-tight text-white md:text-5xl lg:text-6xl">
+                Entreprise de nettoyage à Toulouse
+              </h1>
 
-            <p className="mt-6 max-w-xl text-lg text-white/75 leading-relaxed">
-              Textiles d'ameublement, logements et extérieurs — nous intervenons directement chez vous avec du matériel professionnel.{" "}
-              <strong className="font-semibold text-white">Particuliers & professionnels.</strong>
-            </p>
+              <p className="mt-6 text-lg text-white/90 leading-relaxed font-medium">
+                Nettoyage professionnel à domicile pour canapés, matelas, tapis, véhicules, logements et remises en état à Toulouse et en Haute-Garonne.
+              </p>
 
-            <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-accent/20 border border-accent/40 px-4 py-1.5 text-sm font-bold text-accent">
-              <span className="relative flex size-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
-                <span className="relative inline-flex size-2 rounded-full bg-accent" />
-              </span>
-              Disponible 24h/24, 7j/7 — Réservation en 2 min
+              <div className="mt-6 flex flex-wrap gap-4 text-sm text-white/90 font-medium">
+                <span className="inline-flex items-center gap-1.5"><Star className="size-4 text-accent fill-accent" /> 4,9/5 (101 avis Google)</span>
+                <span className="inline-flex items-center gap-1.5"><CheckCircle2 className="size-4 text-accent" /> Plus de 500 interventions réalisées</span>
+                <span className="inline-flex items-center gap-1.5"><Clock className="size-4 text-accent" /> Devis gratuit sous 24 h</span>
+                <span className="inline-flex items-center gap-1.5"><MapPin className="size-4 text-accent" /> Intervention à domicile</span>
+                <span className="inline-flex items-center gap-1.5"><CalendarCheck className="size-4 text-accent" /> Réservation en ligne</span>
+              </div>
+
+              <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-accent/20 border border-accent/40 px-4 py-1.5 text-sm font-bold text-accent">
+                <CalendarCheck className="size-4" />
+                Consultez les prochains créneaux disponibles
+              </div>
+
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Button
+                  asChild
+                  size="xl"
+                  className="bg-accent-gradient text-accent-foreground font-bold text-sm lg:text-base shadow-[var(--shadow-card)] hover:opacity-90 px-6"
+                >
+                  <Link to="/reserver">
+                    <CalendarCheck className="size-5 mr-2" /> Réserver en ligne
+                  </Link>
+                </Button>
+                <Button
+                  asChild
+                  size="xl"
+                  className="bg-white text-primary font-bold text-sm lg:text-base hover:bg-gray-100"
+                >
+                  <Link to="/contactez-nous">Demander un devis</Link>
+                </Button>
+                <Button
+                  asChild
+                  size="xl"
+                  variant="outline"
+                  className="border-white/40 bg-white/10 text-white font-bold text-sm lg:text-base backdrop-blur hover:bg-white/20 hover:border-white/60"
+                >
+                  <a href={COMPANY.phoneHref}><Phone className="size-4 mr-2" /> Appeler le {COMPANY.phone}</a>
+                </Button>
+              </div>
             </div>
-
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Button
-                asChild
-                size="xl"
-                className="bg-accent-gradient text-accent-foreground font-bold text-lg shadow-[var(--shadow-card)] hover:opacity-90 px-8"
-              >
-                <Link to="/reserver">
-                  <CalendarCheck className="size-5" /> Réserver maintenant
-                </Link>
-              </Button>
-              <Button
-                asChild
-                size="xl"
-                variant="outline"
-                className="border-white/40 bg-white/10 text-white backdrop-blur hover:bg-white/20 hover:border-white/60"
-              >
-                <a href={COMPANY.phoneHref}><Phone className="size-4" /> {COMPANY.phone}</a>
-              </Button>
-            </div>
-
-            <div className="mt-8 flex flex-wrap gap-5 text-sm text-white/70">
-              <span className="inline-flex items-center gap-1.5">
-                <CheckCircle2 className="size-4 text-accent" /> Intervention rapide
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <CheckCircle2 className="size-4 text-accent" /> Sans déplacer vos meubles
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <CheckCircle2 className="size-4 text-accent" /> Séchage express
-              </span>
-            </div>
-            </div>
-
           </div>
         </div>
 
@@ -228,7 +178,7 @@ function Index() {
           className="relative"
           style={{ background: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.55) 35%, rgba(0,0,0,0.80) 100%)" }}
         >
-          <div className="mx-auto max-w-6xl grid grid-cols-2 md:grid-cols-4">
+          <div className="mx-auto max-w-6xl grid grid-cols-2 md:grid-cols-6">
             {QUICK_SERVICES.map((s, i) => (
               <Link
                 key={s.slug}
@@ -243,6 +193,11 @@ function Index() {
               </Link>
             ))}
           </div>
+          <div className="text-center pb-6">
+            <Link to="/nos-services" className="text-sm font-semibold uppercase tracking-widest text-accent hover:text-white transition-colors underline">
+              Voir toutes nos prestations
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -251,9 +206,9 @@ function Index() {
         <section className="border-b border-border bg-card">
         <div className="mx-auto grid max-w-6xl grid-cols-2 divide-x divide-border md:grid-cols-4">
           {STATS.map((s) => (
-            <div key={s.label} className="flex flex-col items-center justify-center py-5 px-4">
+            <div key={s.label} className="flex flex-col items-center justify-center py-5 px-4 text-center">
               <span className="font-display text-3xl font-bold text-primary">{s.value}</span>
-              <span className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">{s.label}</span>
+              <span className="mt-1 text-[11px] font-bold uppercase tracking-widest text-muted-foreground">{s.label}</span>
             </div>
           ))}
         </div>
@@ -264,10 +219,10 @@ function Index() {
       <FadeIn delay={0.2}>
         <section className="mx-auto max-w-4xl px-4 pt-16 pb-4 text-center">
         <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-          Entreprise de nettoyage à Toulouse
+          Notre approche du nettoyage à Toulouse
         </h2>
         <p className="mx-auto mt-5 max-w-3xl text-base leading-relaxed text-muted-foreground">
-          Notre entreprise de nettoyage met à disposition des services complets aussi bien pour les particuliers que pour les professionnels à Toulouse et dans les communes voisines. Nos agents de nettoyage interviennent avec sérieux et fiabilité afin de garantir des prestations adaptées à chaque besoin.
+          Notre entreprise de nettoyage met à disposition des services complets aussi bien pour les particuliers que pour les professionnels à Toulouse et dans les communes voisines. Nos agents de nettoyage interviennent avec sérieux et fiabilité afin de garantir le meilleur résultat possible, sous réserve de l'état et de la matière du support.
         </p>
         </section>
       </FadeIn>
@@ -284,7 +239,7 @@ function Index() {
             </p>
           </div>
           <Link
-            to="/contactez-nous"
+            to="/nos-services"
             className="text-sm font-semibold uppercase tracking-widest text-foreground hover:text-primary transition-colors"
           >
             Tous les devis <ArrowRight className="inline size-3.5" />
@@ -330,12 +285,12 @@ function Index() {
               {
                 step: "02",
                 title: "On vient chez vous",
-                desc: "Nos techniciens arrivent à l'heure avec tout le matériel professionnel. Aucun déplacement de votre part.",
+                desc: "Nos techniciens arrivent à l'heure avec le matériel professionnel adapté. Aucun déplacement de votre part.",
               },
               {
                 step: "03",
-                title: "Résultat impeccable",
-                desc: "Taches éliminées, odeurs neutralisées, textile ravivé. Séchage rapide et vous pouvez utiliser votre intérieur en quelques heures.",
+                title: "Résultat optimal",
+                desc: "Mise en œuvre des méthodes les plus adaptées pour nettoyer, raviver et traiter vos surfaces avec soin.",
               },
             ].map((item) => (
               <div key={item.step} className="relative rounded-2xl border border-border bg-card p-7 shadow-[var(--shadow-soft)]">
@@ -384,9 +339,9 @@ function Index() {
         <div className="mx-auto max-w-6xl px-4">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-primary">Nos réalisations</p>
+              <p className="text-xs font-bold uppercase tracking-widest text-primary">Nos dernières interventions à Toulouse</p>
               <h2 className="mt-2 text-4xl font-bold tracking-tight">La différence Clean&Fresh</h2>
-              <p className="mt-2 text-muted-foreground">Photos réelles prises chez nos clients à Toulouse.</p>
+              <p className="mt-2 text-muted-foreground">Photos réelles de nos interventions chez nos clients.</p>
             </div>
             <Link
               to="/reserver"
@@ -395,16 +350,16 @@ function Index() {
               <CalendarCheck className="size-4" /> Je réserve maintenant
             </Link>
           </div>
-          <div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              { src: avantCanape, label: "Avant", sublabel: "Canapé encrassé" },
-              { src: apresCanape, label: "Après", sublabel: "Canapé ravivé" },
-              { src: avantAuto, label: "Avant", sublabel: "Habitacle sale" },
-              { src: apresAuto, label: "Après", sublabel: "Comme neuf" },
-            ].map((img) => {
+              { src: avantCanape, label: "Avant", sublabel: "Canapé encrassé", prestation: "Nettoyage Canapé", commune: "Toulouse" },
+              { src: apresCanape, label: "Après", sublabel: "Fibres ravivées", prestation: "Nettoyage Canapé", commune: "Toulouse" },
+              { src: avantAuto, label: "Avant", sublabel: "Habitacle très sale", prestation: "Nettoyage Auto", commune: "Blagnac" },
+              { src: apresAuto, label: "Après", sublabel: "Sièges assainis", prestation: "Nettoyage Auto", commune: "Blagnac" },
+            ].map((img, idx) => {
               const isAfter = img.label === "Après";
               return (
-                <figure key={img.sublabel} className="group overflow-hidden rounded-2xl shadow-[var(--shadow-card)]">
+                <figure key={idx} className="group overflow-hidden rounded-2xl shadow-[var(--shadow-card)] bg-card border border-border">
                   <div className="relative">
                     <img
                       src={img.src}
@@ -420,8 +375,10 @@ function Index() {
                       {img.label}
                     </span>
                   </div>
-                  <figcaption className="bg-card px-4 py-2.5 text-sm font-medium text-muted-foreground">
-                    {img.sublabel}
+                  <figcaption className="p-4">
+                    <p className="font-bold text-foreground text-sm">{img.prestation}</p>
+                    <p className="text-xs text-muted-foreground mt-1"><MapPin className="inline size-3 mr-1" /> {img.commune}</p>
+                    <p className="text-sm font-medium text-muted-foreground mt-3">{img.sublabel}</p>
                   </figcaption>
                 </figure>
               );
@@ -439,21 +396,31 @@ function Index() {
               Nous intervenons partout dans l'agglomération
             </h2>
             <p className="mt-4 text-muted-foreground leading-relaxed">
-              Clean&Fresh se déplace chez vous dans toute la métropole toulousaine, en semaine et le week-end, avec des créneaux flexibles adaptés à votre emploi du temps.
+              Clean&Fresh se déplace chez vous dans toute la métropole toulousaine, avec des créneaux flexibles adaptés à votre emploi du temps.
             </p>
             <ul className="mt-6 flex flex-wrap gap-2">
-              {COMMUNES.map((c) => (
-                <li key={c} className="rounded-full border border-border bg-card px-3 py-1 text-sm font-medium text-muted-foreground">
-                  {c}
-                </li>
-              ))}
+              {COMMUNES.map((c) => {
+                const slug = c.toLowerCase().replace(/['\s]/g, "-");
+                const hasPage = ["colomiers", "blagnac", "tournefeuille", "balma", "l-union"].includes(slug);
+                return (
+                  <li key={c} className="rounded-full border border-border bg-card text-sm font-medium text-muted-foreground overflow-hidden">
+                    {hasPage ? (
+                      <Link to={`/nettoyage-${slug}`} className="block px-3 py-1 hover:text-primary transition-colors">
+                        {c}
+                      </Link>
+                    ) : (
+                      <span className="block px-3 py-1">{c}</span>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
           <div className="rounded-3xl bg-hero-gradient px-8 py-10 text-ink-foreground shadow-[var(--shadow-card)]">
             <Sparkles className="size-8 text-primary-glow" />
             <h2 className="mt-4 text-2xl font-bold leading-snug">
-              Prêt à retrouver un intérieur comme neuf ?
+              Prêt à retrouver un intérieur assaini ?
             </h2>
             <p className="mt-3 text-sm text-ink-foreground/75 leading-relaxed">
               Choisissez votre créneau en ligne en moins de 2 minutes, ou demandez un devis gratuit. Nous répondons sous 24h.

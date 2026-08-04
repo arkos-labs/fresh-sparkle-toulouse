@@ -4,7 +4,7 @@ import {
   Armchair, BedDouble, Layers, Car,
   Check, ArrowRight, ChevronLeft, ChevronRight,
   CalendarCheck, Info, Clock, Phone, Mail, User,
-  Loader2, CheckCircle2, Shield, Dog, Droplets, Wind, Sparkles, MapPin,
+  Loader2, CheckCircle2, Shield, Dog, Droplets, Wind, Sparkles, MapPin, Hash, Building2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,11 +12,12 @@ import { Label } from "@/components/ui/label";
 import { COMPANY } from "@/data/site";
 import { fetchBusySlots, buildSlots } from "@/lib/gcal";
 import { sendBookingEmails } from "@/lib/emailService";
+import { createBookingServerFn } from "@/lib/bookingServerFn";
 
 export const Route = createFileRoute("/reserver")({
   validateSearch: (search: Record<string, unknown>) => ({
-    service: (search.service as string) ?? "",
-    formule: (search.formule as string) ?? "",
+    service: (search["service"] as string) ?? "",
+    formule: (search["formule"] as string) ?? "",
   }),
   head: () => ({
     meta: [
@@ -35,7 +36,7 @@ type ServiceDef = { id: string; label: string; shortLabel: string; desc: string;
 
 // ─── OPTIONS PARTAGÉES ───────────────────────────────────────────────────────
 
-const OA: Option = { id: "acariens",  name: "Traitement anti-acariens et bactériens",  desc: "Élimine 99,9% des acariens et allergènes. Idéal pour les personnes sensibles.",                      price: 19, popular: true, icon: <Shield className="size-5" /> };
+const OA: Option = { id: "acariens",  name: "Traitement anti-acariens et bactériens",  desc: "Élimination des acariens et bactéries (traitement professionnel). Idéal pour les personnes sensibles.",                      price: 19, popular: true, icon: <Shield className="size-5" /> };
 const OP: Option = { id: "poils",     name: "Élimination des poils d'animaux",          desc: "Brossage mécanique spécifique avant l'injection-extraction.",                                           price: 15, popular: true, icon: <Dog className="size-5" /> };
 const OPA: Option= { id: "poils",     name: "Élimination des poils d'animaux",          desc: "Brossage spécifique avant nettoyage des sièges et moquettes.",                                          price: 25, icon: <Dog className="size-5" /> };
 const OD: Option = { id: "detachage", name: "Détachage intensif",                        desc: "Traitement ciblé pour les tâches anciennes (sang, vin, encre, café).",                                  price: 19, icon: <Droplets className="size-5" /> };
@@ -185,7 +186,7 @@ function CalendarPicker({
     d.setHours(23, 59, 59, 999);
     return d < today;
   };
-  const isSunday = (day: number) => new Date(viewYear, viewMonth, day).getDay() === 0;
+  // Dimanche ouvert (7j/7) — plus de blocage dimanche
   const isFullyBooked = (day: number) => {
     const key = new Date(viewYear, viewMonth, day).toISOString().slice(0, 10);
     return busyByDay[key] === true;
@@ -237,9 +238,8 @@ function CalendarPicker({
         {cells.map((day, i) => {
           if (!day) return <div key={i} />;
           const past = isTodayOrPast(day);
-          const sun = isSunday(day);
           const full = isFullyBooked(day);
-          const disabled = past || sun || full;
+          const disabled = past || full;
           const sel = isSelected(day);
 
           return (
@@ -255,7 +255,7 @@ function CalendarPicker({
                     ? "text-muted-foreground/30 cursor-not-allowed"
                     : "text-foreground hover:bg-primary/10 hover:text-primary cursor-pointer"
                 }
-                ${full && !past && !sun ? "line-through" : ""}
+                ${full && !past ? "line-through" : ""}
               `}
             >
               {day}
@@ -265,7 +265,7 @@ function CalendarPicker({
       </div>
 
       <p className="mt-3 text-[11px] text-center text-muted-foreground">
-        Lundi – Samedi · Dimanches non ouvrés
+        Lundi – Dimanche · 08h00 – 22h00
       </p>
     </div>
   );
@@ -476,9 +476,10 @@ function ReserverPage() {
   const [showCategories, setShowCategories] = useState(!preselected);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
-  const [form, setForm] = useState({ name: "", phone: "", email: "", address: "" });
+  const [form, setForm] = useState({ name: "", phone: "", email: "", street: "", zip: "", city: "" });
   const [submitting, setSubmitting] = useState(false);
   const [cancelToken, setCancelToken] = useState<string>("");
+  const [gcalEventId, setGcalEventId] = useState<string | null>(null);
 
   const toggleOption = (id: string) =>
     setSelectedOptions(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
@@ -505,27 +506,77 @@ function ReserverPage() {
     e.preventDefault();
     if (!formule || !selectedDate || !selectedTime || !service) return;
     setSubmitting(true);
+
+    const selectedOpts = formule.options
+      .filter(o => selectedOptions.includes(o.id))
+      .map(o => ({ name: o.name, price: o.price }));
+    const bookingDate = selectedDate.toISOString().slice(0, 10);
+
+    // Token de base (sans gcal_event_id, utilisé dans les emails envoyés maintenant)
+    const baseTokenData = {
+      name: form.name, email: form.email, phone: form.phone,
+      formule: formule.name, date: bookingDate, time: selectedTime,
+    };
+    const baseToken = btoa(JSON.stringify(baseTokenData));
+
     try {
-      const token = await sendBookingEmails({
-        service_id:    service.id,
-        service_name:  service.label,
-        formule_id:    formule.id,
-        formule_name:  formule.name,
+      // 1. Emails (client + propriétaire) via EmailJS
+      const siteUrl = import.meta.env["VITE_SITE_URL"] ?? "https://cleanetfresh.fr";
+      const cancelUrl = `${siteUrl}/annuler?token=${baseToken}`;
+
+      await sendBookingEmails({
+        service_id:   service.id,
+        service_name: service.label,
+        formule_name: formule.name,
         formule_price: formule.price,
-        options:       formule.options.filter(o => selectedOptions.includes(o.id)).map(o => ({ name: o.name, price: o.price })),
-        total_price:   total,
-        booking_date:  selectedDate.toISOString().slice(0, 10),
-        booking_time:  selectedTime,
-        client_name:   form.name,
-        client_phone:  form.phone,
-        client_email:  form.email,
-        client_address: form.address,
+        options:      selectedOpts,
+        total_price:  total,
+        booking_date: bookingDate,
+        booking_time: selectedTime,
+        client_name:  form.name,
+        client_phone: form.phone,
+        client_email: form.email,
+        client_street: form.street,
+        client_zip:   form.zip,
+        client_city:  form.city,
+        cancel_url:   cancelUrl,
       });
-      setCancelToken(token);
+
+      // 2. Créer l'événement Google Calendar (côté serveur)
+      const serverResult = await createBookingServerFn({
+        data: {
+          service_id:   service.id,
+          service_name: service.label,
+          formule_id:   formule.id,
+          formule_name: formule.name,
+          formule_price: formule.price,
+          options:      selectedOpts,
+          total_price:  total,
+          duration_min: formule.durationMin,
+          booking_date: bookingDate,
+          booking_time: selectedTime,
+          client_name:  form.name,
+          client_phone: form.phone,
+          client_email: form.email,
+          client_street: form.street,
+          client_zip:   form.zip,
+          client_city:  form.city,
+          cancel_token: baseToken,
+        },
+      });
+
+      // Token enrichi avec gcal_event_id pour le bouton d'annulation sur la page de confirmation
+      const gcalId = serverResult?.gcal_event_id ?? null;
+      if (gcalId) setGcalEventId(gcalId);
+      const enrichedToken = btoa(JSON.stringify({ ...baseTokenData, gcal_event_id: gcalId }));
+
+      setCancelToken(enrichedToken);
       setDone(true);
     } catch (err) {
       console.error("Erreur envoi réservation :", err);
-      setDone(true); // On affiche quand même la confirmation
+      // On affiche quand même la confirmation même en cas d'erreur partielle
+      setCancelToken(baseToken);
+      setDone(true);
     }
     setSubmitting(false);
   };
@@ -537,8 +588,9 @@ function ReserverPage() {
 
   // ── CONFIRMATION ──────────────────────────────────────────────────────────
   if (done) {
-    const siteUrl = import.meta.env.VITE_SITE_URL ?? "";
+    const siteUrl = import.meta.env["VITE_SITE_URL"] ?? "";
     const cancelUrl = cancelToken ? `${siteUrl}/annuler?token=${cancelToken}` : null;
+    const fullAddress = `${form.street}, ${form.zip} ${form.city}`;
 
     return (
       <div className="min-h-screen bg-[#f9f9f7] flex items-center justify-center px-4 py-16">
@@ -549,11 +601,15 @@ function ReserverPage() {
           <h1 className="mt-6 text-3xl font-bold">Réservation confirmée !</h1>
           <p className="mt-3 text-muted-foreground leading-relaxed">
             Un email de confirmation vient d'être envoyé à <strong>{form.email}</strong>.
-            Nous vous rappelons <strong>24h avant</strong> votre rendez-vous.
+            Vous recevrez un <strong>rappel 24h avant</strong> votre rendez-vous.
           </p>
 
-          {/* Récap */}
+          {/* Récap complet */}
           <div className="mt-6 rounded-2xl border border-border bg-card p-5 text-left space-y-3">
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">Client</span>
+              <span className="font-semibold">{form.name}</span>
+            </div>
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">Prestation</span>
               <span className="font-semibold">{formule?.name}</span>
@@ -564,25 +620,38 @@ function ReserverPage() {
                 {selectedDate?.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" })} à {selectedTime}
               </span>
             </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">Lieu</span>
+              <span className="font-semibold text-right max-w-[60%]">{fullAddress}</span>
+            </div>
+            {optTotal > 0 && (
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Tarif de base</span>
+                <span className="font-semibold">{formule?.price} €</span>
+              </div>
+            )}
             <div className="flex justify-between text-sm border-t border-border pt-2">
-              <span className="font-bold">Total estimé</span>
+              <span className="font-bold">Total{optTotal > 0 ? " (avec options)" : ""}</span>
               <span className="font-bold">{total} €</span>
             </div>
           </div>
 
-          {/* Contact */}
-          <div className="mt-4 flex justify-center gap-4 text-sm">
-            <a href={COMPANY.phoneHref} className="flex items-center gap-1.5 font-medium text-foreground hover:text-primary transition-colors">
-              <Phone className="size-4" /> {COMPANY.phone}
-            </a>
-            <a href={`mailto:${COMPANY.email}`} className="flex items-center gap-1.5 text-muted-foreground hover:text-primary transition-colors">
-              <Mail className="size-4" /> Email
-            </a>
+          {/* Contact propriétaire */}
+          <div className="mt-4 rounded-xl bg-primary/5 border border-primary/20 px-4 py-3">
+            <p className="text-xs text-muted-foreground mb-2">Une question ? Contactez-nous :</p>
+            <div className="flex justify-center gap-4">
+              <a href={COMPANY.phoneHref} className="flex items-center gap-1.5 font-bold text-primary hover:underline">
+                <Phone className="size-4" /> {COMPANY.phone}
+              </a>
+              <a href={`mailto:${COMPANY.email}`} className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors">
+                <Mail className="size-4" /> Email
+              </a>
+            </div>
           </div>
 
           {/* Annulation */}
           {cancelUrl && (
-            <div className="mt-6 rounded-xl border border-border bg-secondary/40 px-5 py-4">
+            <div className="mt-4 rounded-xl border border-border bg-secondary/40 px-5 py-4">
               <p className="text-xs text-muted-foreground mb-2">Vous souhaitez annuler ce rendez-vous ?</p>
               <a
                 href={cancelUrl}
@@ -821,13 +890,34 @@ function ReserverPage() {
                     </div>
                   </div>
 
+                  {/* Adresse décomposée */}
                   <div>
-                    <Label htmlFor="address" className="text-sm font-semibold">Adresse complète *</Label>
+                    <Label htmlFor="street" className="text-sm font-semibold">Numéro et nom de rue *</Label>
                     <div className="relative mt-1.5">
                       <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
-                      <Input id="address" required placeholder="12 rue de la Paix, 31000 Toulouse" value={form.address}
-                        onChange={e => setForm(f => ({ ...f, address: e.target.value }))}
+                      <Input id="street" required placeholder="12 rue de la Paix" value={form.street}
+                        onChange={e => setForm(f => ({ ...f, street: e.target.value }))}
                         className="pl-9" />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <Label htmlFor="zip" className="text-sm font-semibold">Code postal *</Label>
+                      <div className="relative mt-1.5">
+                        <Hash className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+                        <Input id="zip" required placeholder="31000" value={form.zip}
+                          onChange={e => setForm(f => ({ ...f, zip: e.target.value }))}
+                          className="pl-9" inputMode="numeric" maxLength={5} />
+                      </div>
+                    </div>
+                    <div>
+                      <Label htmlFor="city" className="text-sm font-semibold">Ville *</Label>
+                      <div className="relative mt-1.5">
+                        <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+                        <Input id="city" required placeholder="Toulouse" value={form.city}
+                          onChange={e => setForm(f => ({ ...f, city: e.target.value }))}
+                          className="pl-9" />
+                      </div>
                     </div>
                   </div>
 

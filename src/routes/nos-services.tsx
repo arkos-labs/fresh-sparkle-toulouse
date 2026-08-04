@@ -17,7 +17,7 @@ import {
   PackageOpen,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { COMPANY, SERVICES } from "@/data/site";
+import { COMPANY, SITE_URL, SERVICES } from "@/data/site";
 import heroImg from "@/assets/hero-nettoyage.jpg";
 
 const TITLE = "Nos services de nettoyage à Toulouse — Clean&Fresh";
@@ -32,7 +32,7 @@ export const Route = createFileRoute("/nos-services")({
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESC },
     ],
-    links: [{ rel: "canonical", href: "/nos-services" }],
+    links: [{ rel: "canonical", href: `${SITE_URL}/nos-services` }],
   }),
   component: ServicesPage,
 });
