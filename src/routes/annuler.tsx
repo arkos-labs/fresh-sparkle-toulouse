@@ -8,7 +8,7 @@ import { cancelBookingServerFn } from "@/lib/cancelServerFn";
 
 export const Route = createFileRoute("/annuler")({
   validateSearch: (s: Record<string, unknown>) => ({
-    token: (s.token as string) ?? "",
+    token: (s["token"] as string) ?? "",
   }),
   head: () => ({
     meta: [{ title: "Annuler mon rendez-vous — Clean&Fresh" }],

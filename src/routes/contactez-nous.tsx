@@ -108,12 +108,12 @@ function ContactPage() {
             <div className="grid gap-2">
               <Label htmlFor="nom">Nom complet</Label>
               <Input id="nom" name="nom" maxLength={100} placeholder="Jean Dupont" />
-              {errors.nom && <p className="text-xs text-destructive">{errors.nom}</p>}
+              {errors["nom"] && <p className="text-xs text-destructive">{errors["nom"]}</p>}
             </div>
             <div className="grid gap-2">
               <Label htmlFor="telephone">Téléphone</Label>
               <Input id="telephone" name="telephone" maxLength={20} placeholder="07 67 12 75 00" />
-              {errors.telephone && <p className="text-xs text-destructive">{errors.telephone}</p>}
+              {errors["telephone"] && <p className="text-xs text-destructive">{errors["telephone"]}</p>}
             </div>
           </div>
 
@@ -121,7 +121,7 @@ function ContactPage() {
           <div className="mt-4 grid gap-2">
             <Label htmlFor="email">Email</Label>
             <Input id="email" name="email" type="email" maxLength={255} placeholder="jean.dupont@email.com" />
-            {errors.email && <p className="text-xs text-destructive">{errors.email}</p>}
+            {errors["email"] && <p className="text-xs text-destructive">{errors["email"]}</p>}
           </div>
 
           {/* Service select */}
@@ -144,7 +144,7 @@ function ContactPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
               </svg>
             </div>
-            {errors.service && <p className="text-xs text-destructive">{errors.service}</p>}
+            {errors["service"] && <p className="text-xs text-destructive">{errors["service"]}</p>}
           </div>
 
           {/* Message */}
@@ -157,7 +157,7 @@ function ContactPage() {
               maxLength={1000}
               placeholder="Décrivez l'état actuel, la surface estimée, ou toute information utile..."
             />
-            {errors.message && <p className="text-xs text-destructive">{errors.message}</p>}
+            {errors["message"] && <p className="text-xs text-destructive">{errors["message"]}</p>}
           </div>
 
           {/* Photos */}
@@ -165,7 +165,7 @@ function ContactPage() {
             <Label htmlFor="photos">Photos de la zone (Max 8) — Optionnel</Label>
             <Input id="photos" name="photos" type="file" multiple accept="image/*" className="cursor-pointer" />
             <p className="text-[10px] text-muted-foreground">Sans hébergement dédié, les photos seront envoyées via votre client de messagerie.</p>
-            {errors.photos && <p className="text-xs text-destructive">{errors.photos}</p>}
+            {errors["photos"] && <p className="text-xs text-destructive">{errors["photos"]}</p>}
           </div>
 
           {/* Submit */}
