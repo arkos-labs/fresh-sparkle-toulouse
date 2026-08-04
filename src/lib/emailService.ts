@@ -47,8 +47,7 @@ function configured() {
   return !!(
     CFG.publicKey &&
     CFG.serviceId &&
-    CFG.tplClient &&
-    CFG.tplOwner
+    CFG.tplClient
   );
 }
 
@@ -132,7 +131,7 @@ export async function sendBookingEmails(b: BookingPayload): Promise<string> {
     }),
   );
 
-  const siteUrl    = import.meta.env["VITE_SITE_URL"]    ?? "https://cleanfresh-toulouse.fr";
+  const siteUrl    = import.meta.env["VITE_SITE_URL"]    ?? "https://fresh-sparkle-toulouse-6hqe.vercel.app";
   const cancelUrl  = `${siteUrl}/annuler?token=${cancelToken}`;
   const ownerPhone = import.meta.env["VITE_OWNER_PHONE"] ?? "07 67 12 75 00";
   const ownerEmail = import.meta.env["VITE_OWNER_EMAIL"] ?? "nettoyagecleanfresh@gmail.com";
@@ -156,8 +155,8 @@ export async function sendBookingEmails(b: BookingPayload): Promise<string> {
     owner_email: ownerEmail,
   };
 
-  // Email client + propriétaire en parallèle
-  await Promise.all([send(CFG.tplClient, common), send(CFG.tplOwner, common)]);
+  // Email client uniquement
+  await send(CFG.tplClient, common);
 
   return cancelToken;
 }
