@@ -11,9 +11,9 @@ export function Footer() {
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 md:grid-cols-4">
         {/* Brand */}
         <div>
-          <p className="font-display text-2xl font-bold tracking-tight">
-            Clean<span className="text-primary-glow">&amp;</span>Fresh
-          </p>
+          <Link to="/" className="inline-block">
+            <img src="/logo.png" alt="Clean & Fresh Logo" className="h-20 w-auto object-contain" />
+          </Link>
           <p className="mt-3 text-sm text-ink-foreground/70 leading-relaxed">{COMPANY.slogan}</p>
           <p className="mt-4 text-sm text-ink-foreground/50 leading-relaxed">
             Entreprise de nettoyage à Toulouse et dans toute la Haute-Garonne, pour les particuliers
@@ -99,10 +99,10 @@ export function Footer() {
               </Link>
             </li>
             <li className="pt-2 flex items-center gap-4 text-ink-foreground/60">
-              <a href="#" aria-label="Instagram" className="text-[#E1306C] hover:opacity-80 transition-opacity">
+              <a href="https://www.instagram.com/cleanetfresh31" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-[#E1306C] hover:opacity-80 transition-opacity">
                 <Instagram className="size-5" />
               </a>
-              <a href="#" aria-label="Facebook" className="text-[#1877F2] hover:opacity-80 transition-opacity">
+              <a href="https://www.facebook.com/profile.php?id=61579620873055" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-[#1877F2] hover:opacity-80 transition-opacity">
                 <Facebook className="size-5" />
               </a>
             </li>

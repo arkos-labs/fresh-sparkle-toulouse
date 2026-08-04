@@ -232,20 +232,27 @@ export function buildEventDescription(params: {
   client_street: string;
   client_zip: string;
   client_city: string;
-  service_name: string;
-  formule_name: string;
-  formule_price: number;
-  options: { name: string; price: number }[];
+  items: {
+    service_name: string;
+    formule_name: string;
+    formule_price: number;
+    options: { name: string; price: number }[];
+  }[];
   total_price: number;
   cancel_url: string;
   owner_phone: string;
 }): string {
-  const optLines =
-    params.options.length > 0
-      ? params.options.map((o) => `  • ${o.name} : +${o.price} €`).join("\n")
-      : "  Aucune option";
-
   const address = `${params.client_street}, ${params.client_zip} ${params.client_city}`;
+
+  const itemsDetails = params.items.map((item, idx) => {
+    const optLines = item.options.length > 0
+      ? item.options.map(o => `    • ${o.name} : +${o.price} €`).join("\n")
+      : "    Aucune option";
+    return `  Prestation ${idx + 1} : ${item.service_name}
+  Formule : ${item.formule_name} (${item.formule_price} €)
+  Options :
+${optLines}`;
+  }).join("\n\n");
 
   return `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -260,16 +267,12 @@ export function buildEventDescription(params: {
 📍 LIEU D'INTERVENTION
   ${address}
 
-🛠 PRESTATION
-  Service  : ${params.service_name}
-  Formule  : ${params.formule_name}
+🛠 PRESTATIONS
+${itemsDetails}
 
 💶 DÉTAIL FINANCIER
-  Tarif de base (sans options) : ${params.formule_price} €
-  Options sélectionnées :
-${optLines}
   ─────────────────────────────
-  TOTAL AVEC OPTIONS : ${params.total_price} €
+  TOTAL : ${params.total_price} €
 
 ❌ ANNULATION
   Lien d'annulation client :

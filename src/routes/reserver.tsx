@@ -34,6 +34,7 @@ export const Route = createFileRoute("/reserver")({
 type Option = { id: string; name: string; desc: string; price: number; popular?: boolean; icon?: React.ReactNode };
 type Formule = { id: string; name: string; desc?: string; price: number; duration: string; durationMin: number; options: Option[] };
 type ServiceDef = { id: string; label: string; shortLabel: string; desc: string; from: number; icon: React.ReactNode; formules: Formule[]; features: string[]; badge?: string };
+type CartItem = { service: ServiceDef; formule: Formule; options: string[] };
 
 // ─── OPTIONS PARTAGÉES ───────────────────────────────────────────────────────
 
@@ -123,11 +124,11 @@ function getFirstDayOfMonth(year: number, month: number) {
 }
 
 function CalendarPicker({
-  formule,
+  totalDuration,
   selectedDate,
   onSelect,
 }: {
-  formule: Formule;
+  totalDuration: number;
   selectedDate: Date | null;
   onSelect: (d: Date) => void;
 }) {
@@ -150,7 +151,7 @@ function CalendarPicker({
         if (d < today) return;
         if (d.getDay() === 0) return; // dimanche
         const busy = await fetchBusySlots(d);
-        const slots = buildSlots(d, formule.durationMin, busy);
+        const slots = buildSlots(d, totalDuration, busy);
         const key = d.toISOString().slice(0, 10);
         newBusy[key] = slots.every(s => !s.available);
       });
@@ -162,7 +163,7 @@ function CalendarPicker({
     }
     load();
     return () => { cancelled = true; };
-  }, [viewYear, viewMonth, formule.durationMin]);
+  }, [viewYear, viewMonth, totalDuration]);
 
   const prevMonth = () => {
     if (viewMonth === 0) { setViewYear(y => y - 1); setViewMonth(11); }
@@ -276,12 +277,12 @@ function CalendarPicker({
 
 function TimeSlotPicker({
   date,
-  formule,
+  totalDuration,
   selected,
   onSelect,
 }: {
   date: Date;
-  formule: Formule;
+  totalDuration: number;
   selected: string | null;
   onSelect: (t: string) => void;
 }) {
@@ -293,7 +294,7 @@ function TimeSlotPicker({
     async function load() {
       setLoading(true);
       const busy = await fetchBusySlots(date);
-      const s = buildSlots(date, formule.durationMin, busy);
+      const s = buildSlots(date, totalDuration, busy);
       if (!cancelled) { setSlots(s); setLoading(false); }
     }
     load();
@@ -374,19 +375,28 @@ function StepBar({ current }: { current: number }) {
 // ─── SIDEBAR RÉCAP ───────────────────────────────────────────────────────────
 
 function Sidebar({
-  formule, selectedOptions, selectedDate, selectedTime, onContinue, step,
+  cart, formule, selectedOptions, selectedDate, selectedTime, onContinue, step, onAddAnother,
 }: {
+  cart: CartItem[];
   formule: Formule | null;
   selectedOptions: string[];
   selectedDate: Date | null;
   selectedTime: string | null;
   onContinue: () => void;
+  onAddAnother: () => void;
   step: number;
 }) {
-  const optTotal = formule
+  const currentOptTotal = formule
     ? formule.options.filter(o => selectedOptions.includes(o.id)).reduce((s, o) => s + o.price, 0)
     : 0;
-  const total = formule ? formule.price + optTotal : 0;
+  const currentTotal = formule ? formule.price + currentOptTotal : 0;
+  
+  const cartTotal = cart.reduce((acc, item) => {
+    const optTotal = item.formule.options.filter(o => item.options.includes(o.id)).reduce((s, o) => s + o.price, 0);
+    return acc + item.formule.price + optTotal;
+  }, 0);
+
+  const total = currentTotal + cartTotal;
 
   const canContinue =
     step === 1 ? !!formule :
@@ -405,8 +415,28 @@ function Sidebar({
       <h2 className="text-lg font-bold">Votre réservation</h2>
 
       <div className="mt-4 border-t border-border pt-4 space-y-3">
+        {cart.map((item, idx) => (
+          <div key={idx} className="pb-3 border-b border-border/50 last:border-0 last:pb-0">
+            <div className="flex items-start justify-between gap-2">
+              <div>
+                <p className="font-semibold text-sm">{item.formule.name}</p>
+                <p className="text-xs text-muted-foreground flex items-center gap-1">
+                  <Clock className="size-3" /> {item.formule.duration}
+                </p>
+              </div>
+              <span className="font-bold text-sm shrink-0">{item.formule.price} €</span>
+            </div>
+            {item.formule.options.filter(o => item.options.includes(o.id)).map(o => (
+              <div key={o.id} className="flex items-center justify-between gap-2 text-xs mt-1">
+                <span className="text-muted-foreground truncate">{o.name}</span>
+                <span className="font-semibold text-primary shrink-0">+{o.price} €</span>
+              </div>
+            ))}
+          </div>
+        ))}
+
         {formule ? (
-          <>
+          <div className="pb-3">
             <div className="flex items-start justify-between gap-2">
               <div>
                 <p className="font-semibold text-sm">{formule.name}</p>
@@ -417,14 +447,14 @@ function Sidebar({
               <span className="font-bold text-sm shrink-0">{formule.price} €</span>
             </div>
             {formule.options.filter(o => selectedOptions.includes(o.id)).map(o => (
-              <div key={o.id} className="flex items-center justify-between gap-2 text-xs">
+              <div key={o.id} className="flex items-center justify-between gap-2 text-xs mt-1">
                 <span className="text-muted-foreground truncate">{o.name}</span>
                 <span className="font-semibold text-primary shrink-0">+{o.price} €</span>
               </div>
             ))}
-          </>
+          </div>
         ) : (
-          <p className="text-sm text-muted-foreground">Sélectionnez une prestation.</p>
+          cart.length === 0 && <p className="text-sm text-muted-foreground">Sélectionnez une prestation.</p>
         )}
 
         {selectedDate && (
@@ -444,12 +474,22 @@ function Sidebar({
         </div>
       )}
 
+      {step === 2 && formule && (
+        <Button
+          onClick={onAddAnother}
+          variant="outline"
+          className="mt-5 w-full font-bold"
+        >
+          Ajouter une autre prestation
+        </Button>
+      )}
+
       {step < 4 && step !== 1 && (
         <Button
           onClick={onContinue}
           disabled={!canContinue}
           size="lg"
-          className="mt-5 w-full bg-accent-gradient text-accent-foreground font-bold hover:opacity-90 disabled:opacity-40"
+          className="mt-3 w-full bg-accent-gradient text-accent-foreground font-bold hover:opacity-90 disabled:opacity-40"
         >
           {continuLabel} <ArrowRight className="size-4" />
         </Button>
@@ -469,6 +509,7 @@ function ReserverPage() {
   const preselected = SERVICES.find(s => s.id === SLUG_TO_SERVICE[serviceParam]) ?? null;
   const preselectedFormule = preselected?.formules.find(f => f.id === formuleParam) ?? null;
 
+  const [cart, setCart] = useState<CartItem[]>([]);
   const [step, setStep] = useState<1 | 2 | 3 | 4>(preselectedFormule ? 2 : 1);
   const [done, setDone] = useState(false);
   const [service, setService] = useState<ServiceDef | null>(preselected);
@@ -498,10 +539,22 @@ function ReserverPage() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const handleAddAnother = () => {
+    if (service && formule) {
+      setCart(prev => [...prev, { service, formule, options: selectedOptions }]);
+    }
+    setStep(1);
+    setService(null);
+    setFormule(null);
+    setSelectedOptions([]);
+    setShowCategories(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const handleBack = () => {
     if (step > 1) {
       setStep(s => (s - 1) as 1|2|3|4);
-    } else if (!preselected && !showCategories) {
+    } else if (!preselected && !showCategories && cart.length === 0) {
       setShowCategories(true); setService(null); setFormule(null);
     } else {
       window.history.back();
@@ -513,33 +566,39 @@ function ReserverPage() {
     if (!formule || !selectedDate || !selectedTime || !service) return;
     setSubmitting(true);
 
-    const selectedOpts = formule.options
-      .filter(o => selectedOptions.includes(o.id))
-      .map(o => ({ name: o.name, price: o.price }));
+    const allItems = [...cart, { service, formule, options: selectedOptions }];
     const bookingDate = `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`;
+    
+    // Map array to flat structure for server/email
+    const mappedItems = allItems.map(item => ({
+      service_id: item.service.id,
+      service_name: item.service.label,
+      formule_id: item.formule.id,
+      formule_name: item.formule.name,
+      formule_price: item.formule.price,
+      options: item.formule.options
+        .filter(o => item.options.includes(o.id))
+        .map(o => ({ name: o.name, price: o.price })),
+    }));
 
-    // Token de base (sans gcal_event_id, utilisé dans les emails envoyés maintenant)
+    // Generate a summary for the token and cancel URL
+    const formuleSummary = mappedItems.map(i => i.formule_name).join(" + ");
+    
     const baseTokenData = {
       name: form.name, email: form.email, phone: form.phone,
-      formule: formule.name, date: bookingDate, time: selectedTime,
+      formule: formuleSummary, date: bookingDate, time: selectedTime,
     };
     const baseToken = btoa(unescape(encodeURIComponent(JSON.stringify(baseTokenData))));
 
     const siteUrl = "https://fresh-sparkle-toulouse-6hqe.vercel.app";
 
-    // 1. Créer l'événement Google Calendar (côté serveur) — erreur non bloquante
     let gcalId: string | null = null;
     try {
       const serverResult = await createBookingServerFn({
         data: {
-          service_id:   service.id,
-          service_name: service.label,
-          formule_id:   formule.id,
-          formule_name: formule.name,
-          formule_price: formule.price,
-          options:      selectedOpts,
+          items: mappedItems,
           total_price:  total,
-          duration_min: formule.durationMin,
+          duration_min: totalDuration,
           booking_date: bookingDate,
           booking_time: selectedTime,
           client_name:  form.name,
@@ -554,21 +613,15 @@ function ReserverPage() {
       gcalId = serverResult?.gcal_event_id ?? null;
       if (gcalId) setGcalEventId(gcalId);
     } catch (gcalErr) {
-      console.error("[GCal] Erreur création calendrier (non bloquante) :", gcalErr);
+      console.error("[GCal] Erreur création calendrier :", gcalErr);
     }
 
-    // Token enrichi avec gcal_event_id pour le bouton d'annulation
     const enrichedToken = btoa(unescape(encodeURIComponent(JSON.stringify({ ...baseTokenData, gcal_event_id: gcalId }))));
     const cancelUrl = `${siteUrl}/annuler?token=${enrichedToken}`;
 
-    // 2. Emails (client) via EmailJS — séparé du try GCal pour toujours s'exécuter
     try {
       await sendBookingEmails({
-        service_id:   service.id,
-        service_name: service.label,
-        formule_name: formule.name,
-        formule_price: formule.price,
-        options:      selectedOpts,
+        items: mappedItems,
         total_price:  total,
         booking_date: bookingDate,
         booking_time: selectedTime,
@@ -581,7 +634,7 @@ function ReserverPage() {
         cancel_url:   cancelUrl,
       });
     } catch (emailErr) {
-      console.error("[Email] Erreur envoi email (non bloquante) :", emailErr);
+      console.error("[Email] Erreur envoi email :", emailErr);
     }
 
     setCancelToken(enrichedToken);
@@ -589,10 +642,18 @@ function ReserverPage() {
     setSubmitting(false);
   };
 
-  const optTotal = formule
-    ? formule.options.filter(o => selectedOptions.includes(o.id)).reduce((s, o) => s + o.price, 0)
-    : 0;
-  const total = formule ? formule.price + optTotal : 0;
+  const currentOptTotal = formule ? formule.options.filter(o => selectedOptions.includes(o.id)).reduce((s, o) => s + o.price, 0) : 0;
+  const currentTotal = formule ? formule.price + currentOptTotal : 0;
+  const currentDuration = formule ? formule.durationMin : 0;
+
+  const cartTotal = cart.reduce((acc, item) => {
+    const optTotal = item.formule.options.filter(o => item.options.includes(o.id)).reduce((s, o) => s + o.price, 0);
+    return acc + item.formule.price + optTotal;
+  }, 0);
+  const cartDuration = cart.reduce((acc, item) => acc + item.formule.durationMin, 0);
+
+  const total = currentTotal + cartTotal;
+  const totalDuration = currentDuration + cartDuration;
 
   // ── CONFIRMATION ──────────────────────────────────────────────────────────
   if (done) {
@@ -851,7 +912,7 @@ function ReserverPage() {
                 </div>
 
                 <CalendarPicker
-                  formule={formule}
+                  totalDuration={totalDuration}
                   selectedDate={selectedDate}
                   onSelect={handleSelectDate}
                 />
@@ -860,7 +921,7 @@ function ReserverPage() {
                   <div className="mt-4">
                     <TimeSlotPicker
                       date={selectedDate}
-                      formule={formule}
+                      totalDuration={totalDuration}
                       selected={selectedTime}
                       onSelect={setSelectedTime}
                     />
@@ -982,11 +1043,13 @@ function ReserverPage() {
           {/* ── SIDEBAR ── */}
           {!showCategories && step < 4 && (
             <Sidebar
+              cart={cart}
               formule={formule}
               selectedOptions={selectedOptions}
               selectedDate={selectedDate}
               selectedTime={selectedTime}
               onContinue={handleContinue}
+              onAddAnother={handleAddAnother}
               step={step}
             />
           )}

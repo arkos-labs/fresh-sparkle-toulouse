@@ -28,19 +28,11 @@ export function Header() {
       {/* Accent top bar */}
       <div className="h-0.5 w-full bg-primary-gradient" />
 
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4">
+      <div className="mx-auto flex h-20 max-w-6xl items-center justify-between gap-4 px-4">
 
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2.5 shrink-0" onClick={close}>
-          <div className="flex size-8 items-center justify-center rounded-lg bg-primary-gradient shadow-sm">
-            <span className="font-display text-sm font-bold text-primary-foreground">C&F</span>
-          </div>
-          <span className="font-display text-xl font-bold tracking-tight text-foreground">
-            Clean<span className="text-primary">&amp;</span>Fresh
-          </span>
-          <span className="hidden rounded-full bg-secondary px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-primary sm:inline">
-            Toulouse
-          </span>
+          <img src="/logo.png" alt="Clean & Fresh Logo" className="h-16 w-auto object-contain" />
         </Link>
 
         {/* Desktop nav */}

@@ -13,12 +13,14 @@ import { createCalendarEvent, buildEventDescription } from "@/lib/gcal-server";
 // ─── Schéma de validation ────────────────────────────────────────────────────
 
 export const BookingInputSchema = z.object({
-  service_id: z.string(),
-  service_name: z.string(),
-  formule_id: z.string(),
-  formule_name: z.string(),
-  formule_price: z.number(),
-  options: z.array(z.object({ name: z.string(), price: z.number() })),
+  items: z.array(z.object({
+    service_id: z.string(),
+    service_name: z.string(),
+    formule_id: z.string(),
+    formule_name: z.string(),
+    formule_price: z.number(),
+    options: z.array(z.object({ name: z.string(), price: z.number() })),
+  })),
   total_price: z.number(),
   duration_min: z.number(),
   booking_date: z.string(), // "2026-09-15"
@@ -61,10 +63,7 @@ export const createBookingServerFn = createServerFn({ method: "POST" })
         client_street: data.client_street,
         client_zip: data.client_zip,
         client_city: data.client_city,
-        service_name: data.service_name,
-        formule_name: data.formule_name,
-        formule_price: data.formule_price,
-        options: data.options,
+        items: data.items,
         total_price: data.total_price,
         cancel_url: cancelUrl,
         owner_phone: ownerPhone,
@@ -92,8 +91,9 @@ export const createBookingServerFn = createServerFn({ method: "POST" })
 
       const fullAddress = `${data.client_street}, ${data.client_zip} ${data.client_city}`;
 
+      const summaryTitle = data.items.length > 1 ? `${data.items[0]?.formule_name} + ${data.items.length - 1} autre(s)` : data.items[0]?.formule_name;
       const gcalEvent = {
-        summary: `🧹 ${data.formule_name} — ${data.client_name}`,
+        summary: `🧹 ${summaryTitle} — ${data.client_name}`,
         description,
         location: fullAddress,
         start: {

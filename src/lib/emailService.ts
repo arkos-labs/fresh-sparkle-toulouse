@@ -89,11 +89,13 @@ const SERVICE_TIP: Record<string, string> = {
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 export type BookingPayload = {
-  service_id: string;
-  service_name: string;
-  formule_name: string;
-  formule_price: number;
-  options: { name: string; price: number }[];
+  items: {
+    service_id: string;
+    service_name: string;
+    formule_name: string;
+    formule_price: number;
+    options: { name: string; price: number }[];
+  }[];
   total_price: number;
   booking_date: string; // "2026-09-15"
   booking_time: string; // "10:00"
@@ -114,24 +116,29 @@ export type BookingPayload = {
  * Retourne le cancel token.
  */
 export async function sendBookingEmails(b: BookingPayload): Promise<string> {
-  const optionsList =
-    b.options.length > 0
-      ? b.options.map((o) => `• ${o.name} (+${o.price} €)`).join("\n")
-      : "Aucune option";
+  const optionsList = b.items.map(i => {
+    return i.options.length > 0 
+      ? i.options.map(o => `• [${i.formule_name}] ${o.name} (+${o.price} €)`).join("\n") 
+      : "";
+  }).filter(Boolean).join("\n") || "Aucune option";
 
-  const tip = SERVICE_TIP[b.service_id] ?? "";
+  const tip = b.items.map(i => SERVICE_TIP[i.service_id]).filter(Boolean).join("\n\n");
+  
   const ownerPhone = import.meta.env["VITE_OWNER_PHONE"] ?? "07 67 12 75 00";
   const ownerEmail = import.meta.env["VITE_OWNER_EMAIL"] ?? "nettoyagecleanfresh@gmail.com";
 
   const fullAddress = `${b.client_street}, ${b.client_zip} ${b.client_city}`;
+
+  const formuleNames = b.items.map(i => i.formule_name).join(" + ");
+  const formulePrices = b.items.map(i => `${i.formule_price}€`).join(" + ");
 
   const common = {
     client_name: b.client_name,
     client_phone: b.client_phone,
     client_email: b.client_email,
     client_address: fullAddress,
-    formule_name: b.formule_name,
-    formule_price: String(b.formule_price), // tarif de base sans options
+    formule_name: formuleNames,
+    formule_price: formulePrices, // tarif de base sans options
     options_list: optionsList,
     total_price: String(b.total_price), // tarif total avec options
     booking_date: b.booking_date,
