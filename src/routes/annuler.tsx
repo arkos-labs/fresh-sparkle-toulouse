@@ -3,7 +3,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { CheckCircle2, XCircle, Phone, Mail, Loader2, CalendarX } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { COMPANY } from "@/data/site";
-import { sendCancellationEmail } from "@/lib/emailService";
 import { cancelBookingServerFn } from "@/lib/cancelServerFn";
 
 export const Route = createFileRoute("/annuler")({
@@ -45,15 +44,6 @@ function AnnulerPage() {
         },
       });
 
-      // 2. Notifier le propriétaire par email
-      await sendCancellationEmail({
-        client_name:  info.name,
-        client_phone: info.phone,
-        client_email: info.email,
-        formule:      info.formule,
-        date:         info.date,
-        time:         info.time,
-      });
       setStep("done");
     } catch {
       setStep("error");
