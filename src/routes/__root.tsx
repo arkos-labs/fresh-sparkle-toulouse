@@ -103,7 +103,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     links: [
       {
         rel: "canonical",
-        href: `https://cleanetfresh.fr${ctx?.location?.pathname ?? ""}`,
+        href: `https://cleanetfresh.fr${(ctx as { location?: { pathname?: string } })?.location?.pathname ?? ""}`,
       },
       {
         rel: "stylesheet",
