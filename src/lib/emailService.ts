@@ -41,6 +41,7 @@ const CFG = {
   tplOwner:    import.meta.env["VITE_EMAILJS_TEMPLATE_OWNER"]  as string,
   tplCancel:   import.meta.env["VITE_EMAILJS_TEMPLATE_CANCEL"] as string,
   tplReminder: import.meta.env["VITE_EMAILJS_TEMPLATE_REMINDER"] as string,
+  tplContact:  import.meta.env["VITE_EMAILJS_TEMPLATE_CONTACT"] as string,
 };
 
 function configured() {

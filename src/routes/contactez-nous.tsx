@@ -179,9 +179,9 @@ function ContactPage() {
               type="submit"
               size="xl"
               disabled={isSubmitting}
-              className="w-full rounded-sm bg-[#4a4a4a] hover:bg-[#333333] text-white font-semibold tracking-wider text-xs disabled:opacity-50 transition-colors"
+              className="w-full bg-accent-gradient text-accent-foreground font-bold hover:opacity-90 disabled:opacity-50 transition-colors"
             >
-              {isSubmitting ? "Envoi en cours..." : "DEMANDER UN DEVIS"}
+              {isSubmitting ? "Envoi en cours..." : "Demander un devis"}
             </Button>
           </div>
         </form>
