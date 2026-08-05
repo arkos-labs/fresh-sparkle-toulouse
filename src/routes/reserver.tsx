@@ -342,7 +342,7 @@ function TimeSlotPicker({
           <Loader2 className="size-4 animate-spin" /> Vérification des disponibilités…
         </div>
       ) : (
-        <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
+        <div className="grid grid-cols-4 gap-2 sm:grid-cols-6">
           {slots.map(slot => (
             <button
               key={slot.time}
