@@ -73,6 +73,14 @@ async function queryOllama(userMessage: string): Promise<string> {
   const apiKey = import.meta.env.VITE_OLLAMA_API_KEY || "";
   const apiModel = import.meta.env.VITE_OLLAMA_MODEL || "llama3";
 
+  // Evite de requêter localhost depuis la production pour empêcher le pop-up d'autorisation réseau local
+  const isLocalHostTarget = apiURL.includes("localhost") || apiURL.includes("127.0.0.1");
+  const isLocalSource = typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1");
+
+  if (isLocalHostTarget && !isLocalSource) {
+    throw new Error("L'API Ollama locale n'est pas accessible depuis la production.");
+  }
+
   // Convert FAQ data to text to use as system prompt context
   const faqContext = JSON.stringify(faqData, null, 2);
 
