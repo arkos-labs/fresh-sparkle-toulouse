@@ -123,7 +123,7 @@ function ServicesPage() {
                   size="sm"
                   className="mt-4 bg-accent-gradient text-accent-foreground font-bold hover:opacity-90"
                 >
-                  <Link to="/reserver">
+                  <Link to="/formules">
                     <CalendarCheck className="size-4" /> Je réserve
                   </Link>
                 </Button>
@@ -155,7 +155,7 @@ function ServicesPage() {
               <Link to="/contactez-nous">Demander un devis</Link>
             </Button>
             <Button asChild size="sm" className="bg-accent-gradient text-accent-foreground font-bold hover:opacity-90">
-              <Link to="/reserver">
+              <Link to="/formules">
                 <CalendarCheck className="size-4" /> Réserver en ligne
               </Link>
             </Button>

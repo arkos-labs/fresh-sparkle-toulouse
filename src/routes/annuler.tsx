@@ -83,7 +83,7 @@ function AnnulerPage() {
           </p>
           <p className="mt-4 text-sm text-muted-foreground">
             Besoin de replanifier ?{" "}
-            <Link to="/reserver" className="font-semibold text-primary hover:underline">Prendre un nouveau rendez-vous →</Link>
+            <Link to="/formules" className="font-semibold text-primary hover:underline">Prendre un nouveau rendez-vous →</Link>
           </p>
           <Link to="/" className="mt-6 inline-block text-sm text-muted-foreground hover:text-foreground">← Retour à l'accueil</Link>
         </div>

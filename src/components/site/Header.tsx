@@ -87,7 +87,7 @@ export function Header() {
             </a>
           </Button>
           <Button asChild size="sm" className="bg-accent-gradient text-accent-foreground font-semibold shadow-[var(--shadow-soft)] hover:opacity-90">
-            <Link to="/reserver">
+            <Link to="/formules">
               <CalendarCheck className="size-4" /> Réserver en ligne
             </Link>
           </Button>
@@ -180,7 +180,7 @@ export function Header() {
           {/* Mobile CTAs */}
           <div className="border-t border-border px-4 py-4 grid gap-2">
             <Button asChild className="w-full bg-accent-gradient text-accent-foreground font-bold hover:opacity-90">
-              <Link to="/reserver" onClick={close}>
+              <Link to="/formules" onClick={close}>
                 <CalendarCheck className="size-4" /> Réserver en ligne
               </Link>
             </Button>

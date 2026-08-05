@@ -123,7 +123,7 @@ function GaleriePage() {
             size="xl"
             className="bg-accent-gradient text-accent-foreground font-bold hover:opacity-90"
           >
-            <Link to="/reserver">
+            <Link to="/formules">
               <CalendarCheck className="size-5" /> Réserver en ligne
             </Link>
           </Button>

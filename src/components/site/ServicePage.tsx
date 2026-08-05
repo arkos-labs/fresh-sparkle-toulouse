@@ -86,11 +86,11 @@ export function ServicePage({ service }: { service: Service }) {
                 className="bg-accent-gradient text-accent-foreground font-bold shadow-[var(--shadow-card)] hover:opacity-90"
               >
                 {bookingServiceId ? (
-                  <Link to="/reserver" search={{ service: bookingServiceId }}>
+                  <Link to="/formules" search={{ service: bookingServiceId }}>
                     <CalendarCheck /> Réserver en ligne
                   </Link>
                 ) : (
-                  <Link to="/reserver">
+                  <Link to="/formules">
                     <CalendarCheck /> Réserver en ligne
                   </Link>
                 )}
@@ -265,7 +265,7 @@ export function ServicePage({ service }: { service: Service }) {
                   size="lg"
                   className="bg-accent-gradient text-accent-foreground font-bold hover:opacity-90 shrink-0"
                 >
-                  <Link to="/reserver" search={bookingServiceId ? { service: bookingServiceId } : undefined}>
+                  <Link to="/formules" search={bookingServiceId ? { service: bookingServiceId } : undefined}>
                     Réserver en ligne <ArrowRight className="size-4" />
                   </Link>
                 </Button>
@@ -450,11 +450,11 @@ export function ServicePage({ service }: { service: Service }) {
                 className="bg-accent-gradient text-accent-foreground font-bold hover:opacity-90"
               >
                 {bookingServiceId ? (
-                  <Link to="/reserver" search={{ service: bookingServiceId }}>
+                  <Link to="/formules" search={{ service: bookingServiceId }}>
                     <CalendarCheck /> Réserver en ligne
                   </Link>
                 ) : (
-                  <Link to="/reserver">
+                  <Link to="/formules">
                     <CalendarCheck /> Réserver en ligne
                   </Link>
                 )}

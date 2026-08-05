@@ -40,7 +40,7 @@ function LocalPage() {
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Button asChild size="xl" className="bg-accent-gradient text-accent-foreground font-bold shadow-[var(--shadow-card)] hover:opacity-90">
-              <Link to="/reserver">Réserver en ligne</Link>
+              <Link to="/formules">Réserver en ligne</Link>
             </Button>
             <Button asChild variant="onDark" size="xl">
               <Link to="/contactez-nous">Demander un devis</Link>
@@ -103,7 +103,7 @@ function LocalPage() {
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-4">
               <Button asChild size="lg" className="bg-accent-gradient text-accent-foreground font-bold hover:opacity-90">
-                <Link to="/reserver">Réserver en ligne</Link>
+                <Link to="/formules">Réserver en ligne</Link>
               </Button>
               <Button asChild variant="outline" size="lg">
                 <a href={COMPANY.phoneHref}>Appeler le {COMPANY.phone}</a>

@@ -13,7 +13,16 @@ const TITLE = "Tarifs nettoyage à domicile Toulouse — Clean&Fresh";
 const DESC =
   "Tarifs nettoyage canapé, tapis, auto et matelas à Toulouse. À partir de 15 €. Intervention à domicile 7j/7. 91 avis 5★. Réservation en ligne en 2 min.";
 
+type FormulesSearch = {
+  service?: string;
+};
+
 export const Route = createFileRoute("/formules")({
+  validateSearch: (search: Record<string, unknown>): FormulesSearch => {
+    return {
+      service: search.service as string | undefined,
+    };
+  },
   head: () => ({
     meta: [
       { title: TITLE },
@@ -664,7 +673,8 @@ const CATEGORIES = [
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 
 function FormulesPage() {
-  const [selected, setSelected] = useState<string | null>(null);
+  const { service } = Route.useSearch();
+  const [selected, setSelected] = useState<string | null>(service || null);
 
   const selectedCat = CATEGORIES.find((c) => c.id === selected);
 

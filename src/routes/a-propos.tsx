@@ -98,7 +98,7 @@ function AboutPage() {
         <div className="mx-auto max-w-xl px-4 py-16 text-center">
           <h2 className="text-2xl font-bold mb-6">Prêt à nous confier votre intérieur ?</h2>
           <Button asChild size="xl" className="bg-primary text-white font-bold w-full sm:w-auto">
-            <Link to="/reserver">Consulter nos tarifs et réserver</Link>
+            <Link to="/formules">Consulter nos tarifs et réserver</Link>
           </Button>
         </div>
       </FadeIn>

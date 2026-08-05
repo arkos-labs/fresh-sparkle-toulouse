@@ -10,7 +10,7 @@ export function TopBanner() {
   return (
     <div className="relative z-50 bg-accent-gradient text-accent-foreground">
       <Link
-        to="/reserver"
+        to="/formules"
         className="flex items-center justify-center gap-3 px-4 py-2.5 hover:opacity-90 transition-opacity"
       >
         <CalendarCheck className="size-4 shrink-0" />

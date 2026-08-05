@@ -20,7 +20,7 @@ export function Footer() {
             et les professionnels.
           </p>
           <Link
-            to="/reserver"
+            to="/formules"
             className="mt-5 inline-flex items-center gap-2 rounded-xl bg-accent-gradient px-4 py-2.5 text-sm font-bold text-accent-foreground hover:opacity-90 transition-opacity"
           >
             <CalendarCheck className="size-4" /> Réserver en ligne
@@ -134,7 +134,7 @@ export function StickyCallCta() {
           <Phone className="size-4" /> {COMPANY.phone}
         </a>
         <Link
-          to="/reserver"
+          to="/formules"
           className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-accent-gradient px-4 text-sm font-bold text-accent-foreground shadow-[var(--shadow-soft)]"
         >
           <CalendarCheck className="size-4" /> Je réserve

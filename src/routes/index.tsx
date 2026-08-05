@@ -149,7 +149,7 @@ function Index() {
                   size="xl"
                   className="bg-accent-gradient text-accent-foreground font-bold text-sm lg:text-base shadow-[var(--shadow-card)] hover:opacity-90 px-6"
                 >
-                  <Link to="/reserver">
+                  <Link to="/formules">
                     <CalendarCheck className="size-5 mr-2" /> Réserver en ligne
                   </Link>
                 </Button>
@@ -329,7 +329,7 @@ function Index() {
           </div>
           <div className="mt-10 flex flex-wrap gap-3 justify-center">
             <Button asChild size="xl" className="bg-accent-gradient text-accent-foreground font-bold hover:opacity-90">
-              <Link to="/reserver">
+              <Link to="/formules">
                 <CalendarCheck /> Réserver un créneau
               </Link>
             </Button>
@@ -371,7 +371,7 @@ function Index() {
               <p className="mt-2 text-muted-foreground">Photos réelles de nos interventions chez nos clients.</p>
             </div>
             <Link
-              to="/reserver"
+              to="/formules"
               className="inline-flex items-center gap-2 rounded-full bg-accent-gradient px-5 py-2.5 text-sm font-bold text-accent-foreground hover:opacity-90 transition-opacity"
             >
               <CalendarCheck className="size-4" /> Je réserve maintenant
@@ -454,7 +454,7 @@ function Index() {
             </p>
             <div className="mt-6 grid gap-3">
               <Button asChild size="xl" className="w-full bg-accent-gradient text-accent-foreground font-bold hover:opacity-90">
-                <Link to="/reserver">
+                <Link to="/formules">
                   <CalendarCheck /> Réserver en ligne
                 </Link>
               </Button>
