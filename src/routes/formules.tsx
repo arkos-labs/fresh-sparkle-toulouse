@@ -685,7 +685,7 @@ function FormulesPage() {
 
       {/* ── CATEGORY GRID ── */}
       <FadeIn delay={0.1}>
-        <div className="mx-auto max-w-5xl px-4 mb-4">
+        <div className="mx-auto max-w-5xl px-4 pt-16 mb-4">
           <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4 text-center">
           Choisissez une prestation pour voir toutes les formules
         </p>
