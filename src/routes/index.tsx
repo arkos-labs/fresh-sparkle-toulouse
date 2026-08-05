@@ -71,12 +71,12 @@ const SERVICE_ICONS: Record<string, React.ReactNode> = {
 };
 
 const QUICK_SERVICES = [
-  { slug: "/nettoyage-canape-toulouse",          line1: "Nettoyage",    line2: "Canapé",             icon: <Armchair className="size-7 stroke-[1.4]" /> },
-  { slug: "/nettoyage-auto-a-domicile-toulouse", line1: "Nettoyage",    line2: "Intérieur Auto",     icon: <Car      className="size-7 stroke-[1.4]" /> },
-  { slug: "/nettoyage-matelas-toulouse",         line1: "Nettoyage",    line2: "Matelas",            icon: <BedDouble className="size-7 stroke-[1.4]" /> },
-  { slug: "/nettoyage-tapis-toulouse",           line1: "Shampouinage", line2: "Tapis",              icon: <Layers  className="size-7 stroke-[1.4]" /> },
-  { slug: "/nettoyage-fin-de-bail-toulouse",     line1: "Nettoyage",    line2: "Fin de bail",        icon: <KeyRound className="size-7 stroke-[1.4]" /> },
-  { slug: "/nettoyage-diogene-toulouse",         line1: "Nettoyage",    line2: "Diogène / Extrême",  icon: <PackageOpen className="size-7 stroke-[1.4]" /> },
+  { slug: "/nettoyage-canape-toulouse",          line1: "Nettoyage",    line2: "Canapé",             short: "Canapé",    icon: <Armchair className="size-5 md:size-7 stroke-[1.4]" /> },
+  { slug: "/nettoyage-auto-a-domicile-toulouse", line1: "Nettoyage",    line2: "Intérieur Auto",     short: "Auto",      icon: <Car      className="size-5 md:size-7 stroke-[1.4]" /> },
+  { slug: "/nettoyage-matelas-toulouse",         line1: "Nettoyage",    line2: "Matelas",            short: "Matelas",   icon: <BedDouble className="size-5 md:size-7 stroke-[1.4]" /> },
+  { slug: "/nettoyage-tapis-toulouse",           line1: "Shampouinage", line2: "Tapis",              short: "Tapis",     icon: <Layers  className="size-5 md:size-7 stroke-[1.4]" /> },
+  { slug: "/nettoyage-fin-de-bail-toulouse",     line1: "Nettoyage",    line2: "Fin de bail",        short: "Bail",      icon: <KeyRound className="size-5 md:size-7 stroke-[1.4]" /> },
+  { slug: "/nettoyage-diogene-toulouse",         line1: "Nettoyage",    line2: "Diogène / Extrême",  short: "Diogène",   icon: <PackageOpen className="size-5 md:size-7 stroke-[1.4]" /> },
 ];
 
 const STATS = [
@@ -205,16 +205,19 @@ function Index() {
           className="relative"
           style={{ background: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.55) 35%, rgba(0,0,0,0.80) 100%)" }}
         >
-          <div className="mx-auto max-w-6xl grid grid-cols-2 md:grid-cols-6">
+          <div className="mx-auto max-w-6xl grid grid-cols-6 divide-x divide-white/10 md:divide-none">
             {QUICK_SERVICES.map((s, i) => (
               <Link
                 key={s.slug}
                 to={s.slug}
-                className={`group flex flex-col items-center gap-2.5 pt-8 pb-7 px-4 text-center transition-colors hover:bg-white/8 ${i < QUICK_SERVICES.length - 1 ? "border-r border-white/10" : ""}`}
+                className="group flex flex-col items-center gap-2 pt-6 pb-5 px-1 text-center transition-colors hover:bg-white/8"
               >
                 <span className="text-accent transition-transform group-hover:scale-110 duration-200">{s.icon}</span>
-                <span className="text-[11px] font-bold uppercase tracking-widest text-white/90 leading-tight">
+                <span className="hidden md:inline text-[11px] font-bold uppercase tracking-widest text-white/90 leading-tight">
                   {s.line1}<br />{s.line2}
+                </span>
+                <span className="inline md:hidden text-[9px] font-bold uppercase tracking-wider text-white/90 leading-tight">
+                  {s.short}
                 </span>
                 <span className="block h-0.5 w-6 rounded-full bg-accent opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
               </Link>
