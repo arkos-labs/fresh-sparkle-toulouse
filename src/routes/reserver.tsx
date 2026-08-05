@@ -867,26 +867,26 @@ function ReserverPage() {
                     </button>
                   )}
                 </div>
-                <div className="space-y-3">
+                <div className="grid grid-cols-2 gap-2 md:grid-cols-1 md:gap-3">
                   {service.formules.map(f => {
                     const active = formule?.id === f.id;
                     return (
                       <button key={f.id} onClick={() => handleSelectFormule(f)}
-                        className={`flex w-full items-center gap-4 rounded-2xl border-2 bg-card px-5 py-4 text-left transition-all hover:shadow-[var(--shadow-card)] ${active ? "border-primary shadow-[var(--shadow-card)]" : "border-border hover:border-primary/40"}`}>
-                        <div className={`flex size-5 shrink-0 items-center justify-center rounded-full border-2 transition-all ${active ? "border-primary bg-primary" : "border-border"}`}>
+                        className={`flex flex-col md:flex-row w-full items-start md:items-center gap-2 md:gap-4 rounded-xl md:rounded-2xl border-2 bg-card p-3 md:px-5 md:py-4 text-left transition-all hover:shadow-[var(--shadow-card)] ${active ? "border-primary bg-primary/5 shadow-[var(--shadow-card)]" : "border-border hover:border-primary/40"}`}>
+                        <div className={`hidden md:flex size-5 shrink-0 items-center justify-center rounded-full border-2 transition-all ${active ? "border-primary bg-primary" : "border-border"}`}>
                           {active && <div className="size-2 rounded-full bg-primary-foreground" />}
                         </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="font-bold">{f.name}</p>
-                          {f.desc && <p className="mt-0.5 text-xs text-muted-foreground">{f.desc}</p>}
-                          <div className="mt-1 flex items-center gap-3 flex-wrap">
-                            <span className="inline-flex items-center gap-1 text-xs text-muted-foreground"><Clock className="size-3" /> {f.duration}</span>
-                            <span className="text-xs text-muted-foreground">{f.options.length} options disponibles</span>
+                        <div className="flex-1 min-w-0 w-full">
+                          <p className="font-bold text-xs md:text-sm line-clamp-1">{f.name}</p>
+                          {f.desc && <p className="mt-0.5 text-[10px] md:text-xs text-muted-foreground line-clamp-1 md:line-clamp-none">{f.desc}</p>}
+                          <div className="mt-1 flex items-center gap-2 md:gap-3 flex-wrap">
+                            <span className="inline-flex items-center gap-1 text-[10px] md:text-xs text-muted-foreground"><Clock className="size-3" /> {f.duration}</span>
+                            <span className="hidden md:inline text-xs text-muted-foreground">{f.options.length} options disponibles</span>
                           </div>
                         </div>
-                        <div className="text-right shrink-0">
-                          <p className="text-xl font-bold text-primary">{f.price} €</p>
-                          <p className="text-xs text-muted-foreground">À partir de</p>
+                        <div className="text-left md:text-right shrink-0 mt-1 md:mt-0">
+                          <p className="text-sm md:text-xl font-bold text-primary">{f.price} €</p>
+                          <p className="text-[10px] md:text-xs text-muted-foreground hidden md:block">À partir de</p>
                         </div>
                       </button>
                     );
@@ -1096,28 +1096,38 @@ function ReserverPage() {
 
       {/* Sticky bottom actions on mobile */}
       {step < 4 && step !== 1 && !showCategories && (
-        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border/60 bg-background/97 p-3 backdrop-blur lg:hidden flex gap-2">
-          {step === 2 && formule && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border/60 bg-background/97 p-3 backdrop-blur lg:hidden flex flex-col gap-2">
+          <div className="flex justify-between items-center px-1 font-bold">
+            <span className="text-muted-foreground text-[11px] uppercase tracking-wider">Total estimé</span>
+            <span className="text-base text-primary">{total} €</span>
+          </div>
+          <div className="flex gap-2">
+            {step === 2 && formule && (
+              <Button
+                onClick={handleAddAnother}
+                variant="outline"
+                className="flex-1 font-bold h-12 text-[10px] leading-tight px-1.5"
+              >
+                Ajouter une prestation
+              </Button>
+            )}
             <Button
-              onClick={handleAddAnother}
-              variant="outline"
-              className="flex-1 font-bold h-12 text-[10px] leading-tight px-1.5"
+              onClick={handleContinue}
+              disabled={!canContinue}
+              className="flex-1 bg-accent-gradient text-accent-foreground font-bold h-12 text-[10px] leading-tight px-1.5 hover:opacity-90 disabled:opacity-40"
             >
-              Ajouter une prestation
+              {continuLabel} <ArrowRight className="size-3.5 ml-1" />
             </Button>
-          )}
-          <Button
-            onClick={handleContinue}
-            disabled={!canContinue}
-            className="flex-1 bg-accent-gradient text-accent-foreground font-bold h-12 text-[10px] leading-tight px-1.5 hover:opacity-90 disabled:opacity-40"
-          >
-            {continuLabel} <ArrowRight className="size-3.5 ml-1" />
-          </Button>
+          </div>
         </div>
       )}
 
       {step === 4 && (
-        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border/60 bg-background/97 p-3 backdrop-blur lg:hidden">
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border/60 bg-background/97 p-3 backdrop-blur lg:hidden flex flex-col gap-2">
+          <div className="flex justify-between items-center px-1 font-bold">
+            <span className="text-muted-foreground text-[11px] uppercase tracking-wider">Total estimé</span>
+            <span className="text-base text-primary">{total} €</span>
+          </div>
           <Button
             type="submit"
             form="booking-form"
