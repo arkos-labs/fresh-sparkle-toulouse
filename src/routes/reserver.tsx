@@ -299,7 +299,7 @@ function TimeSlotPicker({
     }
     load();
     return () => { cancelled = true; };
-  }, [date, formule.durationMin]);
+  }, [date, totalDuration]);
 
   const formatted = date.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" });
 
@@ -651,6 +651,12 @@ function ReserverPage() {
     return acc + item.formule.price + optTotal;
   }, 0);
   const cartDuration = cart.reduce((acc, item) => acc + item.formule.durationMin, 0);
+
+  const cartOptTotal = cart.reduce((acc, item) => {
+    const oTotal = item.formule.options.filter(o => item.options.includes(o.id)).reduce((s, o) => s + o.price, 0);
+    return acc + oTotal;
+  }, 0);
+  const optTotal = currentOptTotal + cartOptTotal;
 
   const total = currentTotal + cartTotal;
   const totalDuration = currentDuration + cartDuration;
