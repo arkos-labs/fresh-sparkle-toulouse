@@ -16,6 +16,7 @@ import { Header } from "@/components/site/Header";
 import { Footer, StickyCallCta } from "@/components/site/Footer";
 import { TopBanner } from "@/components/site/TopBanner";
 import { Toaster } from "@/components/ui/sonner";
+import { Chatbot } from "@/components/site/Chatbot";
 
 function NotFoundComponent() {
   return (
@@ -168,6 +169,7 @@ function RootComponent() {
       </main>
       <Footer />
       <StickyCallCta />
+      <Chatbot />
       <Toaster />
     </QueryClientProvider>
   );
