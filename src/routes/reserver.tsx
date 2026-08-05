@@ -756,11 +756,6 @@ function ReserverPage() {
         <button onClick={handleBack} className="flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-primary transition-colors">
           <ChevronLeft className="size-5" /> <span className="font-bold">Retour</span>
         </button>
-        <Link to="/" className="flex items-center gap-2">
-          <span className="font-display font-bold text-foreground">
-            Clean<span className="text-primary">&amp;</span>Fresh
-          </span>
-        </Link>
       </div>
 
       <div className="mx-auto max-w-5xl px-4 py-10">
