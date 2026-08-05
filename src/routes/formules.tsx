@@ -681,53 +681,7 @@ function FormulesPage() {
   return (
     <div className="bg-[#f4f6f9] pb-24 lg:pb-0">
 
-      {/* ── HERO ── */}
-      <FadeIn delay={0.1}>
-        <div className="mx-auto max-w-6xl px-4 pt-16 pb-10 flex flex-col lg:flex-row items-center gap-10">
-          <div className="flex-1 text-center lg:text-left">
-          <span className="inline-block rounded-full border border-border bg-white px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-muted-foreground shadow-sm">
-            Tarifs & Prestations — Toulouse
-          </span>
-          <h1 className="mt-5 font-display text-5xl font-bold leading-tight tracking-tight md:text-6xl">
-            Des tarifs clairs,<br />un résultat <span className="text-primary">impeccable</span>
-          </h1>
-          <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground mx-auto lg:mx-0">
-            Nettoyage à domicile sur Toulouse et agglomération. Matériel professionnel, produits certifiés Écolabel, intervention 7j/7.
-          </p>
-          <div className="mt-4 flex items-center justify-center lg:justify-start gap-1.5 text-sm">
-            {[1, 2, 3, 4, 5].map((i) => <Star key={i} className="size-4 fill-amber-400 text-amber-400" />)}
-            <span className="font-bold text-foreground ml-1">4,9 / 5</span>
-            <span className="text-muted-foreground">· 91 avis Google vérifiés</span>
-          </div>
-          <div className="mt-6 flex flex-wrap gap-3 justify-center lg:justify-start">
-            <Button asChild size="lg" className="font-bold">
-              <Link to="/reserver"><CalendarCheck className="size-4" /> Réserver en ligne</Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="bg-white">
-              <a href={COMPANY.phoneHref}><Phone className="size-4" /> {COMPANY.phone}</a>
-            </Button>
-          </div>
-        </div>
-
-
-      </div>
-      </FadeIn>
-
-      {/* ── TRUST BAR ── */}
-      <FadeIn delay={0.2}>
-        <div className="border-y border-border bg-white py-4 mb-10">
-          <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
-          {[
-            { icon: <Zap className="size-4 text-primary" />, text: "Consultez les prochains créneaux disponibles" },
-            { icon: <Leaf className="size-4 text-primary" />, text: "Produits Écolabel certifiés" },
-            { icon: <Shield className="size-4 text-primary" />, text: "Résultat professionnel" },
-            { icon: <MapPin className="size-4 text-primary" />, text: "Intervention à domicile" },
-          ].map((t) => (
-            <span key={t.text} className="inline-flex items-center gap-1.5">{t.icon} {t.text}</span>
-          ))}
-        </div>
-          </div>
-      </FadeIn>
+      {/* ── HERO & TRUST BAR REMOVED PER USER REQUEST ── */}
 
       {/* ── CATEGORY GRID ── */}
       <FadeIn delay={0.1}>

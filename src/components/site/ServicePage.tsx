@@ -187,13 +187,13 @@ export function ServicePage({ service }: { service: Service }) {
 
       {/* ── TARIFS ── */}
       <section className="bg-secondary/60 py-16">
-        <div className="mx-auto max-w-6xl px-4">
+        <div className={`mx-auto px-4 ${service.prices && service.prices.length >= 4 ? 'max-w-7xl' : 'max-w-6xl'}`}>
           <p className="text-xs font-bold uppercase tracking-widest text-primary">Transparence</p>
           <h2 className="mt-2 text-3xl font-bold tracking-tight">Tarifs clairs, sans surprise</h2>
 
           {service.prices ? (
             <>
-              <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div className={`mt-8 grid gap-4 sm:grid-cols-2 ${service.prices.length >= 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'}`}>
                 {service.prices.map((row) => {
                   const img = row.formuleId ? FORMULE_IMAGES[row.formuleId] : null;
                   return (

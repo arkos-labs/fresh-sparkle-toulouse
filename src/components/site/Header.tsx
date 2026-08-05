@@ -15,7 +15,9 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const close = () => { setOpen(false); setServicesOpen(false); };
+  const [desktopOpen, setDesktopOpen] = useState(false);
+
+  const close = () => { setOpen(false); setServicesOpen(false); setDesktopOpen(false); };
 
   return (
     <header
@@ -42,15 +44,24 @@ export function Header() {
           </Link>
 
           {/* Services dropdown */}
-          <div className="relative group">
+          <div
+            className="relative group"
+            onMouseEnter={() => setDesktopOpen(true)}
+            onMouseLeave={() => setDesktopOpen(false)}
+          >
             <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-foreground/75 transition-colors hover:text-primary">
-              Nos services <ChevronDown className="size-3.5 transition-transform group-hover:rotate-180" />
+              Nos services <ChevronDown className={`size-3.5 transition-transform ${desktopOpen ? "rotate-180" : ""}`} />
             </button>
-            <div className="absolute left-0 top-full hidden w-80 rounded-2xl border border-border bg-card pt-2 shadow-[var(--shadow-card)] group-hover:block">
+            <div className={`absolute left-0 top-full w-80 rounded-2xl border border-border bg-card pt-2 shadow-[var(--shadow-card)] ${desktopOpen ? "block" : "hidden"}`}>
               <div className="px-3 pb-2">
                 <p className="px-2 py-1.5 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Textile &amp; Auto</p>
                 {MENU_TEXTILE.map((s) => (
-                  <Link key={s.slug} to={s.slug} className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm text-foreground hover:bg-secondary hover:text-primary transition-colors">
+                  <Link
+                    key={s.slug}
+                    to={s.slug}
+                    onClick={close}
+                    className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm text-foreground hover:bg-secondary hover:text-primary transition-colors"
+                  >
                     <ChevronRight className="size-3.5 text-muted-foreground shrink-0" />
                     {s.navLabel}
                   </Link>
@@ -59,7 +70,12 @@ export function Header() {
               <div className="border-t border-border px-3 pb-3 pt-2">
                 <p className="px-2 py-1.5 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Services de nettoyage</p>
                 {MENU_BATIMENT.map((s) => (
-                  <Link key={s.slug} to={s.slug} className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm text-foreground hover:bg-secondary hover:text-primary transition-colors">
+                  <Link
+                    key={s.slug}
+                    to={s.slug}
+                    onClick={close}
+                    className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm text-foreground hover:bg-secondary hover:text-primary transition-colors"
+                  >
                     <ChevronRight className="size-3.5 text-muted-foreground shrink-0" />
                     {s.navLabel}
                   </Link>
