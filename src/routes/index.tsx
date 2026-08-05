@@ -205,12 +205,12 @@ function Index() {
           className="relative"
           style={{ background: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.55) 35%, rgba(0,0,0,0.80) 100%)" }}
         >
-          <div className="mx-auto max-w-6xl grid grid-cols-2 md:grid-cols-6">
+          <div className="mx-auto max-w-6xl flex overflow-x-auto md:overflow-x-visible gap-0 pb-2 scrollbar-none snap-x snap-mandatory md:grid md:grid-cols-6 md:pb-0">
             {QUICK_SERVICES.map((s, i) => (
               <Link
                 key={s.slug}
                 to={s.slug}
-                className={`group flex flex-col items-center gap-2.5 pt-8 pb-7 px-4 text-center transition-colors hover:bg-white/8 ${i < QUICK_SERVICES.length - 1 ? "border-r border-white/10" : ""}`}
+                className={`group flex flex-col items-center gap-2.5 pt-8 pb-7 px-4 text-center transition-colors hover:bg-white/8 shrink-0 w-[145px] md:w-auto snap-start ${i < QUICK_SERVICES.length - 1 ? "border-r border-white/10" : ""}`}
               >
                 <span className="text-accent transition-transform group-hover:scale-110 duration-200">{s.icon}</span>
                 <span className="text-[11px] font-bold uppercase tracking-widest text-white/90 leading-tight">
