@@ -6,6 +6,7 @@ import {
   useRouter,
   HeadContent,
   Scripts,
+  ScrollRestoration,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
@@ -150,6 +151,7 @@ function RootShell({ children }: { children: ReactNode }) {
       <body className="overflow-x-hidden w-full">
         {children}
         <script dangerouslySetInnerHTML={{__html: `if(window.location.hostname.includes('lovable.app')) { var m = document.createElement('meta'); m.name = 'robots'; m.content = 'noindex'; document.head.appendChild(m); }`}} />
+        <ScrollRestoration />
         <Scripts />
       </body>
     </html>
