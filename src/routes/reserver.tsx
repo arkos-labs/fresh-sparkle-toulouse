@@ -1101,17 +1101,17 @@ function ReserverPage() {
             <Button
               onClick={handleAddAnother}
               variant="outline"
-              className="flex-1 font-bold h-12 text-xs"
+              className="flex-1 font-bold h-12 text-[10px] leading-tight px-1.5"
             >
-              Ajouter
+              Ajouter une prestation
             </Button>
           )}
           <Button
             onClick={handleContinue}
             disabled={!canContinue}
-            className="flex-[2] bg-accent-gradient text-accent-foreground font-bold h-12 text-xs hover:opacity-90 disabled:opacity-40"
+            className="flex-1 bg-accent-gradient text-accent-foreground font-bold h-12 text-[10px] leading-tight px-1.5 hover:opacity-90 disabled:opacity-40"
           >
-            {continuLabel} <ArrowRight className="size-4 ml-1.5" />
+            {continuLabel} <ArrowRight className="size-3.5 ml-1" />
           </Button>
         </div>
       )}

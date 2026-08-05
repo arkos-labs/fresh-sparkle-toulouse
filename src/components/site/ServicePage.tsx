@@ -93,45 +93,45 @@ export function ServicePage({ service }: { service: Service }) {
       {/* ── HERO ── */}
       <section className="relative overflow-hidden bg-hero-gradient text-ink-foreground">
         <div className="pointer-events-none absolute -right-24 -top-24 size-96 rounded-full bg-primary/20 blur-3xl" />
-        <div className="relative mx-auto max-w-4xl px-4 py-20 text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-ink-foreground/20 bg-ink-foreground/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider backdrop-blur">
+        <div className="relative mx-auto max-w-4xl px-4 py-8 md:py-20 text-center">
+          <span className="inline-flex items-center gap-2 rounded-full border border-ink-foreground/20 bg-ink-foreground/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider backdrop-blur">
             <MapPin className="size-3" /> Toulouse & Haute-Garonne
           </span>
-          <h1 className="mt-5 text-4xl font-bold leading-tight tracking-tight md:text-6xl">
+          <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight md:mt-5 md:text-6xl">
             {service.h1}
           </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-ink-foreground/75">
+          <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-ink-foreground/75 md:mt-5 md:text-base">
             {service.subtitle}
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <div className="mt-4 flex flex-wrap justify-center gap-2.5 md:mt-8">
             {service.booking ? (
               <Button
                 asChild
                 size="xl"
-                className="bg-accent-gradient text-accent-foreground font-bold shadow-[var(--shadow-card)] hover:opacity-90"
+                className="bg-accent-gradient text-accent-foreground font-bold shadow-[var(--shadow-card)] hover:opacity-90 px-4 md:px-6 h-10 md:h-12 text-xs md:text-sm"
               >
                 {bookingServiceId ? (
                   <Link to="/formules" search={{ service: bookingServiceId }}>
-                    <CalendarCheck /> Réserver en ligne
+                    <CalendarCheck className="size-4 mr-1.5" /> Réserver en ligne
                   </Link>
                 ) : (
                   <Link to="/formules">
-                    <CalendarCheck /> Réserver en ligne
+                    <CalendarCheck className="size-4 mr-1.5" /> Réserver en ligne
                   </Link>
                 )}
               </Button>
             ) : (
-              <Button asChild variant="cta" size="xl">
+              <Button asChild variant="cta" size="xl" className="px-4 md:px-6 h-10 md:h-12 text-xs md:text-sm">
                 <Link to="/contactez-nous">Devis gratuit sous 24h</Link>
               </Button>
             )}
-            <Button asChild variant="onDark" size="xl">
+            <Button asChild variant="onDark" size="xl" className="px-4 md:px-6 h-10 md:h-12 text-xs md:text-sm">
               <a href={COMPANY.phoneHref}>
-                <Phone /> {COMPANY.phone}
+                <Phone className="size-4 mr-1.5" /> {COMPANY.phone}
               </a>
             </Button>
           </div>
-          <div className="mt-6 flex flex-wrap justify-center gap-4 text-xs text-ink-foreground/60">
+          <div className="hidden md:flex mt-6 flex-wrap justify-center gap-4 text-xs text-ink-foreground/60">
             <span className="inline-flex items-center gap-1"><Clock className="size-3" /> Devis sous 24h</span>
             <span className="inline-flex items-center gap-1"><Check className="size-3" /> Séchage rapide</span>
             <span className="inline-flex items-center gap-1"><Check className="size-3" /> Produits Écolabel</span>

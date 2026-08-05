@@ -28,25 +28,25 @@ function LocalPage() {
       {/* ── HERO ── */}
       <section className="relative overflow-hidden bg-hero-gradient text-ink-foreground">
         <div className="pointer-events-none absolute -right-24 -top-24 size-96 rounded-full bg-primary/20 blur-3xl" />
-        <div className="relative mx-auto max-w-4xl px-4 py-20 text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-ink-foreground/20 bg-ink-foreground/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider backdrop-blur">
+        <div className="relative mx-auto max-w-4xl px-4 py-8 md:py-20 text-center">
+          <span className="inline-flex items-center gap-2 rounded-full border border-ink-foreground/20 bg-ink-foreground/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider backdrop-blur">
             <MapPin className="size-3" /> Intervention à Tournefeuille
           </span>
-          <h1 className="mt-5 text-4xl font-bold leading-tight tracking-tight md:text-6xl">
+          <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight md:mt-5 md:text-6xl">
             Entreprise de nettoyage à Tournefeuille
           </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-ink-foreground/80">
+          <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-ink-foreground/80 md:mt-5 md:text-base">
             Votre partenaire nettoyage à Tournefeuille. Nous nous déplaçons directement à votre domicile pour nettoyer vos canapés, matelas et véhicules. Nos techniciens se déploient avec le matériel professionnel pour un résultat optimal.
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Button asChild size="xl" className="bg-accent-gradient text-accent-foreground font-bold shadow-[var(--shadow-card)] hover:opacity-90">
+          <div className="mt-4 flex flex-wrap justify-center gap-2.5 md:mt-8">
+            <Button asChild size="xl" className="bg-accent-gradient text-accent-foreground font-bold shadow-[var(--shadow-card)] hover:opacity-90 px-4 md:px-6 h-10 md:h-12 text-xs md:text-sm">
               <Link to="/formules">Réserver en ligne</Link>
             </Button>
-            <Button asChild variant="onDark" size="xl">
+            <Button asChild variant="onDark" size="xl" className="px-4 md:px-6 h-10 md:h-12 text-xs md:text-sm">
               <Link to="/contactez-nous">Demander un devis</Link>
             </Button>
           </div>
-          <div className="mt-6 flex flex-wrap justify-center gap-4 text-xs text-ink-foreground/60">
+          <div className="hidden md:flex mt-6 flex-wrap justify-center gap-4 text-xs text-ink-foreground/60">
             <span className="inline-flex items-center gap-1"><Clock className="size-3" /> Devis sous 24h</span>
             <span className="inline-flex items-center gap-1"><CheckCircle2 className="size-3" /> Séchage rapide</span>
             <span className="inline-flex items-center gap-1"><Shield className="size-3" /> Produits Écolabel</span>
