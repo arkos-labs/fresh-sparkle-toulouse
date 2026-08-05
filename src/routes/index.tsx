@@ -117,8 +117,8 @@ function Index() {
 
         <div className="relative flex-1 flex items-center">
           <div className="mx-auto w-full max-w-6xl px-4 py-4 md:py-8 lg:py-12 flex flex-col lg:flex-row items-center justify-between gap-10">
-            <div className="flex-1 max-w-3xl">
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white backdrop-blur">
+            <div className="flex-1 max-w-3xl text-center md:text-left">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white backdrop-blur mx-auto md:mx-0">
                 <MapPin className="size-3" /> Toulouse & Haute-Garonne
               </span>
 
@@ -143,7 +143,7 @@ function Index() {
                 Consultez les prochains créneaux disponibles
               </div>
 
-              <div className="mt-4 flex flex-wrap gap-2.5 md:mt-6">
+              <div className="mt-4 flex flex-wrap justify-center md:justify-start gap-2.5 md:mt-6">
                 <Button
                   asChild
                   size="xl"

@@ -30,11 +30,11 @@ export function Header() {
       {/* Accent top bar */}
       <div className="h-0.5 w-full bg-primary-gradient" />
 
-      <div className="mx-auto flex h-20 max-w-6xl items-center justify-between gap-4 px-4">
+      <div className="mx-auto flex h-14 md:h-20 max-w-6xl items-center justify-between gap-4 px-4">
 
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2.5 shrink-0" onClick={close}>
-          <img src="/logo.png" alt="Clean & Fresh Logo" className="h-16 w-auto object-contain" />
+          <img src="/logo.png" alt="Clean & Fresh Logo" className="h-11 md:h-16 w-auto object-contain" />
         </Link>
 
         {/* Desktop nav */}
@@ -111,7 +111,7 @@ export function Header() {
 
         {/* Mobile hamburger */}
         <button
-          className="flex size-10 items-center justify-center rounded-lg border border-border bg-card text-foreground/70 shadow-sm hover:bg-secondary lg:hidden"
+          className="flex size-9 md:size-10 items-center justify-center rounded-lg border border-border bg-card text-foreground/70 shadow-sm hover:bg-secondary lg:hidden"
           aria-label="Ouvrir le menu"
           onClick={() => setOpen((v) => !v)}
         >
