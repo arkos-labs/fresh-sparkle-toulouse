@@ -8,9 +8,9 @@ export function Footer() {
       {/* Top accent */}
       <div className="h-1 w-full bg-primary-gradient" />
 
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 md:grid-cols-4">
+      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 grid-cols-2 md:grid-cols-4">
         {/* Brand */}
-        <div>
+        <div className="col-span-2 md:col-span-1">
           <Link to="/" className="inline-block">
             <img src="/logo.png" alt="Clean & Fresh Logo" className="h-20 w-auto object-contain" />
           </Link>
@@ -28,7 +28,7 @@ export function Footer() {
         </div>
 
         {/* Textile & auto */}
-        <div>
+        <div className="col-span-2 sm:col-span-1">
           <h2 className="text-[10px] font-bold uppercase tracking-widest text-ink-foreground/50">
             Textile & auto
           </h2>
@@ -44,11 +44,11 @@ export function Footer() {
         </div>
 
         {/* Bâtiment */}
-        <div>
+        <div className="col-span-2 sm:col-span-1">
           <h2 className="text-[10px] font-bold uppercase tracking-widest text-ink-foreground/50">
             Nettoyage bâtiment
           </h2>
-          <ul className="mt-4 space-y-2.5 text-sm text-ink-foreground/65">
+          <ul className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2.5 sm:grid-cols-1 text-sm text-ink-foreground/65">
             {MENU_BATIMENT.map((s) => (
               <li key={s.slug}>
                 <Link to={s.slug} className="hover:text-ink-foreground transition-colors">
@@ -60,7 +60,7 @@ export function Footer() {
         </div>
 
         {/* Contact */}
-        <div>
+        <div className="col-span-2 md:col-span-1">
           <h2 className="text-[10px] font-bold uppercase tracking-widest text-ink-foreground/50">
             Contact
           </h2>
