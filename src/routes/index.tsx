@@ -118,9 +118,20 @@ function Index() {
         <div className="relative flex-1 flex items-center">
           <div className="mx-auto w-full max-w-6xl px-4 py-4 md:py-8 lg:py-12 flex flex-col lg:flex-row items-center justify-between gap-10">
             <div className="flex-1 max-w-3xl text-center md:text-left">
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white backdrop-blur mx-auto md:mx-0">
-                <MapPin className="size-3" /> Toulouse & Haute-Garonne
-              </span>
+              <div className="flex flex-row justify-between items-center gap-2 mb-4 md:mb-6 w-full max-w-md mx-auto md:mx-0">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-[10px] md:text-[11px] font-semibold uppercase tracking-wider text-white backdrop-blur">
+                  <MapPin className="size-3" /> Toulouse & Haute-Garonne
+                </span>
+                <a
+                  href="https://www.google.com/search?q=clean+fresh+toulouse+avis"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 bg-white px-2.5 py-1 rounded-full text-[10px] md:text-[11px] font-bold text-gray-900 shadow-sm leading-none shrink-0 hover:opacity-90 transition-opacity"
+                >
+                  <Star className="size-3 text-[#FBBC04] fill-current" />
+                  <span>4.9 (101 avis)</span>
+                </a>
+              </div>
 
               <h1 className="mt-3 text-3xl font-bold leading-[1.1] tracking-tight text-white md:mt-6 md:text-5xl lg:text-6xl">
                 Entreprise de nettoyage à Toulouse
