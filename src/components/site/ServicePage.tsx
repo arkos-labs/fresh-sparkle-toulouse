@@ -193,24 +193,24 @@ export function ServicePage({ service }: { service: Service }) {
 
           {service.prices ? (
             <>
-              <div className={`mt-8 grid gap-4 sm:grid-cols-2 ${service.prices.length >= 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'}`}>
+              <div className={`mt-4 grid grid-cols-2 gap-2 sm:grid-cols-2 ${service.prices.length >= 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'}`}>
                 {service.prices.map((row) => {
                   const img = row.formuleId ? FORMULE_IMAGES[row.formuleId] : null;
                   return (
                     <div
                       key={row.label}
-                      className="group flex flex-col rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-soft)] transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-card)]"
+                      className="group flex flex-col rounded-xl md:rounded-2xl border border-border bg-card p-3 md:p-6 shadow-[var(--shadow-soft)] transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-card)]"
                     >
                       {img && (
-                        <div className="flex items-center justify-center w-full h-32 mb-4 bg-slate-50 border border-slate-100 rounded-xl overflow-hidden p-2">
+                        <div className="flex items-center justify-center w-full h-16 md:h-32 mb-2 md:mb-4 bg-slate-50 border border-slate-100 rounded-lg md:rounded-xl overflow-hidden p-1 md:p-2">
                           <img src={img} alt={row.label} className="h-full object-contain mix-blend-multiply scale-110 group-hover:scale-115 transition-transform" loading="lazy" />
                         </div>
                       )}
-                      <p className="text-sm font-semibold text-muted-foreground">{row.label}</p>
-                      <p className="mt-1 text-3xl font-bold text-primary">{row.price}</p>
+                      <p className="text-xs md:text-sm font-semibold text-muted-foreground line-clamp-1">{row.label}</p>
+                      <p className="mt-0.5 text-xl md:text-3xl font-bold text-primary">{row.price}</p>
 
                       {row.items && row.items.length > 0 && (
-                        <ul className="mt-4 flex-1 space-y-2">
+                        <ul className="mt-3 flex-1 space-y-2 hidden md:block">
                           {row.items.map((item) => (
                             <li key={item} className="flex items-start gap-2 text-sm text-muted-foreground">
                               <Check className="mt-0.5 size-4 shrink-0 text-primary" />
@@ -221,18 +221,18 @@ export function ServicePage({ service }: { service: Service }) {
                       )}
 
                       {row.note && (
-                        <p className="mt-3 flex items-start gap-1.5 text-xs text-muted-foreground italic">
+                        <p className="mt-3 flex items-start gap-1.5 text-xs text-muted-foreground italic hidden md:flex">
                           <span className="shrink-0 mt-0.5">ℹ️</span> {row.note}
                         </p>
                       )}
 
                       <Button
                         asChild
-                        className="mt-5 bg-accent-gradient text-accent-foreground font-semibold hover:opacity-90"
+                        className="mt-3 md:mt-5 bg-accent-gradient text-accent-foreground font-semibold hover:opacity-90 h-9 md:h-10 text-xs"
                         size="sm"
                       >
                         <Link to="/reserver" search={bookingServiceId ? { service: bookingServiceId, formule: row.formuleId } : undefined}>
-                          <CalendarCheck className="size-4" /> Je réserve
+                          <CalendarCheck className="size-3.5 mr-1" /> Réserver
                         </Link>
                       </Button>
                     </div>
