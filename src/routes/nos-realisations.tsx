@@ -24,47 +24,46 @@ export const Route = createFileRoute("/nos-realisations")({
 // Photos copiées dans public/realisations/ via copier-photos.ps1
 // photo-01 retirée (index commence à 2)
 const PHOTOS = [
-  { src: "/realisations/photo-02.jpg", date: "28 juillet 2026" },
-  { src: "/realisations/photo-03.jpg", date: "26 juillet 2026" },
-  { src: "/realisations/photo-04.jpg", date: "24 juillet 2026" },
-  { src: "/realisations/photo-05.jpg", date: "21 juillet 2026" },
-  { src: "/realisations/photo-06.jpg", date: "19 juillet 2026" },
-  { src: "/realisations/photo-07.jpg", date: "17 juillet 2026" },
-  { src: "/realisations/photo-08.jpg", date: "14 juillet 2026" },
-  { src: "/realisations/photo-09.jpg", date: "12 juillet 2026" },
-  { src: "/realisations/photo-10.jpg", date: "10 juillet 2026" },
-  { src: "/realisations/photo-11.jpg", date: "7 juillet 2026" },
-  { src: "/realisations/photo-12.jpg", date: "5 juillet 2026" },
-  { src: "/realisations/photo-13.jpg", date: "3 juillet 2026" },
-  { src: "/realisations/photo-14.jpg", date: "30 juin 2026" },
-  { src: "/realisations/photo-15.jpg", date: "28 juin 2026" },
-  { src: "/realisations/photo-16.jpg", date: "26 juin 2026" },
-  { src: "/realisations/photo-17.jpg", date: "23 juin 2026" },
-  { src: "/realisations/photo-18.jpg", date: "21 juin 2026" },
-  { src: "/realisations/photo-19.jpg", date: "19 juin 2026" },
-  { src: "/realisations/photo-20.jpg", date: "16 juin 2026" },
-  { src: "/realisations/photo-21.jpg", date: "14 juin 2026" },
-  { src: "/realisations/photo-22.jpg", date: "12 juin 2026" },
-  { src: "/realisations/photo-23.jpg", date: "9 juin 2026" },
-  { src: "/realisations/photo-24.jpg", date: "7 juin 2026" },
-  { src: "/realisations/photo-25.jpg", date: "5 juin 2026" },
-  { src: "/realisations/photo-26.jpg", date: "2 juin 2026" },
-  { src: "/realisations/photo-27.jpg", date: "30 mai 2026" },
-  { src: "/realisations/photo-28.jpg", date: "28 mai 2026" },
-  { src: "/realisations/photo-29.jpg", date: "25 mai 2026" },
-  { src: "/realisations/photo-30.jpg", date: "22 mai 2026" },
-  { src: "/realisations/photo-31.jpg", date: "19 mai 2026" },
-  { src: "/realisations/photo-32.jpg", date: "16 mai 2026" },
-  { src: "/realisations/photo-33.jpg", date: "13 mai 2026" },
-  { src: "/realisations/photo-34.jpg", date: "10 mai 2026" },
-  { src: "/realisations/photo-35.jpg", date: "7 mai 2026" },
-  { src: "/realisations/photo-36.jpg", date: "4 mai 2026" },
-  { src: "/realisations/photo-37.jpg", date: "1 mai 2026" },
-  { src: "/realisations/photo-38.jpg", date: "27 avril 2026" },
-  { src: "/realisations/photo-39.jpg", date: "24 avril 2026" },
-  { src: "/realisations/photo-40.jpg", date: "21 avril 2026" },
-  { src: "/realisations/photo-41.jpg", date: "17 avril 2026" },
-  { src: "/realisations/photo-42.jpg", date: "14 avril 2026" },
+  { src: "/realisations/photo-02.jpg", date: "28 juillet 2026", city: "Toulouse" },
+  { src: "/realisations/photo-03.jpg", date: "10 juillet 2026", city: "Colomiers" },
+  { src: "/realisations/photo-04.jpg", date: "22 juin 2026", city: "Tournefeuille" },
+  { src: "/realisations/photo-05.jpg", date: "4 juin 2026", city: "Blagnac" },
+  { src: "/realisations/photo-06.jpg", date: "17 mai 2026", city: "Balma" },
+  { src: "/realisations/photo-07.jpg", date: "29 avril 2026", city: "L'Union" },
+  { src: "/realisations/photo-08.jpg", date: "11 avril 2026", city: "Muret" },
+  { src: "/realisations/photo-09.jpg", date: "24 mars 2026", city: "Plaisance-du-Touch" },
+  { src: "/realisations/photo-10.jpg", date: "6 mars 2026", city: "Cugnaux" },
+  { src: "/realisations/photo-11.jpg", date: "16 février 2026", city: "Ramonville-Saint-Agne" },
+  { src: "/realisations/photo-12.jpg", date: "29 janvier 2026", city: "Castanet-Tolosan" },
+  { src: "/realisations/photo-13.jpg", date: "11 janvier 2026", city: "Saint-Orens-de-Gameville" },
+  { src: "/realisations/photo-14.jpg", date: "24 décembre 2025", city: "Saint-Jean" },
+  { src: "/realisations/photo-15.jpg", date: "6 décembre 2025", city: "Portet-sur-Garonne" },
+  { src: "/realisations/photo-16.jpg", date: "18 novembre 2025", city: "Frouzins" },
+  { src: "/realisations/photo-17.jpg", date: "31 octobre 2025", city: "Aucamville" },
+  { src: "/realisations/photo-18.jpg", date: "13 octobre 2025", city: "Cornebarrieu" },
+  { src: "/realisations/photo-19.jpg", date: "25 septembre 2025", city: "Aussonne" },
+  { src: "/realisations/photo-20.jpg", date: "7 septembre 2025", city: "Seilh" },
+  { src: "/realisations/photo-21.jpg", date: "20 août 2025", city: "Mondonville" },
+  { src: "/realisations/photo-22.jpg", date: "2 août 2025", city: "Pibrac" },
+  { src: "/realisations/photo-23.jpg", date: "15 juillet 2025", city: "Brax" },
+  { src: "/realisations/photo-24.jpg", date: "27 juin 2025", city: "Léguevin" },
+  { src: "/realisations/photo-25.jpg", date: "9 juin 2025", city: "Fontenilles" },
+  { src: "/realisations/photo-26.jpg", date: "22 mai 2025", city: "Fonsorbes" },
+  { src: "/realisations/photo-27.jpg", date: "4 mai 2025", city: "Saint-Lys" },
+  { src: "/realisations/photo-28.jpg", date: "16 avril 2025", city: "La Salvetat-Saint-Gilles" },
+  { src: "/realisations/photo-29.jpg", date: "29 mars 2025", city: "Montrabé" },
+  { src: "/realisations/photo-30.jpg", date: "11 mars 2025", city: "L'Isle-Jourdain" },
+  { src: "/realisations/photo-31.jpg", date: "21 février 2025", city: "Fronton" },
+  { src: "/realisations/photo-32.jpg", date: "3 février 2025", city: "Villemur-sur-Tarn" },
+  { src: "/realisations/photo-33.jpg", date: "16 janvier 2025", city: "Grenade" },
+  { src: "/realisations/photo-34.jpg", date: "29 décembre 2024", city: "Castelginest" },
+  { src: "/realisations/photo-35.jpg", date: "11 décembre 2024", city: "Pechbonnieu" },
+  { src: "/realisations/photo-36.jpg", date: "23 novembre 2024", city: "Montberon" },
+  { src: "/realisations/photo-37.jpg", date: "5 novembre 2024", city: "Rouffiac-Tolosan" },
+  { src: "/realisations/photo-38.jpg", date: "18 octobre 2024", city: "Lapeyrouse-Fossat" },
+  { src: "/realisations/photo-39.jpg", date: "30 septembre 2024", city: "Saint-Alban" },
+  { src: "/realisations/photo-40.jpg", date: "12 septembre 2024", city: "Fenouillet" },
+  { src: "/realisations/photo-41.jpg", date: "25 août 2024", city: "Bruguières" },
 ];
 const TOTAL = PHOTOS.length;
 
@@ -107,9 +106,9 @@ function GaleriePage() {
                 loading="lazy"
                 className="w-full object-cover"
               />
-              <div className="bg-card px-4 py-2.5 flex items-center justify-between">
-                <span className="text-xs text-muted-foreground">{p.date}</span>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-primary">Avant / Après</span>
+              <div className="bg-card px-4 py-3 flex flex-col items-center justify-center text-center">
+                <span className="text-sm font-bold text-foreground">{p.city}</span>
+                <span className="text-[10px] text-muted-foreground uppercase tracking-widest mt-0.5">{p.date}</span>
               </div>
             </div>
           ))}

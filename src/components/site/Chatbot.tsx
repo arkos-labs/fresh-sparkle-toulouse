@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { MessageCircle, X, ChevronRight, CornerDownLeft, Send } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useRouter } from "@tanstack/react-router";
 import { faqData, welcomeMessage, type FAQNode } from "@/config/faqData";
 
 type Message = {
@@ -146,6 +147,9 @@ Consignes importantes :
 }
 
 export function Chatbot() {
+  const router = useRouter();
+  const isReserver = router.state.location.pathname.startsWith('/reserver');
+
   const [isOpen, setIsOpen] = useState(false);
   const [inputText, setInputText] = useState("");
   const [contactStep, setContactStep] = useState<"none" | "name" | "email" | "phone" | "message">("none");
@@ -316,7 +320,7 @@ export function Chatbot() {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-28 lg:bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-colors hover:bg-primary/90 ${isOpen ? "pointer-events-none opacity-0" : "opacity-100"}`}
+        className={`fixed bottom-28 lg:bottom-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-colors hover:bg-primary/90 ${isOpen ? "pointer-events-none opacity-0" : "opacity-100"} ${isReserver ? "left-6 lg:left-auto lg:right-6" : "right-6"}`}
         aria-label="Ouvrir le chat"
       >
         <MessageCircle size={28} />
@@ -330,7 +334,7 @@ export function Chatbot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-28 lg:bottom-6 right-6 z-50 flex h-[520px] max-h-[80vh] w-[360px] max-w-[calc(100vw-3rem)] flex-col overflow-hidden rounded-2xl border border-border bg-background shadow-2xl"
+            className={`fixed bottom-28 lg:bottom-6 z-50 flex h-[520px] max-h-[80vh] w-[360px] max-w-[calc(100vw-3rem)] flex-col overflow-hidden rounded-2xl border border-border bg-background shadow-2xl ${isReserver ? "left-6 lg:left-auto lg:right-6" : "right-6"}`}
           >
             {/* Header */}
             <div className="flex items-center justify-between bg-primary p-4 text-primary-foreground">

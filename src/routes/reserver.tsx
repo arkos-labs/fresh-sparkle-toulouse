@@ -61,14 +61,14 @@ const SERVICES: ServiceDef[] = [
     from: 15, icon: <Armchair className="size-8" strokeWidth={1.5} />,
     features: ["Fauteuil, canapé 2/3, 4/5 places", "Canapé U/angle, pouf, chaise", "Options anti-acariens, anti-odeur"],
     formules: [
-      { id: "fauteuil",     name: "Fauteuil",                       price: 49,  duration: "45 min",  durationMin: 45,  options: CAN },
-      { id: "canape-2",     name: "Canapé 2 places",                 price: 79,  duration: "1h",      durationMin: 60,  options: CAN },
-      { id: "canape-3",     name: "Canapé 3 places",                 price: 79,  duration: "1h",      durationMin: 60,  options: CAN },
-      { id: "canape-angle", name: "Canapé d'angle",                  price: 99,  duration: "1h",      durationMin: 60,  options: CAN },
-      { id: "canape-45",    name: "Canapé 4/5 places",               price: 99,  duration: "1h",      durationMin: 60,  options: CAN },
-      { id: "canape-u",     name: "Canapé en U",                     price: 99,  duration: "1h15",    durationMin: 75,  options: CAN },
-      { id: "pouf",         name: "Pouf",                            price: 19,  duration: "20 min",  durationMin: 20,  options: CAN },
-      { id: "chaise",       name: "Chaise rembourrée (à la pièce)",  price: 15,  duration: "15 min",  durationMin: 15,  options: CAN },
+      { id: "fauteuil",     name: "Fauteuil",                       desc: "Nettoyage complet 1 place.", price: 49,  duration: "45 min",  durationMin: 45,  options: CAN },
+      { id: "canape-2",     name: "Canapé 2 places",                 desc: "Nettoyage complet pour 2 assises.", price: 79,  duration: "1h",      durationMin: 60,  options: CAN },
+      { id: "canape-3",     name: "Canapé 3 places",                 desc: "Nettoyage complet pour 3 assises.", price: 79,  duration: "1h",      durationMin: 60,  options: CAN },
+      { id: "canape-angle", name: "Canapé d'angle",                  desc: "Méridienne incluse.", price: 99,  duration: "1h",      durationMin: 60,  options: CAN },
+      { id: "canape-45",    name: "Canapé 4/5 places",               desc: "Idéal grand format.", price: 99,  duration: "1h",      durationMin: 60,  options: CAN },
+      { id: "canape-u",     name: "Canapé en U",                     desc: "Format panoramique XXL.", price: 99,  duration: "1h15",    durationMin: 75,  options: CAN },
+      { id: "pouf",         name: "Pouf",                            desc: "Nettoyage d'appoint.", price: 19,  duration: "20 min",  durationMin: 20,  options: CAN },
+      { id: "chaise",       name: "Chaise rembourrée",               desc: "À l'unité.", price: 15,  duration: "15 min",  durationMin: 15,  options: CAN },
     ],
   },
   {
@@ -77,13 +77,13 @@ const SERVICES: ServiceDef[] = [
     from: 49, icon: <Layers className="size-8" strokeWidth={1.5} />,
     features: ["1 tapis, 2 tapis, 3 tapis", "Toutes tailles et matières", "Options anti-acariens, recto-verso"],
     formules: [
-      { id: "tapis-1", name: "1 Tapis", price: 49, duration: "45 min", durationMin: 45, options: TAP },
-      { id: "tapis-2", name: "2 Tapis", price: 79, duration: "1h",     durationMin: 60, options: TAP },
-      { id: "tapis-3", name: "3 Tapis", price: 99, duration: "1h15",   durationMin: 75, options: TAP },
+      { id: "tapis-1", name: "1 Tapis", desc: "Toutes tailles confondues.", price: 49, duration: "45 min", durationMin: 45, options: TAP },
+      { id: "tapis-2", name: "2 Tapis", desc: "Toutes tailles confondues.", price: 79, duration: "1h",     durationMin: 60, options: TAP },
+      { id: "tapis-3", name: "3 Tapis", desc: "Toutes tailles confondues.", price: 99, duration: "1h15",   durationMin: 75, options: TAP },
     ],
   },
   {
-    id: "auto", label: "Nettoyage Intérieur Auto", shortLabel: "Auto",
+    id: "auto", label: "Nettoyage Intérieur Auto", shortLabel: "Intérieur auto",
     desc: "Shampouinage des sièges, moquettes et plastiques pour un habitacle comme neuf.",
     from: 69, icon: <Car className="size-8" strokeWidth={1.5} />,
     features: ["Pack Bronze, Argent, Or", "Sièges, plastiques, vitres, coffre", "Options poils, anti-odeur, ciel de toit"],
@@ -100,9 +100,9 @@ const SERVICES: ServiceDef[] = [
     from: 39, icon: <BedDouble className="size-8" strokeWidth={1.5} />,
     features: ["Matelas enfant, 1 place, 2 places", "Traitement anti-acariens en option", "Recommandé pour les allergiques"],
     formules: [
-      { id: "matelas-enfant", name: "Matelas enfant",   price: 39,  duration: "30 min", durationMin: 30, options: MAT },
-      { id: "matelas-1",      name: "Matelas 1 place",  price: 59,  duration: "1h",     durationMin: 60, options: MAT },
-      { id: "matelas-2",      name: "Matelas 2 places", price: 99,  duration: "1h",     durationMin: 60, options: MAT },
+      { id: "matelas-enfant", name: "Matelas enfant",   desc: "Jusqu'à 90x190cm.", price: 39,  duration: "30 min", durationMin: 30, options: MAT },
+      { id: "matelas-1",      name: "Matelas 1 place",  desc: "De 90x190 à 120x190cm.", price: 59,  duration: "1h",     durationMin: 60, options: MAT },
+      { id: "matelas-2",      name: "Matelas 2 places", desc: "À partir de 140x190cm.", price: 99,  duration: "1h",     durationMin: 60, options: MAT },
     ],
   },
 ];
@@ -131,7 +131,7 @@ const FORMULE_IMAGES: Record<string, Record<string, string>> = {
     "bronze": "/images/auto/bronze.png",
     "argent": "/images/auto/argent.png",
     "or":     "/images/auto/or.png",
-    "siege":  "/images/auto/argent.png",
+    "siege":  "/images/auto/renov.png",
   },
   matelas: {
     "matelas-enfant": "/images/matelas/enfant.png",
@@ -750,33 +750,55 @@ function ReserverPage() {
 
           {/* Récap complet */}
           <div className="mt-6 rounded-2xl border border-border bg-card p-5 text-left space-y-3">
-            <div className="flex justify-between text-sm">
+            <div className="flex justify-between text-sm border-b border-border/40 pb-2">
               <span className="text-muted-foreground">Client</span>
               <span className="font-semibold">{form.name}</span>
             </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Prestation</span>
-              <span className="font-semibold">{formule?.name}</span>
+            
+            <div className="py-2 border-b border-border/40 space-y-2">
+              <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-1 block">Prestations réservées</span>
+              {cart.map((item, idx) => (
+                <div key={idx} className="pb-1.5">
+                  <div className="flex justify-between text-sm">
+                    <span className="font-medium text-foreground">{item.formule.name}</span>
+                    <span className="font-semibold">{item.formule.price} €</span>
+                  </div>
+                  {item.formule.options.filter(o => item.options.includes(o.id)).map(o => (
+                    <div key={o.id} className="flex justify-between text-xs mt-0.5 text-muted-foreground pl-2">
+                      <span>+ {o.name}</span>
+                      <span>+{o.price} €</span>
+                    </div>
+                  ))}
+                </div>
+              ))}
+              <div className="pb-1.5">
+                <div className="flex justify-between text-sm">
+                  <span className="font-medium text-foreground">{formule?.name}</span>
+                  <span className="font-semibold">{formule?.price} €</span>
+                </div>
+                {formule?.options.filter(o => selectedOptions.includes(o.id)).map(o => (
+                  <div key={o.id} className="flex justify-between text-xs mt-0.5 text-muted-foreground pl-2">
+                    <span>+ {o.name}</span>
+                    <span>+{o.price} €</span>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="flex justify-between text-sm">
+
+            <div className="flex justify-between text-sm pt-2">
               <span className="text-muted-foreground">Date</span>
-              <span className="font-semibold text-primary">
-                {selectedDate?.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" })} à {selectedTime}
+              <span className="font-semibold text-primary text-right">
+                {selectedDate?.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" })}<br/>à {selectedTime}
               </span>
             </div>
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">Lieu</span>
               <span className="font-semibold text-right max-w-[60%]">{fullAddress}</span>
             </div>
-            {optTotal > 0 && (
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Tarif de base</span>
-                <span className="font-semibold">{formule?.price} €</span>
-              </div>
-            )}
-            <div className="flex justify-between text-sm border-t border-border pt-2">
-              <span className="font-bold">Total{optTotal > 0 ? " (avec options)" : ""}</span>
-              <span className="font-bold">{total} €</span>
+            
+            <div className="flex justify-between text-sm border-t border-border pt-3 mt-3">
+              <span className="font-bold text-lg">Total</span>
+              <span className="font-bold text-lg text-primary">{total} €</span>
             </div>
             <p className="text-[10px] text-muted-foreground mt-1">
               * Frais de déplacement offerts jusqu'à 20 km. Au-delà : +10 € par tranche de 15 km (réglable sur place).
@@ -851,7 +873,7 @@ function ReserverPage() {
                 <div className="mt-4 grid grid-cols-4 gap-1.5 md:mt-8 md:gap-4 md:grid-cols-4">
                   {SERVICES.map(s => (
                     <button key={s.id} onClick={() => { setService(s); setShowCategories(false); }}
-                      className="group relative flex flex-col items-center md:items-start rounded-xl md:rounded-2xl border border-border bg-white p-2 md:p-6 text-center md:text-left shadow-sm transition-all hover:border-primary/50 hover:shadow-md">
+                      className="group relative flex flex-col items-center rounded-xl md:rounded-2xl border border-border bg-white p-2 md:p-6 text-center shadow-sm transition-all hover:border-primary/50 hover:shadow-md">
                       {s.badge && (
                         <span className="absolute -top-2 left-1/2 -translate-x-1/2 rounded-full bg-[#0055ff] px-1.5 py-0.5 text-[8px] font-bold text-white shadow-md whitespace-nowrap scale-90 md:scale-100">
                           {s.badge}
@@ -866,10 +888,10 @@ function ReserverPage() {
                       <p className="text-sm md:text-4xl font-bold text-primary mb-1 md:mb-4">
                         {s.from} €
                       </p>
-                      <h3 className="text-[10px] md:text-lg font-bold text-foreground mb-1 md:mb-4 leading-tight line-clamp-1 w-full">
+                      <h3 className="text-[10px] md:text-lg font-bold text-foreground mb-1 md:mb-4 leading-tight line-clamp-1 w-full text-center">
                         {s.shortLabel || s.label}
                       </h3>
-                      <ul className="space-y-2.5 mb-6 flex-1 text-sm text-muted-foreground hidden md:block w-full">
+                      <ul className="space-y-2.5 mb-6 flex-1 text-sm text-muted-foreground hidden md:block w-full text-left">
                         {s.features.map(f => (
                           <li key={f} className="flex gap-2 items-start">
                             <CheckCircle2 className="size-4 shrink-0 mt-0.5 text-primary" />
@@ -901,10 +923,10 @@ function ReserverPage() {
                     </button>
                   )}
                 </div>
-                <div className={`grid gap-3 ${
-                  service.formules.length === 3 ? "grid-cols-3" :
-                  service.formules.length === 4 ? "grid-cols-2 sm:grid-cols-4" :
-                  "grid-cols-3 sm:grid-cols-4"
+                <div className={`grid gap-3 sm:gap-4 ${
+                  service.formules.length === 3 ? "grid-cols-1 sm:grid-cols-3" :
+                  service.formules.length === 4 ? "grid-cols-2 lg:grid-cols-4" :
+                  "grid-cols-2 lg:grid-cols-4"
                 }`}>
                   {service.formules.map(f => {
                     const active = formule?.id === f.id;
@@ -913,10 +935,10 @@ function ReserverPage() {
                       <button
                         key={f.id}
                         onClick={() => handleSelectFormule(f)}
-                        className={`relative flex flex-col items-center rounded-[18px] border-2 px-2 py-3 text-center transition-all duration-200 hover:-translate-y-0.5 ${
+                        className={`relative flex flex-col items-center rounded-[20px] border-2 px-3 py-4 text-center transition-all duration-200 hover:-translate-y-1 ${
                           active
                             ? "border-[#7cdcdc] bg-[#d0ebeb]/70 shadow-[0_0_20px_-5px_rgba(124,220,220,0.5)]"
-                            : "border-transparent bg-[#e5e9f0]/60 hover:shadow-md hover:border-primary/20"
+                            : "border-transparent bg-[#e5e9f0]/60 hover:shadow-lg hover:border-primary/20"
                         }`}
                       >
                         {/* Image ou icône */}
@@ -932,13 +954,13 @@ function ReserverPage() {
                             <div className="flex size-12 items-center justify-center opacity-60">{service.icon}</div>
                           )}
                         </div>
-                        <p className="text-[9px] font-semibold uppercase tracking-widest text-muted-foreground/80 leading-none">Dès</p>
-                        <p className={`text-sm md:text-base font-bold leading-tight mt-1 ${active ? "text-[#1a2b4c]" : "text-foreground"}`}>
+                        <p className="text-[10px] md:text-xs font-semibold uppercase tracking-widest text-muted-foreground/80 leading-none mt-1">Dès</p>
+                        <p className={`text-lg md:text-2xl font-bold leading-tight mt-1.5 ${active ? "text-[#1a2b4c]" : "text-foreground"}`}>
                           {f.price} €
                         </p>
-                        <p className="text-[10px] font-medium text-muted-foreground leading-snug mt-1 px-1">{f.name}</p>
+                        <p className="text-sm md:text-base font-bold text-foreground/90 leading-snug mt-2 px-1 w-full text-center">{f.name}</p>
                         {f.desc && (
-                          <p className="hidden md:block text-[9px] text-muted-foreground/70 mt-0.5 px-1 leading-tight line-clamp-2">{f.desc}</p>
+                          <p className="text-xs md:text-sm text-muted-foreground mt-1.5 px-2 leading-snug w-full text-center">{f.desc}</p>
                         )}
                       </button>
                     );
@@ -1092,16 +1114,34 @@ function ReserverPage() {
                   {/* Récap final */}
                   <div className="rounded-2xl border border-border bg-secondary/40 p-5 space-y-2">
                     <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-3">Récapitulatif</p>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">{formule.name}</span>
-                      <span className="font-semibold">{formule.price} €</span>
-                    </div>
-                    {formule.options.filter(o => selectedOptions.includes(o.id)).map(o => (
-                      <div key={o.id} className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">{o.name}</span>
-                        <span className="font-semibold text-primary">+{o.price} €</span>
+                    
+                    {cart.map((item, idx) => (
+                      <div key={idx} className="pb-2 mb-2 border-b border-border/30">
+                        <div className="flex justify-between text-sm">
+                          <span className="text-muted-foreground font-semibold">{item.formule.name}</span>
+                          <span className="font-semibold">{item.formule.price} €</span>
+                        </div>
+                        {item.formule.options.filter(o => item.options.includes(o.id)).map(o => (
+                          <div key={o.id} className="flex justify-between text-xs mt-1 pl-2">
+                            <span className="text-muted-foreground">+ {o.name}</span>
+                            <span className="font-semibold text-primary">+{o.price} €</span>
+                          </div>
+                        ))}
                       </div>
                     ))}
+                    
+                    <div className="pb-2 mb-2 border-b border-border/30">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground font-semibold">{formule.name}</span>
+                        <span className="font-semibold">{formule.price} €</span>
+                      </div>
+                      {formule.options.filter(o => selectedOptions.includes(o.id)).map(o => (
+                        <div key={o.id} className="flex justify-between text-xs mt-1 pl-2">
+                          <span className="text-muted-foreground">+ {o.name}</span>
+                          <span className="font-semibold text-primary">+{o.price} €</span>
+                        </div>
+                      ))}
+                    </div>
                     <div className="border-t border-border pt-2 flex justify-between">
                       <span className="font-bold">Total estimé</span>
                       <span className="font-bold text-lg">{total} €</span>
