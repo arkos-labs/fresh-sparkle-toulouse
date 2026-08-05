@@ -2,7 +2,7 @@ import { useState, type ReactNode } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   CalendarCheck, Phone, Star, ArrowRight, Armchair, Car,
-  CheckCircle2, Info, Layers, BedDouble, MapPin, Zap, Shield, Leaf, ChevronRight,
+  CheckCircle2, Info, Layers, BedDouble, MapPin, Zap, Shield, Leaf, ChevronRight, Clock,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
@@ -39,12 +39,12 @@ export const Route = createFileRoute("/formules")({
 // ─── DATA ─────────────────────────────────────────────────────────────────────
 
 const CANAPE_ITEMS = [
-  { id: "fauteuil", label: "Fauteuil", price: "49 €", desc: "Injection-extraction de l'assise et du dossier. Résultat visible en moins d'1h." },
-  { id: "canape-2", label: "Canapé 2 / 3 places", price: "79 €", popular: true, desc: "Notre prestation la plus demandée. Assise, dossier et coussins amovibles traités en profondeur." },
-  { id: "canape-45", label: "Canapé 4 / 5 places", price: "99 €", desc: "Grande surface traitée intégralement. Idéal même pour les canapés très encrassés." },
-  { id: "canape-u", label: "Canapé U / Angle", price: "99 €", desc: "Tous les modules y compris la partie angle. Aucun recoin oublié." },
-  { id: "pouf", label: "Pouf", price: "19 €", desc: "Tissu, velours, toutes matières. Idéal à combiner avec le nettoyage canapé." },
-  { id: "chaise", label: "Chaise rembourrée", price: "15 € / pièce", desc: "Propre et désinfectée en quelques minutes. Tarif dégressif à partir de 4 chaises." },
+  { id: "fauteuil",  label: "Fauteuil",           price: "49 €",        duration: "45 min", desc: "Injection-extraction de l'assise et du dossier. Résultat visible en moins d'1h." },
+  { id: "canape-2",  label: "Canapé 2 / 3 places", price: "79 €",       duration: "1h",     popular: true, desc: "Notre prestation la plus demandée. Assise, dossier et coussins amovibles traités en profondeur." },
+  { id: "canape-45", label: "Canapé 4 / 5 places", price: "99 €",       duration: "1h",     desc: "Grande surface traitée intégralement. Idéal même pour les canapés très encrassés." },
+  { id: "canape-u",  label: "Canapé U / Angle",    price: "99 €",       duration: "1h",     desc: "Tous les modules y compris la partie angle. Aucun recoin oublié." },
+  { id: "pouf",      label: "Pouf",                price: "19 €",       duration: "30 min", desc: "Tissu, velours, toutes matières. Idéal à combiner avec le nettoyage canapé." },
+  { id: "chaise",    label: "Chaise rembourrée",   price: "15 € / pièce", duration: "20 min", desc: "Propre et désinfectée en quelques minutes. Tarif dégressif à partir de 4 chaises." },
 ];
 
 const CANAPE_OPTIONS = [
@@ -69,7 +69,7 @@ const MATELAS_OPTIONS = [
 
 const AUTO_PACKS = [
   {
-    id: "bronze", emoji: "🥉", name: "Pack Bronze", price: "69 €", tagline: "Entretien régulier",
+    id: "bronze", emoji: "🥉", name: "Pack Bronze", price: "69 €", tagline: "Entretien régulier", duration: "1h",
     badge: null as string | null, featured: false,
     included: ["Aspiration complète de l'habitacle", "Nettoyage des plastiques et tableau de bord", "Nettoyage des vitres intérieures", "Nettoyage des tapis de sol", "Résultat professionnel"],
     options: [
@@ -82,7 +82,7 @@ const AUTO_PACKS = [
     ],
   },
   {
-    id: "argent", emoji: "🥈", name: "Pack Argent", price: "99 €", tagline: "Nettoyage complet",
+    id: "argent", emoji: "🥈", name: "Pack Argent", price: "99 €", tagline: "Nettoyage complet", duration: "1h30",
     badge: "⭐ Le + vendu" as string | null, featured: true,
     included: ["Tout le Pack Bronze inclus", "Injection-extraction des sièges tissu", "Vitres sans traces (intérieur + extérieur)", "Joints et recoins traités en détail", "Résultat professionnel"],
     options: [
@@ -95,7 +95,7 @@ const AUTO_PACKS = [
     ],
   },
   {
-    id: "or", emoji: "🥇", name: "Pack Or", price: "129 €", tagline: "État showroom",
+    id: "or", emoji: "🥇", name: "Pack Or", price: "129 €", tagline: "État showroom", duration: "2h",
     badge: "✨ Premium" as string | null, featured: false,
     included: ["Tout le Pack Argent inclus", "Shampouinage injection-extraction moquettes", "Nettoyage complet du coffre", "Nettoyage contour et bas de porte", "Idéal avant revente ou reprise"],
     options: [
@@ -218,6 +218,11 @@ function CanapeDetail() {
               <p className="text-[11px] font-medium text-muted-foreground leading-snug mt-1.5 text-center px-1">
                 {c.label}
               </p>
+              {"duration" in c && c.duration && (
+                <p className="mt-1 flex items-center justify-center gap-1 text-[10px] text-muted-foreground/60 leading-none">
+                  <Clock className="size-2.5 shrink-0" /> {(c as { duration: string }).duration}
+                </p>
+              )}
             </button>
           );
         })}
@@ -241,6 +246,11 @@ function CanapeDetail() {
             <div className="sm:text-right">
               <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold">À partir de</p>
               <p className="text-5xl font-black text-primary leading-none mt-1">{item.price}</p>
+              {"duration" in item && item.duration && (
+                <p className="flex items-center gap-1.5 sm:justify-end text-xs text-muted-foreground font-medium mt-1.5">
+                  <Clock className="size-3.5 shrink-0" /> {(item as { duration: string }).duration} d'intervention
+                </p>
+              )}
             </div>
             <Link to="/reserver" search={{ service: "canape", formule: selected }} onClick={() => window.scrollTo(0,0)}
               className="inline-flex items-center justify-center gap-2 w-full rounded-xl bg-primary px-6 py-3.5 text-sm font-bold text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all">
@@ -383,9 +393,9 @@ const SVG_MATELAS_2PLACES = (
 // ─── TAPIS DETAIL ─────────────────────────────────────────────────────────────
 
 const TAPIS_ITEMS = [
-  { id: "tapis-1", label: "1 tapis", price: "49 €", desc: "Fibres et couleurs ravivées, Traitement des taches et odeurs. Résultat professionnel." },
-  { id: "tapis-2", label: "2 tapis", price: "79 €", desc: "Économisez 19 € vs 2 × 1 tapis. Traitement des taches et odeurs. Résultat professionnel." },
-  { id: "tapis-3", label: "3 tapis", price: "99 €", desc: "Toute la maison en 1 visite. Traitement des taches et odeurs. Résultat professionnel." },
+  { id: "tapis-1", label: "1 tapis", price: "49 €", duration: "45 min", desc: "Fibres et couleurs ravivées, Traitement des taches et odeurs. Résultat professionnel." },
+  { id: "tapis-2", label: "2 tapis", price: "79 €", duration: "1h",     desc: "Économisez 19 € vs 2 × 1 tapis. Traitement des taches et odeurs. Résultat professionnel." },
+  { id: "tapis-3", label: "3 tapis", price: "99 €", duration: "1h15",   desc: "Toute la maison en 1 visite. Traitement des taches et odeurs. Résultat professionnel." },
 ];
 
 function TapisDetail() {
@@ -421,6 +431,11 @@ function TapisDetail() {
               <p className="text-[11px] font-medium text-muted-foreground leading-snug mt-1.5 text-center px-1">
                 {c.label}
               </p>
+              {"duration" in c && c.duration && (
+                <p className="mt-1 flex items-center justify-center gap-1 text-[10px] text-muted-foreground/60 leading-none">
+                  <Clock className="size-2.5 shrink-0" /> {(c as { duration: string }).duration}
+                </p>
+              )}
             </button>
           );
         })}
@@ -444,6 +459,11 @@ function TapisDetail() {
             <div className="sm:text-right">
               <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold">À partir de</p>
               <p className="text-5xl font-black text-primary leading-none mt-1">{item.price}</p>
+              {"duration" in item && item.duration && (
+                <p className="flex items-center gap-1.5 sm:justify-end text-xs text-muted-foreground font-medium mt-1.5">
+                  <Clock className="size-3.5 shrink-0" /> {(item as { duration: string }).duration} d'intervention
+                </p>
+              )}
             </div>
             <Link to="/reserver" search={{ service: "tapis", formule: selected }} onClick={() => window.scrollTo(0,0)}
               className="inline-flex items-center justify-center gap-2 w-full rounded-xl bg-primary px-6 py-3.5 text-sm font-bold text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all">
@@ -503,6 +523,11 @@ function AutoDetail() {
               <p className="text-[11px] font-medium text-muted-foreground leading-snug mt-1.5 text-center px-1">
                 {c.name}
               </p>
+              {"duration" in c && c.duration && (
+                <p className="mt-1 flex items-center justify-center gap-1 text-[10px] text-muted-foreground/60 leading-none">
+                  <Clock className="size-2.5 shrink-0" /> {(c as { duration: string }).duration}
+                </p>
+              )}
             </button>
           );
         })}
@@ -526,6 +551,11 @@ function AutoDetail() {
             <div className="sm:text-right">
               <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold">Tarif</p>
               <p className="text-5xl font-black text-primary leading-none mt-1">{item.price}</p>
+              {"duration" in item && item.duration && (
+                <p className="flex items-center gap-1.5 sm:justify-end text-xs text-muted-foreground font-medium mt-1.5">
+                  <Clock className="size-3.5 shrink-0" /> {(item as { duration: string }).duration} d'intervention
+                </p>
+              )}
             </div>
             <Link to="/reserver" search={{ service: "auto", formule: selected }} onClick={() => window.scrollTo(0,0)}
               className="inline-flex items-center justify-center gap-2 w-full rounded-xl bg-primary px-6 py-3.5 text-sm font-bold text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all">
@@ -546,9 +576,9 @@ function AutoDetail() {
 // ─── MATELAS DETAIL ───────────────────────────────────────────────────────────
 
 const MATELAS_ITEMS = [
-  { id: "matelas-enfant", label: "Matelas enfant", price: "39 €", desc: "Votre enfant dort dans un lit sain. Traitement des taches et odeurs, 2 côtés. Traitement anti-acariens en option. Résultat professionnel." },
-  { id: "matelas-1", label: "Matelas 1 place", price: "59 €", desc: "Dormez dans un matelas comme neuf. Traitement des taches et odeurs, 2 côtés. Traitement anti-acariens en option. Résultat professionnel." },
-  { id: "matelas-2", label: "Matelas 2 places", price: "99 €", desc: "Chambre entièrement assainie. Traitement des taches et odeurs, 2 côtés. Traitement anti-acariens en option. Résultat professionnel." },
+  { id: "matelas-enfant", label: "Matelas enfant",   price: "39 €", duration: "30 min", desc: "Votre enfant dort dans un lit sain. Traitement des taches et odeurs, 2 côtés. Traitement anti-acariens en option. Résultat professionnel." },
+  { id: "matelas-1",      label: "Matelas 1 place",  price: "59 €", duration: "1h",     desc: "Dormez dans un matelas comme neuf. Traitement des taches et odeurs, 2 côtés. Traitement anti-acariens en option. Résultat professionnel." },
+  { id: "matelas-2",      label: "Matelas 2 places", price: "99 €", duration: "1h",     desc: "Chambre entièrement assainie. Traitement des taches et odeurs, 2 côtés. Traitement anti-acariens en option. Résultat professionnel." },
 ];
 
 function MatelasDetail() {
@@ -587,6 +617,11 @@ function MatelasDetail() {
               <p className="text-[11px] font-medium text-muted-foreground leading-snug mt-1.5 text-center px-1">
                 {c.label}
               </p>
+              {"duration" in c && c.duration && (
+                <p className="mt-1 flex items-center justify-center gap-1 text-[10px] text-muted-foreground/60 leading-none">
+                  <Clock className="size-2.5 shrink-0" /> {(c as { duration: string }).duration}
+                </p>
+              )}
             </button>
           );
         })}
@@ -610,6 +645,11 @@ function MatelasDetail() {
             <div className="sm:text-right">
               <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold">À partir de</p>
               <p className="text-5xl font-black text-primary leading-none mt-1">{item.price}</p>
+              {"duration" in item && item.duration && (
+                <p className="flex items-center gap-1.5 sm:justify-end text-xs text-muted-foreground font-medium mt-1.5">
+                  <Clock className="size-3.5 shrink-0" /> {(item as { duration: string }).duration} d'intervention
+                </p>
+              )}
             </div>
             <Link to="/reserver" search={{ service: "matelas", formule: selected }} onClick={() => window.scrollTo(0,0)}
               className="inline-flex items-center justify-center gap-2 w-full rounded-xl bg-primary px-6 py-3.5 text-sm font-bold text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all">
@@ -720,7 +760,23 @@ function FormulesPage() {
         </div>
       </FadeIn>
 
-
+      {/* ── DÉTAIL FORMULES PAR SERVICE ── */}
+      {CATEGORIES.map((cat) => (
+        <FadeIn key={cat.id} delay={0.1}>
+          <section id={cat.id} className="mx-auto max-w-5xl px-4 mb-14">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="flex size-10 items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0">
+                {cat.icon}
+              </div>
+              <div>
+                <h2 className="text-xl font-bold leading-tight">{cat.title}</h2>
+                <p className="text-xs text-muted-foreground mt-0.5">{cat.sub}</p>
+              </div>
+            </div>
+            {cat.content}
+          </section>
+        </FadeIn>
+      ))}
 
       {/* ── AUTRES SERVICES ── */}
       <FadeIn delay={0.1}>

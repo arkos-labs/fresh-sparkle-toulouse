@@ -66,9 +66,9 @@ const SERVICES: ServiceDef[] = [
       { id: "canape-3",     name: "Canapé 3 places",                 desc: "Nettoyage complet pour 3 assises.", price: 79,  duration: "1h",      durationMin: 60,  options: CAN },
       { id: "canape-angle", name: "Canapé d'angle",                  desc: "Méridienne incluse.", price: 99,  duration: "1h",      durationMin: 60,  options: CAN },
       { id: "canape-45",    name: "Canapé 4/5 places",               desc: "Idéal grand format.", price: 99,  duration: "1h",      durationMin: 60,  options: CAN },
-      { id: "canape-u",     name: "Canapé en U",                     desc: "Format panoramique XXL.", price: 99,  duration: "1h15",    durationMin: 75,  options: CAN },
-      { id: "pouf",         name: "Pouf",                            desc: "Nettoyage d'appoint.", price: 19,  duration: "20 min",  durationMin: 20,  options: CAN },
-      { id: "chaise",       name: "Chaise rembourrée",               desc: "À l'unité.", price: 15,  duration: "15 min",  durationMin: 15,  options: CAN },
+      { id: "canape-u",     name: "Canapé en U",                     desc: "Format panoramique XXL.", price: 99,  duration: "1h",      durationMin: 60,  options: CAN },
+      { id: "pouf",         name: "Pouf",                            desc: "Nettoyage d'appoint.", price: 19,  duration: "30 min",  durationMin: 30,  options: CAN },
+      { id: "chaise",       name: "Chaise rembourrée",               desc: "À l'unité.", price: 15,  duration: "20 min",  durationMin: 20,  options: CAN },
     ],
   },
   {
@@ -90,7 +90,7 @@ const SERVICES: ServiceDef[] = [
     formules: [
       { id: "bronze", name: "Pack Bronze", desc: "Aspiration habitacle + coffre + nettoyage plastiques.",          price: 69,  duration: "1h",    durationMin: 60,  options: [OA, OPA, OV, OTS, OC, OSA, OO] },
       { id: "argent", name: "Pack Argent", desc: "Pack Bronze + shampouinage sièges + vitres sans traces.",        price: 99,  duration: "1h30",  durationMin: 90,  options: [OA, ODA, OPA, OTS, OC, OO] },
-      { id: "or",     name: "Pack Or",     desc: "Pack Argent + shampouinage tapis de sol et moquettes.",          price: 129, duration: "1h55",  durationMin: 115, options: [OA, ODA, OPA, OC, OO] },
+      { id: "or",     name: "Pack Or",     desc: "Pack Argent + shampouinage tapis de sol et moquettes.",          price: 129, duration: "2h",    durationMin: 120, options: [OA, ODA, OPA, OC, OO] },
       { id: "siege",  name: "Rénovation siège auto", desc: "Injection-extraction intensive d'un siège encrassé.",  price: 59,  duration: "45 min",durationMin: 45,  options: [OA, ODA, OPA, OO] },
     ],
   },
@@ -298,7 +298,7 @@ function CalendarPicker({
       </div>
 
       <p className="mt-2.5 text-[10px] md:text-[11px] text-center text-muted-foreground">
-        Lundi – Dimanche · 08h00 – 22h00
+        Lundi – Dimanche · 08h00 – 21h00 · Réservation 24h à l'avance
       </p>
     </div>
   );

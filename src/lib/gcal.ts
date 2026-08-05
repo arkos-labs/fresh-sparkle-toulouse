@@ -58,11 +58,14 @@ export function buildSlots(
   durationMin: number,
   busy: BusySlot[],
 ): { time: string; available: boolean }[] {
-  // Créneaux proposés : 08h – 20h00 (tous les jours, 7j/7)
+  // Créneaux proposés : 08h – 21h00 (tous les jours, 7j/7)
   const RAW_SLOTS = [
     "08:00", "09:30", "11:00", "12:30",
-    "14:00", "15:30", "17:00", "18:30", "20:00",
+    "14:00", "15:30", "17:00", "18:30", "20:00", "21:00",
   ];
+
+  // Limite : pas de réservation à moins de 24h à l'avance
+  const minBookingTime = new Date(Date.now() + 24 * 60 * 60 * 1000);
 
   return RAW_SLOTS.map((time) => {
     const parts = time.split(":").map(Number);
@@ -71,15 +74,8 @@ export function buildSlots(
     const slotStart = new Date(date);
     slotStart.setHours(h, m, 0, 0);
 
-    // Créneau de 20h : la prestation se terminerait à 20h + durée.
-    // On vérifie que la fin ne dépasse pas 22h (max).
-    const slotEnd = new Date(slotStart.getTime() + durationMin * 60_000);
-    if (slotEnd.getHours() >= 22 && slotEnd.getMinutes() > 0) {
-      return { time, available: false };
-    }
-
-    // Passé → indispo
-    if (slotStart <= new Date()) return { time, available: false };
+    // Trop tôt (moins de 24h) → indispo
+    if (slotStart <= minBookingTime) return { time, available: false };
 
     return { time, available: isSlotFree(slotStart, durationMin, busy) };
   });
