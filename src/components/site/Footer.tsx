@@ -1,8 +1,12 @@
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { CalendarCheck, Mail, Phone, Instagram, Facebook } from "lucide-react";
+import { CalendarCheck, Mail, Phone, Instagram, Facebook, ChevronDown } from "lucide-react";
 import { COMPANY, MENU_BATIMENT, MENU_TEXTILE } from "@/data/site";
 
 export function Footer() {
+  const [textileOpen, setTextileOpen] = useState(false);
+  const [batimentOpen, setBatimentOpen] = useState(false);
+
   return (
     <footer className="mt-20 bg-ink text-ink-foreground">
       {/* Top accent */}
@@ -28,11 +32,17 @@ export function Footer() {
         </div>
 
         {/* Textile & auto */}
-        <div className="col-span-2 sm:col-span-1">
-          <h2 className="text-[10px] font-bold uppercase tracking-widest text-ink-foreground/50">
-            Textile & auto
-          </h2>
-          <ul className="mt-4 space-y-2.5 text-sm text-ink-foreground/65">
+        <div className="col-span-2 md:col-span-1 border-b border-ink-foreground/10 md:border-none pb-4 md:pb-0">
+          <button
+            onClick={() => setTextileOpen(!textileOpen)}
+            className="flex w-full items-center justify-between text-left md:pointer-events-none md:block"
+          >
+            <h2 className="text-[10px] font-bold uppercase tracking-widest text-ink-foreground/50">
+              Textile & auto
+            </h2>
+            <ChevronDown className={`size-4 text-ink-foreground/50 transition-transform md:hidden ${textileOpen ? "rotate-180" : ""}`} />
+          </button>
+          <ul className={`mt-4 space-y-2.5 text-sm text-ink-foreground/65 md:block ${textileOpen ? "block" : "hidden"}`}>
             {MENU_TEXTILE.map((s) => (
               <li key={s.slug}>
                 <Link to={s.slug} className="hover:text-ink-foreground transition-colors">
@@ -44,11 +54,17 @@ export function Footer() {
         </div>
 
         {/* Bâtiment */}
-        <div className="col-span-2 sm:col-span-1">
-          <h2 className="text-[10px] font-bold uppercase tracking-widest text-ink-foreground/50">
-            Nettoyage bâtiment
-          </h2>
-          <ul className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2.5 sm:grid-cols-1 text-sm text-ink-foreground/65">
+        <div className="col-span-2 md:col-span-1 border-b border-ink-foreground/10 md:border-none pb-4 md:pb-0">
+          <button
+            onClick={() => setBatimentOpen(!batimentOpen)}
+            className="flex w-full items-center justify-between text-left md:pointer-events-none md:block"
+          >
+            <h2 className="text-[10px] font-bold uppercase tracking-widest text-ink-foreground/50">
+              Nettoyage bâtiment
+            </h2>
+            <ChevronDown className={`size-4 text-ink-foreground/50 transition-transform md:hidden ${batimentOpen ? "rotate-180" : ""}`} />
+          </button>
+          <ul className={`mt-4 grid grid-cols-2 gap-x-4 gap-y-2.5 md:grid-cols-1 md:block text-sm text-ink-foreground/65 ${batimentOpen ? "grid" : "hidden"}`}>
             {MENU_BATIMENT.map((s) => (
               <li key={s.slug}>
                 <Link to={s.slug} className="hover:text-ink-foreground transition-colors">
