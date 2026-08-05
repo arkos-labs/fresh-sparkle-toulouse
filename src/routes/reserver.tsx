@@ -552,6 +552,7 @@ function ReserverPage() {
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [form, setForm] = useState({ name: "", phone: "", email: "", street: "", zip: "", city: "" });
   const [submitting, setSubmitting] = useState(false);
+  const [slotTaken, setSlotTaken] = useState(false);
   const [cancelToken, setCancelToken] = useState<string>("");
   const [gcalEventId, setGcalEventId] = useState<string | null>(null);
   const [showSummaryMobile, setShowSummaryMobile] = useState(false);
@@ -565,7 +566,7 @@ function ReserverPage() {
     setStep(2);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-  const handleSelectDate = (d: Date) => { setSelectedDate(d); setSelectedTime(null); };
+  const handleSelectDate = (d: Date) => { setSelectedDate(d); setSelectedTime(null); setSlotTaken(false); };
 
   const handleContinue = () => {
     setStep(s => (s < 4 ? (s + 1) as 1|2|3|4 : s));
@@ -667,6 +668,17 @@ function ReserverPage() {
           cancel_token: baseToken,
         },
       });
+
+      // Créneau déjà pris → retour étape 3 avec message d'erreur
+      if (serverResult?.error === "SLOT_TAKEN") {
+        setSlotTaken(true);
+        setSelectedTime(null);
+        setStep(3);
+        setSubmitting(false);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+
       gcalId = serverResult?.gcal_event_id ?? null;
       if (gcalId) setGcalEventId(gcalId);
     } catch (gcalErr) {
@@ -1023,6 +1035,17 @@ function ReserverPage() {
                   <p className="mt-1 text-sm text-muted-foreground">Les créneaux grisés sont déjà réservés.</p>
                 </div>
 
+                {/* Bandeau créneau pris */}
+                {slotTaken && (
+                  <div className="mb-5 flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                    <Info className="mt-0.5 size-4 shrink-0 text-red-500" />
+                    <div>
+                      <p className="font-semibold">Ce créneau vient d'être réservé.</p>
+                      <p className="mt-0.5 text-red-600/80">Choisissez un autre horaire pour finaliser votre réservation.</p>
+                    </div>
+                  </div>
+                )}
+
                 <CalendarPicker
                   totalDuration={totalDuration}
                   selectedDate={selectedDate}
@@ -1035,7 +1058,7 @@ function ReserverPage() {
                       date={selectedDate}
                       totalDuration={totalDuration}
                       selected={selectedTime}
-                      onSelect={setSelectedTime}
+                      onSelect={(t) => { setSelectedTime(t); setSlotTaken(false); }}
                     />
                   </div>
                 )}

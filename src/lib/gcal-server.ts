@@ -183,6 +183,91 @@ export async function createCalendarEvent(
   }
 }
 
+// ─── Helpers timezone ────────────────────────────────────────────────────────
+
+/**
+ * Convertit une heure locale Paris (year, month1, day, hour, minute)
+ * en objet Date UTC en utilisant l'API Intl (gère CET/CEST automatiquement).
+ */
+function parisLocalToUtc(
+  year: number, month1: number, day: number, hour: number, minute: number,
+): Date {
+  // On crée une date candidate en UTC (en supposant heure Paris = heure UTC)
+  const candidate = new Date(Date.UTC(year, month1 - 1, day, hour, minute, 0));
+  // On lit ce que Paris affiche pour cette date UTC
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    timeZone: "Europe/Paris",
+    hour: "2-digit", minute: "2-digit", hour12: false,
+  });
+  const parts = formatter.formatToParts(candidate);
+  const pMap: Record<string, string> = {};
+  parts.forEach(p => { pMap[p.type] = p.value; });
+  const parisH = parseInt(pMap["hour"] ?? "0", 10);
+  const parisM = parseInt(pMap["minute"] ?? "0", 10);
+  // offset Paris (en minutes) = heure affichée - heure UTC de la candidate
+  let offsetMin = (parisH * 60 + parisM) - (hour * 60 + minute);
+  if (offsetMin > 720) offsetMin -= 1440;
+  if (offsetMin < -720) offsetMin += 1440;
+  // UTC réel = heure Paris - offset
+  return new Date(Date.UTC(year, month1 - 1, day, hour, minute, 0) - offsetMin * 60_000);
+}
+
+/**
+ * Vérifie que le créneau (booking_date + booking_time + duration_min)
+ * est encore disponible dans Google Calendar, via le service account.
+ * Retourne true si libre, false si occupé.
+ * Fail-open : retourne true si Google Calendar n'est pas configuré ou en cas d'erreur.
+ */
+export async function checkSlotAvailable(
+  booking_date: string,   // "2026-09-15"
+  booking_time: string,   // "10:00"
+  duration_min: number,
+): Promise<boolean> {
+  const { email, key, calId } = getConfig();
+  if (!email || !key || !calId) return true; // non configuré → on laisse passer
+
+  try {
+    const token = await getAccessToken(email, key);
+
+    const [y, mo, d] = booking_date.split("-").map(Number);
+    const [h, mi] = booking_time.split(":").map(Number);
+    const slotStart = parisLocalToUtc(y!, mo!, d!, h!, mi!);
+    const slotEnd   = new Date(slotStart.getTime() + duration_min * 60_000);
+
+    // Fenêtre de requête : la journée entière en UTC (+marge)
+    const timeMin = new Date(Date.UTC(y!, mo! - 1, d!, 0, 0, 0)).toISOString();
+    const timeMax = new Date(Date.UTC(y!, mo! - 1, d!, 23, 59, 59)).toISOString();
+
+    const res = await fetch("https://www.googleapis.com/calendar/v3/freeBusy", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ timeMin, timeMax, items: [{ id: calId }] }),
+    });
+
+    if (!res.ok) return true; // Fail open
+
+    const json = (await res.json()) as {
+      calendars?: Record<string, { busy?: { start: string; end: string }[] }>;
+    };
+    const busy = json.calendars?.[calId]?.busy ?? [];
+
+    const slotStartMs = slotStart.getTime();
+    const slotEndMs   = slotEnd.getTime();
+    const conflict = busy.some(b => {
+      const bs = new Date(b.start).getTime();
+      const be = new Date(b.end).getTime();
+      return slotStartMs < be && slotEndMs > bs;
+    });
+
+    return !conflict;
+  } catch {
+    return true; // Fail open
+  }
+}
+
 /**
  * Supprime un événement Google Calendar par son ID.
  * Utilisé lors d'une annulation.

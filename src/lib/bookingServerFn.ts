@@ -8,7 +8,7 @@
 
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { createCalendarEvent, buildEventDescription } from "@/lib/gcal-server";
+import { createCalendarEvent, buildEventDescription, checkSlotAvailable } from "@/lib/gcal-server";
 
 // ─── Schéma de validation ────────────────────────────────────────────────────
 
@@ -49,6 +49,21 @@ export const createBookingServerFn = createServerFn({ method: "POST" })
   .validator((data: BookingInput) => BookingInputSchema.parse(data))
   .handler(async ({ data }): Promise<BookingResult> => {
     try {
+      // ── 0. Vérifier que le créneau est encore libre ──
+      const slotFree = await checkSlotAvailable(
+        data.booking_date,
+        data.booking_time,
+        data.duration_min,
+      );
+      if (!slotFree) {
+        return {
+          success: false,
+          gcal_event_id: null,
+          cancel_token: data.cancel_token,
+          error: "SLOT_TAKEN",
+        };
+      }
+
       const siteUrl =
         process.env["VITE_SITE_URL"] ?? "https://fresh-sparkle-toulouse-6hqe.vercel.app";
       const ownerPhone =
