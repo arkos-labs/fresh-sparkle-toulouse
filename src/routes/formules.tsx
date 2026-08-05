@@ -871,28 +871,7 @@ function FormulesPage() {
         </FadeIn>
       )}
 
-      {/* ── PRESTATIONS RAPIDES ── */}
-      <FadeIn delay={0.1}>
-        <section className="mx-auto max-w-5xl px-4 mb-12">
-          <div className="rounded-2xl border border-primary/20 bg-primary/5 p-8 text-center shadow-sm">
-            <h2 className="text-xl font-bold tracking-tight mb-6">Réservez directement votre prestation</h2>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90 border border-primary/20 shadow-sm font-bold">
-                <Link to="/reserver" search={{ service: "canape" }}><Armchair className="size-4 mr-2" /> Canapé</Link>
-              </Button>
-              <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90 border border-primary/20 shadow-sm font-bold">
-                <Link to="/reserver" search={{ service: "matelas" }}><BedDouble className="size-4 mr-2" /> Matelas</Link>
-              </Button>
-              <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90 border border-primary/20 shadow-sm font-bold">
-                <Link to="/reserver" search={{ service: "tapis" }}><Layers className="size-4 mr-2" /> Tapis</Link>
-              </Button>
-              <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90 border border-primary/20 shadow-sm font-bold">
-                <Link to="/reserver" search={{ service: "auto" }}><Car className="size-4 mr-2" /> Auto</Link>
-              </Button>
-            </div>
-          </div>
-        </section>
-      </FadeIn>
+
 
       {/* ── AUTRES SERVICES ── */}
       <FadeIn delay={0.1}>
