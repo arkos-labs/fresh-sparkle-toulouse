@@ -395,6 +395,7 @@ export function Chatbot() {
                 type="text"
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
+                autoComplete="off"
                 placeholder={
                   contactStep === "name"
                     ? "Votre nom..."

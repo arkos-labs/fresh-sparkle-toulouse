@@ -145,12 +145,12 @@ function ContactPage() {
           <div className="grid gap-6 sm:grid-cols-2">
             <div className="grid gap-1">
               <Label htmlFor="nom" className="text-sm text-muted-foreground font-normal">Nom complet</Label>
-              <Input id="nom" name="nom" maxLength={100} placeholder="" className="rounded-none border-0 border-b border-border bg-transparent px-0 py-2 text-sm shadow-none focus-visible:ring-0 focus-visible:border-primary transition-colors" />
+              <Input id="nom" name="nom" autoComplete="off" maxLength={100} placeholder="" className="rounded-none border-0 border-b border-border bg-transparent px-0 py-2 text-sm shadow-none focus-visible:ring-0 focus-visible:border-primary transition-colors" />
               {errors["nom"] && <p className="text-xs text-destructive">{errors["nom"]}</p>}
             </div>
             <div className="grid gap-1">
               <Label htmlFor="telephone" className="text-sm text-muted-foreground font-normal">Téléphone</Label>
-              <Input id="telephone" name="telephone" maxLength={20} placeholder="" className="rounded-none border-0 border-b border-border bg-transparent px-0 py-2 text-sm shadow-none focus-visible:ring-0 focus-visible:border-primary transition-colors" />
+              <Input id="telephone" name="telephone" autoComplete="off" maxLength={20} placeholder="" className="rounded-none border-0 border-b border-border bg-transparent px-0 py-2 text-sm shadow-none focus-visible:ring-0 focus-visible:border-primary transition-colors" />
               {errors["telephone"] && <p className="text-xs text-destructive">{errors["telephone"]}</p>}
             </div>
           </div>
@@ -158,7 +158,7 @@ function ContactPage() {
           {/* Email */}
           <div className="grid gap-1">
             <Label htmlFor="email" className="text-sm text-muted-foreground font-normal">Email</Label>
-            <Input id="email" name="email" type="email" maxLength={255} placeholder="" className="rounded-none border-0 border-b border-border bg-transparent px-0 py-2 text-sm shadow-none focus-visible:ring-0 focus-visible:border-primary transition-colors" />
+            <Input id="email" name="email" type="email" autoComplete="off" maxLength={255} placeholder="" className="rounded-none border-0 border-b border-border bg-transparent px-0 py-2 text-sm shadow-none focus-visible:ring-0 focus-visible:border-primary transition-colors" />
             {errors["email"] && <p className="text-xs text-destructive">{errors["email"]}</p>}
           </div>
 

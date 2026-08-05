@@ -655,8 +655,8 @@ const CATEGORIES = [
     title: "Nettoyage Matelas",
     sub: "Option anti-acariens · 2 côtés traités · Allergiques",
     priceFrom: "39 €",
-    bullets: ["Matelas enfant, 1 place, 2 places", "Traitement anti-acariens en option", "Recommandé pour les allergiques"],
-    recommended: true,
+    bullets: ["Matelas enfant, 1 place, 2 places", "Traitement anti-acariens en option", "Idéal pour les allergiques"],
+    recommended: false,
     content: <MatelasDetail />,
   },
 ];

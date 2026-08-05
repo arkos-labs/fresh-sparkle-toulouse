@@ -178,7 +178,7 @@ export const SERVICES: Service[] = [
     ],
     prices: [
       { label: "Matelas enfant", price: "39 €", items: ["Nettoyage 2 côtés en profondeur", "Réutilisable le même jour", "Élimination des taches et auréoles", "Neutralisation des mauvaises odeurs"], formuleId: "matelas-enfant" },
-      { label: "Matelas 1 place", price: "59 €", items: ["Nettoyage 2 côtés en profondeur", "Réutilisable le même jour", "Élimination des taches et auréoles", "Neutralisation des mauvaises odeurs"], note: "Recommandé", formuleId: "matelas-1" },
+      { label: "Matelas 1 place", price: "59 €", items: ["Nettoyage 2 côtés en profondeur", "Réutilisable le même jour", "Élimination des taches et auréoles", "Neutralisation des mauvaises odeurs"], formuleId: "matelas-1" },
       { label: "Matelas 2 places", price: "99 €", items: ["Nettoyage 2 côtés en profondeur", "Réutilisable le même jour", "Élimination des taches et auréoles", "Neutralisation des mauvaises odeurs"], formuleId: "matelas-2" },
     ],
     priceNote: "Tarifs sur devis selon la taille et l'état du matelas — réponse gratuite sous 24h.",

@@ -950,7 +950,7 @@ function ReserverPage() {
                     <Label htmlFor="name" className="text-sm font-semibold">Nom complet *</Label>
                     <div className="relative mt-1.5">
                       <User className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
-                      <Input id="name" required placeholder="Jean Dupont" value={form.name}
+                      <Input id="name" required autoComplete="off" placeholder="Jean Dupont" value={form.name}
                         onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
                         className="pl-9" />
                     </div>
@@ -959,7 +959,7 @@ function ReserverPage() {
                     <Label htmlFor="phone" className="text-sm font-semibold">Téléphone *</Label>
                     <div className="relative mt-1.5">
                       <Phone className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
-                      <Input id="phone" required type="tel" placeholder="06 12 34 56 78" value={form.phone}
+                      <Input id="phone" required type="tel" autoComplete="off" placeholder="06 12 34 56 78" value={form.phone}
                         onChange={e => setForm(f => ({ ...f, phone: e.target.value }))}
                         className="pl-9" />
                     </div>
@@ -968,7 +968,7 @@ function ReserverPage() {
                     <Label htmlFor="email" className="text-sm font-semibold">Email *</Label>
                     <div className="relative mt-1.5">
                       <Mail className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
-                      <Input id="email" required type="email" placeholder="jean@exemple.fr" value={form.email}
+                      <Input id="email" required type="email" autoComplete="off" placeholder="jean@exemple.fr" value={form.email}
                         onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
                         className="pl-9" />
                     </div>
@@ -979,7 +979,7 @@ function ReserverPage() {
                     <Label htmlFor="street" className="text-sm font-semibold">Numéro et nom de rue *</Label>
                     <div className="relative mt-1.5">
                       <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
-                      <Input id="street" required placeholder="12 rue de la Paix" value={form.street}
+                      <Input id="street" required autoComplete="off" placeholder="12 rue de la Paix" value={form.street}
                         onChange={e => setForm(f => ({ ...f, street: e.target.value }))}
                         className="pl-9" />
                     </div>
@@ -989,7 +989,7 @@ function ReserverPage() {
                       <Label htmlFor="zip" className="text-sm font-semibold">Code postal *</Label>
                       <div className="relative mt-1.5">
                         <Hash className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
-                        <Input id="zip" required placeholder="31000" value={form.zip}
+                        <Input id="zip" required autoComplete="off" placeholder="31000" value={form.zip}
                           onChange={e => setForm(f => ({ ...f, zip: e.target.value }))}
                           className="pl-9" inputMode="numeric" maxLength={5} />
                       </div>
@@ -998,7 +998,7 @@ function ReserverPage() {
                       <Label htmlFor="city" className="text-sm font-semibold">Ville *</Label>
                       <div className="relative mt-1.5">
                         <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
-                        <Input id="city" required placeholder="Toulouse" value={form.city}
+                        <Input id="city" required autoComplete="off" placeholder="Toulouse" value={form.city}
                           onChange={e => setForm(f => ({ ...f, city: e.target.value }))}
                           className="pl-9" />
                       </div>
