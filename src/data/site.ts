@@ -177,9 +177,9 @@ export const SERVICES: Service[] = [
       "Odeurs persistantes",
     ],
     prices: [
-      { label: "Matelas enfant", price: "39 €", items: ["Nettoyage 2 côtés en profondeur", "Traitement anti-acariens inclus", "Élimination des taches et auréoles", "Neutralisation des mauvaises odeurs"], formuleId: "matelas-enfant" },
-      { label: "Matelas 1 place", price: "59 €", items: ["Nettoyage 2 côtés en profondeur", "Traitement anti-acariens inclus", "Élimination des taches et auréoles", "Neutralisation des mauvaises odeurs"], note: "Recommandé", formuleId: "matelas-1" },
-      { label: "Matelas 2 places", price: "99 €", items: ["Nettoyage 2 côtés en profondeur", "Traitement anti-acariens inclus", "Élimination des taches et auréoles", "Neutralisation des mauvaises odeurs"], formuleId: "matelas-2" },
+      { label: "Matelas enfant", price: "39 €", items: ["Nettoyage 2 côtés en profondeur", "Réutilisable le même jour", "Élimination des taches et auréoles", "Neutralisation des mauvaises odeurs"], formuleId: "matelas-enfant" },
+      { label: "Matelas 1 place", price: "59 €", items: ["Nettoyage 2 côtés en profondeur", "Réutilisable le même jour", "Élimination des taches et auréoles", "Neutralisation des mauvaises odeurs"], note: "Recommandé", formuleId: "matelas-1" },
+      { label: "Matelas 2 places", price: "99 €", items: ["Nettoyage 2 côtés en profondeur", "Réutilisable le même jour", "Élimination des taches et auréoles", "Neutralisation des mauvaises odeurs"], formuleId: "matelas-2" },
     ],
     priceNote: "Tarifs sur devis selon la taille et l'état du matelas — réponse gratuite sous 24h.",
     soils: ["Urine", "Transpiration", "Sang", "Moisissures", "Odeurs de renfermé"],
@@ -194,7 +194,7 @@ export const SERVICES: Service[] = [
       { q: "Peut-on enlever une ancienne tache d'urine sur un matelas ?", a: "Oui, dans la grande majorité des cas. Nous appliquons un détachage enzymatique ciblé avant l'injection-extraction. Les auréoles d'urine, même anciennes, sont éliminées ou très atténuées." },
       { q: "Combien de temps met un matelas à sécher ?", a: "Entre 3 et 6 heures selon l'épaisseur et le type de matelas. Pour accélérer, aérez la chambre ou activez le chauffage. Votre lit est utilisable le soir même." },
       { q: "Quels produits utilisez-vous pour le nettoyage de matelas ?", a: "Des produits certifiés Écolabel européen, sans danger pour les enfants, les personnes allergiques et les animaux. Aucun solvant agressif ni résidu chimique après séchage." },
-      { q: "Le nettoyage de matelas est-il recommandé pour les personnes allergiques ?", a: "Absolument. Le traitement anti-acariens inclus dans chaque prestation élimine les allergènes responsables des rhinites, eczémas et troubles du sommeil. Une intervention annuelle est idéale pour les personnes sensibles." },
+      { q: "Le nettoyage de matelas est-il recommandé pour les personnes allergiques ?", a: "Absolument. Le traitement anti-acariens disponible en option élimine les allergènes responsables des rhinites, eczémas et troubles du sommeil. Une intervention annuelle est idéale pour les personnes sensibles." },
     ],
   },
   {
@@ -268,7 +268,7 @@ export const SERVICES: Service[] = [
       "Sièges tissu et moquettes de sol",
       "Coffre et passages de roue intérieurs",
       "Plastiques, tableau de bord et contre-portes",
-      "Ciel de toit et vitres intérieures",
+      "Nettoyage des bas de porte et contour de porte",
       "Véhicules particuliers, utilitaires et flottes d'entreprise",
     ],
     problems: [
@@ -280,7 +280,7 @@ export const SERVICES: Service[] = [
     prices: [
       { label: "🥉 Pack Bronze", price: "69 €", items: ["Aspiration complète habitacle + coffre", "Nettoyage et rénovation des plastiques", "Remise en état visuel de l'habitacle"], note: "Idéal pour un entretien rapide et retrouver un intérieur propre au quotidien", formuleId: "bronze" },
       { label: "🥈 Pack Argent", price: "99 €", items: ["Tout le Pack Bronze inclus", "Injection-extraction des sièges tissu", "Vitres intérieures nettoyées sans traces", "Élimination des taches incrustées"], note: "Le plus vendu — habitacle transformé en 1h30", formuleId: "argent" },
-      { label: "🥇 Pack Or", price: "129 €", items: ["Tout le Pack Argent inclus", "Injection-extraction moquettes + coffre", "Shampouinage des tapis de sol", "Nettoyage du ciel de toit"], note: "Idéal avant une revente — objectif état showroom", formuleId: "or" },
+      { label: "🥇 Pack Or", price: "129 €", items: ["Tout le Pack Argent inclus", "Injection-extraction moquettes + coffre", "Shampouinage des tapis de sol", "Nettoyage contour et bas de porte"], note: "Idéal avant une revente — objectif état showroom", formuleId: "or" },
       { label: "Rénovation siège auto", price: "59 €", items: ["Siège traité en profondeur (tissu/Alcantara)", "Élimination des taches incrustées", "Neutralisation des mauvaises odeurs"], formuleId: "siege" },
     ],
     priceNote: "Tarifs sur devis selon la taille du véhicule et son état — réponse sous 24h.",

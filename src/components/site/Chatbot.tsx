@@ -43,6 +43,7 @@ async function sendViaWeb3Forms(data: {
   nom: string;
   email: string;
   telephone: string;
+  message?: string;
 }) {
   const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
   if (!accessKey) throw new Error("Clé Web3Forms manquante");
@@ -55,7 +56,7 @@ async function sendViaWeb3Forms(data: {
   formData.append("Nom", data.nom);
   formData.append("Téléphone", data.telephone);
   formData.append("Email", data.email);
-  formData.append("Message", "Le client a demandé à être recontacté depuis le chatbot du site.");
+  formData.append("Message", data.message || "Le client a demandé à être recontacté depuis le chatbot.");
 
   const response = await fetch("https://api.web3forms.com/submit", {
     method: "POST",
@@ -66,11 +67,81 @@ async function sendViaWeb3Forms(data: {
   if (!resData.success) throw new Error(resData.message || "Erreur Web3Forms");
 }
 
+// Sends query to Ollama or compatible API (e.g. Hostinger API Gateway)
+async function queryOllama(userMessage: string): Promise<string> {
+  const apiURL = import.meta.env.VITE_OLLAMA_API_URL || "http://localhost:11434/api/chat";
+  const apiKey = import.meta.env.VITE_OLLAMA_API_KEY || "";
+  const apiModel = import.meta.env.VITE_OLLAMA_MODEL || "llama3";
+
+  // Convert FAQ data to text to use as system prompt context
+  const faqContext = JSON.stringify(faqData, null, 2);
+
+  const systemPrompt = `Tu es l'assistant virtuel officiel de Clean&Fresh Toulouse. Ton rôle est de répondre aux questions des clients sur le nettoyage intérieur de voitures, nettoyage de canapés, tapis, matelas, fin de bail, et syndrome de Diogène.
+  
+Voici notre base de connaissances officielle à utiliser obligatoirement pour répondre précisément :
+${faqContext}
+
+Consignes importantes :
+1. Réponds poliment et de manière concise (maximum 3-4 phrases courtes).
+2. Utilise uniquement les faits mentionnés ci-dessus. N'invente pas d'informations.
+3. Si le client te demande de parler à un humain ou que sa demande requiert un devis complexe, dis-lui de choisir l'option "Je veux un devis ou parler à un conseiller".
+4. Réponds toujours en français.`;
+
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+  };
+
+  if (apiKey) {
+    headers["Authorization"] = `Bearer ${apiKey}`;
+  }
+
+  // Timeout controller (3.5 seconds) to prevent freezing if the API is offline/slow
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 3500);
+
+  try {
+    const response = await fetch(apiURL, {
+      method: "POST",
+      headers,
+      signal: controller.signal,
+      body: JSON.stringify({
+        model: apiModel,
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userMessage }
+        ],
+        stream: false
+      })
+    });
+
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      throw new Error(`Erreur API: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+
+    // Support both Ollama native format and standard OpenAI compatible format
+    if (data.message && data.message.content) {
+      return data.message.content;
+    }
+    if (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) {
+      return data.choices[0].message.content;
+    }
+
+    throw new Error("Format de réponse de l'API non supporté.");
+  } catch (error) {
+    clearTimeout(timeoutId);
+    throw error;
+  }
+}
+
 export function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [inputText, setInputText] = useState("");
-  const [contactStep, setContactStep] = useState<"none" | "name" | "email" | "phone">("none");
-  const [contactData, setContactData] = useState({ nom: "", email: "", telephone: "" });
+  const [contactStep, setContactStep] = useState<"none" | "name" | "email" | "phone" | "message">("none");
+  const [contactData, setContactData] = useState({ nom: "", email: "", telephone: "", message: "" });
   const [isSending, setIsSending] = useState(false);
 
   const [messages, setMessages] = useState<Message[]>([
@@ -78,7 +149,6 @@ export function Chatbot() {
       id: "welcome",
       sender: "bot",
       text: welcomeMessage,
-      options: faqData,
     },
   ]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -98,9 +168,13 @@ export function Chatbot() {
     }, delay);
   };
 
-  const startContactFlow = () => {
+  const startContactFlow = (isFallback = false) => {
     setContactStep("name");
-    addBotMessage("D'accord, un conseiller va vous recontacter. Quel est votre nom ?");
+    if (isFallback) {
+      addBotMessage("Je rencontre actuellement des difficultés de connexion. Pourriez-vous me laisser vos coordonnées afin qu'un conseiller vous rappelle ? Quel est votre nom ?");
+    } else {
+      addBotMessage("D'accord, un conseiller va vous recontacter. Quel est votre nom ?");
+    }
   };
 
   const handleOptionClick = (option: FAQNode) => {
@@ -132,6 +206,21 @@ export function Chatbot() {
       { id: Date.now().toString(), sender: "user", text: query },
     ]);
 
+    // --- Intercept requests to talk to a human/advisor ---
+    if (contactStep === "none") {
+      const normalizedQuery = query.toLowerCase();
+      const wantsHuman = [
+        "humain", "conseiller", "conseill", "rappel", "rappeler", 
+        "rappelle", "parler à", "contacter", "contact", 
+        "téléphone", "appeler", "appel"
+      ].some(kw => normalizedQuery.includes(kw));
+
+      if (wantsHuman) {
+        startContactFlow();
+        return;
+      }
+    }
+
     // --- Contact flow steps ---
     if (contactStep === "name") {
       setContactData((p) => ({ ...p, nom: query }));
@@ -148,7 +237,14 @@ export function Chatbot() {
     }
 
     if (contactStep === "phone") {
-      const finalData = { ...contactData, telephone: query };
+      setContactData((p) => ({ ...p, telephone: query }));
+      setContactStep("message");
+      addBotMessage("D'accord. Expliquez-moi brièvement votre besoin ou votre message :");
+      return;
+    }
+
+    if (contactStep === "message") {
+      const finalData = { ...contactData, message: query };
       setContactStep("none");
       setIsSending(true);
 
@@ -167,8 +263,7 @@ export function Chatbot() {
               id: Date.now().toString() + "-ok",
               sender: "bot",
               text: "✅ C'est noté ! Vos informations ont été envoyées avec succès. Un conseiller Clean&Fresh vous recontactera très rapidement.",
-              options: faqData,
-            })
+              })
         );
       } catch {
         setMessages((prev) =>
@@ -178,7 +273,6 @@ export function Chatbot() {
               id: Date.now().toString() + "-err",
               sender: "bot",
               text: "❌ Une erreur s'est produite lors de l'envoi. Veuillez réessayer ou utiliser directement la page de contact du site.",
-              options: faqData,
             })
         );
       } finally {
@@ -187,28 +281,22 @@ export function Chatbot() {
       return;
     }
 
-    // --- FAQ keyword search ---
-    setTimeout(() => {
-      const match = searchFAQ(faqData, query);
-      if (match) {
-        if (match.id === "contact") {
-          startContactFlow();
-          return;
-        }
-        addBotMessage(match.answer, match.options, 0);
-      } else {
-        addBotMessage(
-          "Je ne suis pas sûr de comprendre. Pouvez-vous reformuler, ou choisir l'une de ces options ?",
-          faqData,
-          0
-        );
-      }
-    }, 500);
+    // --- IA / Ollama Query with Keyword Search Fallback ---
+    setIsSending(true);
+    try {
+      const botResponse = await queryOllama(query);
+      addBotMessage(botResponse, undefined, 0);
+    } catch (error) {
+      console.warn("API Ollama inaccessible ou épuisée.", error);
+      startContactFlow(true);
+    } finally {
+      setIsSending(false);
+    }
   };
 
   const handleReset = () => {
     setContactStep("none");
-    addBotMessage("Voici le menu principal :", faqData);
+    addBotMessage("Retour à la conversation.", undefined);
   };
 
   return (
@@ -220,7 +308,7 @@ export function Chatbot() {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-colors hover:bg-primary/90 ${isOpen ? "pointer-events-none opacity-0" : "opacity-100"}`}
+        className={`fixed bottom-28 lg:bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-colors hover:bg-primary/90 ${isOpen ? "pointer-events-none opacity-0" : "opacity-100"}`}
         aria-label="Ouvrir le chat"
       >
         <MessageCircle size={28} />
@@ -234,7 +322,7 @@ export function Chatbot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-6 right-6 z-50 flex h-[520px] max-h-[80vh] w-[360px] max-w-[calc(100vw-3rem)] flex-col overflow-hidden rounded-2xl border border-border bg-background shadow-2xl"
+            className="fixed bottom-28 lg:bottom-6 right-6 z-50 flex h-[520px] max-h-[80vh] w-[360px] max-w-[calc(100vw-3rem)] flex-col overflow-hidden rounded-2xl border border-border bg-background shadow-2xl"
           >
             {/* Header */}
             <div className="flex items-center justify-between bg-primary p-4 text-primary-foreground">
@@ -270,10 +358,9 @@ export function Chatbot() {
                       <p className="text-sm whitespace-pre-wrap leading-relaxed">{msg.text}</p>
                     </div>
 
-                    {/* Options (only for last bot message) */}
-                    {msg.sender === "bot" && idx === messages.length - 1 && (
+                    {msg.sender === "bot" && idx === messages.length - 1 && msg.options && msg.options.length > 0 && (
                       <div className="mt-1 flex flex-col items-start gap-2 pl-1">
-                        {msg.options?.map((opt) => (
+                        {msg.options.map((opt) => (
                           <button
                             key={opt.id}
                             onClick={() => handleOptionClick(opt)}
@@ -283,19 +370,18 @@ export function Chatbot() {
                             <ChevronRight size={14} />
                           </button>
                         ))}
-                        {(!msg.options || msg.options.length === 0) && idx > 0 && (
-                          <button
-                            onClick={handleReset}
-                            className="flex items-center gap-1 rounded-full bg-muted px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted-foreground/20"
-                          >
-                            <CornerDownLeft size={14} />
-                            Retour au menu
-                          </button>
-                        )}
                       </div>
                     )}
                   </div>
                 ))}
+                {isSending && (
+                  <div className="self-start max-w-[85%] rounded-2xl px-4 py-2.5 bg-card border border-border text-muted-foreground rounded-tl-sm shadow-sm flex items-center gap-1.5">
+                    <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted-foreground/60 delay-100"></span>
+                    <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted-foreground/60 delay-200"></span>
+                    <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-muted-foreground/60 delay-300"></span>
+                    <span className="text-xs ml-1 font-medium">Clean&Fresh écrit...</span>
+                  </div>
+                )}
                 <div ref={messagesEndRef} />
               </div>
             </div>

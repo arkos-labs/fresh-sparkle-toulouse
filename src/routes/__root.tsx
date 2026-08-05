@@ -143,11 +143,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="fr">
+    <html lang="fr" className="overflow-x-hidden w-full">
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body className="overflow-x-hidden w-full">
         {children}
         <script dangerouslySetInnerHTML={{__html: `if(window.location.hostname.includes('lovable.app')) { var m = document.createElement('meta'); m.name = 'robots'; m.content = 'noindex'; document.head.appendChild(m); }`}} />
         <Scripts />
@@ -161,13 +161,15 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <TopBanner />
-      <Header />
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <main>
-        <Outlet />
-      </main>
-      <Footer />
+      <div className="flex min-h-screen flex-col overflow-x-hidden w-full">
+        <TopBanner />
+        <Header />
+        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <main className="flex-1">
+          <Outlet />
+        </main>
+        <Footer />
+      </div>
       <StickyCallCta />
       <Chatbot />
       <Toaster />

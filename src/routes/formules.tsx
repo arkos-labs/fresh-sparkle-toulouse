@@ -31,8 +31,8 @@ export const Route = createFileRoute("/formules")({
 
 const CANAPE_ITEMS = [
   { id: "fauteuil", label: "Fauteuil", price: "49 €", desc: "Injection-extraction de l'assise et du dossier. Résultat visible en moins d'1h." },
-  { id: "canape-2-3", label: "Canapé 2 / 3 places", price: "79 €", popular: true, desc: "Notre prestation la plus demandée. Assise, dossier et coussins amovibles traités en profondeur." },
-  { id: "canape-4-5", label: "Canapé 4 / 5 places", price: "99 €", desc: "Grande surface traitée intégralement. Idéal même pour les canapés très encrassés." },
+  { id: "canape-2", label: "Canapé 2 / 3 places", price: "79 €", popular: true, desc: "Notre prestation la plus demandée. Assise, dossier et coussins amovibles traités en profondeur." },
+  { id: "canape-45", label: "Canapé 4 / 5 places", price: "99 €", desc: "Grande surface traitée intégralement. Idéal même pour les canapés très encrassés." },
   { id: "canape-u", label: "Canapé U / Angle", price: "99 €", desc: "Tous les modules y compris la partie angle. Aucun recoin oublié." },
   { id: "pouf", label: "Pouf", price: "19 €", desc: "Tissu, velours, toutes matières. Idéal à combiner avec le nettoyage canapé." },
   { id: "chaise", label: "Chaise rembourrée", price: "15 € / pièce", desc: "Propre et désinfectée en quelques minutes. Tarif dégressif à partir de 4 chaises." },
@@ -88,12 +88,13 @@ const AUTO_PACKS = [
   {
     id: "or", emoji: "🥇", name: "Pack Or", price: "129 €", tagline: "État showroom",
     badge: "✨ Premium" as string | null, featured: false,
-    included: ["Tout le Pack Argent inclus", "Shampouinage injection-extraction moquettes", "Nettoyage complet du coffre", "Nettoyage du ciel de toit inclus", "Idéal avant revente ou reprise"],
+    included: ["Tout le Pack Argent inclus", "Shampouinage injection-extraction moquettes", "Nettoyage complet du coffre", "Nettoyage contour et bas de porte", "Idéal avant revente ou reprise"],
     options: [
       { name: "Traitement anti-acariens et bactériens", price: 19, popular: true },
       { name: "Élimination des poils d'animaux", price: 25, popular: false },
       { name: "Détachage intensif — tâche résistante", price: 19, popular: false },
       { name: "Traitement anti-odeur (tabac, animaux)", price: 15, popular: true },
+      { name: "Nettoyage du ciel de toit", price: 29, popular: false },
     ],
   },
 ];
@@ -169,8 +170,8 @@ function OptionsBlock({ options }: { options: { name: string; price: number; des
 
 const CANAPE_IMAGES: Record<string, string> = {
   "fauteuil": "/images/canape/fauteuil.png",
-  "canape-2-3": "/images/canape/canape-2-3.png",
-  "canape-4-5": "/images/canape/canape-4-5.png",
+  "canape-2": "/images/canape/canape-2-3.png",
+  "canape-45": "/images/canape/canape-4-5.png",
   "canape-u": "/images/canape/canape-u.png",
   "pouf": "/images/canape/pouf.png",
   "chaise": "/images/canape/chaise.png",
@@ -182,7 +183,7 @@ const CARD_SELECTED_CLASS = "relative flex flex-col items-center rounded-[20px] 
 const BADGE_CLASS = "absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-lg border border-[#d4af37] bg-[#1a2b4c] px-3 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[#d4af37] shadow-lg";
 
 function CanapeDetail() {
-  const [selected, setSelected] = useState("canape-2-3");
+  const [selected, setSelected] = useState("canape-2");
   const item = CANAPE_ITEMS.find((i) => i.id === selected)!;
 
   return (
@@ -373,19 +374,19 @@ const SVG_MATELAS_2PLACES = (
 // ─── TAPIS DETAIL ─────────────────────────────────────────────────────────────
 
 const TAPIS_ITEMS = [
-  { id: "1-tapis", label: "1 tapis", price: "49 €", desc: "Fibres et couleurs ravivées, Traitement des taches et odeurs. Résultat professionnel." },
-  { id: "2-tapis", label: "2 tapis", price: "79 €", desc: "Économisez 19 € vs 2 × 1 tapis. Traitement des taches et odeurs. Résultat professionnel." },
-  { id: "3-tapis", label: "3 tapis", price: "99 €", desc: "Toute la maison en 1 visite. Traitement des taches et odeurs. Résultat professionnel." },
+  { id: "tapis-1", label: "1 tapis", price: "49 €", desc: "Fibres et couleurs ravivées, Traitement des taches et odeurs. Résultat professionnel." },
+  { id: "tapis-2", label: "2 tapis", price: "79 €", desc: "Économisez 19 € vs 2 × 1 tapis. Traitement des taches et odeurs. Résultat professionnel." },
+  { id: "tapis-3", label: "3 tapis", price: "99 €", desc: "Toute la maison en 1 visite. Traitement des taches et odeurs. Résultat professionnel." },
 ];
 
 function TapisDetail() {
-  const [selected, setSelected] = useState("2-tapis");
+  const [selected, setSelected] = useState("tapis-2");
   const item = TAPIS_ITEMS.find((i) => i.id === selected)!;
 
   const TAPIS_IMAGES: Record<string, string> = {
-    "1-tapis": "/images/tapis/1-tapis.png",
-    "2-tapis": "/images/tapis/2-tapis.png",
-    "3-tapis": "/images/tapis/3-tapis.png",
+    "tapis-1": "/images/tapis/1-tapis.png",
+    "tapis-2": "/images/tapis/2-tapis.png",
+    "tapis-3": "/images/tapis/3-tapis.png",
   };
 
   return (
@@ -536,19 +537,19 @@ function AutoDetail() {
 // ─── MATELAS DETAIL ───────────────────────────────────────────────────────────
 
 const MATELAS_ITEMS = [
-  { id: "enfant", label: "Matelas enfant", price: "39 €", desc: "Votre enfant dort dans un lit sain. Traitement des taches et odeurs, 2 côtés. Traitement anti-acariens en option. Résultat professionnel." },
-  { id: "1-place", label: "Matelas 1 place", price: "59 €", desc: "Dormez dans un matelas comme neuf. Traitement des taches et odeurs, 2 côtés. Traitement anti-acariens en option. Résultat professionnel." },
-  { id: "2-places", label: "Matelas 2 places", price: "99 €", desc: "Chambre entièrement assainie. Traitement des taches et odeurs, 2 côtés. Traitement anti-acariens en option. Résultat professionnel." },
+  { id: "matelas-enfant", label: "Matelas enfant", price: "39 €", desc: "Votre enfant dort dans un lit sain. Traitement des taches et odeurs, 2 côtés. Traitement anti-acariens en option. Résultat professionnel." },
+  { id: "matelas-1", label: "Matelas 1 place", price: "59 €", desc: "Dormez dans un matelas comme neuf. Traitement des taches et odeurs, 2 côtés. Traitement anti-acariens en option. Résultat professionnel." },
+  { id: "matelas-2", label: "Matelas 2 places", price: "99 €", desc: "Chambre entièrement assainie. Traitement des taches et odeurs, 2 côtés. Traitement anti-acariens en option. Résultat professionnel." },
 ];
 
 function MatelasDetail() {
-  const [selected, setSelected] = useState("1-place");
+  const [selected, setSelected] = useState("matelas-1");
   const item = MATELAS_ITEMS.find((i) => i.id === selected)!;
 
   const MATELAS_IMAGES: Record<string, string> = {
-    "enfant": "/images/matelas/enfant.png",
-    "1-place": "/images/matelas/1-place.png",
-    "2-places": "/images/matelas/2-places.png",
+    "matelas-enfant": "/images/matelas/enfant.png",
+    "matelas-1": "/images/matelas/1-place.png",
+    "matelas-2": "/images/matelas/2-places.png",
   };
 
   return (
@@ -652,9 +653,9 @@ const CATEGORIES = [
     id: "matelas",
     icon: <BedDouble className="size-7" />,
     title: "Nettoyage Matelas",
-    sub: "Anti-acariens · 2 côtés traités · Allergiques",
+    sub: "Option anti-acariens · 2 côtés traités · Allergiques",
     priceFrom: "39 €",
-    bullets: ["Matelas enfant, 1 place, 2 places", "Anti-acariens inclus d'office", "Recommandé pour les allergiques"],
+    bullets: ["Matelas enfant, 1 place, 2 places", "Traitement anti-acariens en option", "Recommandé pour les allergiques"],
     recommended: true,
     content: <MatelasDetail />,
   },

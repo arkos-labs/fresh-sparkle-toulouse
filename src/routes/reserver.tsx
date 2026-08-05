@@ -98,7 +98,7 @@ const SERVICES: ServiceDef[] = [
     id: "matelas", label: "Nettoyage Matelas", shortLabel: "Matelas",
     desc: "Assainissement complet, éradication des acariens et auréoles de transpiration.",
     from: 39, icon: <BedDouble className="size-8" strokeWidth={1.5} />,
-    features: ["Matelas enfant, 1 place, 2 places", "Anti-acariens inclus d'office", "Recommandé pour les allergiques"],
+    features: ["Matelas enfant, 1 place, 2 places", "Traitement anti-acariens en option", "Recommandé pour les allergiques"],
     formules: [
       { id: "matelas-enfant", name: "Matelas enfant",   price: 39,  duration: "30 min", durationMin: 30, options: MAT },
       { id: "matelas-1",      name: "Matelas 1 place",  price: 59,  duration: "1h",     durationMin: 60, options: MAT },
