@@ -116,47 +116,47 @@ function Index() {
         <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(10,15,30,0.60) 0%, rgba(10,15,30,0.65) 60%, rgba(10,15,30,0.85) 100%)" }} />
 
         <div className="relative flex-1 flex items-center">
-          <div className="mx-auto w-full max-w-6xl px-4 py-8 lg:py-12 flex flex-col lg:flex-row items-center justify-between gap-10">
+          <div className="mx-auto w-full max-w-6xl px-4 py-4 md:py-8 lg:py-12 flex flex-col lg:flex-row items-center justify-between gap-10">
             <div className="flex-1 max-w-3xl">
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white backdrop-blur">
                 <MapPin className="size-3" /> Toulouse & Haute-Garonne
               </span>
 
-              <h1 className="mt-6 text-4xl font-bold leading-[1.1] tracking-tight text-white md:text-5xl lg:text-6xl">
+              <h1 className="mt-3 text-3xl font-bold leading-[1.1] tracking-tight text-white md:mt-6 md:text-5xl lg:text-6xl">
                 Entreprise de nettoyage à Toulouse
               </h1>
 
-              <p className="mt-6 text-lg text-white/90 leading-relaxed font-medium">
+              <p className="mt-3 text-sm text-white/90 leading-relaxed font-medium md:mt-6 md:text-lg">
                 Nettoyage professionnel à domicile pour canapés, matelas, tapis, véhicules, logements et remises en état à Toulouse et en Haute-Garonne.
               </p>
 
 
-              <div className="mt-6 flex flex-wrap gap-4 text-sm text-white/90 font-medium">
+              <div className="hidden md:flex mt-6 flex-wrap gap-4 text-sm text-white/90 font-medium">
                 <span className="inline-flex items-center gap-1.5"><CheckCircle2 className="size-4 text-accent" /> Plus de 500 interventions réalisées</span>
                 <span className="inline-flex items-center gap-1.5"><Clock className="size-4 text-accent" /> Devis gratuit sous 24 h</span>
                 <span className="inline-flex items-center gap-1.5"><MapPin className="size-4 text-accent" /> Intervention à domicile</span>
                 <span className="inline-flex items-center gap-1.5"><CalendarCheck className="size-4 text-accent" /> Réservation en ligne</span>
               </div>
 
-              <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-accent/20 border border-accent/40 px-4 py-1.5 text-sm font-bold text-accent">
+              <div className="hidden md:inline-flex mt-6 items-center gap-2 rounded-full bg-accent/20 border border-accent/40 px-4 py-1.5 text-sm font-bold text-accent">
                 <CalendarCheck className="size-4" />
                 Consultez les prochains créneaux disponibles
               </div>
 
-              <div className="mt-6 flex flex-wrap gap-3">
+              <div className="mt-4 flex flex-wrap gap-2.5 md:mt-6">
                 <Button
                   asChild
                   size="xl"
-                  className="bg-accent-gradient text-accent-foreground font-bold text-sm lg:text-base shadow-[var(--shadow-card)] hover:opacity-90 px-6"
+                  className="bg-accent-gradient text-accent-foreground font-bold text-xs md:text-sm lg:text-base shadow-[var(--shadow-card)] hover:opacity-90 px-4 md:px-6 h-10 md:h-12"
                 >
                   <Link to="/formules">
-                    <CalendarCheck className="size-5 mr-2" /> Réserver en ligne
+                    <CalendarCheck className="size-4 md:size-5 mr-1.5 md:mr-2" /> Réserver en ligne
                   </Link>
                 </Button>
                 <Button
                   asChild
                   size="xl"
-                  className="bg-white text-primary font-bold text-sm lg:text-base hover:bg-gray-100"
+                  className="bg-white text-primary font-bold text-xs md:text-sm lg:text-base hover:bg-gray-100 px-4 md:px-6 h-10 md:h-12"
                 >
                   <Link to="/contactez-nous">Demander un devis</Link>
                 </Button>
@@ -164,9 +164,9 @@ function Index() {
                   asChild
                   size="xl"
                   variant="outline"
-                  className="border-white/40 bg-white/10 text-white font-bold text-sm lg:text-base backdrop-blur hover:bg-white/20 hover:border-white/60"
+                  className="border-white/40 bg-white/10 text-white font-bold text-xs md:text-sm lg:text-base backdrop-blur hover:bg-white/20 hover:border-white/60 px-4 md:px-6 h-10 md:h-12"
                 >
-                  <a href={COMPANY.phoneHref}><Phone className="size-4 mr-2" /> Appeler le {COMPANY.phone}</a>
+                  <a href={COMPANY.phoneHref}><Phone className="size-3.5 md:size-4 mr-1.5 md:mr-2" /> Appeler</a>
                 </Button>
               </div>
             </div>
