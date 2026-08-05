@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Armchair, BedDouble, Layers, Car,
@@ -505,6 +505,7 @@ function Sidebar({
 // ─── PAGE PRINCIPALE ─────────────────────────────────────────────────────────
 
 function ReserverPage() {
+  const navigate = useNavigate();
   const { service: serviceParam, formule: formuleParam } = Route.useSearch();
   const preselected = SERVICES.find(s => s.id === SLUG_TO_SERVICE[serviceParam]) ?? null;
   const preselectedFormule = preselected?.formules.find(f => f.id === formuleParam) ?? null;
@@ -552,12 +553,36 @@ function ReserverPage() {
   };
 
   const handleBack = () => {
-    if (step > 1) {
+    if (step > 2) {
       setStep(s => (s - 1) as 1|2|3|4);
-    } else if (!preselected && !showCategories && cart.length === 0) {
-      setShowCategories(true); setService(null); setFormule(null);
-    } else {
-      window.history.back();
+    } else if (step === 2) {
+      if (preselected && serviceParam) {
+        const SERVICE_URLS: Record<string, string> = {
+          canape: "/nettoyage-canape-toulouse",
+          tapis: "/nettoyage-tapis-toulouse",
+          matelas: "/nettoyage-matelas-toulouse",
+          auto: "/nettoyage-auto-a-domicile-toulouse",
+        };
+        const targetUrl = SERVICE_URLS[serviceParam] || "/formules";
+        navigate({ to: targetUrl });
+      } else {
+        setStep(1);
+      }
+    } else if (step === 1) {
+      if (preselected && serviceParam) {
+        const SERVICE_URLS: Record<string, string> = {
+          canape: "/nettoyage-canape-toulouse",
+          tapis: "/nettoyage-tapis-toulouse",
+          matelas: "/nettoyage-matelas-toulouse",
+          auto: "/nettoyage-auto-a-domicile-toulouse",
+        };
+        const targetUrl = SERVICE_URLS[serviceParam] || "/formules";
+        navigate({ to: targetUrl });
+      } else if (!preselected && !showCategories && cart.length === 0) {
+        setShowCategories(true); setService(null); setFormule(null);
+      } else {
+        window.history.back();
+      }
     }
   };
 

@@ -709,50 +709,7 @@ function FormulesPage() {
           </div>
         </div>
 
-        {/* Carrousel Avant/Après - Intégré subtilement à la page tarifs */}
-        <div className="w-full max-w-[360px] shrink-0 hidden md:block">
-          <div className="rounded-2xl border border-border bg-white p-5 shadow-sm">
-            <p className="mb-4 text-center text-xs font-bold uppercase tracking-widest text-muted-foreground">
-              Résultats Avant / Après
-            </p>
-            <Carousel
-              opts={{
-                align: "start",
-                loop: true,
-              }}
-              className="w-full"
-            >
-              <CarouselContent>
-                {[
-                  { src: "/realisations/photo-02.jpg", title: "Nettoyage Canapé" },
-                  { src: "/realisations/photo-11.jpg", title: "Sièges Auto" },
-                  { src: "/realisations/photo-19.jpg", title: "Tapis" },
-                  { src: "/realisations/photo-28.jpg", title: "Matelas" },
-                  { src: "/realisations/photo-34.jpg", title: "Habitacle Auto" },
-                  { src: "/realisations/photo-40.jpg", title: "Canapé d'angle" },
-                ].map((img, idx) => (
-                  <CarouselItem key={idx}>
-                    <div className="relative overflow-hidden rounded-xl">
-                      <img src={img.src}
-                        alt={`Réalisation Avant / Après - ${img.title}`}
-                        className="aspect-[4/3] w-full object-cover" loading="lazy" />
-                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4">
-                        <span className="inline-block rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-primary text-primary-foreground">
-                          Avant / Après
-                        </span>
-                        <p className="mt-1 text-sm font-medium text-white">{img.title}</p>
-                      </div>
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <div className="flex justify-center gap-3 mt-5">
-                <CarouselPrevious className="static translate-y-0 h-9 w-9 bg-secondary text-foreground hover:bg-secondary/80 border-none" />
-                <CarouselNext className="static translate-y-0 h-9 w-9 bg-secondary text-foreground hover:bg-secondary/80 border-none" />
-              </div>
-            </Carousel>
-          </div>
-        </div>
+
       </div>
       </FadeIn>
 

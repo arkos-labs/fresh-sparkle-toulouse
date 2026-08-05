@@ -52,6 +52,31 @@ const OPTIONS_BY_SERVICE: Record<string, ServiceOption[]> = {
   ],
 };
 
+const FORMULE_IMAGES: Record<string, string> = {
+  // Canapé
+  "fauteuil": "/images/canape/fauteuil.png",
+  "canape-2": "/images/canape/canape-2-3.png",
+  "canape-3": "/images/canape/canape-2-3.png",
+  "canape-angle": "/images/canape/canape-u.png",
+  "canape-45": "/images/canape/canape-4-5.png",
+  "canape-u": "/images/canape/canape-u.png",
+  "pouf": "/images/canape/pouf.png",
+  "chaise": "/images/canape/chaise.png",
+  // Tapis
+  "tapis-1": "/images/tapis/1-tapis.png",
+  "tapis-2": "/images/tapis/2-tapis.png",
+  "tapis-3": "/images/tapis/3-tapis.png",
+  // Auto
+  "bronze": "/images/auto/bronze.png",
+  "argent": "/images/auto/argent.png",
+  "or": "/images/auto/or.png",
+  "siege": "/images/auto/bronze.png",
+  // Matelas
+  "matelas-enfant": "/images/matelas/enfant.png",
+  "matelas-1": "/images/matelas/1-place.png",
+  "matelas-2": "/images/matelas/2-places.png",
+};
+
 export function ServicePage({ service }: { service: Service }) {
   const others = SERVICES.filter((s) => s.slug !== service.slug).slice(0, 6);
   const bookingServiceId = getBookingServiceId(service.slug);
@@ -169,42 +194,50 @@ export function ServicePage({ service }: { service: Service }) {
           {service.prices ? (
             <>
               <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {service.prices.map((row) => (
-                  <div
-                    key={row.label}
-                    className="group flex flex-col rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-soft)] transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-card)]"
-                  >
-                    <p className="text-sm font-semibold text-muted-foreground">{row.label}</p>
-                    <p className="mt-1 text-3xl font-bold text-primary">{row.price}</p>
-
-                    {row.items && row.items.length > 0 && (
-                      <ul className="mt-4 flex-1 space-y-2">
-                        {row.items.map((item) => (
-                          <li key={item} className="flex items-start gap-2 text-sm text-muted-foreground">
-                            <Check className="mt-0.5 size-4 shrink-0 text-primary" />
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-
-                    {row.note && (
-                      <p className="mt-3 flex items-start gap-1.5 text-xs text-muted-foreground italic">
-                        <span className="shrink-0 mt-0.5">ℹ️</span> {row.note}
-                      </p>
-                    )}
-
-                    <Button
-                      asChild
-                      className="mt-5 bg-accent-gradient text-accent-foreground font-semibold hover:opacity-90"
-                      size="sm"
+                {service.prices.map((row) => {
+                  const img = row.formuleId ? FORMULE_IMAGES[row.formuleId] : null;
+                  return (
+                    <div
+                      key={row.label}
+                      className="group flex flex-col rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-soft)] transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-card)]"
                     >
-                      <Link to="/reserver" search={bookingServiceId ? { service: bookingServiceId, formule: row.formuleId } : undefined}>
-                        <CalendarCheck className="size-4" /> Je réserve
-                      </Link>
-                    </Button>
-                  </div>
-                ))}
+                      {img && (
+                        <div className="flex items-center justify-center w-full h-32 mb-4 bg-slate-50 border border-slate-100 rounded-xl overflow-hidden p-2">
+                          <img src={img} alt={row.label} className="h-full object-contain mix-blend-multiply scale-110 group-hover:scale-115 transition-transform" loading="lazy" />
+                        </div>
+                      )}
+                      <p className="text-sm font-semibold text-muted-foreground">{row.label}</p>
+                      <p className="mt-1 text-3xl font-bold text-primary">{row.price}</p>
+
+                      {row.items && row.items.length > 0 && (
+                        <ul className="mt-4 flex-1 space-y-2">
+                          {row.items.map((item) => (
+                            <li key={item} className="flex items-start gap-2 text-sm text-muted-foreground">
+                              <Check className="mt-0.5 size-4 shrink-0 text-primary" />
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+
+                      {row.note && (
+                        <p className="mt-3 flex items-start gap-1.5 text-xs text-muted-foreground italic">
+                          <span className="shrink-0 mt-0.5">ℹ️</span> {row.note}
+                        </p>
+                      )}
+
+                      <Button
+                        asChild
+                        className="mt-5 bg-accent-gradient text-accent-foreground font-semibold hover:opacity-90"
+                        size="sm"
+                      >
+                        <Link to="/reserver" search={bookingServiceId ? { service: bookingServiceId, formule: row.formuleId } : undefined}>
+                          <CalendarCheck className="size-4" /> Je réserve
+                        </Link>
+                      </Button>
+                    </div>
+                  );
+                })}
               </div>
               {service.priceNote && (
                 <p className="mt-6 max-w-3xl text-sm text-muted-foreground">{service.priceNote}</p>
