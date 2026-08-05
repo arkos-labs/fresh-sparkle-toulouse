@@ -2,7 +2,7 @@ import { useState, type ReactNode } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   CalendarCheck, Phone, Star, ArrowRight, Armchair, Car,
-  CheckCircle2, Info, Layers, BedDouble, MapPin, Zap, Shield, Leaf, ChevronDown, ChevronRight,
+  CheckCircle2, Info, Layers, BedDouble, MapPin, Zap, Shield, Leaf, ChevronRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
@@ -673,114 +673,52 @@ const CATEGORIES = [
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 
 function FormulesPage() {
-  const { service } = Route.useSearch();
-  const [selected, setSelected] = useState<string | null>(service || null);
-
-  const selectedCat = CATEGORIES.find((c) => c.id === selected);
-
   return (
     <div className="bg-[#f4f6f9] pb-24 lg:pb-0">
 
-      {/* ── HERO & TRUST BAR REMOVED PER USER REQUEST ── */}
-
       {/* ── CATEGORY GRID ── */}
       <FadeIn delay={0.1}>
-        <div className="mx-auto max-w-5xl px-4 pt-16 mb-4">
-          <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4 text-center">
-          Choisissez une prestation pour voir toutes les formules
-        </p>
-        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-          {CATEGORIES.map((cat) => {
-            const isSelected = selected === cat.id;
-            return (
-              <button
+        <div className="mx-auto max-w-5xl px-4 pt-16 mb-12">
+          <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-6 text-center">
+            Choisissez une prestation pour réserver en ligne
+          </p>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {CATEGORIES.map((cat) => (
+              <Link
                 key={cat.id}
-                onClick={() => setSelected(isSelected ? null : cat.id)}
-                className={[
-                  "relative flex flex-col rounded-2xl p-5 text-left transition-all shadow-sm hover:shadow-md",
-                  isSelected
-                    ? "bg-primary text-white ring-2 ring-primary shadow-lg"
-                    : "border border-border bg-white hover:border-primary/40",
-                ].join(" ")}
+                to="/reserver"
+                search={{ service: cat.id, formule: "" }}
+                onClick={() => window.scrollTo(0, 0)}
+                className="relative flex flex-col rounded-2xl border border-border bg-white p-4 md:p-5 text-left transition-all shadow-sm hover:shadow-md hover:border-primary/40 hover:-translate-y-0.5 group"
               >
-                {cat.recommended && !isSelected && (
+                {cat.recommended && (
                   <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-primary px-3 py-1 text-[10px] font-bold text-white shadow">
                     ★ Recommandé
                   </span>
                 )}
-                {cat.recommended && isSelected && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-white text-primary px-3 py-1 text-[10px] font-bold shadow">
-                    ★ Recommandé
-                  </span>
-                )}
-
-                <div className={[
-                  "flex size-12 items-center justify-center rounded-xl mb-3 transition-colors",
-                  isSelected ? "bg-white/20 text-white" : "bg-primary/10 text-primary",
-                ].join(" ")}>
+                <div className="flex size-10 md:size-12 items-center justify-center rounded-xl bg-primary/10 text-primary mb-3 transition-colors group-hover:bg-primary group-hover:text-white">
                   {cat.icon}
                 </div>
-
-                <p className={`text-[10px] font-bold uppercase tracking-widest mb-1 ${isSelected ? "text-white/70" : "text-muted-foreground"}`}>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-1">
                   À partir de
                 </p>
-                <p className={`text-3xl font-bold leading-none mb-2 ${isSelected ? "text-white" : "text-primary"}`}>
-                  {cat.priceFrom}
-                </p>
-
-                <h2 className={`text-sm font-bold leading-snug mb-2 ${isSelected ? "text-white" : "text-foreground"}`}>
-                  {cat.title}
-                </h2>
-
-                <ul className="flex-1 space-y-1">
+                <p className="text-2xl md:text-3xl font-bold text-primary leading-none mb-2">{cat.priceFrom}</p>
+                <h2 className="text-xs md:text-sm font-bold leading-snug mb-2 text-foreground">{cat.title}</h2>
+                <ul className="flex-1 space-y-1 mb-4 hidden md:block">
                   {cat.bullets.map((b) => (
-                    <li key={b} className={`flex items-start gap-1.5 text-xs ${isSelected ? "text-white/80" : "text-muted-foreground"}`}>
-                      <CheckCircle2 className={`size-3 shrink-0 mt-0.5 ${isSelected ? "text-white/70" : "text-primary"}`} />
-                      {b}
+                    <li key={b} className="flex items-start gap-1.5 text-xs text-muted-foreground">
+                      <CheckCircle2 className="size-3 shrink-0 mt-0.5 text-primary" /> {b}
                     </li>
                   ))}
                 </ul>
-
-                <div className={[
-                  "mt-4 flex items-center justify-center gap-1 rounded-xl py-2.5 text-xs font-bold transition-colors",
-                  isSelected
-                    ? "bg-white/20 text-white"
-                    : "bg-primary/10 text-primary hover:bg-primary hover:text-white",
-                ].join(" ")}>
-                  {isSelected ? (
-                    <><ChevronDown className="size-3.5 rotate-180" /> Fermer</>
-                  ) : (
-                    <><ChevronRight className="size-3.5" /> Voir les formules</>
-                  )}
+                <div className="mt-auto flex items-center justify-center gap-1 rounded-xl bg-primary/10 text-primary py-2 md:py-2.5 text-[11px] md:text-xs font-bold group-hover:bg-primary group-hover:text-white transition-colors">
+                  <ChevronRight className="size-3 md:size-3.5" /> Voir les formules
                 </div>
-              </button>
-            );
-          })}
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
       </FadeIn>
-
-      {/* ── DETAIL PANEL ── */}
-      {selectedCat && (
-        <FadeIn delay={0.1} direction="up">
-          <div className="mx-auto max-w-5xl px-4 mb-10">
-          <div className="rounded-2xl border border-primary/20 bg-white shadow-md overflow-hidden">
-            <div className="flex items-center gap-3 border-b border-border bg-secondary/30 px-6 py-4">
-              <div className="flex size-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                {selectedCat.icon}
-              </div>
-              <div>
-                <h2 className="text-lg font-bold">{selectedCat.title} Toulouse</h2>
-                <p className="text-xs text-muted-foreground">{selectedCat.sub}</p>
-              </div>
-            </div>
-            <div className="p-6">
-              {selectedCat.content}
-            </div>
-          </div>
-          </div>
-        </FadeIn>
-      )}
 
 
 

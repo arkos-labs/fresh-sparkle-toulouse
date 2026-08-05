@@ -109,6 +109,37 @@ const SERVICES: ServiceDef[] = [
 
 const SLUG_TO_SERVICE: Record<string, string> = { canape: "canape", tapis: "tapis", matelas: "matelas", auto: "auto" };
 
+// ─── IMAGES PAR FORMULE ──────────────────────────────────────────────────────
+
+const FORMULE_IMAGES: Record<string, Record<string, string>> = {
+  canape: {
+    "fauteuil":     "/images/canape/fauteuil.png",
+    "canape-2":     "/images/canape/canape-2-3.png",
+    "canape-3":     "/images/canape/canape-2-3.png",
+    "canape-angle": "/images/canape/canape-u.png",
+    "canape-45":    "/images/canape/canape-4-5.png",
+    "canape-u":     "/images/canape/canape-u.png",
+    "pouf":         "/images/canape/pouf.png",
+    "chaise":       "/images/canape/chaise.png",
+  },
+  tapis: {
+    "tapis-1": "/images/tapis/1-tapis.png",
+    "tapis-2": "/images/tapis/2-tapis.png",
+    "tapis-3": "/images/tapis/3-tapis.png",
+  },
+  auto: {
+    "bronze": "/images/auto/bronze.png",
+    "argent": "/images/auto/argent.png",
+    "or":     "/images/auto/or.png",
+    "siege":  "/images/auto/argent.png",
+  },
+  matelas: {
+    "matelas-enfant": "/images/matelas/enfant.png",
+    "matelas-1":      "/images/matelas/1-place.png",
+    "matelas-2":      "/images/matelas/2-places.png",
+  },
+};
+
 // ─── CALENDRIER ──────────────────────────────────────────────────────────────
 
 const MOIS = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
@@ -204,32 +235,32 @@ function CalendarPicker({
   const canGoPrev = viewYear > today.getFullYear() || viewMonth > today.getMonth();
 
   return (
-    <div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+    <div className="rounded-xl md:rounded-2xl border border-border bg-card p-3 md:p-5 shadow-sm">
       {/* Header */}
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mb-2 md:mb-4">
         <button
           onClick={prevMonth}
           disabled={!canGoPrev}
-          className="flex size-8 items-center justify-center rounded-lg border border-border text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+          className="flex size-7 md:size-8 items-center justify-center rounded-lg border border-border text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
         >
-          <ChevronLeft className="size-4" />
+          <ChevronLeft className="size-3.5 md:size-4" />
         </button>
-        <span className="text-base font-bold capitalize">
+        <span className="text-sm md:text-base font-bold capitalize">
           {MOIS[viewMonth]} {viewYear}
-          {loadingMonth && <Loader2 className="inline ml-2 size-3.5 animate-spin text-muted-foreground" />}
+          {loadingMonth && <Loader2 className="inline ml-2 size-3 animate-spin text-muted-foreground" />}
         </span>
         <button
           onClick={nextMonth}
-          className="flex size-8 items-center justify-center rounded-lg border border-border text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors"
+          className="flex size-7 md:size-8 items-center justify-center rounded-lg border border-border text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors"
         >
-          <ChevronRight className="size-4" />
+          <ChevronRight className="size-3.5 md:size-4" />
         </button>
       </div>
 
       {/* Jours de semaine */}
       <div className="grid grid-cols-7 mb-1">
         {JOURS.map(j => (
-          <div key={j} className={`text-center text-[10px] font-bold uppercase tracking-wider py-1 ${j === "Di" ? "text-muted-foreground/40" : "text-muted-foreground"}`}>
+          <div key={j} className={`text-center text-[9px] md:text-[10px] font-bold uppercase tracking-wider py-1 ${j === "Di" ? "text-muted-foreground/40" : "text-muted-foreground"}`}>
             {j}
           </div>
         ))}
@@ -250,7 +281,7 @@ function CalendarPicker({
               disabled={disabled}
               onClick={() => onSelect(new Date(viewYear, viewMonth, day))}
               className={`
-                relative flex items-center justify-center rounded-lg text-sm font-medium h-9 transition-all
+                relative flex items-center justify-center rounded-md md:rounded-lg text-xs md:text-sm font-medium h-8 md:h-9 transition-all
                 ${sel
                   ? "bg-primary text-primary-foreground shadow-sm"
                   : disabled
@@ -266,7 +297,7 @@ function CalendarPicker({
         })}
       </div>
 
-      <p className="mt-3 text-[11px] text-center text-muted-foreground">
+      <p className="mt-2.5 text-[10px] md:text-[11px] text-center text-muted-foreground">
         Lundi – Dimanche · 08h00 – 22h00
       </p>
     </div>
@@ -405,13 +436,13 @@ function Sidebar({
     false;
 
   const continuLabel =
-    step === 1 ? "Continuer vers les options" :
+    step === 1 ? "Je réserve" :
     step === 2 ? "Choisir mon créneau" :
     step === 3 ? "Finaliser ma réservation" :
     "";
 
   return (
-    <aside className="sticky top-24 rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-card)]">
+    <aside className="sticky top-24 rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-card)] hidden lg:block">
       <h2 className="text-lg font-bold">Votre réservation</h2>
 
       <div className="mt-4 border-t border-border pt-4 space-y-3">
@@ -484,7 +515,7 @@ function Sidebar({
         </Button>
       )}
 
-      {step < 4 && step !== 1 && (
+      {step < 4 && (step !== 1 || !!formule) && (
         <Button
           onClick={onContinue}
           disabled={!canContinue}
@@ -523,13 +554,14 @@ function ReserverPage() {
   const [submitting, setSubmitting] = useState(false);
   const [cancelToken, setCancelToken] = useState<string>("");
   const [gcalEventId, setGcalEventId] = useState<string | null>(null);
+  const [showSummaryMobile, setShowSummaryMobile] = useState(false);
 
   const toggleOption = (id: string) =>
     setSelectedOptions(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
 
-  const handleSelectFormule = (f: Formule) => { 
-    setFormule(f); 
-    setSelectedOptions([]); 
+  const handleSelectFormule = (f: Formule) => {
+    setFormule(f);
+    setSelectedOptions([]);
     setStep(2);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -693,7 +725,7 @@ function ReserverPage() {
     false;
 
   const continuLabel =
-    step === 1 ? "Continuer vers les options" :
+    step === 1 ? "Je réserve" :
     step === 2 ? "Choisir mon créneau" :
     step === 3 ? "Finaliser ma réservation" :
     "";
@@ -816,26 +848,28 @@ function ReserverPage() {
             {step === 1 && showCategories && (
               <>
                 <h1 className="text-3xl font-bold text-center">CHOISISSEZ UNE PRESTATION POUR VOIR TOUTES LES FORMULES</h1>
-                <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                <div className="mt-4 grid grid-cols-4 gap-1.5 md:mt-8 md:gap-4 md:grid-cols-4">
                   {SERVICES.map(s => (
                     <button key={s.id} onClick={() => { setService(s); setShowCategories(false); }}
-                      className="group relative flex flex-col items-start rounded-2xl border border-border bg-white p-6 text-left shadow-sm transition-all hover:border-primary/50 hover:shadow-md">
+                      className="group relative flex flex-col items-center md:items-start rounded-xl md:rounded-2xl border border-border bg-white p-2 md:p-6 text-center md:text-left shadow-sm transition-all hover:border-primary/50 hover:shadow-md">
                       {s.badge && (
-                        <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[#0055ff] px-3 py-1 text-[10px] font-bold text-white shadow-md">
+                        <span className="absolute -top-2 left-1/2 -translate-x-1/2 rounded-full bg-[#0055ff] px-1.5 py-0.5 text-[8px] font-bold text-white shadow-md whitespace-nowrap scale-90 md:scale-100">
                           {s.badge}
                         </span>
                       )}
-                      <div className="flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-primary mb-6 transition-colors group-hover:bg-primary group-hover:text-white">
+                      <div className="flex size-8 md:size-14 items-center justify-center rounded-lg md:rounded-2xl bg-primary/10 text-primary mb-2 md:mb-6 transition-colors group-hover:bg-primary group-hover:text-white [&_svg]:size-5 md:[&_svg]:size-8">
                         {s.icon}
                       </div>
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 mb-1">
+                      <p className="text-[8px] md:text-[10px] font-bold uppercase tracking-wider md:tracking-widest text-muted-foreground/80 mb-0.5">
                         À partir de
                       </p>
-                      <p className="text-4xl font-bold text-primary mb-4">
+                      <p className="text-sm md:text-4xl font-bold text-primary mb-1 md:mb-4">
                         {s.from} €
                       </p>
-                      <h3 className="text-lg font-bold text-foreground mb-4 leading-tight min-h-[2.5rem]">{s.label}</h3>
-                      <ul className="space-y-2.5 mb-6 flex-1 text-sm text-muted-foreground">
+                      <h3 className="text-[10px] md:text-lg font-bold text-foreground mb-1 md:mb-4 leading-tight line-clamp-1 w-full">
+                        {s.shortLabel || s.label}
+                      </h3>
+                      <ul className="space-y-2.5 mb-6 flex-1 text-sm text-muted-foreground hidden md:block w-full">
                         {s.features.map(f => (
                           <li key={f} className="flex gap-2 items-start">
                             <CheckCircle2 className="size-4 shrink-0 mt-0.5 text-primary" />
@@ -843,7 +877,7 @@ function ReserverPage() {
                           </li>
                         ))}
                       </ul>
-                      <div className="mt-auto flex w-full items-center justify-center gap-1.5 rounded-xl bg-primary/10 px-4 py-3 text-sm font-bold text-primary transition-colors group-hover:bg-primary group-hover:text-white">
+                      <div className="mt-auto hidden md:flex w-full items-center justify-center gap-1.5 rounded-xl bg-primary/10 px-4 py-3 text-sm font-bold text-primary transition-colors group-hover:bg-primary group-hover:text-white">
                         <ChevronRight className="size-4" /> Voir les formules
                       </div>
                     </button>
@@ -867,27 +901,45 @@ function ReserverPage() {
                     </button>
                   )}
                 </div>
-                <div className="grid grid-cols-2 gap-2 md:grid-cols-1 md:gap-3">
+                <div className={`grid gap-3 ${
+                  service.formules.length === 3 ? "grid-cols-3" :
+                  service.formules.length === 4 ? "grid-cols-2 sm:grid-cols-4" :
+                  "grid-cols-3 sm:grid-cols-4"
+                }`}>
                   {service.formules.map(f => {
                     const active = formule?.id === f.id;
+                    const imgSrc = FORMULE_IMAGES[service.id]?.[f.id];
                     return (
-                      <button key={f.id} onClick={() => handleSelectFormule(f)}
-                        className={`flex flex-col md:flex-row w-full items-start md:items-center gap-2 md:gap-4 rounded-xl md:rounded-2xl border-2 bg-card p-3 md:px-5 md:py-4 text-left transition-all hover:shadow-[var(--shadow-card)] ${active ? "border-primary bg-primary/5 shadow-[var(--shadow-card)]" : "border-border hover:border-primary/40"}`}>
-                        <div className={`hidden md:flex size-5 shrink-0 items-center justify-center rounded-full border-2 transition-all ${active ? "border-primary bg-primary" : "border-border"}`}>
-                          {active && <div className="size-2 rounded-full bg-primary-foreground" />}
+                      <button
+                        key={f.id}
+                        onClick={() => handleSelectFormule(f)}
+                        className={`relative flex flex-col items-center rounded-[18px] border-2 px-2 py-3 text-center transition-all duration-200 hover:-translate-y-0.5 ${
+                          active
+                            ? "border-[#7cdcdc] bg-[#d0ebeb]/70 shadow-[0_0_20px_-5px_rgba(124,220,220,0.5)]"
+                            : "border-transparent bg-[#e5e9f0]/60 hover:shadow-md hover:border-primary/20"
+                        }`}
+                      >
+                        {/* Image ou icône */}
+                        <div className={`flex items-center justify-center w-full h-20 mb-2 mt-1 ${active ? "text-[#1a2b4c]" : "text-primary/70"}`}>
+                          {imgSrc ? (
+                            <img
+                              src={imgSrc}
+                              alt={f.name}
+                              className="w-full h-full object-contain mix-blend-multiply scale-110"
+                              loading="lazy"
+                            />
+                          ) : (
+                            <div className="flex size-12 items-center justify-center opacity-60">{service.icon}</div>
+                          )}
                         </div>
-                        <div className="flex-1 min-w-0 w-full">
-                          <p className="font-bold text-xs md:text-sm line-clamp-1">{f.name}</p>
-                          {f.desc && <p className="mt-0.5 text-[10px] md:text-xs text-muted-foreground line-clamp-1 md:line-clamp-none">{f.desc}</p>}
-                          <div className="mt-1 flex items-center gap-2 md:gap-3 flex-wrap">
-                            <span className="inline-flex items-center gap-1 text-[10px] md:text-xs text-muted-foreground"><Clock className="size-3" /> {f.duration}</span>
-                            <span className="hidden md:inline text-xs text-muted-foreground">{f.options.length} options disponibles</span>
-                          </div>
-                        </div>
-                        <div className="text-left md:text-right shrink-0 mt-1 md:mt-0">
-                          <p className="text-sm md:text-xl font-bold text-primary">{f.price} €</p>
-                          <p className="text-[10px] md:text-xs text-muted-foreground hidden md:block">À partir de</p>
-                        </div>
+                        <p className="text-[9px] font-semibold uppercase tracking-widest text-muted-foreground/80 leading-none">Dès</p>
+                        <p className={`text-sm md:text-base font-bold leading-tight mt-1 ${active ? "text-[#1a2b4c]" : "text-foreground"}`}>
+                          {f.price} €
+                        </p>
+                        <p className="text-[10px] font-medium text-muted-foreground leading-snug mt-1 px-1">{f.name}</p>
+                        {f.desc && (
+                          <p className="hidden md:block text-[9px] text-muted-foreground/70 mt-0.5 px-1 leading-tight line-clamp-2">{f.desc}</p>
+                        )}
                       </button>
                     );
                   })}
@@ -1094,27 +1146,78 @@ function ReserverPage() {
         </div>
       </div>
 
-      {/* Sticky bottom actions on mobile */}
-      {step < 4 && step !== 1 && !showCategories && (
-        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border/60 bg-background/97 p-3 backdrop-blur lg:hidden flex flex-col gap-2">
-          <div className="flex justify-between items-center px-1 font-bold">
-            <span className="text-muted-foreground text-[11px] uppercase tracking-wider">Total estimé</span>
-            <span className="text-base text-primary">{total} €</span>
+      {/* ── FOOTER MOBILE — Steps 2 & 3 ── */}
+      {step >= 2 && step < 4 && !showCategories && (
+        <div className="fixed inset-x-0 bottom-0 z-40 lg:hidden border-t border-white/20 bg-white/80 backdrop-blur-md shadow-[0_-4px_20px_rgba(0,0,0,0.08)] px-4 py-3 flex flex-col gap-2 transition-all duration-300">
+
+          {/* Récap extensible */}
+          {showSummaryMobile && (
+            <div className="border-b border-border/40 pb-3 max-h-52 overflow-y-auto space-y-2 text-xs">
+              <div className="flex justify-between items-center border-b border-border/30 pb-1.5">
+                <span className="font-bold text-sm text-foreground">Votre réservation</span>
+                <button onClick={() => setShowSummaryMobile(false)} className="text-[10px] text-muted-foreground underline">Fermer</button>
+              </div>
+              {cart.map((item, idx) => (
+                <div key={idx} className="pb-1.5 border-b border-border/30 last:border-0 last:pb-0">
+                  <div className="flex justify-between font-semibold">
+                    <span>{item.formule.name}</span><span>{item.formule.price} €</span>
+                  </div>
+                  {item.formule.options.filter(o => item.options.includes(o.id)).map(o => (
+                    <div key={o.id} className="flex justify-between text-muted-foreground pl-2 text-[10px]">
+                      <span>+ {o.name}</span><span>+{o.price} €</span>
+                    </div>
+                  ))}
+                </div>
+              ))}
+              {formule && (
+                <div>
+                  <div className="flex justify-between font-semibold">
+                    <span>{formule.name}</span><span>{formule.price} €</span>
+                  </div>
+                  {formule.options.filter(o => selectedOptions.includes(o.id)).map(o => (
+                    <div key={o.id} className="flex justify-between text-muted-foreground pl-2 text-[10px]">
+                      <span>+ {o.name}</span><span>+{o.price} €</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {selectedDate && (
+                <div className="rounded bg-secondary/60 px-2 py-1.5 text-[10px]">
+                  <p className="font-semibold text-foreground">
+                    📅 {selectedDate.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" })}
+                  </p>
+                  {selectedTime && <p className="text-primary font-bold">{selectedTime}</p>}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Ligne total cliquable */}
+          <div
+            onClick={() => setShowSummaryMobile(!showSummaryMobile)}
+            className="flex justify-between items-center cursor-pointer py-0.5"
+          >
+            <span className="text-xs text-muted-foreground font-medium flex items-center gap-1">
+              Total {showSummaryMobile ? "▼" : "▲ voir le détail"}
+            </span>
+            <span className="font-bold text-primary">{total} €</span>
           </div>
+
+          {/* Boutons */}
           <div className="flex gap-2">
             {step === 2 && formule && (
               <Button
                 onClick={handleAddAnother}
                 variant="outline"
-                className="flex-1 font-bold h-12 text-[10px] leading-tight px-1.5"
+                className="flex-1 font-bold h-11 text-[11px] px-2 leading-tight"
               >
-                Ajouter une prestation
+                + Prestation
               </Button>
             )}
             <Button
               onClick={handleContinue}
               disabled={!canContinue}
-              className="flex-1 bg-accent-gradient text-accent-foreground font-bold h-12 text-[10px] leading-tight px-1.5 hover:opacity-90 disabled:opacity-40"
+              className="flex-1 bg-accent-gradient text-accent-foreground font-bold h-11 text-[11px] hover:opacity-90 disabled:opacity-40"
             >
               {continuLabel} <ArrowRight className="size-3.5 ml-1" />
             </Button>
@@ -1122,19 +1225,26 @@ function ReserverPage() {
         </div>
       )}
 
+      {/* ── FOOTER MOBILE — Step 4 ── */}
       {step === 4 && (
-        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border/60 bg-background/97 p-3 backdrop-blur lg:hidden flex flex-col gap-2">
-          <div className="flex justify-between items-center px-1 font-bold">
-            <span className="text-muted-foreground text-[11px] uppercase tracking-wider">Total estimé</span>
-            <span className="text-base text-primary">{total} €</span>
+        <div className="fixed inset-x-0 bottom-0 z-40 lg:hidden border-t border-white/20 bg-white/80 backdrop-blur-md shadow-[0_-4px_20px_rgba(0,0,0,0.08)] px-4 py-3 flex flex-col gap-2">
+          <div className="flex justify-between items-center text-[10px] text-muted-foreground">
+            <span>💳 Paiement sur place</span>
+            <span>🔓 Annulation gratuite jusqu'à 24h avant</span>
+          </div>
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-muted-foreground">Total estimé</span>
+            <span className="font-bold text-primary">{total} €</span>
           </div>
           <Button
             type="submit"
             form="booking-form"
             disabled={submitting}
-            className="w-full bg-accent-gradient text-accent-foreground font-bold h-12 text-xs hover:opacity-90 disabled:opacity-60"
+            className="w-full bg-accent-gradient text-accent-foreground font-bold h-12 text-sm hover:opacity-90 disabled:opacity-60"
           >
-            {submitting ? "Envoi en cours…" : "Confirmer la réservation"}
+            {submitting
+              ? <><Loader2 className="size-4 animate-spin mr-1" /> Envoi en cours…</>
+              : <><CalendarCheck className="size-4 mr-1" /> Confirmer la réservation</>}
           </Button>
         </div>
       )}
