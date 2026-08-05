@@ -478,7 +478,7 @@ function Sidebar({
         <Button
           onClick={onAddAnother}
           variant="outline"
-          className="mt-5 w-full font-bold"
+          className="mt-5 w-full font-bold hidden lg:inline-flex"
         >
           Ajouter une autre prestation
         </Button>
@@ -489,7 +489,7 @@ function Sidebar({
           onClick={onContinue}
           disabled={!canContinue}
           size="lg"
-          className="mt-3 w-full bg-accent-gradient text-accent-foreground font-bold hover:opacity-90 disabled:opacity-40"
+          className="mt-3 w-full bg-accent-gradient text-accent-foreground font-bold hover:opacity-90 disabled:opacity-40 hidden lg:inline-flex"
         >
           {continuLabel} <ArrowRight className="size-4" />
         </Button>
@@ -685,6 +685,18 @@ function ReserverPage() {
 
   const total = currentTotal + cartTotal;
   const totalDuration = currentDuration + cartDuration;
+
+  const canContinue =
+    step === 1 ? !!formule :
+    step === 2 ? !!formule :
+    step === 3 ? !!(selectedDate && selectedTime) :
+    false;
+
+  const continuLabel =
+    step === 1 ? "Continuer vers les options" :
+    step === 2 ? "Choisir mon créneau" :
+    step === 3 ? "Finaliser ma réservation" :
+    "";
 
   // ── CONFIRMATION ──────────────────────────────────────────────────────────
   if (done) {
@@ -965,7 +977,7 @@ function ReserverPage() {
                   <p className="mt-1 text-sm text-muted-foreground">Nous vous confirmons par SMS sous 1h.</p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-5">
+                <form id="booking-form" onSubmit={handleSubmit} className="space-y-5">
                   <div>
                     <Label htmlFor="name" className="text-sm font-semibold">Nom complet *</Label>
                     <div className="relative mt-1.5">
@@ -1051,7 +1063,7 @@ function ReserverPage() {
                   </div>
 
                   <Button type="submit" disabled={submitting} size="xl"
-                    className="w-full bg-accent-gradient text-accent-foreground font-bold hover:opacity-90 disabled:opacity-60">
+                    className="w-full bg-accent-gradient text-accent-foreground font-bold hover:opacity-90 disabled:opacity-60 hidden lg:flex">
                     {submitting
                       ? <><Loader2 className="size-4 animate-spin" /> Envoi en cours…</>
                       : <><CalendarCheck className="size-4" /> Confirmer la réservation</>}
@@ -1081,6 +1093,41 @@ function ReserverPage() {
           )}
         </div>
       </div>
+
+      {/* Sticky bottom actions on mobile */}
+      {step < 4 && step !== 1 && !showCategories && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border/60 bg-background/97 p-3 backdrop-blur lg:hidden flex gap-2">
+          {step === 2 && formule && (
+            <Button
+              onClick={handleAddAnother}
+              variant="outline"
+              className="flex-1 font-bold h-12 text-xs"
+            >
+              Ajouter
+            </Button>
+          )}
+          <Button
+            onClick={handleContinue}
+            disabled={!canContinue}
+            className="flex-[2] bg-accent-gradient text-accent-foreground font-bold h-12 text-xs hover:opacity-90 disabled:opacity-40"
+          >
+            {continuLabel} <ArrowRight className="size-4 ml-1.5" />
+          </Button>
+        </div>
+      )}
+
+      {step === 4 && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border/60 bg-background/97 p-3 backdrop-blur lg:hidden">
+          <Button
+            type="submit"
+            form="booking-form"
+            disabled={submitting}
+            className="w-full bg-accent-gradient text-accent-foreground font-bold h-12 text-xs hover:opacity-90 disabled:opacity-60"
+          >
+            {submitting ? "Envoi en cours…" : "Confirmer la réservation"}
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

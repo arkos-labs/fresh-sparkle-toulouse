@@ -139,7 +139,15 @@ export function Footer() {
   );
 }
 
+import { useLocation } from "@tanstack/react-router";
+
 export function StickyCallCta() {
+  const location = useLocation();
+  
+  if (location.pathname === "/reserver") {
+    return null;
+  }
+
   return (
     <div className="fixed inset-x-0 bottom-0 z-50 border-t border-border/60 bg-background/97 p-3 backdrop-blur lg:hidden">
       <div className="flex gap-2">
