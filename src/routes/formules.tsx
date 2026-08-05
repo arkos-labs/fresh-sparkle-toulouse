@@ -689,7 +689,7 @@ function FormulesPage() {
           <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4 text-center">
           Choisissez une prestation pour voir toutes les formules
         </p>
-        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+        <div className="flex overflow-x-auto md:overflow-x-visible gap-4 pb-4 scrollbar-none snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-4">
           {CATEGORIES.map((cat) => {
             const isSelected = selected === cat.id;
             return (
@@ -697,7 +697,7 @@ function FormulesPage() {
                 key={cat.id}
                 onClick={() => setSelected(isSelected ? null : cat.id)}
                 className={[
-                  "relative flex flex-col rounded-2xl p-5 text-left transition-all shadow-sm hover:shadow-md",
+                  "relative flex flex-col rounded-2xl p-5 text-left transition-all shadow-sm hover:shadow-md shrink-0 w-[250px] md:shrink md:w-auto snap-start",
                   isSelected
                     ? "bg-primary text-white ring-2 ring-primary shadow-lg"
                     : "border border-border bg-white hover:border-primary/40",
