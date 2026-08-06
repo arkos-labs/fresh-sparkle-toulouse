@@ -1,6 +1,6 @@
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { CalendarCheck, Check, MapPin, Phone, Sparkles, ArrowRight, Clock, Shield, PawPrint, Eraser, Wind, RotateCcw, Sofa, Car as CarIcon } from "lucide-react";
+import { CalendarCheck, Check, MapPin, Phone, Sparkles, ArrowRight, Clock, Shield, PawPrint, Eraser, Wind, RotateCcw, Sofa, Car as CarIcon, Star, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { COMMUNES, COMPANY, SERVICES, type Service } from "@/data/site";
 import { ReviewsCarousel } from "@/components/site/ReviewsCarousel";
@@ -70,7 +70,7 @@ const FORMULE_IMAGES: Record<string, string> = {
   "bronze": "/images/auto/bronze.png",
   "argent": "/images/auto/argent.png",
   "or": "/images/auto/or.png",
-  "siege": "/images/auto/bronze.png",
+  "siege": "/images/auto/renov.png",
   // Matelas
   "matelas-enfant": "/images/matelas/enfant.png",
   "matelas-1": "/images/matelas/1-place.png",
@@ -78,6 +78,7 @@ const FORMULE_IMAGES: Record<string, string> = {
 };
 
 export function ServicePage({ service }: { service: Service }) {
+  const [introExpanded, setIntroExpanded] = useState(false);
   const others = SERVICES.filter((s) => s.slug !== service.slug).slice(0, 6);
   const bookingServiceId = getBookingServiceId(service.slug);
   const serviceOptions = bookingServiceId ? (OPTIONS_BY_SERVICE[bookingServiceId] ?? []) : [];
@@ -139,184 +140,210 @@ export function ServicePage({ service }: { service: Service }) {
         </div>
       </section>
 
-      {/* ── DETAIL ── */}
+      {/* ── DETAIL + TARIFS côte à côte ── */}
       <FadeIn delay={0.1}>
         <section className="mx-auto max-w-6xl px-4 py-16">
-          <div className="grid gap-10 md:grid-cols-2">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-primary">Le service en détail</p>
-            <h2 className="mt-2 text-3xl font-bold tracking-tight">Comment ça se passe ?</h2>
-            {service.intro.map((p) => (
-              <p key={p} className="mt-4 text-muted-foreground leading-relaxed">
-                {p}
-              </p>
-            ))}
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2 content-start">
-            <div className="rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-soft)]">
-              <div className="flex size-10 items-center justify-center rounded-xl bg-secondary mb-3">
-                <Check className="size-5 text-primary" />
-              </div>
-              <h3 className="font-bold text-sm uppercase tracking-wide text-muted-foreground mb-3">Ce que nous traitons</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                {service.treated.map((t) => (
-                  <li key={t} className="flex gap-2">
-                    <Check className="mt-0.5 size-4 shrink-0 text-primary" />
-                    {t}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-soft)]">
-              <div className="flex size-10 items-center justify-center rounded-xl bg-secondary mb-3">
-                <Sparkles className="size-5 text-primary" />
-              </div>
-              <h3 className="font-bold text-sm uppercase tracking-wide text-muted-foreground mb-3">Problèmes résolus</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                {service.problems.map((t) => (
-                  <li key={t} className="flex gap-2">
-                    <Sparkles className="mt-0.5 size-4 shrink-0 text-primary" />
-                    {t}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
+          <div className="grid gap-12 lg:grid-cols-2 lg:items-start">
 
-      {/* ── TARIFS ── */}
-      <section className="bg-secondary/60 py-16">
-        <div className={`mx-auto px-4 ${service.prices && service.prices.length >= 4 ? 'max-w-7xl' : 'max-w-6xl'}`}>
-          <p className="text-xs font-bold uppercase tracking-widest text-primary">Transparence</p>
-          <h2 className="mt-2 text-3xl font-bold tracking-tight">Tarifs clairs, sans surprise</h2>
-
-          {service.prices ? (
-            <>
-              <div className={`mt-4 grid grid-cols-2 gap-2 sm:grid-cols-2 ${service.prices.length >= 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'}`}>
-                {service.prices.map((row) => {
-                  const img = row.formuleId ? FORMULE_IMAGES[row.formuleId] : null;
-                  return (
-                    <div
-                      key={row.label}
-                      className="group flex flex-col rounded-xl md:rounded-2xl border border-border bg-card p-3 md:p-6 shadow-[var(--shadow-soft)] transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-card)]"
-                    >
-                      {img && (
-                        <div className="flex items-center justify-center w-full h-16 md:h-32 mb-2 md:mb-4 bg-slate-50 border border-slate-100 rounded-lg md:rounded-xl overflow-hidden p-1 md:p-2">
-                          <img src={img} alt={row.label} className="h-full object-contain mix-blend-multiply scale-110 group-hover:scale-115 transition-transform" loading="lazy" />
-                        </div>
-                      )}
-                      <p className="text-xs md:text-sm font-semibold text-muted-foreground line-clamp-1">{row.label}</p>
-                      <p className="mt-0.5 text-xl md:text-3xl font-bold text-primary">{row.price}</p>
-
-                      {row.items && row.items.length > 0 && (
-                        <ul className="mt-3 flex-1 space-y-2 hidden md:block">
-                          {row.items.map((item) => (
-                            <li key={item} className="flex items-start gap-2 text-sm text-muted-foreground">
-                              <Check className="mt-0.5 size-4 shrink-0 text-primary" />
-                              {item}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-
-                      {row.note && (
-                        <p className="mt-3 flex items-start gap-1.5 text-xs text-muted-foreground italic hidden md:flex">
-                          <span className="shrink-0 mt-0.5">ℹ️</span> {row.note}
-                        </p>
-                      )}
-
-                      <Button
-                        asChild
-                        className="mt-3 md:mt-5 bg-accent-gradient text-accent-foreground font-semibold hover:opacity-90 h-9 md:h-10 text-xs"
-                        size="sm"
-                      >
-                        <Link to="/reserver" search={bookingServiceId ? { service: bookingServiceId, formule: row.formuleId } : undefined}>
-                          <CalendarCheck className="size-3.5 mr-1" /> Réserver
-                        </Link>
-                      </Button>
-                    </div>
-                  );
-                })}
-              </div>
-              {service.priceNote && (
-                <p className="mt-6 max-w-3xl text-sm text-muted-foreground">{service.priceNote}</p>
-              )}
-
-              {/* Options disponibles */}
-              {serviceOptions.length > 0 && (
-                <div className="mt-10">
-                  <h3 className="text-xl font-bold mb-1">
-                    Personnalisez votre soin{" "}
-                    <span className="text-primary">{service.short}</span>
-                  </h3>
-                  <p className="text-sm text-muted-foreground mb-5">
-                    Options à ajouter lors de la réservation en ligne.
-                  </p>
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    {serviceOptions.map((opt) => (
-                      <div
-                        key={opt.name}
-                        className="relative flex flex-col rounded-2xl border border-border bg-card p-5 shadow-[var(--shadow-soft)]"
-                      >
-                        {/* Icon + badge */}
-                        <div className="flex items-start justify-between mb-3">
-                          <div className="flex size-14 items-center justify-center rounded-xl bg-secondary text-primary">
-                            {opt.icon}
-                          </div>
-                          {opt.popular && (
-                            <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-primary">
-                              Populaire
-                            </span>
-                          )}
-                        </div>
-                        {/* Nom + desc */}
-                        <p className="font-bold text-sm leading-snug">{opt.name}</p>
-                        <p className="mt-1 text-xs text-muted-foreground leading-relaxed flex-1">{opt.desc}</p>
-                        {/* Prix */}
-                        <div className="mt-4 flex items-center justify-between border-t border-border pt-3">
-                          <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Supplément</span>
-                          <span className="font-bold text-primary">+{opt.price} €</span>
-                        </div>
-                      </div>
+            {/* Colonne gauche : intro + ce qu'on traite + problèmes */}
+            <div>
+              <p className="text-xs font-bold uppercase tracking-widest text-primary">Le service en détail</p>
+              <h2 className="mt-2 text-3xl font-bold tracking-tight">Comment ça se passe ?</h2>
+              {/* Affiche 2 paragraphes, le reste masqué */}
+              {service.intro.slice(0, 2).map((p) => (
+                <p key={p} className="mt-4 text-muted-foreground leading-relaxed">{p}</p>
+              ))}
+              {service.intro.length > 2 && (
+                <>
+                  <div className={introExpanded ? "block" : "hidden"}>
+                    {service.intro.slice(2).map((p) => (
+                      <p key={p} className="mt-4 text-muted-foreground leading-relaxed">{p}</p>
                     ))}
                   </div>
+                  <button
+                    onClick={() => setIntroExpanded(!introExpanded)}
+                    className="mt-3 flex items-center gap-1 text-sm font-semibold text-primary hover:underline"
+                  >
+                    {introExpanded ? "Réduire" : "Lire la suite"}
+                    <ChevronDown className={`size-4 transition-transform ${introExpanded ? "rotate-180" : ""}`} />
+                  </button>
+                </>
+              )}
+              <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                <div className="rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-soft)]">
+                  <div className="flex size-10 items-center justify-center rounded-xl bg-secondary mb-3">
+                    <Check className="size-5 text-primary" />
+                  </div>
+                  <h3 className="font-bold text-sm uppercase tracking-wide text-muted-foreground mb-3">Ce que nous traitons</h3>
+                  <ul className="space-y-2 text-sm text-muted-foreground">
+                    {service.treated.map((t) => (
+                      <li key={t} className="flex gap-2">
+                        <Check className="mt-0.5 size-4 shrink-0 text-primary" />
+                        {t}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-soft)]">
+                  <div className="flex size-10 items-center justify-center rounded-xl bg-secondary mb-3">
+                    <Sparkles className="size-5 text-primary" />
+                  </div>
+                  <h3 className="font-bold text-sm uppercase tracking-wide text-muted-foreground mb-3">Problèmes résolus</h3>
+                  <ul className="space-y-2 text-sm text-muted-foreground">
+                    {service.problems.map((t) => (
+                      <li key={t} className="flex gap-2">
+                        <Sparkles className="mt-0.5 size-4 shrink-0 text-primary" />
+                        {t}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Colonne droite : tarifs (sticky sur desktop) */}
+            <div className="lg:sticky lg:top-24">
+              <p className="text-xs font-bold uppercase tracking-widest text-primary">Transparence</p>
+              <h2 className="mt-2 text-3xl font-bold tracking-tight">Tarifs clairs, sans surprise</h2>
+
+              {service.prices ? (
+                <>
+                  <div className={`mt-4 ${service.prices.length > 3 ? "grid grid-cols-2 gap-3" : "space-y-3"}`}>
+                    {service.prices.map((row) => {
+                      const img = row.formuleId ? FORMULE_IMAGES[row.formuleId] : null;
+                      const isGrid = service.prices!.length > 3;
+                      return (
+                        <div
+                          key={row.label}
+                          className="group flex flex-col rounded-xl border border-border bg-card p-3 shadow-[var(--shadow-soft)] transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-card)]"
+                        >
+                          {img && (
+                            <div className={`flex items-center justify-center w-full bg-slate-50 border border-slate-100 rounded-lg overflow-hidden p-1 mb-2 ${isGrid ? "h-20" : "h-20"}`}>
+                              <img src={img} alt={row.label} className="w-full h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-200" loading="lazy" />
+                            </div>
+                          )}
+                          <p className="text-xs font-semibold leading-tight line-clamp-2">{row.label}</p>
+                          {row.note && <p className="text-[10px] text-primary font-medium mt-0.5">{row.note}</p>}
+                          <span className={`font-bold text-primary mt-1 ${isGrid ? "text-xl" : "text-2xl"}`}>{row.price}</span>
+                          <Button
+                            asChild
+                            className="mt-2 w-full bg-accent-gradient text-accent-foreground font-semibold hover:opacity-90 h-8 text-xs"
+                            size="sm"
+                          >
+                            <Link to="/reserver" search={bookingServiceId ? { service: bookingServiceId, formule: row.formuleId } : undefined}>
+                              <CalendarCheck className="size-3 mr-1" /> Réserver
+                            </Link>
+                          </Button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  {service.priceNote && (
+                    <p className="mt-3 text-sm text-muted-foreground">{service.priceNote}</p>
+                  )}
+
+                  {/* Badge avis Google */}
+                  <a
+                    href="https://www.google.com/search?q=clean+fresh+toulouse+avis"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-5 flex items-center gap-3 rounded-xl border border-border bg-card px-4 py-3 shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-card)] transition-shadow"
+                  >
+                    <div className="flex shrink-0 items-center justify-center size-9 rounded-lg bg-white border border-slate-100">
+                      <svg viewBox="0 0 24 24" className="size-5" fill="none">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                      </svg>
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-1">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} className="size-3.5 fill-yellow-400 text-yellow-400" />
+                        ))}
+                        <span className="ml-1 text-sm font-bold">4.9</span>
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-0.5">102 avis vérifiés sur Google</p>
+                    </div>
+                    <ArrowRight className="size-4 text-muted-foreground shrink-0" />
+                  </a>
+
+                  {/* Urgence / disponibilité */}
+                  <div className="mt-3 flex items-center gap-2 rounded-xl bg-green-50 border border-green-200 px-4 py-2.5">
+                    <span className="relative flex size-2.5 shrink-0">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full size-2.5 bg-green-500"></span>
+                    </span>
+                    <p className="text-xs font-semibold text-green-800">Créneaux disponibles cette semaine — réservez maintenant</p>
+                  </div>
+
+                  <Button
+                    asChild
+                    size="lg"
+                    className="mt-3 w-full bg-accent-gradient text-accent-foreground font-bold hover:opacity-90"
+                  >
+                    <Link to="/formules" search={bookingServiceId ? { service: bookingServiceId } : undefined}>
+                      <CalendarCheck className="size-4 mr-2" /> Réserver en ligne
+                    </Link>
+                  </Button>
+                </>
+              ) : (
+                <div className="mt-4 rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-soft)]">
+                  <p className="text-xl font-bold">Prestation sur devis personnalisé</p>
+                  <p className="mt-2 text-muted-foreground">{service.priceNote}</p>
+                  <Button asChild size="lg" className="mt-5 w-full bg-primary-gradient text-primary-foreground font-semibold hover:opacity-90">
+                    <Link to="/contactez-nous">Demander mon devis gratuit</Link>
+                  </Button>
                 </div>
               )}
-
-              {/* Inline booking banner */}
-              <div className="mt-10 flex flex-col items-center gap-4 rounded-2xl border border-primary/20 bg-card px-8 py-6 text-center shadow-[var(--shadow-soft)] md:flex-row md:text-left">
-                <CalendarCheck className="size-10 shrink-0 text-primary" />
-                <div className="flex-1">
-                  <p className="font-bold">Réservez votre créneau en 2 minutes</p>
-                  <p className="mt-0.5 text-sm text-muted-foreground">
-                    Choisissez votre prestation, votre date et votre heure directement en ligne.
-                  </p>
-                </div>
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-accent-gradient text-accent-foreground font-bold hover:opacity-90 shrink-0"
-                >
-                  <Link to="/formules" search={bookingServiceId ? { service: bookingServiceId } : undefined}>
-                    Réserver en ligne <ArrowRight className="size-4" />
-                  </Link>
-                </Button>
-              </div>
-            </>
-          ) : (
-            <div className="mt-6 rounded-2xl border border-border bg-card p-8 shadow-[var(--shadow-soft)]">
-              <p className="text-xl font-bold">Prestation sur devis personnalisé</p>
-              <p className="mt-2 max-w-2xl text-muted-foreground">{service.priceNote}</p>
-              <Button asChild size="lg" className="mt-6 bg-primary-gradient text-primary-foreground font-semibold hover:opacity-90">
-                <Link to="/contactez-nous">Demander mon devis gratuit</Link>
-              </Button>
             </div>
-          )}
-        </div>
-      </section>
+          </div>
+        </section>
+      </FadeIn>
+
+      {/* ── OPTIONS ── */}
+      {serviceOptions.length > 0 && (
+        <section className="bg-secondary/60 py-16">
+          <div className="mx-auto max-w-6xl px-4">
+            <h3 className="text-xl font-bold mb-1">
+              Personnalisez votre soin{" "}
+              <span className="text-primary">{service.short}</span>
+            </h3>
+            <p className="text-sm text-muted-foreground mb-5">
+              Options à ajouter lors de la réservation en ligne.
+            </p>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {serviceOptions.map((opt) => (
+                <div
+                  key={opt.name}
+                  className="relative flex flex-col rounded-2xl border border-border bg-card p-5 shadow-[var(--shadow-soft)]"
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex size-14 items-center justify-center rounded-xl bg-secondary text-primary">
+                      {opt.icon}
+                    </div>
+                    {opt.popular && (
+                      <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-primary">
+                        Populaire
+                      </span>
+                    )}
+                  </div>
+                  <p className="font-bold text-sm leading-snug">{opt.name}</p>
+                  <p className="mt-1 text-xs text-muted-foreground leading-relaxed flex-1">{opt.desc}</p>
+                  <div className="mt-4 flex items-center justify-between border-t border-border pt-3">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Supplément</span>
+                    <span className="font-bold text-primary">+{opt.price} €</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── ZONE + SALISSURES ── */}
+      <FadeIn delay={0.1}>
       <section className="mx-auto max-w-6xl px-4 py-16">
         <div className="grid gap-10 md:grid-cols-2">
           <div>
@@ -429,6 +456,45 @@ export function ServicePage({ service }: { service: Service }) {
       {service.faq && service.faq.length > 0 && (
         <FadeIn delay={0.1}>
           <section className="mx-auto max-w-6xl px-4 py-16">
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                  "@context": "https://schema.org",
+                  "@type": "Service",
+                  name: service.h1,
+                  description: service.subtitle,
+                  url: `https://cleanetfresh.fr${service.slug}`,
+                  provider: {
+                    "@type": "LocalBusiness",
+                    name: "Clean&Fresh",
+                    url: "https://cleanetfresh.fr",
+                    telephone: "+33767127500",
+                    address: {
+                      "@type": "PostalAddress",
+                      addressLocality: "Toulouse",
+                      addressRegion: "Haute-Garonne",
+                      postalCode: "31500",
+                      addressCountry: "FR",
+                    },
+                  },
+                  areaServed: [
+                    { "@type": "City", name: "Toulouse" },
+                    { "@type": "AdministrativeArea", name: "Haute-Garonne" },
+                  ],
+                  ...(service.prices && service.prices.length > 0
+                    ? {
+                        offers: service.prices.map((p) => ({
+                          "@type": "Offer",
+                          name: p.label,
+                          price: p.price.replace(/[^0-9]/g, ""),
+                          priceCurrency: "EUR",
+                        })),
+                      }
+                    : {}),
+                }),
+              }}
+            />
             <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{

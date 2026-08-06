@@ -171,6 +171,15 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="fr" className="overflow-x-hidden w-full">
       <head>
         <HeadContent />
+        {/* Google Tag — Analytics + Ads */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=GT-NBQQP8JN" />
+        <script dangerouslySetInnerHTML={{__html: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'GT-NBQQP8JN');
+          gtag('config', 'AW-17507775021');
+        `}} />
       </head>
       <body className="overflow-x-hidden w-full">
         {children}
