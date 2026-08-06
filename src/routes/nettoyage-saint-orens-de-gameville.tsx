@@ -44,6 +44,7 @@ export const Route = createFileRoute("/nettoyage-saint-orens-de-gameville")({
           areaServed: { "@type": "City", name: CITY },
           address: { "@type": "PostalAddress", addressLocality: "Toulouse", addressRegion: "Haute-Garonne", postalCode: "31000", addressCountry: "FR" },
           priceRange: "€€",
+          aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", reviewCount: "102" },
         }),
       },
     ],
@@ -88,6 +89,7 @@ function LocalPage() {
         <section className="mx-auto max-w-4xl px-4 py-16">
           <div className="prose prose-sm md:prose-base max-w-none text-muted-foreground [&>p]:mb-5 [&>ul]:mb-5 [&>h2]:mt-10 [&>h2]:mb-4">
             <h2>Nos prestations de nettoyage à {CITY}</h2>
+            <p>Saint-Orens-de-Gameville est l'une des communes les plus dynamiques du sud-est toulousain, avec plus de 15 000 habitants. Entre Castanet et Toulouse, ses nombreux quartiers résidentiels (les Pins, les Argoulets, le Pré Blanc) accueillent des familles qui ont investi dans leur intérieur — et qui font appel à nous pour le maintenir impeccable.</p>
             <ul>
               <li><strong>Nettoyage de canapés et fauteuils :</strong> Tissu, cuir ou velours : traitement des taches, anti-odeur et ravivement des couleurs.</li>
               <li><strong>Entretien de matelas :</strong> Désinfection, anti-acariens et élimination des auréoles.</li>
@@ -96,14 +98,24 @@ function LocalPage() {
             </ul>
 
             <h2>Pourquoi faire appel à notre entreprise ?</h2>
-            <p>Saint-Orens-de-Gameville est dans notre zone d'intervention régulière. Le nettoyage de fin de bail est l'une de nos spécialités pour aider les locataires à récupérer leur caution.</p>
-            <p>Machines haute puissance, produits Écolabel, résultat garanti. Devis gratuit sous 24h.</p>
+            <p>Clean&Fresh intervient à Saint-Orens depuis la création de l'entreprise. C'est l'une de nos zones phares dans le secteur sud-est : nettoyage de canapés, dégraissage de matelas, shampouinage de grands tapis de salon. Nos techniciens connaissent bien les accès et les spécificités des quartiers résidentiels de la commune.</p>
+            <p>Pour les locataires en fin de bail, nous proposons également le nettoyage complet du logement (canapé, matelas, tapis, moquette) pour maximiser les chances de récupérer la caution intégrale. Devis express sous 24h, intervention rapide.</p>
 
             <h2>Comment se déroule notre intervention ?</h2>
             <p>
               Le processus est simple : vous prenez rendez-vous en ligne ou par téléphone. À la date convenue, notre technicien
               se présente à votre adresse à {CITY} avec son équipement complet. Nous protégeons les zones environnantes, puis procédons
               au traitement : aspiration minutieuse, application des produits détachants, brossage, et enfin injection-extraction.
+            </p>
+
+            <h2>Nos services de nettoyage à {CITY}</h2>
+            <p>
+              Clean&Fresh intervient à {CITY} pour l'ensemble de ses prestations :{" "}
+              <Link to="/nettoyage-canape-toulouse" className="text-primary font-medium hover:underline">nettoyage de canapé</Link>,{" "}
+              <Link to="/nettoyage-matelas-toulouse" className="text-primary font-medium hover:underline">nettoyage de matelas</Link>,{" "}
+              <Link to="/nettoyage-tapis-toulouse" className="text-primary font-medium hover:underline">shampouinage de tapis</Link>{" "}
+              et <Link to="/nettoyage-auto-a-domicile-toulouse" className="text-primary font-medium hover:underline">nettoyage intérieur auto à domicile</Link>.
+              Mêmes tarifs, même qualité et même équipement professionnel que dans toute l'agglomération toulousaine.
             </p>
           </div>
         </section>
@@ -129,6 +141,7 @@ function LocalPage() {
                 <a href={COMPANY.phoneHref}>Appeler le {COMPANY.phone}</a>
               </Button>
             </div>
+
           </div>
         </section>
       </FadeIn>

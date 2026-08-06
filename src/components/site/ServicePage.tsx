@@ -498,6 +498,11 @@ export function ServicePage({ service }: { service: Service }) {
                       postalCode: "31500",
                       addressCountry: "FR",
                     },
+                    aggregateRating: {
+                      "@type": "AggregateRating",
+                      ratingValue: "4.9",
+                      reviewCount: "102",
+                    },
                   },
                   areaServed: [
                     { "@type": "City", name: "Toulouse" },

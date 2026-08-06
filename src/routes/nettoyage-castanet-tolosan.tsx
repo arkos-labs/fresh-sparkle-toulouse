@@ -44,6 +44,7 @@ export const Route = createFileRoute("/nettoyage-castanet-tolosan")({
           areaServed: { "@type": "City", name: CITY },
           address: { "@type": "PostalAddress", addressLocality: "Toulouse", addressRegion: "Haute-Garonne", postalCode: "31000", addressCountry: "FR" },
           priceRange: "€€",
+          aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", reviewCount: "102" },
         }),
       },
     ],
@@ -88,6 +89,7 @@ function LocalPage() {
         <section className="mx-auto max-w-4xl px-4 py-16">
           <div className="prose prose-sm md:prose-base max-w-none text-muted-foreground [&>p]:mb-5 [&>ul]:mb-5 [&>h2]:mt-10 [&>h2]:mb-4">
             <h2>Nos prestations de nettoyage à {CITY}</h2>
+            <p>Castanet-Tolosan, à 15 km au sud-est de Toulouse, est une ville de plus de 13 000 habitants en pleine croissance. Limitrophe de Labège et d'Innopole, elle attire de nombreux cadres et ingénieurs du secteur aéronautique et high-tech qui y ont établi leur résidence principale — des foyers où l'on prend soin de son intérieur.</p>
             <ul>
               <li><strong>Nettoyage de canapés et fauteuils :</strong> Tissu, cuir ou velours : traitement des taches et anti-odeur par injection-extraction.</li>
               <li><strong>Entretien de matelas :</strong> Désinfection approfondie, anti-acariens et élimination des auréoles.</li>
@@ -96,14 +98,24 @@ function LocalPage() {
             </ul>
 
             <h2>Pourquoi faire appel à notre entreprise ?</h2>
-            <p>Castanet-Tolosan est dans notre secteur est. Nos techniciens s'y déplacent avec leur équipement complet, sans frais de déplacement supplémentaire.</p>
-            <p>Tarifs affichés, devis gratuit sous 24h, produits certifiés Écolabel — le même niveau d'exigence qu'à Toulouse.</p>
+            <p>Nos techniciens interviennent régulièrement dans les quartiers pavillonnaires de Castanet et dans les résidences proches du lac de Castanet. L'accès est facile depuis la A61, le déplacement est offert et nous arrivons avec tout le matériel professionnel : aspirateur haute puissance, machine d'injection-extraction, produits Écolabel.</p>
+            <p>À Castanet-Tolosan, nos clients nous sollicitent principalement pour le nettoyage de grands canapés d'angle, de matelas 2 places et de tapis de salon importés. Notre expertise textile nous permet de traiter sans risque les matières nobles : velours, lin, laine, microfibre et cuir. Résultat visible immédiatement, séchage en 2 à 4h.</p>
 
             <h2>Comment se déroule notre intervention ?</h2>
             <p>
               Le processus est simple : vous prenez rendez-vous en ligne ou par téléphone. À la date convenue, notre technicien
               se présente à votre adresse à {CITY} avec son équipement complet. Nous protégeons les zones environnantes, puis procédons
               au traitement : aspiration minutieuse, application des produits détachants, brossage, et enfin injection-extraction.
+            </p>
+
+            <h2>Nos services de nettoyage à {CITY}</h2>
+            <p>
+              Clean&Fresh intervient à {CITY} pour l'ensemble de ses prestations :{" "}
+              <Link to="/nettoyage-canape-toulouse" className="text-primary font-medium hover:underline">nettoyage de canapé</Link>,{" "}
+              <Link to="/nettoyage-matelas-toulouse" className="text-primary font-medium hover:underline">nettoyage de matelas</Link>,{" "}
+              <Link to="/nettoyage-tapis-toulouse" className="text-primary font-medium hover:underline">shampouinage de tapis</Link>{" "}
+              et <Link to="/nettoyage-auto-a-domicile-toulouse" className="text-primary font-medium hover:underline">nettoyage intérieur auto à domicile</Link>.
+              Mêmes tarifs, même qualité et même équipement professionnel que dans toute l'agglomération toulousaine.
             </p>
           </div>
         </section>
@@ -129,6 +141,7 @@ function LocalPage() {
                 <a href={COMPANY.phoneHref}>Appeler le {COMPANY.phone}</a>
               </Button>
             </div>
+
           </div>
         </section>
       </FadeIn>

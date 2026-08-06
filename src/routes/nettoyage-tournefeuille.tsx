@@ -43,6 +43,7 @@ export const Route = createFileRoute("/nettoyage-tournefeuille")({
           areaServed: { "@type": "City", name: "Tournefeuille" },
           address: { "@type": "PostalAddress", addressLocality: "Toulouse", addressRegion: "Haute-Garonne", postalCode: "31000", addressCountry: "FR" },
           priceRange: "€€",
+          aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", reviewCount: "102" },
         }),
       },
     ],
@@ -85,11 +86,10 @@ function LocalPage() {
       {/* ── CONTENU SEO ── */}
       <FadeIn delay={0.1}>
         <section className="mx-auto max-w-4xl px-4 py-16">
-          <div className="prose prose-sm md:prose-base max-w-none text-muted-foreground">
+          <div className="prose prose-sm md:prose-base max-w-none text-muted-foreground [&>p]:mb-5 [&>ul]:mb-5 [&>h2]:mt-10 [&>h2]:mb-4">
             <h2>Nos prestations de nettoyage à Tournefeuille</h2>
             <p>
-              Située à proximité, l'équipe Clean&Fresh intervient rapidement sur l'ensemble de la commune de Tournefeuille. 
-              Nous sommes spécialisés dans le nettoyage en profondeur de tous vos textiles d'ameublement ainsi que l'entretien de vos espaces.
+              Tournefeuille, 30 000 habitants à 10 km à l'ouest de Toulouse, est une ville essentiellement résidentielle et familiale. Ses quartiers de maisons individuelles (Belbèze, Pin Vert, la Ramette) abritent de nombreux canapés, tapis et literies qui accumulent au fil du temps taches, acariens et odeurs difficiles à éliminer sans matériel professionnel.
             </p>
             <ul>
               <li><strong>Nettoyage de canapés et fauteuils :</strong> Traitement des taches, ravivement des couleurs et traitement anti-odeur pour vos salons en tissu, cuir ou velours.</li>
@@ -100,18 +100,23 @@ function LocalPage() {
             </ul>
 
             <h2>Pourquoi faire appel à notre entreprise ?</h2>
-            <p>
-              Faire intervenir Clean&Fresh à Tournefeuille, c'est faire le choix de la transparence et de l'efficacité. 
-              Contrairement aux offres opaques, nous affichons clairement nos tarifs. Nos devis sont gratuits et envoyés sous 24h.
-            </p>
-            <p>
-              Nous utilisons des machines d'injection-extraction professionnelles de haute puissance, garantissant un nettoyage en profondeur et un temps de séchage extrêmement réduit. De plus, nos produits sont sélectionnés pour leur efficacité tout en étant certifiés Écolabel européen, utilisés conformément aux recommandations du fabricant dans le respect de votre santé et de l'environnement.
-            </p>
+            <p>Nos techniciens interviennent à Tournefeuille plusieurs fois par mois, dans tous les quartiers de la ville. La demande y est forte pour le nettoyage de canapés à poils courts ou velours, le traitement anti-acariens de matelas et le shampouinage de grands tapis de salon. Déplacement offert depuis Toulouse.</p>
+            <p>À Tournefeuille, les foyers avec enfants et animaux représentent une grande partie de notre clientèle. Nos produits Écolabel sont sans danger pour les plus jeunes et les animaux domestiques. Le résultat est immédiat et le séchage garanti en 2 à 4h. Réservation en ligne possible en 2 minutes.</p>
             
             <h2>Comment se déroule notre intervention ?</h2>
             <p>
               Le processus est simple : vous prenez rendez-vous en ligne ou par téléphone. À la date convenue, notre technicien se présente à votre adresse à Tournefeuille avec son équipement complet. 
               Nous protégeons les zones environnantes, puis procédons au traitement : aspiration minutieuse, application des produits détachants, brossage, et enfin injection-extraction.
+            </p>
+
+            <h2>Nos services de nettoyage à Tournefeuille</h2>
+            <p>
+              Clean&Fresh intervient à Tournefeuille pour l'ensemble de ses prestations :{" "}
+              <Link to="/nettoyage-canape-toulouse" className="text-primary font-medium hover:underline">nettoyage de canapé</Link>,{" "}
+              <Link to="/nettoyage-matelas-toulouse" className="text-primary font-medium hover:underline">nettoyage de matelas</Link>,{" "}
+              <Link to="/nettoyage-tapis-toulouse" className="text-primary font-medium hover:underline">shampouinage de tapis</Link>{" "}
+              et <Link to="/nettoyage-auto-a-domicile-toulouse" className="text-primary font-medium hover:underline">nettoyage intérieur auto à domicile</Link>.
+              Mêmes tarifs, même qualité et même équipement professionnel que dans toute l'agglomération toulousaine.
             </p>
           </div>
         </section>
@@ -137,6 +142,7 @@ function LocalPage() {
                 <a href={COMPANY.phoneHref}>Appeler le {COMPANY.phone}</a>
               </Button>
             </div>
+
           </div>
         </section>
       </FadeIn>

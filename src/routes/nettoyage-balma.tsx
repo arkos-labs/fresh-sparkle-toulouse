@@ -43,6 +43,7 @@ export const Route = createFileRoute("/nettoyage-balma")({
           areaServed: { "@type": "City", name: "Balma" },
           address: { "@type": "PostalAddress", addressLocality: "Toulouse", addressRegion: "Haute-Garonne", postalCode: "31000", addressCountry: "FR" },
           priceRange: "€€",
+          aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", reviewCount: "102" },
         }),
       },
     ],
@@ -85,11 +86,10 @@ function LocalPage() {
       {/* ── CONTENU SEO ── */}
       <FadeIn delay={0.1}>
         <section className="mx-auto max-w-4xl px-4 py-16">
-          <div className="prose prose-sm md:prose-base max-w-none text-muted-foreground">
+          <div className="prose prose-sm md:prose-base max-w-none text-muted-foreground [&>p]:mb-5 [&>ul]:mb-5 [&>h2]:mt-10 [&>h2]:mb-4">
             <h2>Nos prestations de nettoyage à Balma</h2>
             <p>
-              Située à proximité, l'équipe Clean&Fresh intervient rapidement sur l'ensemble de la commune de Balma. 
-              Nous sommes spécialisés dans le nettoyage en profondeur de tous vos textiles d'ameublement ainsi que l'entretien de vos espaces.
+              Balma, à 8 km à l'est de Toulouse, est une commune résidentielle calme de 13 000 habitants, avec de nombreuses villas et maisons de qualité dans les quartiers du Bouloc, du Garossos et des Tournesols. Proche du parc d'activités de Gramont, elle attire de nombreux cadres toulousains qui apprécient son cadre de vie soigné.
             </p>
             <ul>
               <li><strong>Nettoyage de canapés et fauteuils :</strong> Traitement des taches, ravivement des couleurs et traitement anti-odeur pour vos salons en tissu, cuir ou velours.</li>
@@ -100,18 +100,23 @@ function LocalPage() {
             </ul>
 
             <h2>Pourquoi faire appel à notre entreprise ?</h2>
-            <p>
-              Faire intervenir Clean&Fresh à Balma, c'est faire le choix de la transparence et de l'efficacité. 
-              Contrairement aux offres opaques, nous affichons clairement nos tarifs. Nos devis sont gratuits et envoyés sous 24h.
-            </p>
-            <p>
-              Nous utilisons des machines d'injection-extraction professionnelles de haute puissance, garantissant un nettoyage en profondeur et un temps de séchage extrêmement réduit. De plus, nos produits sont sélectionnés pour leur efficacité tout en étant certifiés Écolabel européen, utilisés conformément aux recommandations du fabricant dans le respect de votre santé et de l'environnement.
-            </p>
+            <p>Clean&Fresh intervient régulièrement à Balma pour le nettoyage de canapés, tapis et matelas dans les maisons individuelles et appartements de la commune. L'accès est rapide depuis Toulouse par la D112, et nos techniciens arrivent équipés et à l'heure.</p>
+            <p>La clientèle de Balma est souvent exigeante sur la qualité et apprécie nos produits certifiés Écolabel, sans résidu ni odeur chimique après séchage. Nos machines professionnelles garantissent un résultat visible dès la fin de l'intervention. Devis gratuit sous 24h.</p>
             
             <h2>Comment se déroule notre intervention ?</h2>
             <p>
               Le processus est simple : vous prenez rendez-vous en ligne ou par téléphone. À la date convenue, notre technicien se présente à votre adresse à Balma avec son équipement complet. 
               Nous protégeons les zones environnantes, puis procédons au traitement : aspiration minutieuse, application des produits détachants, brossage, et enfin injection-extraction.
+            </p>
+
+            <h2>Nos services de nettoyage à Balma</h2>
+            <p>
+              Clean&Fresh intervient à Balma pour l'ensemble de ses prestations :{" "}
+              <Link to="/nettoyage-canape-toulouse" className="text-primary font-medium hover:underline">nettoyage de canapé</Link>,{" "}
+              <Link to="/nettoyage-matelas-toulouse" className="text-primary font-medium hover:underline">nettoyage de matelas</Link>,{" "}
+              <Link to="/nettoyage-tapis-toulouse" className="text-primary font-medium hover:underline">shampouinage de tapis</Link>{" "}
+              et <Link to="/nettoyage-auto-a-domicile-toulouse" className="text-primary font-medium hover:underline">nettoyage intérieur auto à domicile</Link>.
+              Mêmes tarifs, même qualité et même équipement professionnel que dans toute l'agglomération toulousaine.
             </p>
           </div>
         </section>
@@ -137,6 +142,7 @@ function LocalPage() {
                 <a href={COMPANY.phoneHref}>Appeler le {COMPANY.phone}</a>
               </Button>
             </div>
+
           </div>
         </section>
       </FadeIn>

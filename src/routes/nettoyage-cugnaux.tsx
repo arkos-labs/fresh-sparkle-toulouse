@@ -44,6 +44,7 @@ export const Route = createFileRoute("/nettoyage-cugnaux")({
           areaServed: { "@type": "City", name: CITY },
           address: { "@type": "PostalAddress", addressLocality: "Toulouse", addressRegion: "Haute-Garonne", postalCode: "31000", addressCountry: "FR" },
           priceRange: "€€",
+          aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", reviewCount: "102" },
         }),
       },
     ],
@@ -88,6 +89,7 @@ function LocalPage() {
         <section className="mx-auto max-w-4xl px-4 py-16">
           <div className="prose prose-sm md:prose-base max-w-none text-muted-foreground [&>p]:mb-5 [&>ul]:mb-5 [&>h2]:mt-10 [&>h2]:mb-4">
             <h2>Nos prestations de nettoyage à {CITY}</h2>
+            <p>Cugnaux, commune de près de 19 000 habitants située à 12 km au sud-ouest de Toulouse, est l'une des villes les plus en expansion de la Haute-Garonne. Ses nombreux lotissements récents (quartiers des Pins, du Moulin) abritent une population jeune avec enfants — et des canapés, matelas et tapis qui en voient de toutes les couleurs.</p>
             <ul>
               <li><strong>Nettoyage de canapés et fauteuils :</strong> Tissu, cuir ou velours : traitement des taches, anti-odeur et ravivement des couleurs.</li>
               <li><strong>Entretien de matelas :</strong> Désinfection approfondie et traitement anti-acariens.</li>
@@ -96,14 +98,24 @@ function LocalPage() {
             </ul>
 
             <h2>Pourquoi faire appel à notre entreprise ?</h2>
-            <p>Cugnaux est dans notre zone d'intervention régulière. Nos techniciens se déplacent depuis Toulouse avec leur équipement complet, sans frais de déplacement supplémentaire.</p>
-            <p>Nous utilisons des machines professionnelles haute puissance et des produits certifiés Écolabel, sûrs pour toute votre famille.</p>
+            <p>Depuis Toulouse, nos techniciens rejoignent Cugnaux rapidement par la D68. L'intervention est fluide, propre et sans contrainte de votre part : nous arrivons avec tout le matériel, protégeons vos sols et repartons sans laisser de traces.</p>
+            <p>Dans les foyers cugnauxiens, les taches d'urine sur matelas (enfants en bas âge), les canapés à poils de chien et les tapis encombrés de salissures incrustées sont nos spécialités. Nos produits Écolabel sont sans danger pour vos enfants et animaux. Devis gratuit, intervention sous 48h.</p>
 
             <h2>Comment se déroule notre intervention ?</h2>
             <p>
               Le processus est simple : vous prenez rendez-vous en ligne ou par téléphone. À la date convenue, notre technicien
               se présente à votre adresse à {CITY} avec son équipement complet. Nous protégeons les zones environnantes, puis procédons
               au traitement : aspiration minutieuse, application des produits détachants, brossage, et enfin injection-extraction.
+            </p>
+
+            <h2>Nos services de nettoyage à {CITY}</h2>
+            <p>
+              Clean&Fresh intervient à {CITY} pour l'ensemble de ses prestations :{" "}
+              <Link to="/nettoyage-canape-toulouse" className="text-primary font-medium hover:underline">nettoyage de canapé</Link>,{" "}
+              <Link to="/nettoyage-matelas-toulouse" className="text-primary font-medium hover:underline">nettoyage de matelas</Link>,{" "}
+              <Link to="/nettoyage-tapis-toulouse" className="text-primary font-medium hover:underline">shampouinage de tapis</Link>{" "}
+              et <Link to="/nettoyage-auto-a-domicile-toulouse" className="text-primary font-medium hover:underline">nettoyage intérieur auto à domicile</Link>.
+              Mêmes tarifs, même qualité et même équipement professionnel que dans toute l'agglomération toulousaine.
             </p>
           </div>
         </section>
@@ -129,6 +141,7 @@ function LocalPage() {
                 <a href={COMPANY.phoneHref}>Appeler le {COMPANY.phone}</a>
               </Button>
             </div>
+
           </div>
         </section>
       </FadeIn>

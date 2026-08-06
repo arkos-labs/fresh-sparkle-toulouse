@@ -44,6 +44,7 @@ export const Route = createFileRoute("/nettoyage-ramonville-saint-agne")({
           areaServed: { "@type": "City", name: CITY },
           address: { "@type": "PostalAddress", addressLocality: "Toulouse", addressRegion: "Haute-Garonne", postalCode: "31000", addressCountry: "FR" },
           priceRange: "€€",
+          aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", reviewCount: "102" },
         }),
       },
     ],
@@ -88,6 +89,7 @@ function LocalPage() {
         <section className="mx-auto max-w-4xl px-4 py-16">
           <div className="prose prose-sm md:prose-base max-w-none text-muted-foreground [&>p]:mb-5 [&>ul]:mb-5 [&>h2]:mt-10 [&>h2]:mb-4">
             <h2>Nos prestations de nettoyage à {CITY}</h2>
+            <p>Ramonville-Saint-Agne borde le Canal du Midi et le lac de la Ramée, à 8 km au sud-est de Toulouse. Terminus de la ligne B du métro, la commune séduit de nombreux actifs toulousains qui y ont posé leurs valises — appartements lumineux, maisons avec terrasse, intérieurs soignés qui méritent un entretien à la hauteur.</p>
             <ul>
               <li><strong>Nettoyage de canapés et fauteuils :</strong> Tissu, cuir ou velours : traitement des taches, anti-odeur et ravivement des couleurs.</li>
               <li><strong>Entretien de matelas :</strong> Désinfection, anti-acariens et élimination des auréoles.</li>
@@ -96,14 +98,24 @@ function LocalPage() {
             </ul>
 
             <h2>Pourquoi faire appel à notre entreprise ?</h2>
-            <p>Ramonville-Saint-Agne est une commune que nous desservons régulièrement. Nos techniciens formés y interviennent avec leurs machines haute puissance.</p>
-            <p>Devis gratuit sous 24h, tarifs affichés et produits certifiés Écolabel. Résultat garanti, séchage en 2 à 4h.</p>
+            <p>Nos équipes interviennent régulièrement à Ramonville pour des nettoyages de canapés, matelas et tapis dans les résidences du quartier du Château et autour du lac. Accessible en quelques minutes depuis la rocade, nous sommes chez vous rapidement et sans frais de déplacement.</p>
+            <p>La clientèle de Ramonville — souvent des professionnels avec de beaux intérieurs — apprécie notre discrétion, notre ponctualité et la qualité du résultat. Nos machines Prochem haute extraction garantissent un séchage en 2 à 4h. Le canapé peut être utilisé le soir même.</p>
 
             <h2>Comment se déroule notre intervention ?</h2>
             <p>
               Le processus est simple : vous prenez rendez-vous en ligne ou par téléphone. À la date convenue, notre technicien
               se présente à votre adresse à {CITY} avec son équipement complet. Nous protégeons les zones environnantes, puis procédons
               au traitement : aspiration minutieuse, application des produits détachants, brossage, et enfin injection-extraction.
+            </p>
+
+            <h2>Nos services de nettoyage à {CITY}</h2>
+            <p>
+              Clean&Fresh intervient à {CITY} pour l'ensemble de ses prestations :{" "}
+              <Link to="/nettoyage-canape-toulouse" className="text-primary font-medium hover:underline">nettoyage de canapé</Link>,{" "}
+              <Link to="/nettoyage-matelas-toulouse" className="text-primary font-medium hover:underline">nettoyage de matelas</Link>,{" "}
+              <Link to="/nettoyage-tapis-toulouse" className="text-primary font-medium hover:underline">shampouinage de tapis</Link>{" "}
+              et <Link to="/nettoyage-auto-a-domicile-toulouse" className="text-primary font-medium hover:underline">nettoyage intérieur auto à domicile</Link>.
+              Mêmes tarifs, même qualité et même équipement professionnel que dans toute l'agglomération toulousaine.
             </p>
           </div>
         </section>
@@ -129,6 +141,7 @@ function LocalPage() {
                 <a href={COMPANY.phoneHref}>Appeler le {COMPANY.phone}</a>
               </Button>
             </div>
+
           </div>
         </section>
       </FadeIn>

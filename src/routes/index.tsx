@@ -50,6 +50,37 @@ export const Route = createFileRoute("/")({
       { name: "twitter:description", content: DESC },
     ],
     links: [{ rel: "canonical", href: `${SITE_URL}/` }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          name: "Clean&Fresh",
+          url: "https://cleanetfresh.fr",
+          telephone: "+33767127500",
+          email: "nettoyagecleanfresh@gmail.com",
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Toulouse",
+            addressRegion: "Haute-Garonne",
+            postalCode: "31000",
+            addressCountry: "FR",
+          },
+          areaServed: { "@type": "AdministrativeArea", name: "Haute-Garonne" },
+          priceRange: "€€",
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: "4.9",
+            reviewCount: "102",
+          },
+          sameAs: [
+            "https://www.instagram.com/cleanetfresh31",
+            "https://www.facebook.com/profile.php?id=61579620873055",
+          ],
+        }),
+      },
+    ],
   }),
   component: Index,
 });

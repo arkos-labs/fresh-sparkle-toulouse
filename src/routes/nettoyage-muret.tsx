@@ -44,6 +44,7 @@ export const Route = createFileRoute("/nettoyage-muret")({
           areaServed: { "@type": "City", name: CITY },
           address: { "@type": "PostalAddress", addressLocality: "Toulouse", addressRegion: "Haute-Garonne", postalCode: "31000", addressCountry: "FR" },
           priceRange: "€€",
+          aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", reviewCount: "102" },
         }),
       },
     ],
@@ -88,6 +89,7 @@ function LocalPage() {
         <section className="mx-auto max-w-4xl px-4 py-16">
           <div className="prose prose-sm md:prose-base max-w-none text-muted-foreground [&>p]:mb-5 [&>ul]:mb-5 [&>h2]:mt-10 [&>h2]:mb-4">
             <h2>Nos prestations de nettoyage à {CITY}</h2>
+            <p>Muret est la préfecture de la Haute-Garonne, idéalement située à 23 km au sud de Toulouse, au confluent de la Garonne et de la Louge. Ville dynamique d'environ 27 000 habitants, elle concentre de nombreuses maisons individuelles et pavillons récents dans des quartiers comme Clairfont, Barradels ou le Cassé — des intérieurs qui méritent un entretien régulier.</p>
             <ul>
               <li><strong>Nettoyage de canapés et fauteuils :</strong> Tissu, cuir ou velours : traitement des taches, anti-odeur et ravivement des couleurs par injection-extraction.</li>
               <li><strong>Entretien de matelas :</strong> Désinfection approfondie et traitement anti-acariens pour un sommeil sain.</li>
@@ -96,14 +98,24 @@ function LocalPage() {
             </ul>
 
             <h2>Pourquoi faire appel à notre entreprise ?</h2>
-            <p>Muret est une commune que nous desservons régulièrement dans notre secteur sud. Nos techniciens formés interviennent avec leurs machines d'injection-extraction haute puissance.</p>
-            <p>Devis gratuit sous 24h, tarifs affichés, produits certifiés Écolabel — c'est l'engagement Clean&Fresh à Muret comme partout dans le 31.</p>
+            <p>Clean&Fresh intervient régulièrement à Muret et dans les communes voisines (Portet-sur-Garonne, Roques, Frouzins). Grâce à notre position centrale dans l'agglomération toulousaine, nos techniciens rejoignent Muret en moins de 30 minutes avec leur équipement complet — zéro frais de déplacement supplémentaire.</p>
+            <p>La richesse textile des foyers muretains — canapés en velours, grands tapis berbères, literie haut de gamme — exige des méthodes professionnelles. Nos machines d'injection-extraction haute puissance associées à des produits certifiés Écolabel offrent des résultats impossibles à obtenir avec un nettoyage classique. Séchage garanti en 2 à 4h.</p>
 
             <h2>Comment se déroule notre intervention ?</h2>
             <p>
               Le processus est simple : vous prenez rendez-vous en ligne ou par téléphone. À la date convenue, notre technicien
               se présente à votre adresse à {CITY} avec son équipement complet. Nous protégeons les zones environnantes, puis procédons
               au traitement : aspiration minutieuse, application des produits détachants, brossage, et enfin injection-extraction.
+            </p>
+
+            <h2>Nos services de nettoyage à {CITY}</h2>
+            <p>
+              Clean&Fresh intervient à {CITY} pour l'ensemble de ses prestations :{" "}
+              <Link to="/nettoyage-canape-toulouse" className="text-primary font-medium hover:underline">nettoyage de canapé</Link>,{" "}
+              <Link to="/nettoyage-matelas-toulouse" className="text-primary font-medium hover:underline">nettoyage de matelas</Link>,{" "}
+              <Link to="/nettoyage-tapis-toulouse" className="text-primary font-medium hover:underline">shampouinage de tapis</Link>{" "}
+              et <Link to="/nettoyage-auto-a-domicile-toulouse" className="text-primary font-medium hover:underline">nettoyage intérieur auto à domicile</Link>.
+              Mêmes tarifs, même qualité et même équipement professionnel que dans toute l'agglomération toulousaine.
             </p>
           </div>
         </section>
@@ -129,6 +141,7 @@ function LocalPage() {
                 <a href={COMPANY.phoneHref}>Appeler le {COMPANY.phone}</a>
               </Button>
             </div>
+
           </div>
         </section>
       </FadeIn>
