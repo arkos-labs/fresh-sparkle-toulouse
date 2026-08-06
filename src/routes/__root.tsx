@@ -7,6 +7,7 @@ import {
   HeadContent,
   Scripts,
   ScrollRestoration,
+  useLocation,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
@@ -193,6 +194,11 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
     <QueryClientProvider client={queryClient}>

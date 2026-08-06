@@ -713,70 +713,81 @@ const CATEGORIES = [
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 
 function FormulesPage() {
+  const search = Route.useSearch();
+  const selectedService = search.service;
+
+  const displayCategories = selectedService 
+    ? CATEGORIES.filter(c => c.id === selectedService)
+    : CATEGORIES;
+
   return (
     <div className="bg-[#f4f6f9] pb-24 lg:pb-0">
 
       {/* ── CATEGORY GRID ── */}
-      <FadeIn delay={0.1}>
-        <div className="mx-auto max-w-5xl px-4 pt-16 mb-12">
-          <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-6 text-center">
-            Choisissez une prestation pour réserver en ligne
-          </p>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {CATEGORIES.map((cat) => (
-              <Link
-                key={cat.id}
-                to="/reserver"
-                search={{ service: cat.id, formule: "" }}
-                onClick={() => window.scrollTo(0, 0)}
-                className="relative flex flex-col rounded-2xl border border-border bg-white p-4 md:p-5 text-left transition-all shadow-sm hover:shadow-md hover:border-primary/40 hover:-translate-y-0.5 group"
-              >
-                {cat.recommended && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-primary px-3 py-1 text-[10px] font-bold text-white shadow">
-                    ★ Recommandé
-                  </span>
-                )}
-                <div className="flex size-10 md:size-12 items-center justify-center rounded-xl bg-primary/10 text-primary mb-3 transition-colors group-hover:bg-primary group-hover:text-white">
-                  {cat.icon}
-                </div>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-1">
-                  À partir de
-                </p>
-                <p className="text-2xl md:text-3xl font-bold text-primary leading-none mb-2">{cat.priceFrom}</p>
-                <h2 className="text-xs md:text-sm font-bold leading-snug mb-2 text-foreground">{cat.title}</h2>
-                <ul className="flex-1 space-y-1 mb-4 hidden md:block">
-                  {cat.bullets.map((b) => (
-                    <li key={b} className="flex items-start gap-1.5 text-xs text-muted-foreground">
-                      <CheckCircle2 className="size-3 shrink-0 mt-0.5 text-primary" /> {b}
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-auto flex items-center justify-center gap-1 rounded-xl bg-primary/10 text-primary py-2 md:py-2.5 text-[11px] md:text-xs font-bold group-hover:bg-primary group-hover:text-white transition-colors">
-                  <ChevronRight className="size-3 md:size-3.5" /> Voir les formules
-                </div>
-              </Link>
-            ))}
+      {!selectedService && (
+        <FadeIn delay={0.1}>
+          <div className="mx-auto max-w-5xl px-4 pt-16 mb-12">
+            <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-6 text-center">
+              Choisissez une prestation pour réserver en ligne
+            </p>
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {CATEGORIES.map((cat) => (
+                <Link
+                  key={cat.id}
+                  to="/reserver"
+                  search={{ service: cat.id, formule: "" }}
+                  onClick={() => window.scrollTo(0, 0)}
+                  className="relative flex flex-col rounded-2xl border border-border bg-white p-4 md:p-5 text-left transition-all shadow-sm hover:shadow-md hover:border-primary/40 hover:-translate-y-0.5 group"
+                >
+                  {cat.recommended && (
+                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-primary px-3 py-1 text-[10px] font-bold text-white shadow">
+                      ★ Recommandé
+                    </span>
+                  )}
+                  <div className="flex size-10 md:size-12 items-center justify-center rounded-xl bg-primary/10 text-primary mb-3 transition-colors group-hover:bg-primary group-hover:text-white">
+                    {cat.icon}
+                  </div>
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-1">
+                    À partir de
+                  </p>
+                  <p className="text-2xl md:text-3xl font-bold text-primary leading-none mb-2">{cat.priceFrom}</p>
+                  <h2 className="text-xs md:text-sm font-bold leading-snug mb-2 text-foreground">{cat.title}</h2>
+                  <ul className="flex-1 space-y-1 mb-4 hidden md:block">
+                    {cat.bullets.map((b) => (
+                      <li key={b} className="flex items-start gap-1.5 text-xs text-muted-foreground">
+                        <CheckCircle2 className="size-3 shrink-0 mt-0.5 text-primary" /> {b}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-auto flex items-center justify-center gap-1 rounded-xl bg-primary/10 text-primary py-2 md:py-2.5 text-[11px] md:text-xs font-bold group-hover:bg-primary group-hover:text-white transition-colors">
+                    <ChevronRight className="size-3 md:size-3.5" /> Voir les formules
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
-      </FadeIn>
+        </FadeIn>
+      )}
 
       {/* ── DÉTAIL FORMULES PAR SERVICE ── */}
-      {CATEGORIES.map((cat) => (
-        <FadeIn key={cat.id} delay={0.1}>
-          <section id={cat.id} className="mx-auto max-w-5xl px-4 mb-14">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="flex size-10 items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0">
-                {cat.icon}
+      <div className={selectedService ? "pt-16" : ""}>
+        {displayCategories.map((cat) => (
+          <FadeIn key={cat.id} delay={0.1}>
+            <section id={cat.id} className="mx-auto max-w-5xl px-4 mb-14">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="flex size-10 items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0">
+                  {cat.icon}
+                </div>
+                <div>
+                  <h2 className="text-xl font-bold leading-tight">{cat.title}</h2>
+                  <p className="text-xs text-muted-foreground mt-0.5">{cat.sub}</p>
+                </div>
               </div>
-              <div>
-                <h2 className="text-xl font-bold leading-tight">{cat.title}</h2>
-                <p className="text-xs text-muted-foreground mt-0.5">{cat.sub}</p>
-              </div>
-            </div>
-            {cat.content}
-          </section>
-        </FadeIn>
-      ))}
+              {cat.content}
+            </section>
+          </FadeIn>
+        ))}
+      </div>
 
       {/* ── AUTRES SERVICES ── */}
       <FadeIn delay={0.1}>
