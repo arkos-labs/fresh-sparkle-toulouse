@@ -16,24 +16,59 @@ import { Route as CgvRouteImport } from './routes/cgv'
 import { Route as ContactezNousRouteImport } from './routes/contactez-nous'
 import { Route as FormulesRouteImport } from './routes/formules'
 import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
+import { Route as NettoyageAucamvilleRouteImport } from './routes/nettoyage-aucamville'
+import { Route as NettoyageAussonneRouteImport } from './routes/nettoyage-aussonne'
 import { Route as NettoyageAutoADomicileToulouseRouteImport } from './routes/nettoyage-auto-a-domicile-toulouse'
+import { Route as NettoyageAuzevilleTolosaneRouteImport } from './routes/nettoyage-auzeville-tolosane'
 import { Route as NettoyageBalmaRouteImport } from './routes/nettoyage-balma'
+import { Route as NettoyageBeauzelleRouteImport } from './routes/nettoyage-beauzelle'
 import { Route as NettoyageBlagnacRouteImport } from './routes/nettoyage-blagnac'
+import { Route as NettoyageBruguieresRouteImport } from './routes/nettoyage-bruguieres'
 import { Route as NettoyageCanapeToulouseRouteImport } from './routes/nettoyage-canape-toulouse'
+import { Route as NettoyageCastanetTolosanRouteImport } from './routes/nettoyage-castanet-tolosan'
+import { Route as NettoyageCastelginestRouteImport } from './routes/nettoyage-castelginest'
+import { Route as NettoyageCastelmaurouRouteImport } from './routes/nettoyage-castelmaurou'
 import { Route as NettoyageColomiersRouteImport } from './routes/nettoyage-colomiers'
+import { Route as NettoyageCornebarrieuRouteImport } from './routes/nettoyage-cornebarrieu'
+import { Route as NettoyageCugnauxRouteImport } from './routes/nettoyage-cugnaux'
 import { Route as NettoyageDappartementOuMaisonRouteImport } from './routes/nettoyage-dappartement-ou-maison'
 import { Route as NettoyageDeFinDeChantierToulouseRouteImport } from './routes/nettoyage-de-fin-de-chantier-toulouse'
 import { Route as NettoyageDeVitresToulouseRouteImport } from './routes/nettoyage-de-vitres-toulouse'
 import { Route as NettoyageDiogeneToulouseRouteImport } from './routes/nettoyage-diogene-toulouse'
+import { Route as NettoyageEaunesRouteImport } from './routes/nettoyage-eaunes'
+import { Route as NettoyageEscalquensRouteImport } from './routes/nettoyage-escalquens'
 import { Route as NettoyageExtremeToulouseRouteImport } from './routes/nettoyage-extreme-toulouse'
 import { Route as NettoyageFacadeToulouseRouteImport } from './routes/nettoyage-facade-toulouse'
+import { Route as NettoyageFenouilletRouteImport } from './routes/nettoyage-fenouillet'
 import { Route as NettoyageFinDeBailToulouseRouteImport } from './routes/nettoyage-fin-de-bail-toulouse'
+import { Route as NettoyageFonsorbesRouteImport } from './routes/nettoyage-fonsorbes'
+import { Route as NettoyageFrouzinsRouteImport } from './routes/nettoyage-frouzins'
+import { Route as NettoyageGratentourRouteImport } from './routes/nettoyage-gratentour'
 import { Route as NettoyageLUnionRouteImport } from './routes/nettoyage-l-union'
+import { Route as NettoyageLaSalvetatSaintGillesRouteImport } from './routes/nettoyage-la-salvetat-saint-gilles'
+import { Route as NettoyageLabegeRouteImport } from './routes/nettoyage-labege'
+import { Route as NettoyageLaunaguetRouteImport } from './routes/nettoyage-launaguet'
+import { Route as NettoyageLeguevinRouteImport } from './routes/nettoyage-leguevin'
 import { Route as NettoyageMatelasToulouseRouteImport } from './routes/nettoyage-matelas-toulouse'
+import { Route as NettoyageMuretRouteImport } from './routes/nettoyage-muret'
+import { Route as NettoyagePibracRouteImport } from './routes/nettoyage-pibrac'
+import { Route as NettoyagePinsJustaretRouteImport } from './routes/nettoyage-pins-justaret'
+import { Route as NettoyagePlaisanceDuTouchRouteImport } from './routes/nettoyage-plaisance-du-touch'
+import { Route as NettoyagePortetSurGaronneRouteImport } from './routes/nettoyage-portet-sur-garonne'
+import { Route as NettoyageQuintFonsegrivesRouteImport } from './routes/nettoyage-quint-fonsegrives'
+import { Route as NettoyageRamonvilleSaintAgneRouteImport } from './routes/nettoyage-ramonville-saint-agne'
+import { Route as NettoyageRoquesRouteImport } from './routes/nettoyage-roques'
+import { Route as NettoyageSaintAlbanRouteImport } from './routes/nettoyage-saint-alban'
+import { Route as NettoyageSaintJeanRouteImport } from './routes/nettoyage-saint-jean'
+import { Route as NettoyageSaintLysRouteImport } from './routes/nettoyage-saint-lys'
+import { Route as NettoyageSaintOrensDeGamevilleRouteImport } from './routes/nettoyage-saint-orens-de-gameville'
+import { Route as NettoyageSeyssesRouteImport } from './routes/nettoyage-seysses'
 import { Route as NettoyageTapisToulouseRouteImport } from './routes/nettoyage-tapis-toulouse'
 import { Route as NettoyageTerrasseToulouseRouteImport } from './routes/nettoyage-terrasse-toulouse'
 import { Route as NettoyageToitureToulouseRouteImport } from './routes/nettoyage-toiture-toulouse'
+import { Route as NettoyageToulouseRouteImport } from './routes/nettoyage-toulouse'
 import { Route as NettoyageTournefeuilleRouteImport } from './routes/nettoyage-tournefeuille'
+import { Route as NettoyageVilleneuveTolosaneRouteImport } from './routes/nettoyage-villeneuve-tolosane'
 import { Route as NosRealisationsRouteImport } from './routes/nos-realisations'
 import { Route as NosServicesRouteImport } from './routes/nos-services'
 import { Route as PolitiqueConfidentialiteRouteImport } from './routes/politique-confidentialite'
@@ -75,10 +110,26 @@ const MentionsLegalesRoute = MentionsLegalesRouteImport.update({
   path: '/mentions-legales',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NettoyageAucamvilleRoute = NettoyageAucamvilleRouteImport.update({
+  id: '/nettoyage-aucamville',
+  path: '/nettoyage-aucamville',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NettoyageAussonneRoute = NettoyageAussonneRouteImport.update({
+  id: '/nettoyage-aussonne',
+  path: '/nettoyage-aussonne',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NettoyageAutoADomicileToulouseRoute =
   NettoyageAutoADomicileToulouseRouteImport.update({
     id: '/nettoyage-auto-a-domicile-toulouse',
     path: '/nettoyage-auto-a-domicile-toulouse',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const NettoyageAuzevilleTolosaneRoute =
+  NettoyageAuzevilleTolosaneRouteImport.update({
+    id: '/nettoyage-auzeville-tolosane',
+    path: '/nettoyage-auzeville-tolosane',
     getParentRoute: () => rootRouteImport,
   } as any)
 const NettoyageBalmaRoute = NettoyageBalmaRouteImport.update({
@@ -86,9 +137,19 @@ const NettoyageBalmaRoute = NettoyageBalmaRouteImport.update({
   path: '/nettoyage-balma',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NettoyageBeauzelleRoute = NettoyageBeauzelleRouteImport.update({
+  id: '/nettoyage-beauzelle',
+  path: '/nettoyage-beauzelle',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NettoyageBlagnacRoute = NettoyageBlagnacRouteImport.update({
   id: '/nettoyage-blagnac',
   path: '/nettoyage-blagnac',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NettoyageBruguieresRoute = NettoyageBruguieresRouteImport.update({
+  id: '/nettoyage-bruguieres',
+  path: '/nettoyage-bruguieres',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NettoyageCanapeToulouseRoute = NettoyageCanapeToulouseRouteImport.update({
@@ -96,9 +157,35 @@ const NettoyageCanapeToulouseRoute = NettoyageCanapeToulouseRouteImport.update({
   path: '/nettoyage-canape-toulouse',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NettoyageCastanetTolosanRoute =
+  NettoyageCastanetTolosanRouteImport.update({
+    id: '/nettoyage-castanet-tolosan',
+    path: '/nettoyage-castanet-tolosan',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const NettoyageCastelginestRoute = NettoyageCastelginestRouteImport.update({
+  id: '/nettoyage-castelginest',
+  path: '/nettoyage-castelginest',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NettoyageCastelmaurouRoute = NettoyageCastelmaurouRouteImport.update({
+  id: '/nettoyage-castelmaurou',
+  path: '/nettoyage-castelmaurou',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NettoyageColomiersRoute = NettoyageColomiersRouteImport.update({
   id: '/nettoyage-colomiers',
   path: '/nettoyage-colomiers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NettoyageCornebarrieuRoute = NettoyageCornebarrieuRouteImport.update({
+  id: '/nettoyage-cornebarrieu',
+  path: '/nettoyage-cornebarrieu',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NettoyageCugnauxRoute = NettoyageCugnauxRouteImport.update({
+  id: '/nettoyage-cugnaux',
+  path: '/nettoyage-cugnaux',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NettoyageDappartementOuMaisonRoute =
@@ -125,6 +212,16 @@ const NettoyageDiogeneToulouseRoute =
     path: '/nettoyage-diogene-toulouse',
     getParentRoute: () => rootRouteImport,
   } as any)
+const NettoyageEaunesRoute = NettoyageEaunesRouteImport.update({
+  id: '/nettoyage-eaunes',
+  path: '/nettoyage-eaunes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NettoyageEscalquensRoute = NettoyageEscalquensRouteImport.update({
+  id: '/nettoyage-escalquens',
+  path: '/nettoyage-escalquens',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NettoyageExtremeToulouseRoute =
   NettoyageExtremeToulouseRouteImport.update({
     id: '/nettoyage-extreme-toulouse',
@@ -136,15 +233,56 @@ const NettoyageFacadeToulouseRoute = NettoyageFacadeToulouseRouteImport.update({
   path: '/nettoyage-facade-toulouse',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NettoyageFenouilletRoute = NettoyageFenouilletRouteImport.update({
+  id: '/nettoyage-fenouillet',
+  path: '/nettoyage-fenouillet',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NettoyageFinDeBailToulouseRoute =
   NettoyageFinDeBailToulouseRouteImport.update({
     id: '/nettoyage-fin-de-bail-toulouse',
     path: '/nettoyage-fin-de-bail-toulouse',
     getParentRoute: () => rootRouteImport,
   } as any)
+const NettoyageFonsorbesRoute = NettoyageFonsorbesRouteImport.update({
+  id: '/nettoyage-fonsorbes',
+  path: '/nettoyage-fonsorbes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NettoyageFrouzinsRoute = NettoyageFrouzinsRouteImport.update({
+  id: '/nettoyage-frouzins',
+  path: '/nettoyage-frouzins',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NettoyageGratentourRoute = NettoyageGratentourRouteImport.update({
+  id: '/nettoyage-gratentour',
+  path: '/nettoyage-gratentour',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NettoyageLUnionRoute = NettoyageLUnionRouteImport.update({
   id: '/nettoyage-l-union',
   path: '/nettoyage-l-union',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NettoyageLaSalvetatSaintGillesRoute =
+  NettoyageLaSalvetatSaintGillesRouteImport.update({
+    id: '/nettoyage-la-salvetat-saint-gilles',
+    path: '/nettoyage-la-salvetat-saint-gilles',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const NettoyageLabegeRoute = NettoyageLabegeRouteImport.update({
+  id: '/nettoyage-labege',
+  path: '/nettoyage-labege',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NettoyageLaunaguetRoute = NettoyageLaunaguetRouteImport.update({
+  id: '/nettoyage-launaguet',
+  path: '/nettoyage-launaguet',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NettoyageLeguevinRoute = NettoyageLeguevinRouteImport.update({
+  id: '/nettoyage-leguevin',
+  path: '/nettoyage-leguevin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NettoyageMatelasToulouseRoute =
@@ -153,6 +291,76 @@ const NettoyageMatelasToulouseRoute =
     path: '/nettoyage-matelas-toulouse',
     getParentRoute: () => rootRouteImport,
   } as any)
+const NettoyageMuretRoute = NettoyageMuretRouteImport.update({
+  id: '/nettoyage-muret',
+  path: '/nettoyage-muret',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NettoyagePibracRoute = NettoyagePibracRouteImport.update({
+  id: '/nettoyage-pibrac',
+  path: '/nettoyage-pibrac',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NettoyagePinsJustaretRoute = NettoyagePinsJustaretRouteImport.update({
+  id: '/nettoyage-pins-justaret',
+  path: '/nettoyage-pins-justaret',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NettoyagePlaisanceDuTouchRoute =
+  NettoyagePlaisanceDuTouchRouteImport.update({
+    id: '/nettoyage-plaisance-du-touch',
+    path: '/nettoyage-plaisance-du-touch',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const NettoyagePortetSurGaronneRoute =
+  NettoyagePortetSurGaronneRouteImport.update({
+    id: '/nettoyage-portet-sur-garonne',
+    path: '/nettoyage-portet-sur-garonne',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const NettoyageQuintFonsegrivesRoute =
+  NettoyageQuintFonsegrivesRouteImport.update({
+    id: '/nettoyage-quint-fonsegrives',
+    path: '/nettoyage-quint-fonsegrives',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const NettoyageRamonvilleSaintAgneRoute =
+  NettoyageRamonvilleSaintAgneRouteImport.update({
+    id: '/nettoyage-ramonville-saint-agne',
+    path: '/nettoyage-ramonville-saint-agne',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const NettoyageRoquesRoute = NettoyageRoquesRouteImport.update({
+  id: '/nettoyage-roques',
+  path: '/nettoyage-roques',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NettoyageSaintAlbanRoute = NettoyageSaintAlbanRouteImport.update({
+  id: '/nettoyage-saint-alban',
+  path: '/nettoyage-saint-alban',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NettoyageSaintJeanRoute = NettoyageSaintJeanRouteImport.update({
+  id: '/nettoyage-saint-jean',
+  path: '/nettoyage-saint-jean',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NettoyageSaintLysRoute = NettoyageSaintLysRouteImport.update({
+  id: '/nettoyage-saint-lys',
+  path: '/nettoyage-saint-lys',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NettoyageSaintOrensDeGamevilleRoute =
+  NettoyageSaintOrensDeGamevilleRouteImport.update({
+    id: '/nettoyage-saint-orens-de-gameville',
+    path: '/nettoyage-saint-orens-de-gameville',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const NettoyageSeyssesRoute = NettoyageSeyssesRouteImport.update({
+  id: '/nettoyage-seysses',
+  path: '/nettoyage-seysses',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NettoyageTapisToulouseRoute = NettoyageTapisToulouseRouteImport.update({
   id: '/nettoyage-tapis-toulouse',
   path: '/nettoyage-tapis-toulouse',
@@ -170,11 +378,22 @@ const NettoyageToitureToulouseRoute =
     path: '/nettoyage-toiture-toulouse',
     getParentRoute: () => rootRouteImport,
   } as any)
+const NettoyageToulouseRoute = NettoyageToulouseRouteImport.update({
+  id: '/nettoyage-toulouse',
+  path: '/nettoyage-toulouse',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NettoyageTournefeuilleRoute = NettoyageTournefeuilleRouteImport.update({
   id: '/nettoyage-tournefeuille',
   path: '/nettoyage-tournefeuille',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NettoyageVilleneuveTolosaneRoute =
+  NettoyageVilleneuveTolosaneRouteImport.update({
+    id: '/nettoyage-villeneuve-tolosane',
+    path: '/nettoyage-villeneuve-tolosane',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const NosRealisationsRoute = NosRealisationsRouteImport.update({
   id: '/nos-realisations',
   path: '/nos-realisations',
@@ -210,24 +429,59 @@ export interface FileRoutesByFullPath {
   '/contactez-nous': typeof ContactezNousRoute
   '/formules': typeof FormulesRoute
   '/mentions-legales': typeof MentionsLegalesRoute
+  '/nettoyage-aucamville': typeof NettoyageAucamvilleRoute
+  '/nettoyage-aussonne': typeof NettoyageAussonneRoute
   '/nettoyage-auto-a-domicile-toulouse': typeof NettoyageAutoADomicileToulouseRoute
+  '/nettoyage-auzeville-tolosane': typeof NettoyageAuzevilleTolosaneRoute
   '/nettoyage-balma': typeof NettoyageBalmaRoute
+  '/nettoyage-beauzelle': typeof NettoyageBeauzelleRoute
   '/nettoyage-blagnac': typeof NettoyageBlagnacRoute
+  '/nettoyage-bruguieres': typeof NettoyageBruguieresRoute
   '/nettoyage-canape-toulouse': typeof NettoyageCanapeToulouseRoute
+  '/nettoyage-castanet-tolosan': typeof NettoyageCastanetTolosanRoute
+  '/nettoyage-castelginest': typeof NettoyageCastelginestRoute
+  '/nettoyage-castelmaurou': typeof NettoyageCastelmaurouRoute
   '/nettoyage-colomiers': typeof NettoyageColomiersRoute
+  '/nettoyage-cornebarrieu': typeof NettoyageCornebarrieuRoute
+  '/nettoyage-cugnaux': typeof NettoyageCugnauxRoute
   '/nettoyage-dappartement-ou-maison': typeof NettoyageDappartementOuMaisonRoute
   '/nettoyage-de-fin-de-chantier-toulouse': typeof NettoyageDeFinDeChantierToulouseRoute
   '/nettoyage-de-vitres-toulouse': typeof NettoyageDeVitresToulouseRoute
   '/nettoyage-diogene-toulouse': typeof NettoyageDiogeneToulouseRoute
+  '/nettoyage-eaunes': typeof NettoyageEaunesRoute
+  '/nettoyage-escalquens': typeof NettoyageEscalquensRoute
   '/nettoyage-extreme-toulouse': typeof NettoyageExtremeToulouseRoute
   '/nettoyage-facade-toulouse': typeof NettoyageFacadeToulouseRoute
+  '/nettoyage-fenouillet': typeof NettoyageFenouilletRoute
   '/nettoyage-fin-de-bail-toulouse': typeof NettoyageFinDeBailToulouseRoute
+  '/nettoyage-fonsorbes': typeof NettoyageFonsorbesRoute
+  '/nettoyage-frouzins': typeof NettoyageFrouzinsRoute
+  '/nettoyage-gratentour': typeof NettoyageGratentourRoute
   '/nettoyage-l-union': typeof NettoyageLUnionRoute
+  '/nettoyage-la-salvetat-saint-gilles': typeof NettoyageLaSalvetatSaintGillesRoute
+  '/nettoyage-labege': typeof NettoyageLabegeRoute
+  '/nettoyage-launaguet': typeof NettoyageLaunaguetRoute
+  '/nettoyage-leguevin': typeof NettoyageLeguevinRoute
   '/nettoyage-matelas-toulouse': typeof NettoyageMatelasToulouseRoute
+  '/nettoyage-muret': typeof NettoyageMuretRoute
+  '/nettoyage-pibrac': typeof NettoyagePibracRoute
+  '/nettoyage-pins-justaret': typeof NettoyagePinsJustaretRoute
+  '/nettoyage-plaisance-du-touch': typeof NettoyagePlaisanceDuTouchRoute
+  '/nettoyage-portet-sur-garonne': typeof NettoyagePortetSurGaronneRoute
+  '/nettoyage-quint-fonsegrives': typeof NettoyageQuintFonsegrivesRoute
+  '/nettoyage-ramonville-saint-agne': typeof NettoyageRamonvilleSaintAgneRoute
+  '/nettoyage-roques': typeof NettoyageRoquesRoute
+  '/nettoyage-saint-alban': typeof NettoyageSaintAlbanRoute
+  '/nettoyage-saint-jean': typeof NettoyageSaintJeanRoute
+  '/nettoyage-saint-lys': typeof NettoyageSaintLysRoute
+  '/nettoyage-saint-orens-de-gameville': typeof NettoyageSaintOrensDeGamevilleRoute
+  '/nettoyage-seysses': typeof NettoyageSeyssesRoute
   '/nettoyage-tapis-toulouse': typeof NettoyageTapisToulouseRoute
   '/nettoyage-terrasse-toulouse': typeof NettoyageTerrasseToulouseRoute
   '/nettoyage-toiture-toulouse': typeof NettoyageToitureToulouseRoute
+  '/nettoyage-toulouse': typeof NettoyageToulouseRoute
   '/nettoyage-tournefeuille': typeof NettoyageTournefeuilleRoute
+  '/nettoyage-villeneuve-tolosane': typeof NettoyageVilleneuveTolosaneRoute
   '/nos-realisations': typeof NosRealisationsRoute
   '/nos-services': typeof NosServicesRoute
   '/politique-confidentialite': typeof PolitiqueConfidentialiteRoute
@@ -242,24 +496,59 @@ export interface FileRoutesByTo {
   '/contactez-nous': typeof ContactezNousRoute
   '/formules': typeof FormulesRoute
   '/mentions-legales': typeof MentionsLegalesRoute
+  '/nettoyage-aucamville': typeof NettoyageAucamvilleRoute
+  '/nettoyage-aussonne': typeof NettoyageAussonneRoute
   '/nettoyage-auto-a-domicile-toulouse': typeof NettoyageAutoADomicileToulouseRoute
+  '/nettoyage-auzeville-tolosane': typeof NettoyageAuzevilleTolosaneRoute
   '/nettoyage-balma': typeof NettoyageBalmaRoute
+  '/nettoyage-beauzelle': typeof NettoyageBeauzelleRoute
   '/nettoyage-blagnac': typeof NettoyageBlagnacRoute
+  '/nettoyage-bruguieres': typeof NettoyageBruguieresRoute
   '/nettoyage-canape-toulouse': typeof NettoyageCanapeToulouseRoute
+  '/nettoyage-castanet-tolosan': typeof NettoyageCastanetTolosanRoute
+  '/nettoyage-castelginest': typeof NettoyageCastelginestRoute
+  '/nettoyage-castelmaurou': typeof NettoyageCastelmaurouRoute
   '/nettoyage-colomiers': typeof NettoyageColomiersRoute
+  '/nettoyage-cornebarrieu': typeof NettoyageCornebarrieuRoute
+  '/nettoyage-cugnaux': typeof NettoyageCugnauxRoute
   '/nettoyage-dappartement-ou-maison': typeof NettoyageDappartementOuMaisonRoute
   '/nettoyage-de-fin-de-chantier-toulouse': typeof NettoyageDeFinDeChantierToulouseRoute
   '/nettoyage-de-vitres-toulouse': typeof NettoyageDeVitresToulouseRoute
   '/nettoyage-diogene-toulouse': typeof NettoyageDiogeneToulouseRoute
+  '/nettoyage-eaunes': typeof NettoyageEaunesRoute
+  '/nettoyage-escalquens': typeof NettoyageEscalquensRoute
   '/nettoyage-extreme-toulouse': typeof NettoyageExtremeToulouseRoute
   '/nettoyage-facade-toulouse': typeof NettoyageFacadeToulouseRoute
+  '/nettoyage-fenouillet': typeof NettoyageFenouilletRoute
   '/nettoyage-fin-de-bail-toulouse': typeof NettoyageFinDeBailToulouseRoute
+  '/nettoyage-fonsorbes': typeof NettoyageFonsorbesRoute
+  '/nettoyage-frouzins': typeof NettoyageFrouzinsRoute
+  '/nettoyage-gratentour': typeof NettoyageGratentourRoute
   '/nettoyage-l-union': typeof NettoyageLUnionRoute
+  '/nettoyage-la-salvetat-saint-gilles': typeof NettoyageLaSalvetatSaintGillesRoute
+  '/nettoyage-labege': typeof NettoyageLabegeRoute
+  '/nettoyage-launaguet': typeof NettoyageLaunaguetRoute
+  '/nettoyage-leguevin': typeof NettoyageLeguevinRoute
   '/nettoyage-matelas-toulouse': typeof NettoyageMatelasToulouseRoute
+  '/nettoyage-muret': typeof NettoyageMuretRoute
+  '/nettoyage-pibrac': typeof NettoyagePibracRoute
+  '/nettoyage-pins-justaret': typeof NettoyagePinsJustaretRoute
+  '/nettoyage-plaisance-du-touch': typeof NettoyagePlaisanceDuTouchRoute
+  '/nettoyage-portet-sur-garonne': typeof NettoyagePortetSurGaronneRoute
+  '/nettoyage-quint-fonsegrives': typeof NettoyageQuintFonsegrivesRoute
+  '/nettoyage-ramonville-saint-agne': typeof NettoyageRamonvilleSaintAgneRoute
+  '/nettoyage-roques': typeof NettoyageRoquesRoute
+  '/nettoyage-saint-alban': typeof NettoyageSaintAlbanRoute
+  '/nettoyage-saint-jean': typeof NettoyageSaintJeanRoute
+  '/nettoyage-saint-lys': typeof NettoyageSaintLysRoute
+  '/nettoyage-saint-orens-de-gameville': typeof NettoyageSaintOrensDeGamevilleRoute
+  '/nettoyage-seysses': typeof NettoyageSeyssesRoute
   '/nettoyage-tapis-toulouse': typeof NettoyageTapisToulouseRoute
   '/nettoyage-terrasse-toulouse': typeof NettoyageTerrasseToulouseRoute
   '/nettoyage-toiture-toulouse': typeof NettoyageToitureToulouseRoute
+  '/nettoyage-toulouse': typeof NettoyageToulouseRoute
   '/nettoyage-tournefeuille': typeof NettoyageTournefeuilleRoute
+  '/nettoyage-villeneuve-tolosane': typeof NettoyageVilleneuveTolosaneRoute
   '/nos-realisations': typeof NosRealisationsRoute
   '/nos-services': typeof NosServicesRoute
   '/politique-confidentialite': typeof PolitiqueConfidentialiteRoute
@@ -275,24 +564,59 @@ export interface FileRoutesById {
   '/contactez-nous': typeof ContactezNousRoute
   '/formules': typeof FormulesRoute
   '/mentions-legales': typeof MentionsLegalesRoute
+  '/nettoyage-aucamville': typeof NettoyageAucamvilleRoute
+  '/nettoyage-aussonne': typeof NettoyageAussonneRoute
   '/nettoyage-auto-a-domicile-toulouse': typeof NettoyageAutoADomicileToulouseRoute
+  '/nettoyage-auzeville-tolosane': typeof NettoyageAuzevilleTolosaneRoute
   '/nettoyage-balma': typeof NettoyageBalmaRoute
+  '/nettoyage-beauzelle': typeof NettoyageBeauzelleRoute
   '/nettoyage-blagnac': typeof NettoyageBlagnacRoute
+  '/nettoyage-bruguieres': typeof NettoyageBruguieresRoute
   '/nettoyage-canape-toulouse': typeof NettoyageCanapeToulouseRoute
+  '/nettoyage-castanet-tolosan': typeof NettoyageCastanetTolosanRoute
+  '/nettoyage-castelginest': typeof NettoyageCastelginestRoute
+  '/nettoyage-castelmaurou': typeof NettoyageCastelmaurouRoute
   '/nettoyage-colomiers': typeof NettoyageColomiersRoute
+  '/nettoyage-cornebarrieu': typeof NettoyageCornebarrieuRoute
+  '/nettoyage-cugnaux': typeof NettoyageCugnauxRoute
   '/nettoyage-dappartement-ou-maison': typeof NettoyageDappartementOuMaisonRoute
   '/nettoyage-de-fin-de-chantier-toulouse': typeof NettoyageDeFinDeChantierToulouseRoute
   '/nettoyage-de-vitres-toulouse': typeof NettoyageDeVitresToulouseRoute
   '/nettoyage-diogene-toulouse': typeof NettoyageDiogeneToulouseRoute
+  '/nettoyage-eaunes': typeof NettoyageEaunesRoute
+  '/nettoyage-escalquens': typeof NettoyageEscalquensRoute
   '/nettoyage-extreme-toulouse': typeof NettoyageExtremeToulouseRoute
   '/nettoyage-facade-toulouse': typeof NettoyageFacadeToulouseRoute
+  '/nettoyage-fenouillet': typeof NettoyageFenouilletRoute
   '/nettoyage-fin-de-bail-toulouse': typeof NettoyageFinDeBailToulouseRoute
+  '/nettoyage-fonsorbes': typeof NettoyageFonsorbesRoute
+  '/nettoyage-frouzins': typeof NettoyageFrouzinsRoute
+  '/nettoyage-gratentour': typeof NettoyageGratentourRoute
   '/nettoyage-l-union': typeof NettoyageLUnionRoute
+  '/nettoyage-la-salvetat-saint-gilles': typeof NettoyageLaSalvetatSaintGillesRoute
+  '/nettoyage-labege': typeof NettoyageLabegeRoute
+  '/nettoyage-launaguet': typeof NettoyageLaunaguetRoute
+  '/nettoyage-leguevin': typeof NettoyageLeguevinRoute
   '/nettoyage-matelas-toulouse': typeof NettoyageMatelasToulouseRoute
+  '/nettoyage-muret': typeof NettoyageMuretRoute
+  '/nettoyage-pibrac': typeof NettoyagePibracRoute
+  '/nettoyage-pins-justaret': typeof NettoyagePinsJustaretRoute
+  '/nettoyage-plaisance-du-touch': typeof NettoyagePlaisanceDuTouchRoute
+  '/nettoyage-portet-sur-garonne': typeof NettoyagePortetSurGaronneRoute
+  '/nettoyage-quint-fonsegrives': typeof NettoyageQuintFonsegrivesRoute
+  '/nettoyage-ramonville-saint-agne': typeof NettoyageRamonvilleSaintAgneRoute
+  '/nettoyage-roques': typeof NettoyageRoquesRoute
+  '/nettoyage-saint-alban': typeof NettoyageSaintAlbanRoute
+  '/nettoyage-saint-jean': typeof NettoyageSaintJeanRoute
+  '/nettoyage-saint-lys': typeof NettoyageSaintLysRoute
+  '/nettoyage-saint-orens-de-gameville': typeof NettoyageSaintOrensDeGamevilleRoute
+  '/nettoyage-seysses': typeof NettoyageSeyssesRoute
   '/nettoyage-tapis-toulouse': typeof NettoyageTapisToulouseRoute
   '/nettoyage-terrasse-toulouse': typeof NettoyageTerrasseToulouseRoute
   '/nettoyage-toiture-toulouse': typeof NettoyageToitureToulouseRoute
+  '/nettoyage-toulouse': typeof NettoyageToulouseRoute
   '/nettoyage-tournefeuille': typeof NettoyageTournefeuilleRoute
+  '/nettoyage-villeneuve-tolosane': typeof NettoyageVilleneuveTolosaneRoute
   '/nos-realisations': typeof NosRealisationsRoute
   '/nos-services': typeof NosServicesRoute
   '/politique-confidentialite': typeof PolitiqueConfidentialiteRoute
@@ -309,24 +633,59 @@ export interface FileRouteTypes {
     | '/contactez-nous'
     | '/formules'
     | '/mentions-legales'
+    | '/nettoyage-aucamville'
+    | '/nettoyage-aussonne'
     | '/nettoyage-auto-a-domicile-toulouse'
+    | '/nettoyage-auzeville-tolosane'
     | '/nettoyage-balma'
+    | '/nettoyage-beauzelle'
     | '/nettoyage-blagnac'
+    | '/nettoyage-bruguieres'
     | '/nettoyage-canape-toulouse'
+    | '/nettoyage-castanet-tolosan'
+    | '/nettoyage-castelginest'
+    | '/nettoyage-castelmaurou'
     | '/nettoyage-colomiers'
+    | '/nettoyage-cornebarrieu'
+    | '/nettoyage-cugnaux'
     | '/nettoyage-dappartement-ou-maison'
     | '/nettoyage-de-fin-de-chantier-toulouse'
     | '/nettoyage-de-vitres-toulouse'
     | '/nettoyage-diogene-toulouse'
+    | '/nettoyage-eaunes'
+    | '/nettoyage-escalquens'
     | '/nettoyage-extreme-toulouse'
     | '/nettoyage-facade-toulouse'
+    | '/nettoyage-fenouillet'
     | '/nettoyage-fin-de-bail-toulouse'
+    | '/nettoyage-fonsorbes'
+    | '/nettoyage-frouzins'
+    | '/nettoyage-gratentour'
     | '/nettoyage-l-union'
+    | '/nettoyage-la-salvetat-saint-gilles'
+    | '/nettoyage-labege'
+    | '/nettoyage-launaguet'
+    | '/nettoyage-leguevin'
     | '/nettoyage-matelas-toulouse'
+    | '/nettoyage-muret'
+    | '/nettoyage-pibrac'
+    | '/nettoyage-pins-justaret'
+    | '/nettoyage-plaisance-du-touch'
+    | '/nettoyage-portet-sur-garonne'
+    | '/nettoyage-quint-fonsegrives'
+    | '/nettoyage-ramonville-saint-agne'
+    | '/nettoyage-roques'
+    | '/nettoyage-saint-alban'
+    | '/nettoyage-saint-jean'
+    | '/nettoyage-saint-lys'
+    | '/nettoyage-saint-orens-de-gameville'
+    | '/nettoyage-seysses'
     | '/nettoyage-tapis-toulouse'
     | '/nettoyage-terrasse-toulouse'
     | '/nettoyage-toiture-toulouse'
+    | '/nettoyage-toulouse'
     | '/nettoyage-tournefeuille'
+    | '/nettoyage-villeneuve-tolosane'
     | '/nos-realisations'
     | '/nos-services'
     | '/politique-confidentialite'
@@ -341,24 +700,59 @@ export interface FileRouteTypes {
     | '/contactez-nous'
     | '/formules'
     | '/mentions-legales'
+    | '/nettoyage-aucamville'
+    | '/nettoyage-aussonne'
     | '/nettoyage-auto-a-domicile-toulouse'
+    | '/nettoyage-auzeville-tolosane'
     | '/nettoyage-balma'
+    | '/nettoyage-beauzelle'
     | '/nettoyage-blagnac'
+    | '/nettoyage-bruguieres'
     | '/nettoyage-canape-toulouse'
+    | '/nettoyage-castanet-tolosan'
+    | '/nettoyage-castelginest'
+    | '/nettoyage-castelmaurou'
     | '/nettoyage-colomiers'
+    | '/nettoyage-cornebarrieu'
+    | '/nettoyage-cugnaux'
     | '/nettoyage-dappartement-ou-maison'
     | '/nettoyage-de-fin-de-chantier-toulouse'
     | '/nettoyage-de-vitres-toulouse'
     | '/nettoyage-diogene-toulouse'
+    | '/nettoyage-eaunes'
+    | '/nettoyage-escalquens'
     | '/nettoyage-extreme-toulouse'
     | '/nettoyage-facade-toulouse'
+    | '/nettoyage-fenouillet'
     | '/nettoyage-fin-de-bail-toulouse'
+    | '/nettoyage-fonsorbes'
+    | '/nettoyage-frouzins'
+    | '/nettoyage-gratentour'
     | '/nettoyage-l-union'
+    | '/nettoyage-la-salvetat-saint-gilles'
+    | '/nettoyage-labege'
+    | '/nettoyage-launaguet'
+    | '/nettoyage-leguevin'
     | '/nettoyage-matelas-toulouse'
+    | '/nettoyage-muret'
+    | '/nettoyage-pibrac'
+    | '/nettoyage-pins-justaret'
+    | '/nettoyage-plaisance-du-touch'
+    | '/nettoyage-portet-sur-garonne'
+    | '/nettoyage-quint-fonsegrives'
+    | '/nettoyage-ramonville-saint-agne'
+    | '/nettoyage-roques'
+    | '/nettoyage-saint-alban'
+    | '/nettoyage-saint-jean'
+    | '/nettoyage-saint-lys'
+    | '/nettoyage-saint-orens-de-gameville'
+    | '/nettoyage-seysses'
     | '/nettoyage-tapis-toulouse'
     | '/nettoyage-terrasse-toulouse'
     | '/nettoyage-toiture-toulouse'
+    | '/nettoyage-toulouse'
     | '/nettoyage-tournefeuille'
+    | '/nettoyage-villeneuve-tolosane'
     | '/nos-realisations'
     | '/nos-services'
     | '/politique-confidentialite'
@@ -373,24 +767,59 @@ export interface FileRouteTypes {
     | '/contactez-nous'
     | '/formules'
     | '/mentions-legales'
+    | '/nettoyage-aucamville'
+    | '/nettoyage-aussonne'
     | '/nettoyage-auto-a-domicile-toulouse'
+    | '/nettoyage-auzeville-tolosane'
     | '/nettoyage-balma'
+    | '/nettoyage-beauzelle'
     | '/nettoyage-blagnac'
+    | '/nettoyage-bruguieres'
     | '/nettoyage-canape-toulouse'
+    | '/nettoyage-castanet-tolosan'
+    | '/nettoyage-castelginest'
+    | '/nettoyage-castelmaurou'
     | '/nettoyage-colomiers'
+    | '/nettoyage-cornebarrieu'
+    | '/nettoyage-cugnaux'
     | '/nettoyage-dappartement-ou-maison'
     | '/nettoyage-de-fin-de-chantier-toulouse'
     | '/nettoyage-de-vitres-toulouse'
     | '/nettoyage-diogene-toulouse'
+    | '/nettoyage-eaunes'
+    | '/nettoyage-escalquens'
     | '/nettoyage-extreme-toulouse'
     | '/nettoyage-facade-toulouse'
+    | '/nettoyage-fenouillet'
     | '/nettoyage-fin-de-bail-toulouse'
+    | '/nettoyage-fonsorbes'
+    | '/nettoyage-frouzins'
+    | '/nettoyage-gratentour'
     | '/nettoyage-l-union'
+    | '/nettoyage-la-salvetat-saint-gilles'
+    | '/nettoyage-labege'
+    | '/nettoyage-launaguet'
+    | '/nettoyage-leguevin'
     | '/nettoyage-matelas-toulouse'
+    | '/nettoyage-muret'
+    | '/nettoyage-pibrac'
+    | '/nettoyage-pins-justaret'
+    | '/nettoyage-plaisance-du-touch'
+    | '/nettoyage-portet-sur-garonne'
+    | '/nettoyage-quint-fonsegrives'
+    | '/nettoyage-ramonville-saint-agne'
+    | '/nettoyage-roques'
+    | '/nettoyage-saint-alban'
+    | '/nettoyage-saint-jean'
+    | '/nettoyage-saint-lys'
+    | '/nettoyage-saint-orens-de-gameville'
+    | '/nettoyage-seysses'
     | '/nettoyage-tapis-toulouse'
     | '/nettoyage-terrasse-toulouse'
     | '/nettoyage-toiture-toulouse'
+    | '/nettoyage-toulouse'
     | '/nettoyage-tournefeuille'
+    | '/nettoyage-villeneuve-tolosane'
     | '/nos-realisations'
     | '/nos-services'
     | '/politique-confidentialite'
@@ -406,24 +835,59 @@ export interface RootRouteChildren {
   ContactezNousRoute: typeof ContactezNousRoute
   FormulesRoute: typeof FormulesRoute
   MentionsLegalesRoute: typeof MentionsLegalesRoute
+  NettoyageAucamvilleRoute: typeof NettoyageAucamvilleRoute
+  NettoyageAussonneRoute: typeof NettoyageAussonneRoute
   NettoyageAutoADomicileToulouseRoute: typeof NettoyageAutoADomicileToulouseRoute
+  NettoyageAuzevilleTolosaneRoute: typeof NettoyageAuzevilleTolosaneRoute
   NettoyageBalmaRoute: typeof NettoyageBalmaRoute
+  NettoyageBeauzelleRoute: typeof NettoyageBeauzelleRoute
   NettoyageBlagnacRoute: typeof NettoyageBlagnacRoute
+  NettoyageBruguieresRoute: typeof NettoyageBruguieresRoute
   NettoyageCanapeToulouseRoute: typeof NettoyageCanapeToulouseRoute
+  NettoyageCastanetTolosanRoute: typeof NettoyageCastanetTolosanRoute
+  NettoyageCastelginestRoute: typeof NettoyageCastelginestRoute
+  NettoyageCastelmaurouRoute: typeof NettoyageCastelmaurouRoute
   NettoyageColomiersRoute: typeof NettoyageColomiersRoute
+  NettoyageCornebarrieuRoute: typeof NettoyageCornebarrieuRoute
+  NettoyageCugnauxRoute: typeof NettoyageCugnauxRoute
   NettoyageDappartementOuMaisonRoute: typeof NettoyageDappartementOuMaisonRoute
   NettoyageDeFinDeChantierToulouseRoute: typeof NettoyageDeFinDeChantierToulouseRoute
   NettoyageDeVitresToulouseRoute: typeof NettoyageDeVitresToulouseRoute
   NettoyageDiogeneToulouseRoute: typeof NettoyageDiogeneToulouseRoute
+  NettoyageEaunesRoute: typeof NettoyageEaunesRoute
+  NettoyageEscalquensRoute: typeof NettoyageEscalquensRoute
   NettoyageExtremeToulouseRoute: typeof NettoyageExtremeToulouseRoute
   NettoyageFacadeToulouseRoute: typeof NettoyageFacadeToulouseRoute
+  NettoyageFenouilletRoute: typeof NettoyageFenouilletRoute
   NettoyageFinDeBailToulouseRoute: typeof NettoyageFinDeBailToulouseRoute
+  NettoyageFonsorbesRoute: typeof NettoyageFonsorbesRoute
+  NettoyageFrouzinsRoute: typeof NettoyageFrouzinsRoute
+  NettoyageGratentourRoute: typeof NettoyageGratentourRoute
   NettoyageLUnionRoute: typeof NettoyageLUnionRoute
+  NettoyageLaSalvetatSaintGillesRoute: typeof NettoyageLaSalvetatSaintGillesRoute
+  NettoyageLabegeRoute: typeof NettoyageLabegeRoute
+  NettoyageLaunaguetRoute: typeof NettoyageLaunaguetRoute
+  NettoyageLeguevinRoute: typeof NettoyageLeguevinRoute
   NettoyageMatelasToulouseRoute: typeof NettoyageMatelasToulouseRoute
+  NettoyageMuretRoute: typeof NettoyageMuretRoute
+  NettoyagePibracRoute: typeof NettoyagePibracRoute
+  NettoyagePinsJustaretRoute: typeof NettoyagePinsJustaretRoute
+  NettoyagePlaisanceDuTouchRoute: typeof NettoyagePlaisanceDuTouchRoute
+  NettoyagePortetSurGaronneRoute: typeof NettoyagePortetSurGaronneRoute
+  NettoyageQuintFonsegrivesRoute: typeof NettoyageQuintFonsegrivesRoute
+  NettoyageRamonvilleSaintAgneRoute: typeof NettoyageRamonvilleSaintAgneRoute
+  NettoyageRoquesRoute: typeof NettoyageRoquesRoute
+  NettoyageSaintAlbanRoute: typeof NettoyageSaintAlbanRoute
+  NettoyageSaintJeanRoute: typeof NettoyageSaintJeanRoute
+  NettoyageSaintLysRoute: typeof NettoyageSaintLysRoute
+  NettoyageSaintOrensDeGamevilleRoute: typeof NettoyageSaintOrensDeGamevilleRoute
+  NettoyageSeyssesRoute: typeof NettoyageSeyssesRoute
   NettoyageTapisToulouseRoute: typeof NettoyageTapisToulouseRoute
   NettoyageTerrasseToulouseRoute: typeof NettoyageTerrasseToulouseRoute
   NettoyageToitureToulouseRoute: typeof NettoyageToitureToulouseRoute
+  NettoyageToulouseRoute: typeof NettoyageToulouseRoute
   NettoyageTournefeuilleRoute: typeof NettoyageTournefeuilleRoute
+  NettoyageVilleneuveTolosaneRoute: typeof NettoyageVilleneuveTolosaneRoute
   NosRealisationsRoute: typeof NosRealisationsRoute
   NosServicesRoute: typeof NosServicesRoute
   PolitiqueConfidentialiteRoute: typeof PolitiqueConfidentialiteRoute
@@ -482,11 +946,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MentionsLegalesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/nettoyage-aucamville': {
+      id: '/nettoyage-aucamville'
+      path: '/nettoyage-aucamville'
+      fullPath: '/nettoyage-aucamville'
+      preLoaderRoute: typeof NettoyageAucamvilleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nettoyage-aussonne': {
+      id: '/nettoyage-aussonne'
+      path: '/nettoyage-aussonne'
+      fullPath: '/nettoyage-aussonne'
+      preLoaderRoute: typeof NettoyageAussonneRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/nettoyage-auto-a-domicile-toulouse': {
       id: '/nettoyage-auto-a-domicile-toulouse'
       path: '/nettoyage-auto-a-domicile-toulouse'
       fullPath: '/nettoyage-auto-a-domicile-toulouse'
       preLoaderRoute: typeof NettoyageAutoADomicileToulouseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nettoyage-auzeville-tolosane': {
+      id: '/nettoyage-auzeville-tolosane'
+      path: '/nettoyage-auzeville-tolosane'
+      fullPath: '/nettoyage-auzeville-tolosane'
+      preLoaderRoute: typeof NettoyageAuzevilleTolosaneRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/nettoyage-balma': {
@@ -496,11 +981,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NettoyageBalmaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/nettoyage-beauzelle': {
+      id: '/nettoyage-beauzelle'
+      path: '/nettoyage-beauzelle'
+      fullPath: '/nettoyage-beauzelle'
+      preLoaderRoute: typeof NettoyageBeauzelleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/nettoyage-blagnac': {
       id: '/nettoyage-blagnac'
       path: '/nettoyage-blagnac'
       fullPath: '/nettoyage-blagnac'
       preLoaderRoute: typeof NettoyageBlagnacRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nettoyage-bruguieres': {
+      id: '/nettoyage-bruguieres'
+      path: '/nettoyage-bruguieres'
+      fullPath: '/nettoyage-bruguieres'
+      preLoaderRoute: typeof NettoyageBruguieresRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/nettoyage-canape-toulouse': {
@@ -510,11 +1009,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NettoyageCanapeToulouseRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/nettoyage-castanet-tolosan': {
+      id: '/nettoyage-castanet-tolosan'
+      path: '/nettoyage-castanet-tolosan'
+      fullPath: '/nettoyage-castanet-tolosan'
+      preLoaderRoute: typeof NettoyageCastanetTolosanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nettoyage-castelginest': {
+      id: '/nettoyage-castelginest'
+      path: '/nettoyage-castelginest'
+      fullPath: '/nettoyage-castelginest'
+      preLoaderRoute: typeof NettoyageCastelginestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nettoyage-castelmaurou': {
+      id: '/nettoyage-castelmaurou'
+      path: '/nettoyage-castelmaurou'
+      fullPath: '/nettoyage-castelmaurou'
+      preLoaderRoute: typeof NettoyageCastelmaurouRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/nettoyage-colomiers': {
       id: '/nettoyage-colomiers'
       path: '/nettoyage-colomiers'
       fullPath: '/nettoyage-colomiers'
       preLoaderRoute: typeof NettoyageColomiersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nettoyage-cornebarrieu': {
+      id: '/nettoyage-cornebarrieu'
+      path: '/nettoyage-cornebarrieu'
+      fullPath: '/nettoyage-cornebarrieu'
+      preLoaderRoute: typeof NettoyageCornebarrieuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nettoyage-cugnaux': {
+      id: '/nettoyage-cugnaux'
+      path: '/nettoyage-cugnaux'
+      fullPath: '/nettoyage-cugnaux'
+      preLoaderRoute: typeof NettoyageCugnauxRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/nettoyage-dappartement-ou-maison': {
@@ -545,6 +1079,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NettoyageDiogeneToulouseRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/nettoyage-eaunes': {
+      id: '/nettoyage-eaunes'
+      path: '/nettoyage-eaunes'
+      fullPath: '/nettoyage-eaunes'
+      preLoaderRoute: typeof NettoyageEaunesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nettoyage-escalquens': {
+      id: '/nettoyage-escalquens'
+      path: '/nettoyage-escalquens'
+      fullPath: '/nettoyage-escalquens'
+      preLoaderRoute: typeof NettoyageEscalquensRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/nettoyage-extreme-toulouse': {
       id: '/nettoyage-extreme-toulouse'
       path: '/nettoyage-extreme-toulouse'
@@ -559,11 +1107,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NettoyageFacadeToulouseRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/nettoyage-fenouillet': {
+      id: '/nettoyage-fenouillet'
+      path: '/nettoyage-fenouillet'
+      fullPath: '/nettoyage-fenouillet'
+      preLoaderRoute: typeof NettoyageFenouilletRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/nettoyage-fin-de-bail-toulouse': {
       id: '/nettoyage-fin-de-bail-toulouse'
       path: '/nettoyage-fin-de-bail-toulouse'
       fullPath: '/nettoyage-fin-de-bail-toulouse'
       preLoaderRoute: typeof NettoyageFinDeBailToulouseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nettoyage-fonsorbes': {
+      id: '/nettoyage-fonsorbes'
+      path: '/nettoyage-fonsorbes'
+      fullPath: '/nettoyage-fonsorbes'
+      preLoaderRoute: typeof NettoyageFonsorbesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nettoyage-frouzins': {
+      id: '/nettoyage-frouzins'
+      path: '/nettoyage-frouzins'
+      fullPath: '/nettoyage-frouzins'
+      preLoaderRoute: typeof NettoyageFrouzinsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nettoyage-gratentour': {
+      id: '/nettoyage-gratentour'
+      path: '/nettoyage-gratentour'
+      fullPath: '/nettoyage-gratentour'
+      preLoaderRoute: typeof NettoyageGratentourRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/nettoyage-l-union': {
@@ -573,11 +1149,130 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NettoyageLUnionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/nettoyage-la-salvetat-saint-gilles': {
+      id: '/nettoyage-la-salvetat-saint-gilles'
+      path: '/nettoyage-la-salvetat-saint-gilles'
+      fullPath: '/nettoyage-la-salvetat-saint-gilles'
+      preLoaderRoute: typeof NettoyageLaSalvetatSaintGillesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nettoyage-labege': {
+      id: '/nettoyage-labege'
+      path: '/nettoyage-labege'
+      fullPath: '/nettoyage-labege'
+      preLoaderRoute: typeof NettoyageLabegeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nettoyage-launaguet': {
+      id: '/nettoyage-launaguet'
+      path: '/nettoyage-launaguet'
+      fullPath: '/nettoyage-launaguet'
+      preLoaderRoute: typeof NettoyageLaunaguetRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nettoyage-leguevin': {
+      id: '/nettoyage-leguevin'
+      path: '/nettoyage-leguevin'
+      fullPath: '/nettoyage-leguevin'
+      preLoaderRoute: typeof NettoyageLeguevinRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/nettoyage-matelas-toulouse': {
       id: '/nettoyage-matelas-toulouse'
       path: '/nettoyage-matelas-toulouse'
       fullPath: '/nettoyage-matelas-toulouse'
       preLoaderRoute: typeof NettoyageMatelasToulouseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nettoyage-muret': {
+      id: '/nettoyage-muret'
+      path: '/nettoyage-muret'
+      fullPath: '/nettoyage-muret'
+      preLoaderRoute: typeof NettoyageMuretRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nettoyage-pibrac': {
+      id: '/nettoyage-pibrac'
+      path: '/nettoyage-pibrac'
+      fullPath: '/nettoyage-pibrac'
+      preLoaderRoute: typeof NettoyagePibracRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nettoyage-pins-justaret': {
+      id: '/nettoyage-pins-justaret'
+      path: '/nettoyage-pins-justaret'
+      fullPath: '/nettoyage-pins-justaret'
+      preLoaderRoute: typeof NettoyagePinsJustaretRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nettoyage-plaisance-du-touch': {
+      id: '/nettoyage-plaisance-du-touch'
+      path: '/nettoyage-plaisance-du-touch'
+      fullPath: '/nettoyage-plaisance-du-touch'
+      preLoaderRoute: typeof NettoyagePlaisanceDuTouchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nettoyage-portet-sur-garonne': {
+      id: '/nettoyage-portet-sur-garonne'
+      path: '/nettoyage-portet-sur-garonne'
+      fullPath: '/nettoyage-portet-sur-garonne'
+      preLoaderRoute: typeof NettoyagePortetSurGaronneRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nettoyage-quint-fonsegrives': {
+      id: '/nettoyage-quint-fonsegrives'
+      path: '/nettoyage-quint-fonsegrives'
+      fullPath: '/nettoyage-quint-fonsegrives'
+      preLoaderRoute: typeof NettoyageQuintFonsegrivesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nettoyage-ramonville-saint-agne': {
+      id: '/nettoyage-ramonville-saint-agne'
+      path: '/nettoyage-ramonville-saint-agne'
+      fullPath: '/nettoyage-ramonville-saint-agne'
+      preLoaderRoute: typeof NettoyageRamonvilleSaintAgneRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nettoyage-roques': {
+      id: '/nettoyage-roques'
+      path: '/nettoyage-roques'
+      fullPath: '/nettoyage-roques'
+      preLoaderRoute: typeof NettoyageRoquesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nettoyage-saint-alban': {
+      id: '/nettoyage-saint-alban'
+      path: '/nettoyage-saint-alban'
+      fullPath: '/nettoyage-saint-alban'
+      preLoaderRoute: typeof NettoyageSaintAlbanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nettoyage-saint-jean': {
+      id: '/nettoyage-saint-jean'
+      path: '/nettoyage-saint-jean'
+      fullPath: '/nettoyage-saint-jean'
+      preLoaderRoute: typeof NettoyageSaintJeanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nettoyage-saint-lys': {
+      id: '/nettoyage-saint-lys'
+      path: '/nettoyage-saint-lys'
+      fullPath: '/nettoyage-saint-lys'
+      preLoaderRoute: typeof NettoyageSaintLysRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nettoyage-saint-orens-de-gameville': {
+      id: '/nettoyage-saint-orens-de-gameville'
+      path: '/nettoyage-saint-orens-de-gameville'
+      fullPath: '/nettoyage-saint-orens-de-gameville'
+      preLoaderRoute: typeof NettoyageSaintOrensDeGamevilleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nettoyage-seysses': {
+      id: '/nettoyage-seysses'
+      path: '/nettoyage-seysses'
+      fullPath: '/nettoyage-seysses'
+      preLoaderRoute: typeof NettoyageSeyssesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/nettoyage-tapis-toulouse': {
@@ -601,11 +1296,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NettoyageToitureToulouseRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/nettoyage-toulouse': {
+      id: '/nettoyage-toulouse'
+      path: '/nettoyage-toulouse'
+      fullPath: '/nettoyage-toulouse'
+      preLoaderRoute: typeof NettoyageToulouseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/nettoyage-tournefeuille': {
       id: '/nettoyage-tournefeuille'
       path: '/nettoyage-tournefeuille'
       fullPath: '/nettoyage-tournefeuille'
       preLoaderRoute: typeof NettoyageTournefeuilleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nettoyage-villeneuve-tolosane': {
+      id: '/nettoyage-villeneuve-tolosane'
+      path: '/nettoyage-villeneuve-tolosane'
+      fullPath: '/nettoyage-villeneuve-tolosane'
+      preLoaderRoute: typeof NettoyageVilleneuveTolosaneRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/nos-realisations': {
@@ -654,24 +1363,59 @@ const rootRouteChildren: RootRouteChildren = {
   ContactezNousRoute: ContactezNousRoute,
   FormulesRoute: FormulesRoute,
   MentionsLegalesRoute: MentionsLegalesRoute,
+  NettoyageAucamvilleRoute: NettoyageAucamvilleRoute,
+  NettoyageAussonneRoute: NettoyageAussonneRoute,
   NettoyageAutoADomicileToulouseRoute: NettoyageAutoADomicileToulouseRoute,
+  NettoyageAuzevilleTolosaneRoute: NettoyageAuzevilleTolosaneRoute,
   NettoyageBalmaRoute: NettoyageBalmaRoute,
+  NettoyageBeauzelleRoute: NettoyageBeauzelleRoute,
   NettoyageBlagnacRoute: NettoyageBlagnacRoute,
+  NettoyageBruguieresRoute: NettoyageBruguieresRoute,
   NettoyageCanapeToulouseRoute: NettoyageCanapeToulouseRoute,
+  NettoyageCastanetTolosanRoute: NettoyageCastanetTolosanRoute,
+  NettoyageCastelginestRoute: NettoyageCastelginestRoute,
+  NettoyageCastelmaurouRoute: NettoyageCastelmaurouRoute,
   NettoyageColomiersRoute: NettoyageColomiersRoute,
+  NettoyageCornebarrieuRoute: NettoyageCornebarrieuRoute,
+  NettoyageCugnauxRoute: NettoyageCugnauxRoute,
   NettoyageDappartementOuMaisonRoute: NettoyageDappartementOuMaisonRoute,
   NettoyageDeFinDeChantierToulouseRoute: NettoyageDeFinDeChantierToulouseRoute,
   NettoyageDeVitresToulouseRoute: NettoyageDeVitresToulouseRoute,
   NettoyageDiogeneToulouseRoute: NettoyageDiogeneToulouseRoute,
+  NettoyageEaunesRoute: NettoyageEaunesRoute,
+  NettoyageEscalquensRoute: NettoyageEscalquensRoute,
   NettoyageExtremeToulouseRoute: NettoyageExtremeToulouseRoute,
   NettoyageFacadeToulouseRoute: NettoyageFacadeToulouseRoute,
+  NettoyageFenouilletRoute: NettoyageFenouilletRoute,
   NettoyageFinDeBailToulouseRoute: NettoyageFinDeBailToulouseRoute,
+  NettoyageFonsorbesRoute: NettoyageFonsorbesRoute,
+  NettoyageFrouzinsRoute: NettoyageFrouzinsRoute,
+  NettoyageGratentourRoute: NettoyageGratentourRoute,
   NettoyageLUnionRoute: NettoyageLUnionRoute,
+  NettoyageLaSalvetatSaintGillesRoute: NettoyageLaSalvetatSaintGillesRoute,
+  NettoyageLabegeRoute: NettoyageLabegeRoute,
+  NettoyageLaunaguetRoute: NettoyageLaunaguetRoute,
+  NettoyageLeguevinRoute: NettoyageLeguevinRoute,
   NettoyageMatelasToulouseRoute: NettoyageMatelasToulouseRoute,
+  NettoyageMuretRoute: NettoyageMuretRoute,
+  NettoyagePibracRoute: NettoyagePibracRoute,
+  NettoyagePinsJustaretRoute: NettoyagePinsJustaretRoute,
+  NettoyagePlaisanceDuTouchRoute: NettoyagePlaisanceDuTouchRoute,
+  NettoyagePortetSurGaronneRoute: NettoyagePortetSurGaronneRoute,
+  NettoyageQuintFonsegrivesRoute: NettoyageQuintFonsegrivesRoute,
+  NettoyageRamonvilleSaintAgneRoute: NettoyageRamonvilleSaintAgneRoute,
+  NettoyageRoquesRoute: NettoyageRoquesRoute,
+  NettoyageSaintAlbanRoute: NettoyageSaintAlbanRoute,
+  NettoyageSaintJeanRoute: NettoyageSaintJeanRoute,
+  NettoyageSaintLysRoute: NettoyageSaintLysRoute,
+  NettoyageSaintOrensDeGamevilleRoute: NettoyageSaintOrensDeGamevilleRoute,
+  NettoyageSeyssesRoute: NettoyageSeyssesRoute,
   NettoyageTapisToulouseRoute: NettoyageTapisToulouseRoute,
   NettoyageTerrasseToulouseRoute: NettoyageTerrasseToulouseRoute,
   NettoyageToitureToulouseRoute: NettoyageToitureToulouseRoute,
+  NettoyageToulouseRoute: NettoyageToulouseRoute,
   NettoyageTournefeuilleRoute: NettoyageTournefeuilleRoute,
+  NettoyageVilleneuveTolosaneRoute: NettoyageVilleneuveTolosaneRoute,
   NosRealisationsRoute: NosRealisationsRoute,
   NosServicesRoute: NosServicesRoute,
   PolitiqueConfidentialiteRoute: PolitiqueConfidentialiteRoute,
