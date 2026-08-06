@@ -119,7 +119,7 @@ async function getAccessToken(
   return data.access_token;
 }
 
-// ─── Fonctions publiques ──────────────────────────────────────────────────────
+// ─── Token partagé ───────────────────────────────────────────────────────────
 import { config as dotenvConfig } from "dotenv";
 import { resolve } from "path";
 
@@ -141,6 +141,20 @@ function getConfig() {
 
   // Supporte les clés stockées avec des \n littéraux
   return { email, key: key?.replace(/\\n/g, "\n"), calId };
+}
+
+/**
+ * Retourne un access token OAuth pour le service account configuré.
+ * Retourne null si les variables d'environnement ne sont pas définies.
+ */
+export async function getGCalAccessToken(): Promise<string | null> {
+  const { email, key } = getConfig();
+  if (!email || !key) return null;
+  try {
+    return await getAccessToken(email, key);
+  } catch {
+    return null;
+  }
 }
 
 /**
@@ -254,12 +268,13 @@ export async function checkSlotAvailable(
     };
     const busy = json.calendars?.[calId]?.busy ?? [];
 
+    const BUFFER_MS = 80 * 60_000; // 1h20 marge trajet
     const slotStartMs = slotStart.getTime();
     const slotEndMs   = slotEnd.getTime();
     const conflict = busy.some(b => {
       const bs = new Date(b.start).getTime();
       const be = new Date(b.end).getTime();
-      return slotStartMs < be && slotEndMs > bs;
+      return slotStartMs < be + BUFFER_MS && slotEndMs + BUFFER_MS > bs;
     });
 
     return !conflict;

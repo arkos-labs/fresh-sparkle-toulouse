@@ -33,19 +33,27 @@ export async function fetchBusySlots(date: Date): Promise<BusySlot[]> {
   }
 }
 
+/** Marge de trajet entre deux prestations (1h20) */
+export const TRAVEL_BUFFER_MS = 80 * 60_000;
+
 /**
- * Vérifie si un créneau de `durationMin` minutes à `slotStart` est libre.
+ * Vérifie si un créneau de `durationMin` minutes à `slotStart` est libre,
+ * en tenant compte d'une marge de trajet de 1h20 avant et après chaque prestation.
  */
 export function isSlotFree(
   slotStart: Date,
   durationMin: number,
   busy: BusySlot[],
 ): boolean {
-  const slotEnd = new Date(slotStart.getTime() + durationMin * 60_000);
+  const slotStartMs = slotStart.getTime();
+  const slotEndMs = slotStartMs + durationMin * 60_000;
   return !busy.some((b) => {
-    const bs = new Date(b.start);
-    const be = new Date(b.end);
-    return slotStart < be && slotEnd > bs;
+    const bs = new Date(b.start).getTime();
+    const be = new Date(b.end).getTime();
+    // Conflit si le nouveau créneau (+ marge trajet) chevauche une période occupée
+    // → slotStart doit être ≥ be + 1h20 (arriver après la fin du RDV précédent + trajet)
+    // → slotEnd + 1h20 doit être ≤ bs (partir assez tôt pour arriver au RDV suivant)
+    return slotStartMs < be + TRAVEL_BUFFER_MS && slotEndMs + TRAVEL_BUFFER_MS > bs;
   });
 }
 
@@ -60,11 +68,9 @@ export function buildSlots(
 ): { time: string; available: boolean }[] {
   // Créneaux proposés : 08h – 21h00 tous les 30 min (7j/7)
   const RAW_SLOTS = [
-    "08:00", "08:30", "09:00", "09:30", "10:00", "10:30",
-    "11:00", "11:30", "12:00", "12:30", "13:00", "13:30",
-    "14:00", "14:30", "15:00", "15:30", "16:00", "16:30",
-    "17:00", "17:30", "18:00", "18:30", "19:00", "19:30",
-    "20:00", "20:30", "21:00",
+    "08:00", "09:00", "10:00", "11:00", "12:00", "13:00",
+    "14:00", "15:00", "16:00", "17:00", "18:00", "19:00",
+    "20:00", "21:00",
   ];
 
   // Limite : pas de réservation à moins de 24h à l'avance
