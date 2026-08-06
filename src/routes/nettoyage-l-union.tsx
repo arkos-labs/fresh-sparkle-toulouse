@@ -6,7 +6,7 @@ import { FadeIn } from "@/components/ui/fade-in";
 import { ReviewsCarousel } from "@/components/site/ReviewsCarousel";
 
 const TITLE = "Entreprise de nettoyage à L'Union — Clean&Fresh";
-const DESC = "Pour un intérieur sain et impeccable à L'Union, faites appel à notre équipe de techniciens spécialisés dans le nettoyage de textiles et surfaces. Devis gratuit sous 24h.";
+const DESC = "Nettoyage canapé, matelas, tapis et auto à L'Union dès 49 €. Technicien à domicile, taches et odeurs éliminées, résultat garanti. Devis gratuit sous 24h.";
 
 export const Route = createFileRoute("/nettoyage-l-union")({
   head: () => ({

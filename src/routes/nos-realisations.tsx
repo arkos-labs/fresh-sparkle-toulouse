@@ -102,6 +102,8 @@ function GaleriePage() {
             >
               <img
                 src={p.src}
+                loading="lazy"
+                decoding="async"
                 alt={`Réalisation Clean&Fresh — avant/après #${i + 1}`}
                 loading="lazy"
                 className="w-full object-cover"

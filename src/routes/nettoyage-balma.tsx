@@ -6,7 +6,7 @@ import { FadeIn } from "@/components/ui/fade-in";
 import { ReviewsCarousel } from "@/components/site/ReviewsCarousel";
 
 const TITLE = "Entreprise de nettoyage à Balma — Clean&Fresh";
-const DESC = "Experts en propreté, nous proposons nos services de nettoyage de précision à Balma, avec un équipement professionnel et des produits certifiés. Devis gratuit sous 24h.";
+const DESC = "Nettoyage canapé, matelas, tapis et auto à Balma dès 49 €. Un technicien se déplace chez vous, résultat garanti. Devis gratuit sous 24h.";
 
 export const Route = createFileRoute("/nettoyage-balma")({
   head: () => ({

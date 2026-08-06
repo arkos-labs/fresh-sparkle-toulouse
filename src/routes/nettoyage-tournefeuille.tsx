@@ -6,7 +6,7 @@ import { FadeIn } from "@/components/ui/fade-in";
 import { ReviewsCarousel } from "@/components/site/ReviewsCarousel";
 
 const TITLE = "Entreprise de nettoyage à Tournefeuille — Clean&Fresh";
-const DESC = "Votre partenaire nettoyage à Tournefeuille. Nous nous déplaçons directement à votre domicile pour nettoyer vos canapés, matelas et véhicules. Devis gratuit sous 24h.";
+const DESC = "Nettoyage canapé, matelas, tapis et auto à Tournefeuille dès 49 €. Déplacement à domicile, produits certifiés, résultat garanti. Devis gratuit sous 24h.";
 
 export const Route = createFileRoute("/nettoyage-tournefeuille")({
   head: () => ({

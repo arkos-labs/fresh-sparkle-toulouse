@@ -6,7 +6,7 @@ import { FadeIn } from "@/components/ui/fade-in";
 import { ReviewsCarousel } from "@/components/site/ReviewsCarousel";
 
 const TITLE = "Entreprise de nettoyage à Colomiers — Clean&Fresh";
-const DESC = "Spécialiste du nettoyage à Colomiers, nous intervenons chez les particuliers et professionnels de la commune pour redonner vie à vos textiles et surfaces. Devis gratuit sous 24h.";
+const DESC = "Nettoyage canapé, matelas, tapis et intérieur auto à Colomiers dès 49 €. Intervention à domicile, équipement pro, résultat soigné. Devis gratuit sous 24h.";
 
 export const Route = createFileRoute("/nettoyage-colomiers")({
   head: () => ({

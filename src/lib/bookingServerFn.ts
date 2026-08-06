@@ -45,11 +45,36 @@ export type BookingResult = {
 
 // ─── Server Function ─────────────────────────────────────────────────────────
 
+// ─── Rate limiting basique (anti-spam) ───────────────────────────────────────
+// Max 3 réservations par email toutes les 10 minutes
+const _rateMap = new Map<string, { count: number; resetAt: number }>();
+function isRateLimited(email: string): boolean {
+  const now = Date.now();
+  const entry = _rateMap.get(email);
+  if (!entry || now > entry.resetAt) {
+    _rateMap.set(email, { count: 1, resetAt: now + 10 * 60_000 });
+    return false;
+  }
+  if (entry.count >= 3) return true;
+  entry.count++;
+  return false;
+}
+
 export const createBookingServerFn = createServerFn({ method: "POST" })
   .validator((data: BookingInput) => BookingInputSchema.parse(data))
   .handler(async ({ data }): Promise<BookingResult> => {
     try {
-      // ── 0. Vérifier que le créneau est encore libre ──
+      // ── 0. Rate limiting anti-spam ──
+      if (isRateLimited(data.client_email.toLowerCase())) {
+        return {
+          success: false,
+          gcal_event_id: null,
+          cancel_token: data.cancel_token,
+          error: "RATE_LIMITED",
+        };
+      }
+
+      // ── 1. Vérifier que le créneau est encore libre ──
       const slotFree = await checkSlotAvailable(
         data.booking_date,
         data.booking_time,

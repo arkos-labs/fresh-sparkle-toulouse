@@ -6,7 +6,7 @@ import { FadeIn } from "@/components/ui/fade-in";
 import { ReviewsCarousel } from "@/components/site/ReviewsCarousel";
 
 const TITLE = "Entreprise de nettoyage à Blagnac — Clean&Fresh";
-const DESC = "Entreprise de nettoyage intervenant à Blagnac, nous proposons des services d'entretien sur-mesure pour vos intérieurs, véhicules et locaux. Devis gratuit sous 24h.";
+const DESC = "Nettoyage canapé, matelas, tapis et auto à Blagnac dès 49 €. Déplacement à domicile, produits certifiés, résultat garanti. Devis gratuit sous 24h.";
 
 export const Route = createFileRoute("/nettoyage-blagnac")({
   head: () => ({
