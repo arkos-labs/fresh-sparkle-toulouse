@@ -104,8 +104,7 @@ function GaleriePage() {
                 src={p.src}
                 loading="lazy"
                 decoding="async"
-                alt={`Réalisation Clean&Fresh — avant/après #${i + 1}`}
-                loading="lazy"
+                alt={`${p.title} à ${p.city} — avant/après Clean&Fresh`}
                 className="w-full object-cover"
               />
               <div className="bg-card px-4 py-3 flex flex-col items-center justify-center text-center">

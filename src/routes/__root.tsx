@@ -184,7 +184,7 @@ function RootShell({ children }: { children: ReactNode }) {
       </head>
       <body className="overflow-x-hidden w-full">
         {children}
-        <script dangerouslySetInnerHTML={{__html: `if(window.location.hostname.includes('lovable.app')) { var m = document.createElement('meta'); m.name = 'robots'; m.content = 'noindex'; document.head.appendChild(m); }`}} />
+        <script dangerouslySetInnerHTML={{__html: `if(window.location.hostname.includes('lovable.app')||window.location.hostname.includes('vercel.app')) { var m = document.createElement('meta'); m.name = 'robots'; m.content = 'noindex, nofollow'; document.head.appendChild(m); }`}} />
         <ScrollRestoration />
         <Scripts />
       </body>

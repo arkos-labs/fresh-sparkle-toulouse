@@ -91,6 +91,31 @@ export function ServicePage({ service }: { service: Service }) {
   return (
     <div className="pb-24 lg:pb-0">
 
+      {/* ── BREADCRUMB ── */}
+      <nav aria-label="Fil d'Ariane" className="mx-auto max-w-6xl px-4 pt-3 pb-1">
+        <ol className="flex items-center gap-1.5 text-xs text-muted-foreground">
+          <li><Link to="/" className="hover:text-primary transition-colors">Accueil</Link></li>
+          <li aria-hidden="true" className="text-border">›</li>
+          <li><Link to="/nos-services" className="hover:text-primary transition-colors">Nos services</Link></li>
+          <li aria-hidden="true" className="text-border">›</li>
+          <li className="text-foreground font-medium truncate">{service.navLabel}</li>
+        </ol>
+      </nav>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Accueil", item: "https://cleanetfresh.fr" },
+              { "@type": "ListItem", position: 2, name: "Nos services", item: "https://cleanetfresh.fr/nos-services" },
+              { "@type": "ListItem", position: 3, name: service.navLabel, item: `https://cleanetfresh.fr${service.slug}` },
+            ],
+          }),
+        }}
+      />
+
       {/* ── HERO ── */}
       <section className="relative overflow-hidden bg-hero-gradient text-ink-foreground">
         <div className="pointer-events-none absolute -right-24 -top-24 size-96 rounded-full bg-primary/20 blur-3xl" />
@@ -354,17 +379,13 @@ export function ServicePage({ service }: { service: Service }) {
             </p>
             <ul className="mt-5 flex flex-wrap gap-2">
               {COMMUNES.map((c) => {
-                const slug = c.toLowerCase().replace(/['\s]/g, "-");
-                const hasPage = ["colomiers", "blagnac", "tournefeuille", "balma", "l-union"].includes(slug);
+                // Slugify : supprime les accents via Unicode NFD + ̀-ͯ, puis met en minuscules et remplace espaces/apostrophes
+                const slug = c.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/['\s]/g, "-");
                 return (
                   <li key={c} className="rounded-full border border-border bg-card text-sm text-muted-foreground overflow-hidden">
-                    {hasPage ? (
-                      <Link to={`/nettoyage-${slug}`} className="block px-3 py-1 hover:text-primary transition-colors">
-                        {c}
-                      </Link>
-                    ) : (
-                      <span className="block px-3 py-1">{c}</span>
-                    )}
+                    <Link to={`/nettoyage-${slug}`} className="block px-3 py-1 hover:text-primary transition-colors">
+                      {c}
+                    </Link>
                   </li>
                 );
               })}
