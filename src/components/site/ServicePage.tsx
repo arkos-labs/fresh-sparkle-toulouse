@@ -7,7 +7,7 @@ import { ReviewsCarousel } from "@/components/site/ReviewsCarousel";
 import { FadeIn } from "@/components/ui/fade-in";
 
 const PHOTOS_BY_CATEGORY: Record<string, string[]> = {
-  canape: ["/realisations/photo-01.jpg", "/realisations/photo-04.jpg", "/realisations/photo-05.jpg", "/realisations/photo-08.jpg"],
+  canape: ["/realisations/photo-04.jpg", "/realisations/photo-05.jpg", "/realisations/photo-08.jpg", "/realisations/photo-13.jpg"],
   auto: ["/realisations/photo-02.jpg", "/realisations/photo-03.jpg", "/realisations/photo-10.jpg", "/realisations/photo-16.jpg"],
   tapis: ["/realisations/photo-07.jpg", "/realisations/photo-28.jpg", "/realisations/photo-36.jpg", "/realisations/photo-21.jpg"],
   matelas: ["/realisations/photo-09.jpg", "/realisations/photo-15.jpg", "/realisations/photo-31.jpg", "/realisations/photo-22.jpg"],

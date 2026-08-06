@@ -1,5 +1,5 @@
 export const SITE_URL = "https://cleanetfresh.fr";
-export const OG_IMAGE = `${SITE_URL}/realisations/photo-01.jpg`;
+export const OG_IMAGE = `${SITE_URL}/realisations/photo-02.jpg`;
 
 export const COMPANY = {
   name: "Clean&Fresh",

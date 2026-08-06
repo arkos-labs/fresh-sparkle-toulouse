@@ -133,7 +133,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           telephone: "+33767127500",
           email: "nettoyagecleanfresh@gmail.com",
           priceRange: "€€",
-          image: "https://cleanetfresh.fr/realisations/photo-01.jpg",
+          image: "https://cleanetfresh.fr/realisations/photo-02.jpg",
           openingHoursSpecification: {
             "@type": "OpeningHoursSpecification",
             dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
