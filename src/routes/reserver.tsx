@@ -176,15 +176,26 @@ function CalendarPicker({
       setLoadingMonth(true);
       const days = getDaysInMonth(viewYear, viewMonth);
       const newBusy: Record<string, boolean> = {};
-      // On vérifie chaque jour du mois (si Google Calendar configuré)
+      const minBooking = new Date(Date.now() + 24 * 60 * 60 * 1000);
+      const pad2 = (n: number) => String(n).padStart(2, "0");
+
       const promises = Array.from({ length: days }, async (_, i) => {
         const d = new Date(viewYear, viewMonth, i + 1);
         if (d < today) return;
-        if (d.getDay() === 0) return; // dimanche
+        // Skip days entièrement dans la fenêtre 24h (dernier créneau 21h)
+        const lastSlot = new Date(viewYear, viewMonth, i + 1);
+        lastSlot.setHours(21, 0, 0, 0);
+        if (lastSlot <= minBooking) return;
+
         const busy = await fetchBusySlots(d);
-        const slots = buildSlots(d, totalDuration, busy);
-        const key = d.toISOString().slice(0, 10);
-        newBusy[key] = slots.every(s => !s.available);
+        // Pour le check "jour complet", on ignore la restriction 24h
+        // (elle s'applique uniquement à l'affichage des créneaux)
+        const slotsWithout24h = buildSlots(d, totalDuration, busy).filter(
+          s => { const [h, m] = s.time.split(":").map(Number); const sd = new Date(d); sd.setHours(h!, m!, 0, 0); return sd > minBooking; }
+        );
+        // Clé en heure locale (évite le décalage UTC en France)
+        const key = `${viewYear}-${pad2(viewMonth + 1)}-${pad2(i + 1)}`;
+        newBusy[key] = slotsWithout24h.length > 0 && slotsWithout24h.every(s => !s.available);
       });
       await Promise.all(promises);
       if (!cancelled) {
@@ -215,13 +226,17 @@ function CalendarPicker({
   while (cells.length % 7 !== 0) cells.push(null);
 
   const isTodayOrPast = (day: number) => {
-    const d = new Date(viewYear, viewMonth, day);
-    d.setHours(23, 59, 59, 999);
-    return d < today;
+    // Grisé si passé OU si le dernier créneau (21h) est encore dans la fenêtre 24h
+    const lastSlot = new Date(viewYear, viewMonth, day);
+    lastSlot.setHours(21, 0, 0, 0);
+    const minBooking = new Date(Date.now() + 24 * 60 * 60 * 1000);
+    return lastSlot <= minBooking;
   };
   // Dimanche ouvert (7j/7) — plus de blocage dimanche
   const isFullyBooked = (day: number) => {
-    const key = new Date(viewYear, viewMonth, day).toISOString().slice(0, 10);
+    // Clé en heure locale (évite le décalage UTC en France)
+    const pad2 = (n: number) => String(n).padStart(2, "0");
+    const key = `${viewYear}-${pad2(viewMonth + 1)}-${pad2(day)}`;
     return busyByDay[key] === true;
   };
   const isSelected = (day: number) => {
