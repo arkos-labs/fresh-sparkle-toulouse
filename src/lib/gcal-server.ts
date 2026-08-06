@@ -268,7 +268,7 @@ export async function checkSlotAvailable(
     };
     const busy = json.calendars?.[calId]?.busy ?? [];
 
-    const BUFFER_MS = 80 * 60_000; // 1h20 marge trajet
+    const BUFFER_MS = 20 * 60_000; // 20 min marge trajet
     const slotStartMs = slotStart.getTime();
     const slotEndMs   = slotEnd.getTime();
     const conflict = busy.some(b => {
