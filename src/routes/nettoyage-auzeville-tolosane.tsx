@@ -17,6 +17,8 @@ export const Route = createFileRoute("/nettoyage-auzeville-tolosane")({
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESC },
       { property: "og:url", content: `${SITE_URL}/nettoyage-auzeville-tolosane` },
+      { name: "twitter:title", content: TITLE },
+      { name: "twitter:description", content: DESC },
     ],
     links: [{ rel: "canonical", href: `${SITE_URL}/nettoyage-auzeville-tolosane` }],
     scripts: [

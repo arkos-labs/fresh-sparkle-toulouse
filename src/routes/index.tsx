@@ -469,17 +469,12 @@ function Index() {
             </p>
             <ul className="mt-6 flex flex-wrap gap-2">
               {COMMUNES.map((c) => {
-                const slug = c.toLowerCase().replace(/['\s]/g, "-");
-                const hasPage = ["colomiers", "blagnac", "tournefeuille", "balma", "l-union"].includes(slug);
+                const slug = c.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/['\s]/g, "-");
                 return (
                   <li key={c} className="rounded-full border border-border bg-card text-sm font-medium text-muted-foreground overflow-hidden">
-                    {hasPage ? (
-                      <Link to={`/nettoyage-${slug}`} className="block px-3 py-1 hover:text-primary transition-colors">
-                        {c}
-                      </Link>
-                    ) : (
-                      <span className="block px-3 py-1">{c}</span>
-                    )}
+                    <Link to={`/nettoyage-${slug}`} className="block px-3 py-1 hover:text-primary transition-colors">
+                      {c}
+                    </Link>
                   </li>
                 );
               })}

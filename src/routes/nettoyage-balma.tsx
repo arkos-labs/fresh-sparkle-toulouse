@@ -16,8 +16,36 @@ export const Route = createFileRoute("/nettoyage-balma")({
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESC },
       { property: "og:url", content: `${SITE_URL}/nettoyage-balma` },
+      { name: "twitter:title", content: TITLE },
+      { name: "twitter:description", content: DESC },
     ],
     links: [{ rel: "canonical", href: `${SITE_URL}/nettoyage-balma` }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Accueil", item: "https://cleanetfresh.fr" },
+            { "@type": "ListItem", position: 2, name: "Nettoyage Balma", item: "https://cleanetfresh.fr/nettoyage-balma" },
+          ],
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          name: "Clean&Fresh",
+          url: "https://cleanetfresh.fr/nettoyage-balma",
+          telephone: "+33767127500",
+          areaServed: { "@type": "City", name: "Balma" },
+          address: { "@type": "PostalAddress", addressLocality: "Toulouse", addressRegion: "Haute-Garonne", postalCode: "31000", addressCountry: "FR" },
+          priceRange: "€€",
+        }),
+      },
+    ],
   }),
   component: LocalPage,
 });
