@@ -131,9 +131,23 @@ export const createBookingServerFn = createServerFn({ method: "POST" })
 
       const fullAddress = `${data.client_street}, ${data.client_zip} ${data.client_city}`;
 
-      const summaryTitle = data.items.length > 1 ? `${data.items[0]?.formule_name} + ${data.items.length - 1} autre(s)` : data.items[0]?.formule_name;
+      const getEmoji = (serviceId: string) => {
+        switch (serviceId) {
+          case "auto": return "🚗";
+          case "canape": return "🛋️";
+          case "matelas": return "🛏️";
+          case "tapis": return "🧶";
+          case "fin-de-bail": return "🏠";
+          default: return "🧹";
+        }
+      };
+
+      const firstItem = data.items[0];
+      const emoji = firstItem ? getEmoji(firstItem.service_id) : "🧹";
+      const summaryTitle = data.items.length > 1 ? `${firstItem?.formule_name} + ${data.items.length - 1} autre(s)` : firstItem?.formule_name;
+      
       const gcalEvent = {
-        summary: `🧹 ${summaryTitle} — ${data.client_name}`,
+        summary: `${emoji} ${summaryTitle} — ${data.client_name}`,
         description,
         location: fullAddress,
         start: {

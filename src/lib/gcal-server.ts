@@ -322,9 +322,6 @@ export async function deleteCalendarEvent(
   }
 }
 
-/**
- * Construit la description complète de l'événement Google Calendar.
- */
 export function buildEventDescription(params: {
   client_name: string;
   client_phone: string;
@@ -344,40 +341,23 @@ export function buildEventDescription(params: {
 }): string {
   const address = `${params.client_street}, ${params.client_zip} ${params.client_city}`;
 
-  const itemsDetails = params.items.map((item, idx) => {
-    const optLines = item.options.length > 0
-      ? item.options.map(o => `    • ${o.name} : +${o.price} €`).join("\n")
-      : "    Aucune option";
-    return `  Prestation ${idx + 1} : ${item.service_name}
-  Formule : ${item.formule_name} (${item.formule_price} €)
-  Options :
-${optLines}`;
-  }).join("\n\n");
+  const itemsDetails = params.items.map((item) => {
+    const opt = item.options.length > 0
+      ? ` (+ ${item.options.map(o => o.name).join(", ")})`
+      : "";
+    return `• ${item.service_name} : ${item.formule_name}${opt} — ${item.formule_price} €`;
+  }).join("\n");
 
   return `
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🧹 RÉSERVATION CLEAN&FRESH
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+👤 Client : ${params.client_name} | 📞 ${params.client_phone} | ✉️ ${params.client_email}
+📍 Lieu : ${address}
 
-👤 CLIENT
-  Nom    : ${params.client_name}
-  Tél    : ${params.client_phone}
-  Email  : ${params.client_email}
-
-📍 LIEU D'INTERVENTION
-  ${address}
-
-🛠 PRESTATIONS
+🛠 PRESTATIONS :
 ${itemsDetails}
 
-💶 DÉTAIL FINANCIER
-  ─────────────────────────────
-  TOTAL : ${params.total_price} €
+💶 TOTAL : ${params.total_price} €
 
-❌ ANNULATION
-  Lien d'annulation client :
-  ${params.cancel_url}
-
-📞 Contact propriétaire : ${params.owner_phone}
+❌ Annulation : ${params.cancel_url}
+📞 Nous contacter : ${params.owner_phone}
 `.trim();
 }
